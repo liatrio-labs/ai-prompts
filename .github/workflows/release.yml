@@ -1,0 +1,103 @@
+name: Semantic Release
+
+# This workflow runs after CI passes on the main branch.
+# It analyzes commits using Conventional Commits and automatically:
+# - Bumps the version
+# - Generates/updates CHANGELOG.md
+# - Creates a GitHub release
+
+on:
+  workflow_run:
+    # Update this to match your CI workflow name (default: "CI - Tests and Linting")
+    workflows: ["CI - Tests and Linting"]
+    branches: [main]
+    types: [completed]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  semantic-release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read  # Required for actions/checkout
+      id-token: write  # Required for Octo STS
+    concurrency:
+      group: semantic-release-${{ github.ref }}
+      cancel-in-progress: false
+    steps:
+      # Chainguard Octo STS authentication (configured at Liatrio org level)
+      - uses: octo-sts/action@6177b4481c00308b3839969c3eca88c96a91775f # v1.0.0
+        id: octo-sts
+        with:
+          scope: ${{ github.repository }}
+          identity: main-semantic-release
+
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          persist-credentials: false
+
+      - name: Get GitHub App User ID
+        id: get-user-id
+        run: echo "user-id=$(gh api "/users/octo-sts[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.octo-sts.outputs.token }}
+
+      - name: Configure git author
+        run: |
+          set -eox pipefail
+          git config --global user.name 'octo-sts[bot]'
+          git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+octo-sts[bot]@users.noreply.github.com'
+
+      - name: Use PAT for pushes to origin
+        run: |
+          git remote set-url origin \
+            https://x-access-token:${{ steps.octo-sts.outputs.token }}@github.com/${{ github.repository }}.git
+          # sanity check
+          git ls-remote --heads origin >/dev/null
+
+      # TODO: Add language-specific build steps here if needed
+      # Examples:
+      # - Node.js: npm ci && npm run build
+      # - Python: pip install build && python -m build
+      # - Go: go build -v ./...
+      # - Rust: cargo build --release
+      # - Java: mvn package or gradle build
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install python-semantic-release
+        run: pip install "python-semantic-release>=10.0.0,<11.0.0"
+
+      - name: Semantic Release
+        run: semantic-release -c .releaserc.toml version
+        env:
+          GH_TOKEN: ${{ steps.octo-sts.outputs.token }}
+
+      # NOTE: This template starts at v0.1.0 for demonstration purposes.
+      # When creating your project from this template:
+      # 1. Delete any existing tags: git tag -d $(git tag -l)
+      # 2. Remove CHANGELOG.md if it exists
+      # 3. Your first release will start at v1.0.0 (or the version determined by your first commit types)
+      # 4. Customize the [semantic_release] section in .releaserc.toml for your project needs
+      #    - See .releaserc.toml for examples of build_command configuration (Python/uv, Node.js, Go, Rust)
+      #    - The build_command runs during versioning to build your project artifacts
+
+      # NOTE: Build commands should be configured in .releaserc.toml (build_command), not here
+
+      # CUSTOMIZE: Add language-specific release/publish steps here if needed (AFTER versioning completes)
+      # Examples:
+      # - Node.js: npm publish (requires NPM_TOKEN secret)
+      # - Python: python -m twine upload dist/* (requires PYPI_TOKEN secret)
+      # - Go: Publish to pkg.go.dev (automatic on tag push)
+      # - Rust: cargo publish (requires CARGO_REGISTRY_TOKEN secret)
+      # - Java: mvn deploy or gradle publish (requires repository credentials)
+      # - Docker: docker build && docker push (requires DOCKER credentials)

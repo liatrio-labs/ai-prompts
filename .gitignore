@@ -1,0 +1,49 @@
+# Temporary files
+temp/
+tmp/
+*.tmp
+*.swp
+*.swo
+*~
+.DS_Store
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.project
+.classpath
+.settings/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
+logs/
+log/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build and distribution artifacts
+dist/
+build/
+*.tar.gz
+*.zip
+
+# Coverage reports (language-agnostic)
+coverage/
+*.coverage
+htmlcov/
+coverage.xml
+
+# Backup files
+*.bak
+*.backup
