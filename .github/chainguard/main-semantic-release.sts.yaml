@@ -1,0 +1,15 @@
+issuer: https://token.actions.githubusercontent.com
+
+# IMPORTANT: Update the subject_pattern for your repository!
+# The pattern defines which repo and branch can generate a token with the permissions below.
+# Format: "repo:{owner}/{repo-name}:ref:refs/heads/{branch}"
+# Example: "repo:liatrio/my-new-project:ref:refs/heads/main"
+#
+# Note: Octo STS must be configured at the organization level before this will work.
+# This file is referenced by the release workflow (.github/workflows/release.yml)
+# with the identity "main-semantic-release"
+subject_pattern: "repo:liatrio-labs/ai-prompts:ref:refs/heads/main"
+
+permissions:
+  contents: write
+  packages: write
