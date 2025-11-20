@@ -1,114 +1,76 @@
-# Liatrio Open Source Template
+# AI Prompts
 
-A battle-tested GitHub template repository with opinionated developer experience, quality gates, and CI/CD automation ready for customization.
+A collection of prompts for use in AI tools as part of day-to-day software development.
 
-[![CI Status](https://github.com/liatrio-labs/open-source-project-template/actions/workflows/ci.yml/badge.svg)](https://github.com/liatrio-labs/open-source-project-template/actions/workflows/ci.yml)
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/liatrio-labs/open-source-project-template/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/liatrio-labs/ai-prompts/blob/main/LICENSE)
 
-## Why Use This Template?
+## About This Collection
 
-This template provides Liatrio teams with a proven foundation for new projects, including:
-
-- **Pre-configured CI/CD**: GitHub Actions workflows for testing, linting, and semantic versioning
-- **Quality gates**: Pre-commit hooks for YAML validation, markdown linting, and conventional commits
-- **Automated releases**: Semantic versioning with changelog generation
-- **Documentation standards**: Contribution guidelines, issue templates, and PR templates
+This collection contains curated prompts for AI tools that support day-to-day software development activities. The prompts are organized by use case and designed to be easily integrated into various development workflows.
 
 ## Quick Start
 
-Choose one of two paths to get started:
-
-### Option A: Automated Setup (Recommended)
-
-Run this command in your AI assistant to automate the entire process, from repository creation to customization:
-
-```text
-Run `gh api repos/liatrio-labs/open-source-project-template/contents/prompts/repository-initializer.md -q '.content' | base64 -d` to read the prompt then follow its instructions. Use 'my-new-project' as the project_name, 'A description of my project' as the project_description, '/path/to/projects' as the local_parent_folder, and 'Node.js' as the primary_language.
-```
-
-The initializer will:
-
-1. Create a new repository from this template
-2. Clone it to your specified local directory
-3. Automatically run the customization prompt to configure everything for your project
-
-**Required inputs:**
-
-- `project_name`: Name for your new repository
-- `project_description`: One-sentence description
-- `local_parent_folder`: Local directory path where the repo should be cloned
-- `primary_language` (optional): Your primary language/framework
-- `additional_details` (optional): Any extra customization requirements
-
-### Option B: Manual Setup
-
-### 1. Create Repository from Template
-
-Click the **"Use this template"** button at the top of this repository, or use the GitHub CLI:
+### 1. Clone the Repository
 
 ```bash
-gh repo create my-new-project --template liatrio-labs/open-source-project-template --public
-cd my-new-project
+git clone https://github.com/liatrio-labs/ai-prompts.git
+cd ai-prompts
 ```
 
-### 2. Install Dependencies
+### 2. Browse the Prompts
 
-Install pre-commit for local quality gates:
+The prompts are organized in the `prompts/` directory by category:
+
+- `repository-management/` - Repository creation and customization prompts
+- `development/` - Development workflow and coding prompts
+- `documentation/` - Documentation and content generation prompts
+
+### 3. Use Prompts with AI Tools
+
+**Option A: Direct Copy**
+Copy prompts directly from the files into your preferred AI tool (Cursor, Claude Code, Windsurf, etc.) and customize the parameters as needed for your specific use case.
+
+**Option B: Install with Slash Command Manager (Recommended)**
+Use the [Slash Command Manager](https://github.com/liatrio-labs/slash-command-manager) to automatically install prompts for your AI coding assistant:
 
 ```bash
-# macOS
-brew install pre-commit
+# Install prompts for Claude Code
+uvx --from git+https://github.com/liatrio-labs/slash-command-manager slash-man generate \
+  --github-repo liatrio-labs/ai-prompts \
+  --github-branch main \
+  --github-path prompts \
+  --agent cursor
 
-# Ubuntu/Debian
-sudo apt install pre-commit
+# Install prompts for Cursor
+uvx --from git+https://github.com/liatrio-labs/slash-command-manager slash-man generate \
+  --github-repo liatrio-labs/ai-prompts \
+  --github-branch main \
+  --github-path prompts \
+  --agent claude-code
 
-# pip (all platforms)
-pip install pre-commit
+# Install prompts for Windsurf
+uvx --from git+https://github.com/liatrio-labs/slash-command-manager slash-man generate \
+  --github-repo liatrio-labs/ai-prompts \
+  --github-branch main \
+  --github-path prompts \
+  --agent windsurf
 ```
 
-### 3. Set Up Pre-commit Hooks
-
-```bash
-pre-commit install
-```
-
-> Secret scanning is enforced with [Gitleaks](https://github.com/gitleaks/gitleaks). If the hook blocks a commit, remove the secret, rotate the credential, and rerun `pre-commit`.
-
-### 4. Customize for Your Project
-
-Follow the [Template Customization Guide](docs/template-guide.md) to adapt the template for your specific project.
-
-### 5. Verify Customization with Audit
-
-After completing customization and getting your repository in a good state, have your AI assistant run the audit prompt to verify compliance and identify any remaining gaps:
-
-```text
-Run `gh api repos/liatrio-labs/open-source-project-template/contents/prompts/repository-template-audit.md -q '.content' | base64 -d` to read the prompt then follow its instructions. Use the current directory as the target_repository and 'liatrio-labs/open-source-project-template' as the template_repository."
-```
-
-The audit will check for:
-
-- Missing template files and configuration drift
-- Compliance with template standards
-- CI/CD workflow health
-- Repository settings alignment
-- Documentation completeness
-
-See [`prompts/repository-template-audit.md`](prompts/repository-template-audit.md) for detailed audit methodology.
+See the [Slash Command Manager documentation](https://github.com/liatrio-labs/slash-command-manager) for more details.
 
 ## Documentation
 
-- [Template Customization Guide](docs/template-guide.md) - Complete customization checklist and feature documentation
-- [Contributing Guidelines](CONTRIBUTING.md) - Development workflow, conventional commits, and pre-commit hooks
+- [Contributing Guidelines](CONTRIBUTING.md) - How to contribute new prompts and improvements
 - [Code of Conduct](CODE_OF_CONDUCT.md) - Community expectations and reporting guidance
-- [Development Setup](docs/development.md) - Local setup, environment variables, and repository settings
 
-## Support
+## Contributing
 
-For questions or issues with this template:
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 
-- Open an issue in this repository
-- Contact the Liatrio DevOps team
+- Adding new prompts
+- Improving existing prompts
+- Submitting issues and feedback
+- Following our commit conventions
 
 ## License
 
