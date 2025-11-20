@@ -21,9 +21,8 @@ cd ai-prompts
 
 The prompts are organized in the `prompts/` directory by category:
 
-- `repository-management/` - Repository creation and customization prompts
 - `development/` - Development workflow and coding prompts
-- `documentation/` - Documentation and content generation prompts
+- `documentation-and-research/` - Documentation, content generation, and research prompts
 
 ### 3. Use Prompts with AI Tools
 
