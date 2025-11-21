@@ -11,11 +11,11 @@ This is a test file with intentional misspellings to verify the typos hook auto-
 
 ## Misspellings
 
-- recieve instead of receive
-- seperate instead of separate
-- occured instead of occurred
-- accomodate instead of accommodate
-- definately instead of definitely
+- receive instead of receive
+- separate instead of separate
+- occurred instead of occurred
+- accommodate instead of accommodate
+- definitely instead of definitely
 ```
 
 **Verification:** Test file contains intentional misspellings ✓
@@ -71,11 +71,11 @@ index d68e765..9c09bc0 100644
 
  ## Misspellings
 
--- recieve instead of receive
--- seperate instead of separate
--- occured instead of occurred
--- accomodate instead of accommodate
--- definately instead of definitely
+-- receive instead of receive
+-- separate instead of separate
+-- occurred instead of occurred
+-- accommodate instead of accommodate
+-- definitely instead of definitely
 +- receive instead of receive
 +- separate instead of separate
 +- occurred instead of occurred
@@ -87,11 +87,11 @@ index d68e765..9c09bc0 100644
 
 - File was modified with corrected spellings ✓
 - All misspellings were corrected:
-  - `recieve` → `receive` ✓
-  - `seperate` → `separate` ✓
-  - `occured` → `occurred` ✓
-  - `accomodate` → `accommodate` ✓
-  - `definately` → `definitely` ✓
+  - `receive` → `receive` ✓
+  - `separate` → `separate` ✓
+  - `occurred` → `occurred` ✓
+  - `accommodate` → `accommodate` ✓
+  - `definitely` → `definitely` ✓
 
 ## Verification Summary
 
