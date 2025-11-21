@@ -53,7 +53,7 @@
 - [x] 2.6 Run `git diff test-spell-check.md` to verify the file was actually modified with corrected spellings
 - [x] 2.7 Verify the corrected spellings match expected corrections (e.g., "receive" → "receive")
 
-### [ ] 3.0 Verify integration with existing pre-commit workflow
+### [x] 3.0 Verify integration with existing pre-commit workflow
 
 #### 3.0 Proof Artifact(s)
 
@@ -65,13 +65,13 @@ note: undo the changes with the intentional misspellings after testing.
 
 #### 3.0 Tasks
 
-- [ ] 3.1 Run `pre-commit run --all-files` to execute all hooks including typos
-- [ ] 3.2 Verify typos hook appears in the output and executes successfully alongside other hooks (check-yaml, markdownlint-fix, gitleaks)
-- [ ] 3.3 Verify hook execution order: check-yaml → markdownlint-fix → typos → gitleaks (commitlint runs on commit-msg stage separately)
-- [ ] 3.4 Stage the test file `test-spell-check.md` with `git add test-spell-check.md`
-- [ ] 3.5 Attempt to commit with `git commit -m "test: add test file"` to test end-to-end workflow
-- [ ] 3.6 Verify the commit fails with typos hook error message showing spelling corrections were made
-- [ ] 3.7 Verify `fail_fast: false` configuration allows all hooks to run even if typos fails
-- [ ] 3.8 Review the corrected test file and unstage it with `git restore --staged test-spell-check.md`
-- [ ] 3.9 Delete the test file `test-spell-check.md` to clean up temporary testing artifacts
-- [ ] 3.10 Run `pre-commit run --all-files` one final time to verify all hooks pass on clean repository state
+- [x] 3.1 Run `pre-commit run --all-files` to execute all hooks including typos
+- [x] 3.2 Verify typos hook appears in the output and executes successfully alongside other hooks (check-yaml, markdownlint-fix, gitleaks)
+- [x] 3.3 Verify hook execution order: check-yaml → markdownlint-fix → typos → gitleaks (commitlint runs on commit-msg stage separately)
+- [x] 3.4 Stage the test file `test-spell-check.md` with `git add test-spell-check.md`
+- [x] 3.5 Attempt to commit with `git commit -m "test: add test file"` to test end-to-end workflow
+- [x] 3.6 Verify the commit fails with typos hook error message showing spelling corrections were made
+- [x] 3.7 Verify `fail_fast: false` configuration allows all hooks to run even if typos fails
+- [x] 3.8 Review the corrected test file and unstage it with `git restore --staged test-spell-check.md`
+- [x] 3.9 Delete the test file `test-spell-check.md` to clean up temporary testing artifacts
+- [x] 3.10 Run `pre-commit run --all-files` one final time to verify all hooks pass on clean repository state
