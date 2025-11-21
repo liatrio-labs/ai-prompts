@@ -35,7 +35,7 @@
 - [x] 1.7 Run `pre-commit install` to ensure hooks are installed/updated
 - [x] 1.8 Run `pre-commit run typos --all-files` to verify the hook executes successfully and returns exit code 0 on existing repository files
 
-### [ ] 2.0 Configure auto-fix functionality and verify behavior
+### [x] 2.0 Configure auto-fix functionality and verify behavior
 
 #### 2.0 Proof Artifact(s)
 
@@ -45,13 +45,13 @@
 
 #### 2.0 Tasks
 
-- [ ] 2.1 Create temporary test file `test-spell-check.md` in the repository root directory
-- [ ] 2.2 Add intentional misspellings to the test file (e.g., "receive" instead of "receive", "separate" instead of "separate", "occurred" instead of "occurred")
-- [ ] 2.3 Run `pre-commit run typos --files test-spell-check.md` to test the hook on the test file
-- [ ] 2.4 Verify the command output shows corrections being applied (typos should report the misspellings found)
-- [ ] 2.5 Verify the command returns exit code 1 (indicating corrections were made and commit should fail)
-- [ ] 2.6 Run `git diff test-spell-check.md` to verify the file was actually modified with corrected spellings
-- [ ] 2.7 Verify the corrected spellings match expected corrections (e.g., "receive" → "receive")
+- [x] 2.1 Create temporary test file `test-spell-check.md` in the repository root directory
+- [x] 2.2 Add intentional misspellings to the test file (e.g., "receive" instead of "receive", "separate" instead of "separate", "occurred" instead of "occurred")
+- [x] 2.3 Run `pre-commit run typos --files test-spell-check.md` to test the hook on the test file
+- [x] 2.4 Verify the command output shows corrections being applied (typos should report the misspellings found)
+- [x] 2.5 Verify the command returns exit code 1 (indicating corrections were made and commit should fail)
+- [x] 2.6 Run `git diff test-spell-check.md` to verify the file was actually modified with corrected spellings
+- [x] 2.7 Verify the corrected spellings match expected corrections (e.g., "receive" → "receive")
 
 ### [ ] 3.0 Verify integration with existing pre-commit workflow
 
