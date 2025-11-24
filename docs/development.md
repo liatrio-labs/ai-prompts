@@ -42,17 +42,21 @@ pre-commit run markdownlint-fix --files prompts/example.md
 
 ## Slash Command Manager (Optional)
 
-Quickly install prompts into an AI assistant with:
+Quickly install prompts into an AI assistant. The tool will detect your installed AI assistants and prompt you to choose:
 
 ```bash
+# Install development prompts
 uvx --from git+https://github.com/liatrio-labs/slash-command-manager slash-man generate \
   --github-repo liatrio-labs/ai-prompts \
   --github-branch main \
-  --github-path prompts \
-  --agent claude-code
-```
+  --github-path prompts/development
 
-Swap `--agent` for `cursor`, `windsurf`, etc., depending on your tool.
+# Install documentation prompts
+uvx --from git+https://github.com/liatrio-labs/slash-command-manager slash-man generate \
+  --github-repo liatrio-labs/ai-prompts \
+  --github-branch main \
+  --github-path prompts/documentation-and-research
+```
 
 ## Release Workflow Notes
 
