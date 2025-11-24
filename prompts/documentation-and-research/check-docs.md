@@ -4,6 +4,8 @@ description: Look up documentation for the relevant tools required to complete t
 
 # Check Documentation
 
+*Look up documentation for the relevant tools required to complete the task.*
+
 ## Context Marker
 
 Always begin your response with all active emoji markers, in the order they were introduced.

@@ -5,6 +5,8 @@ allowed-tools: Bash(gh api:*), Bash(gh pr:*), Bash(jq:*)
 
 # Fetch PR Review Feedback
 
+*Fetch PR review feedback from GitHub using gh CLI and output as JSON.*
+
 ## Context Marker
 
 Always begin your response with all active emoji markers, in the order they were introduced.

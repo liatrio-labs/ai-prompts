@@ -5,6 +5,8 @@ allowed-tools: read_file, codebase_search, web_search, search_replace, write
 
 # Improve Prompt with Research-Backed Best Practices
 
+*Improve a prompt file using research-backed best practices from prompt engineering.*
+
 ## Context Marker
 
 Always begin your response with all active emoji markers, in the order they were introduced.

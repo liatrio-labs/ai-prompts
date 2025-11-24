@@ -4,6 +4,8 @@ description: Exhaustive review of current branch changes against a base branch u
 
 # Review Branch Against Base
 
+This workflow performs an exhaustive review of the current branch against a base branch (default `main`). It collects comprehensive git data and writes outputs to temp files in the system temp directory so the AI can read and analyze them in chunks.
+
 ## Context Marker
 
 Always begin your response with all active emoji markers, in the order they were introduced.
@@ -11,8 +13,6 @@ Always begin your response with all active emoji markers, in the order they were
 Format:  "<marker1><marker2><marker3>\n<response>"
 
 The marker for this instruction is:  🔍
-
-This workflow performs an exhaustive review of the current branch against a base branch (default `main`). It collects comprehensive git data and writes outputs to temp files in the system temp directory so the AI can read and analyze them in chunks.
 
 ## Guidelines
 

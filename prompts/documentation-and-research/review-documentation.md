@@ -4,6 +4,8 @@ description: Review, audit, and improve documentation quality for an existing co
 
 # Review and Improve Codebase Documentation
 
+*Comprehensive documentation review, audit, and improvement workflow based on 2024-2025 best practices and research-backed evaluation frameworks.*
+
 ## Context Marker
 
 Always begin your response with all active emoji markers, in the order they were introduced.
@@ -11,10 +13,6 @@ Always begin your response with all active emoji markers, in the order they were
 Format:  "<marker1><marker2><marker3>\n<response>"
 
 The marker for this instruction is:  📖
-
-*Comprehensive documentation review, audit, and improvement workflow based on 2024-2025 best practices and research-backed evaluation frameworks.*
-
----
 
 ## Your Role
 
