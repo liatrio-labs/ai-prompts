@@ -30,29 +30,20 @@ The prompts are organized in the `prompts/` directory by category:
 Copy prompts directly from the files into your preferred AI tool (Cursor, Claude Code, Windsurf, etc.) and customize the parameters as needed for your specific use case.
 
 **Option B: Install with Slash Command Manager (Recommended)**
-Use the [Slash Command Manager](https://github.com/liatrio-labs/slash-command-manager) to automatically install prompts for your AI coding assistant:
+Use the [Slash Command Manager](https://github.com/liatrio-labs/slash-command-manager) to automatically install prompts for your AI coding assistant. The tool will detect your installed AI assistants and let you choose where to install:
 
 ```bash
-# Install prompts for Claude Code
+# Install development prompts
 uvx --from git+https://github.com/liatrio-labs/slash-command-manager slash-man generate \
   --github-repo liatrio-labs/ai-prompts \
   --github-branch main \
-  --github-path prompts \
-  --agent cursor
+  --github-path prompts/development
 
-# Install prompts for Cursor
+# Install documentation and research prompts
 uvx --from git+https://github.com/liatrio-labs/slash-command-manager slash-man generate \
   --github-repo liatrio-labs/ai-prompts \
   --github-branch main \
-  --github-path prompts \
-  --agent claude-code
-
-# Install prompts for Windsurf
-uvx --from git+https://github.com/liatrio-labs/slash-command-manager slash-man generate \
-  --github-repo liatrio-labs/ai-prompts \
-  --github-branch main \
-  --github-path prompts \
-  --agent windsurf
+  --github-path prompts/documentation-and-research
 ```
 
 See the [Slash Command Manager documentation](https://github.com/liatrio-labs/slash-command-manager) for more details.
