@@ -5,6 +5,14 @@ allowed-tools: Bash(git status:*), Bash(git branch --show-current:*), Bash(git r
 
 # Pull Request / Merge Request Description Generator
 
+## Context Marker
+
+Always begin your response with all active emoji markers, in the order they were introduced.
+
+Format:  "<marker1><marker2><marker3>\n<response>"
+
+The marker for this instruction is:  🚀
+
 This workflow analyzes changes between the current branch and a base branch and produces a polished PR/MR description that captures motivation, scope, risk, and follow-up actions.
 
 ## Your Role

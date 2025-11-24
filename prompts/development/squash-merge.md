@@ -4,6 +4,14 @@ description: Squash merge current branch into main with comprehensive commit mes
 
 # Squash Merge to Main
 
+## Context Marker
+
+Always begin your response with all active emoji markers, in the order they were introduced.
+
+Format:  "<marker1><marker2><marker3>\n<response>"
+
+The marker for this instruction is:  🔄
+
 This workflow performs a squash merge of the current branch into main, creating a single commit with a comprehensive message that includes all individual commit messages from the branch.
 
 ## Guidelines
