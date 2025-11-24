@@ -2,6 +2,23 @@
 
 <!-- version list -->
 
+## v0.2.1 (2025-11-24)
+
+### Bug Fixes
+
+- **docs**: Correct installation examples and documentation structure
+  ([#3](https://github.com/liatrio-labs/ai-prompts/pull/3),
+  [`a86e9e6`](https://github.com/liatrio-labs/ai-prompts/commit/a86e9e6c2e42cf758c4827bf9f8288c7165a8c4e))
+
+- **docs**: Correct installation examples and fix directory typo
+  ([#3](https://github.com/liatrio-labs/ai-prompts/pull/3),
+  [`a86e9e6`](https://github.com/liatrio-labs/ai-prompts/commit/a86e9e6c2e42cf758c4827bf9f8288c7165a8c4e))
+
+- **prompts**: Remove backtick-exclamation pattern from create-pull-request prompt
+  ([#3](https://github.com/liatrio-labs/ai-prompts/pull/3),
+  [`a86e9e6`](https://github.com/liatrio-labs/ai-prompts/commit/a86e9e6c2e42cf758c4827bf9f8288c7165a8c4e))
+
+
 ## v0.2.0 (2025-11-21)
 
 ### Chores
