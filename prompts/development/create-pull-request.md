@@ -130,7 +130,7 @@ Use Conventional Commit formatting for PR/MR titles following the specification:
 
 - **Type** (REQUIRED): One of the types listed below
 - **Scope** (OPTIONAL): A noun describing a section of the codebase, enclosed in parentheses
-- **Breaking Change Indicator** (OPTIONAL): Use `!` immediately before `:` to indicate breaking changes
+- **Breaking Change Indicator** (OPTIONAL): Use an exclamation mark (!) immediately before the colon to indicate breaking changes
 - **Description** (REQUIRED): Short summary of the changes (imperative mood, lowercase unless proper noun)
 
 ### Commit Types
@@ -153,7 +153,7 @@ Use Conventional Commit formatting for PR/MR titles following the specification:
 For breaking changes, you MUST use one of these formats:
 
 1. **Exclamation mark in title:** `feat(api)!: remove deprecated endpoints`
-   - The `!` immediately before `:` indicates a breaking change
+   - The exclamation mark (!) immediately before the colon indicates a breaking change
    - Include `BREAKING CHANGE:` section in the description body
 
 2. **BREAKING CHANGE footer in description:**
@@ -164,7 +164,7 @@ For breaking changes, you MUST use one of these formats:
    BREAKING CHANGE: `extends` key in config file is now used for extending other config files
    ```
 
-3. **Both (for emphasis):** Use both `!` in title and `BREAKING CHANGE:` in body for maximum clarity
+3. **Both (for emphasis):** Use both an exclamation mark in the title and `BREAKING CHANGE:` in body for maximum clarity
 
 **Examples:**
 
@@ -282,7 +282,7 @@ For each section, perform this verification:
 
 - [ ] Verify all template sections are populated or marked "N/A" with justification
 - [ ] Confirm all statements are traceable to collected artifacts (no speculation)
-- [ ] Ensure breaking changes are properly marked (title `!` and/or `BREAKING CHANGE:` footer)
+- [ ] Ensure breaking changes are properly marked (title exclamation mark and/or `BREAKING CHANGE:` footer)
 - [ ] Validate Conventional Commits format for title
 - [ ] Check that risks, blockers, and follow-up work are clearly identified
 - [ ] Verify tone is concise, professional, and reviewer-focused
