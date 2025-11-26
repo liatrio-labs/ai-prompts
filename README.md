@@ -60,6 +60,7 @@ Context Markers are emoji-based verification techniques used to detect context r
 | 🔍 | `development/review-branch.md` | Review Branch Against Base |
 | 🔄 | `development/squash-merge.md` | Squash Merge to Main |
 | 📚 | `documentation-and-research/check-docs.md` | Check Documentation |
+| 📦 | `documentation-and-research/create-mkdocs-site.md` | Create MkDocs Site |
 | 🧪 | `documentation-and-research/improve-prompt-with-research.md` | Improve Prompt with Research-Backed Best Practices |
 | 📖 | `documentation-and-research/review-documentation.md` | Review and Improve Codebase Documentation |
 | 🎨 | `documentation-and-research/create-mermaid-diagrams.md` | Create Effective Mermaid Diagrams |
