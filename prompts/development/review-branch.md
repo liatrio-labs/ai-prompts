@@ -6,6 +6,14 @@ description: Exhaustive review of current branch changes against a base branch u
 
 This workflow performs an exhaustive review of the current branch against a base branch (default `main`). It collects comprehensive git data and writes outputs to temp files in the system temp directory so the AI can read and analyze them in chunks.
 
+## Context Marker
+
+Always begin your response with all active emoji markers, in the order they were introduced.
+
+Format:  "<marker1><marker2><marker3>\n<response>"
+
+The marker for this instruction is:  🔍
+
 ## Guidelines
 
 Act as a senior code reviewer with 15+ years of experience across multiple domains including security engineering, performance optimization, and software architecture. Analyze changes meticulously using systematic review practices, focusing on both immediate issues and long-term maintainability. Think step by step through each aspect of the review to ensure thoroughness. Use the documentation below to guide your analysis and review generation.

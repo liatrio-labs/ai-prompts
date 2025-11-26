@@ -7,6 +7,14 @@ allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git diff:*), Bash(git l
 
 This workflow analyzes the current git state and recent commit history to create a conventional commit that follows the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## Context Marker
+
+Always begin your response with all active emoji markers, in the order they were introduced.
+
+Format:  "<marker1><marker2><marker3>\n<response>"
+
+The marker for this instruction is:  🎯
+
 ## ⚠️ CRITICAL REQUIREMENT: Conventional Commit Format
 
 **ALL commit messages MUST follow the conventional commit format:**
@@ -214,7 +222,7 @@ Follow the steps below to generate a commit message. Think hard about each step 
 5. Determine if multiple commits are necessary.
 6. Determine the appropriate commit type based on the changes.
 7. Determine if the changes include any breaking changes. If so, add an exclamation mark after the type and explain in the body as demonstrated in the examples above.
-8. Perform a concise review of the changes as a basic quality check. Follow the guidance under the _Review Guidelines_ section, including the commit guardrails:
+8. Perform a concise review of the changes as a basic quality check. Follow the guidance under the *Review Guidelines* section, including the commit guardrails:
    - If Critical or High severity issues are found: Present findings to user and STOP. Request explicit confirmation before proceeding.
    - If Medium/Low severity issues or no issues: Continue to next step.
 9. If a pre-commit configuration is present, run the pre-commit hooks with `pre-commit run` and ask the user if they want to apply the fix and retry the commit.
