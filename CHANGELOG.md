@@ -2,6 +2,45 @@
 
 <!-- version list -->
 
+## v0.3.0 (2025-11-26)
+
+### Bug Fixes
+
+- Rename documentat-and-research folder to documentation-and-research
+  ([#2](https://github.com/liatrio-labs/ai-prompts/pull/2),
+  [`c4aacd8`](https://github.com/liatrio-labs/ai-prompts/commit/c4aacd8edbdeb2d61d9b80547d04a5f94c8ee078))
+
+### Documentation
+
+- Add AI agents documentation with context marker guidelines
+  ([#2](https://github.com/liatrio-labs/ai-prompts/pull/2),
+  [`c4aacd8`](https://github.com/liatrio-labs/ai-prompts/commit/c4aacd8edbdeb2d61d9b80547d04a5f94c8ee078))
+
+- Add context markers to prompt templates and README
+  ([#2](https://github.com/liatrio-labs/ai-prompts/pull/2),
+  [`c4aacd8`](https://github.com/liatrio-labs/ai-prompts/commit/c4aacd8edbdeb2d61d9b80547d04a5f94c8ee078))
+
+- Add create-mermaid-diagrams prompt and update context marker reference
+  ([#2](https://github.com/liatrio-labs/ai-prompts/pull/2),
+  [`c4aacd8`](https://github.com/liatrio-labs/ai-prompts/commit/c4aacd8edbdeb2d61d9b80547d04a5f94c8ee078))
+
+- Add missing AGENTS.md context marker to quick reference table
+  ([#2](https://github.com/liatrio-labs/ai-prompts/pull/2),
+  [`c4aacd8`](https://github.com/liatrio-labs/ai-prompts/commit/c4aacd8edbdeb2d61d9b80547d04a5f94c8ee078))
+
+### Features
+
+- Add context marker system for AI instruction verification
+  ([#2](https://github.com/liatrio-labs/ai-prompts/pull/2),
+  [`c4aacd8`](https://github.com/liatrio-labs/ai-prompts/commit/c4aacd8edbdeb2d61d9b80547d04a5f94c8ee078))
+
+### Refactoring
+
+- Standardize prompt description placement and formatting
+  ([#2](https://github.com/liatrio-labs/ai-prompts/pull/2),
+  [`c4aacd8`](https://github.com/liatrio-labs/ai-prompts/commit/c4aacd8edbdeb2d61d9b80547d04a5f94c8ee078))
+
+
 ## v0.2.1 (2025-11-24)
 
 ### Bug Fixes
