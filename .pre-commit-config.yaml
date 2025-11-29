@@ -28,6 +28,13 @@ repos:
       - id: markdownlint-fix
         exclude: "CHANGELOG.md|LICENSE"
 
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.39.2
+    hooks:
+      - id: typos
+        files: \.md$
+        args: [--write-changes]
+
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
     rev: v9.23.0
     hooks:

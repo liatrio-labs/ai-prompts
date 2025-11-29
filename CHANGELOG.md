@@ -70,7 +70,7 @@
 
 ### Features
 
-- Intial addition of prompts
+- Initial addition of prompts
   ([`bbc4a6c`](https://github.com/liatrio-labs/ai-prompts/commit/bbc4a6cc12d091cb5d6a2a75a5ae4d4dc760c24f))
 
 
