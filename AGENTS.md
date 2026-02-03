@@ -6,4 +6,4 @@ Always begin your response with all active emoji markers, in the order they were
 
 Format:  "<marker1><marker2><marker3>\n<response>"
 
-The marker for this instruction is:  📔
+The marker for this instruction is:  🤖
