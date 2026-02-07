@@ -67,5 +67,8 @@ Split commits when any of the following are true:
 - Changes represent different logical goals.
 - Docs and code can be committed independently.
 - A single commit would be too broad to review safely.
+- One file contains mixed-intent hunks (for example, rename and refactor).
 
 Keep as one commit when files are tightly coupled and splitting creates non-functional history.
+
+When a single file includes changes for more than one commit, use `git add -p` to stage only the hunks for the current commit, then verify with `git diff --staged`.

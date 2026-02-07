@@ -1,6 +1,6 @@
 ---
 name: git-commit-conventional
-description: Create Conventional Commit messages and execute safe git commits from working tree changes. Use when users ask to create a commit, write a conventional commit message, split broad changes into multiple commits, run pre-commit before committing, or perform a quick commit-time quality review with severity guardrails.
+description: Create Conventional Commit messages and execute safe git commits from working tree changes. Use when users ask to create a commit, write a conventional commit message, split broad changes into multiple commits, stage only parts of files, run pre-commit before committing, or perform a quick commit-time quality review with severity guardrails.
 ---
 
 # Git Commit Conventional
@@ -29,30 +29,36 @@ The marker for this skill is: `🎯`
    - Check logical separation: split when changes serve multiple distinct goals.
    - Check file-type mixing: split documentation changes from code changes when they can stand alone.
    - Check implementation versus tests: split when test updates are independent from implementation updates.
+   - Check mixed-purpose hunks in the same file: split by hunk when one file contains unrelated intents (for example, rename plus refactor).
    - Check size and reviewability: consider splitting broad changes (for example, over roughly 150 changed lines) by module or feature.
    - Check issue/feature boundaries: split when multiple bugs or features are addressed in one diff.
    - Keep together when changes are small and focused on one purpose.
    - Keep together when changes are tightly coupled and splitting would create non-functional or misleading history.
    - Keep together when all changes are part of one coherent refactor.
-4. Run a concise quality review before committing:
+4. Stage changes intentionally for the selected commit boundary:
+   - Use `git add -p` to stage only relevant hunks when a file mixes logical changes.
+   - Use `git add -e` only when hunk editing is required and apply minimal edits.
+   - After staging, verify scope with `git diff --staged` and `git diff` before proceeding.
+   - If partial staging would create a broken intermediate commit, keep dependent hunks together.
+5. Run a concise quality review before committing:
    - Check correctness, maintainability, security, performance, and tests.
    - Classify findings by severity: Critical, High, Medium, Low.
    - Present findings using this structure: Executive Summary; Issues by severity with file/line references; Suggested fixes with brief examples; Positive observations; Actionable next steps.
    - If any Critical or High issue is found, stop and request explicit user confirmation before committing.
-5. If `.pre-commit-config.yaml` exists, run `pre-commit run`:
+6. If `.pre-commit-config.yaml` exists, run `pre-commit run`:
    - Never bypass hooks.
    - For trivial fixes, apply changes, restage files, and rerun hooks until they pass.
    - For non-trivial fixes, present the proposed fix to the user and get approval before applying and proceeding.
    - Treat formatting-only or whitespace-only hook edits as trivial auto-fixes.
    - Track every auto-fixed file and the hook that changed it.
-6. Generate commit message(s) in strict Conventional Commit format:
+7. Generate commit message(s) in strict Conventional Commit format:
    - Subject must match `<type>(<scope>): <subject>` or `<type>: <subject>`.
    - If subject format is invalid, regenerate until format is valid.
    - Keep subject imperative and concise.
    - If the change is breaking, use `!` and add explicit breaking-change explanation in the body and/or footer (`BREAKING CHANGE: ...`).
    - Include body to document context and rationale.
    - Only exclude a body when the changes are very, very small
-7. Validate message format and create commit(s):
+8. Validate message format and create commit(s):
    - Show generated message(s) in chat.
    - Run `git commit` with the generated message(s).
    - For multiple commits, stage the right files before each commit.
@@ -65,6 +71,7 @@ The marker for this skill is: `🎯`
 - Never use hook bypass flags such as `--no-verify` or `-n`.
 - Never commit when Critical or High review issues are present unless the user explicitly confirms.
 - Never include unrelated files in a commit.
+- Never stage an entire file when only some hunks belong to the current commit boundary.
 - Always report whether pre-commit auto-fixed files before finalizing the commit result message.
 
 ## References
