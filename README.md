@@ -48,6 +48,24 @@ uvx --from git+https://github.com/liatrio-labs/slash-command-manager slash-man g
 
 See the [Slash Command Manager documentation](https://github.com/liatrio-labs/slash-command-manager) for more details.
 
+## Skill Creation Scripts (Agent-Focused)
+
+This repository includes local helper scripts for AI-agent-driven skill authoring workflows.
+These scripts are derived from OpenAI's `skills/.system/skill-creator` in `openai/skills`: https://github.com/openai/skills/tree/main/skills/.system/skill-creator
+
+```bash
+# Validate an existing skill
+uv run scripts/quick_validate.py skills/git-commit-conventional
+
+# Initialize a new skill scaffold
+uv run scripts/init_skill.py my-skill --path skills --resources scripts,references --examples
+
+# Generate or refresh agents/openai.yaml
+uv run scripts/generate_openai_yaml.py skills/my-skill
+```
+
+For a fuller workflow and troubleshooting notes, see [docs/development.md](docs/development.md).
+
 ## Context Markers Quick Reference
 
 Context Markers are emoji-based verification techniques used to detect context rot and ensure critical instructions are being processed correctly by AI agents. This approach provides immediate visual feedback that instructions are being followed, addressing the systematic degradation of AI performance as context length increases. The technique involves requiring AI responses to begin with specific emoji markers, giving users a coarse check that may help detect when context instructions have been lost due to context window limitations or compaction inefficiencies.

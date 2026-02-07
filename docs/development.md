@@ -33,6 +33,33 @@ pre-commit run --all-files
 pre-commit run markdownlint-fix --files prompts/example.md
 ```
 
+## Skill Authoring Helpers
+
+These local scripts support creating and maintaining skills in this repository, primarily for AI-agent workflows.
+
+| Script | Purpose | Common Command |
+| --- | --- | --- |
+| `scripts/init_skill.py` | Create a new skill scaffold with optional resource folders/examples | `uv run scripts/init_skill.py my-skill --path skills --resources scripts,references --examples` |
+| `scripts/generate_openai_yaml.py` | Create or refresh `agents/openai.yaml` from skill metadata | `uv run scripts/generate_openai_yaml.py skills/my-skill` |
+| `scripts/quick_validate.py` | Validate skill frontmatter and naming conventions | `uv run scripts/quick_validate.py skills/my-skill` |
+
+### Recommended Workflow
+
+1. Create a new skill scaffold.
+2. Complete `SKILL.md` frontmatter and body, then add resources.
+3. Generate or refresh `agents/openai.yaml`.
+4. Run quick validation.
+
+```bash
+uv run scripts/init_skill.py my-skill --path skills --resources scripts,references --examples
+uv run scripts/generate_openai_yaml.py skills/my-skill
+uv run scripts/quick_validate.py skills/my-skill
+```
+
+### Troubleshooting Skill Scripts
+
+If `quick_validate.py` reports `Description must be a string, got list`, ensure `description:` in `SKILL.md` frontmatter is a quoted YAML string.
+
 ### Adding or Editing Prompts
 
 1. Create/update files inside `prompts/<category>/` using Markdown.
@@ -71,5 +98,6 @@ Semantic Release runs after the CI workflow succeeds on `main`. To publish succe
 | --- | --- |
 | `pre-commit` is missing | Re-run `pip install pre-commit && pre-commit install` |
 | Markdown lint fails on tables/lists | Use `markdownlint --fix <file>` or let the hook auto-fix |
+| `quick_validate.py` reports a frontmatter type error | Follow the `Troubleshooting Skill Scripts` section above and ensure frontmatter values use valid YAML scalar strings |
 | Release workflow cannot mint a token | Verify the Chainguard STS subject matches `liatrio-labs/ai-prompts` and rerun the job |
 | Branch protection blocks merge | Confirm the CI workflow completed; rerun `./scripts/apply-repo-settings.sh` if rules drift |
