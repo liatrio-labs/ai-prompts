@@ -43,6 +43,8 @@ The marker for this skill is: `🎯`
    - Never bypass hooks.
    - For trivial fixes, apply changes, restage files, and rerun hooks until they pass.
    - For non-trivial fixes, present the proposed fix to the user and get approval before applying and proceeding.
+   - Treat formatting-only or whitespace-only hook edits as trivial auto-fixes.
+   - Track every auto-fixed file and the hook that changed it.
 6. Generate commit message(s) in strict Conventional Commit format:
    - Subject must match `<type>(<scope>): <subject>` or `<type>: <subject>`.
    - If subject format is invalid, regenerate until format is valid.
@@ -54,12 +56,16 @@ The marker for this skill is: `🎯`
    - Show generated message(s) in chat.
    - Run `git commit` with the generated message(s).
    - For multiple commits, stage the right files before each commit.
+   - In the final commit summary to the user, include a `Pre-commit changes` note:
+     - If auto-fixes were applied, list hook id(s) and file path(s).
+     - If none were applied, explicitly say `Pre-commit changes: none`.
 
 ## Mandatory Rules
 
 - Never use hook bypass flags such as `--no-verify` or `-n`.
 - Never commit when Critical or High review issues are present unless the user explicitly confirms.
 - Never include unrelated files in a commit.
+- Always report whether pre-commit auto-fixed files before finalizing the commit result message.
 
 ## References
 
