@@ -70,7 +70,7 @@ For a fuller workflow and troubleshooting notes, see [docs/development.md](docs/
 
 Context Markers are emoji-based verification techniques used to detect context rot and ensure critical instructions are being processed correctly by AI agents. This approach provides immediate visual feedback that instructions are being followed, addressing the systematic degradation of AI performance as context length increases. The technique involves requiring AI responses to begin with specific emoji markers, giving users a coarse check that may help detect when context instructions have been lost due to context window limitations or compaction inefficiencies.
 
-| Emoji | Prompt File | Description |
+| Emoji | Prompt/Skill File | Description |
 | :---: | :--- | :--- |
 | 🎯 | `development/commit.md` | Conventional Commit Generator |
 | 🚀 | `development/create-pull-request.md` | Pull Request / Merge Request Description Generator |
@@ -80,7 +80,7 @@ Context Markers are emoji-based verification techniques used to detect context r
 | 📚 | `documentation-and-research/check-docs.md` | Check Documentation |
 | 🧪 | `documentation-and-research/improve-prompt-with-research.md` | Improve Prompt with Research-Backed Best Practices |
 | 📖 | `documentation-and-research/review-documentation.md` | Review and Improve Codebase Documentation |
-| 🎨 | `documentation-and-research/create-mermaid-diagrams.md` | Create Effective Mermaid Diagrams |
+| 🎨 | `skills/create-mermaid-diagrams/SKILL.md` | Create Mermaid Diagrams Skill |
 | 📔 | `AGENTS.md` | AI Agent Instructions and Configuration |
 
 ## Documentation
