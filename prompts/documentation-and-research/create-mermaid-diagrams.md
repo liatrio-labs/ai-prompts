@@ -222,6 +222,83 @@ flowchart TD
 
 The diagram above illustrates the three-tier architecture pattern used in this system.
 
+```text
+```
+
+**CRITICAL Markdown Integration Rules:**
+
+1. **Code Block Fencing**: Always use ` ```mermaid` exactly (lowercase, no spaces)
+2. **No Nested Fences**: Never nest code blocks or use backticks inside Mermaid code
+3. **Blank Line Before/After**: Include blank lines before opening fence and after closing fence
+4. **No Indentation**: Fences must start at column 0, not indented
+5. **Closing Fence**: Use exactly ` ``` ` (three backticks, no language identifier)
+
+**Common AI Mistakes to Avoid:**
+
+❌ **Incorrect**: Using markdown code blocks inside examples
+
+```markdown
+```mermaid
+flowchart TD
+    ```markdown
+    This breaks the diagram
+    ```
+```
+
+```text
+```
+
+✅ **Correct**: Use comments or notes instead
+
+```mermaid
+flowchart TD
+    A --> B
+    %% This is a comment, not markdown
+```
+
+❌ **Incorrect**: Indenting the code block fence
+
+```markdown
+    ```mermaid
+    flowchart TD
+        A --> B
+    ```
+```text
+```
+
+✅ **Correct**: Fence at column 0
+
+```markdown
+```mermaid
+flowchart TD
+    A --> B
+```
+
+```text
+```
+
+❌ **Incorrect**: Wrong language identifier
+
+```markdown
+```markdown
+flowchart TD
+    A --> B
+```
+
+```text
+```
+
+✅ **Correct**: Use `mermaid` identifier
+
+```markdown
+```mermaid
+flowchart TD
+    A --> B
+```
+
+```text
+```
+
 ### Multi-Diagram Workflows
 
 **Progressive Disclosure Pattern:**
@@ -343,6 +420,286 @@ flowchart LR
 
 ## Common Pitfalls and Solutions
 
+### Critical Formatting Rules for Error-Free Diagrams
+
+**ALWAYS follow these formatting requirements to prevent rendering errors:**
+
+#### 1. Markdown Code Block Formatting
+
+**REQUIRED Format:**
+
+```markdown
+```mermaid
+flowchart TD
+    A --> B
+```
+
+```text
+```
+
+**CRITICAL Rules:**
+
+- **MUST** use exactly ` ```mermaid` (lowercase) as the opening fence
+- **MUST** use exactly ` ``` ` (three backticks) as the closing fence
+- **NEVER** use ` ```markdown` or ` ```text` for Mermaid diagrams
+- **NEVER** indent the opening/closing fences (they must start at column 0)
+- **NEVER** add spaces between backticks and `mermaid` keyword
+- **NEVER** use `:::` syntax unless specifically required by the platform
+
+**Common Errors to Avoid:**
+
+```markdown
+❌ ``` markdown  (space before markdown)
+❌ ```mermaid   (trailing spaces)
+❌   ```mermaid  (indented fence)
+❌ ```markdown  (wrong language identifier)
+```
+
+#### 2. Indentation and Spacing
+
+**Mermaid Code Indentation:**
+
+- Mermaid syntax inside the code block should use consistent indentation (typically 4 spaces or 1 tab)
+- First line after ` ```mermaid` should start immediately (no leading spaces on diagram type)
+- Subsequent lines should be indented consistently relative to the diagram type
+
+**Correct Format:**
+
+```markdown
+```mermaid
+flowchart TD
+    A[Start] --> B{Decision}
+    B -->|Yes| C[Action]
+    B -->|No| D[Alternative]
+```
+
+```text
+```
+
+**Incorrect Formats:**
+
+```markdown
+❌ ```mermaid
+    flowchart TD  (extra indentation on first line)
+        A --> B
+```
+
+```markdown
+❌ ```mermaid
+flowchart TD
+A --> B  (inconsistent indentation)
+    C --> D
+```
+
+#### 3. Special Character Escaping
+
+**Characters That Require Escaping or Quoting:**
+
+**Quotes in Node Labels:**
+
+- **DO**: Enclose entire label in double quotes if it contains special characters
+- **DO**: Use HTML entity codes for quotes: `#quot;` for `"`
+- **DO**: Use single quotes inside double-quoted labels when needed
+
+**Correct:**
+
+```mermaid
+flowchart LR
+    A["Label with 'quotes'"]
+    B["Label with #quot;escaped#quot; quotes"]
+```
+
+**Incorrect:**
+
+```mermaid
+❌ A[Label with "quotes"]  (unquoted quotes cause parsing errors)
+```
+
+**Parentheses in Labels:**
+
+- **DO**: Enclose labels containing parentheses in quotes
+- **DO**: Escape if necessary using entity codes
+
+**Correct:**
+
+```mermaid
+flowchart LR
+    A["Process (Step 1)"]
+    B["Function(x, y)"]
+```
+
+**Incorrect:**
+
+```mermaid
+❌ A[Process (Step 1)]  (parentheses interpreted as shape syntax)
+```
+
+**Backticks in Labels:**
+
+- **DO**: Use HTML entity codes: `#96;` for backtick
+- **DO**: Use markdown strings with backticks: `["`Text`"]` for markdown formatting
+
+**Correct:**
+
+```mermaid
+flowchart LR
+    A["`Code with **markdown**`"]
+    B["Text with #96;backtick#96;"]
+```
+
+#### 4. Arrow and Connection Syntax
+
+**Common Arrow Syntax Errors:**
+
+**Correct Arrow Formats:**
+
+```mermaid
+flowchart LR
+    A --> B          (solid arrow)
+    A -.-> B         (dotted arrow)
+    A ==> B          (thick arrow)
+    A -->|Label| B   (labeled arrow)
+```
+
+**Incorrect Arrow Formats:**
+
+```mermaid
+❌ A -> B           (single dash, missing arrowhead)
+❌ A --- B          (no arrowhead)
+❌ A -->> B         (double arrowhead syntax error)
+❌ A --> |Label| B  (spaces around pipe break syntax)
+```
+
+**Sequence Diagram Arrows:**
+
+```mermaid
+sequenceDiagram
+    A->>B: Solid arrow
+    A-->>B: Dashed arrow (response)
+    A->>+B: Activation start
+    A-->>-B: Activation end
+```
+
+**CRITICAL**: Use `->>` for solid arrows, `-->>` for dashed arrows in sequence diagrams
+
+#### 5. Node Definition Syntax
+
+**Flowchart Node Shapes:**
+
+```mermaid
+flowchart LR
+    A[Rectangle]        (square brackets)
+    B(Round)            (parentheses)
+    C{Diamond}          (curly braces)
+    D[("Circle")]       (double parentheses)
+    E[["Stadium"]]      (double square brackets)
+```
+
+**Common Errors:**
+
+```mermaid
+❌ A[Label] --> B[Label  (missing closing bracket)
+❌ A[Label with "quotes"]  (unquoted quotes)
+❌ A --> B{Decision  (missing closing brace)
+```
+
+#### 6. Blank Lines and Spacing
+
+**Rules for Blank Lines:**
+
+- **DO**: Use blank lines to separate logical sections (optional but recommended)
+- **DO**: Keep blank lines consistent
+- **DON'T**: Add blank lines between node definitions and their connections
+- **DON'T**: Add blank lines inside style blocks
+
+**Correct:**
+
+```mermaid
+flowchart TD
+    A --> B
+    B --> C
+
+    style A fill:#e1f5fe
+    style B fill:#c8e6c9
+```
+
+**Incorrect:**
+
+```mermaid
+❌ flowchart TD
+    A -->
+
+    B  (blank line breaks connection)
+```
+
+#### 7. Style Syntax
+
+**Correct Style Format:**
+
+```mermaid
+flowchart TD
+    A --> B
+
+    style A fill:#e1f5fe,stroke:#01579b
+    style B fill:#c8e6c9,stroke:#2e7d32
+```
+
+**Common Style Errors:**
+
+```mermaid
+❌ style A fill:#e1f5fe stroke:#01579b  (missing comma)
+❌ style A fill:#e1f5fe,stroke:#01579b;  (semicolon not needed)
+❌ style A fill:#e1f5fe, stroke:#01579b  (space after comma causes issues)
+```
+
+**CRITICAL**: Use commas (no spaces) to separate style properties, no semicolons
+
+#### 8. Subgraph Syntax
+
+**Correct Subgraph Format:**
+
+```mermaid
+flowchart TD
+    subgraph "Title"
+        A --> B
+    end
+
+    subgraph ID["Title"]
+        C --> D
+    end
+```
+
+**Common Errors:**
+
+```mermaid
+❌ subgraph Title  (missing quotes for multi-word titles)
+❌ subgraph "Title"
+    A --> B  (missing end keyword)
+❌ subgraph "Title"
+        A --> B
+    end  (inconsistent indentation)
+```
+
+#### 9. Sequence Diagram Participant Syntax
+
+**Correct Participant Format:**
+
+```mermaid
+sequenceDiagram
+    participant Client as Client Application
+    participant API as API Gateway
+
+    Client->>API: Request
+```
+
+**Common Errors:**
+
+```mermaid
+❌ participant Client Application  (spaces without alias)
+❌ Client Application->>API: Request  (spaces in participant name)
+❌ participant Client as "Client Application"  (quotes not needed with alias)
+```
+
 ### Avoid These Issues
 
 **Overcrowding:**
@@ -365,6 +722,22 @@ flowchart LR
 - **Problem**: Text too small, colors low contrast, layout confusing
 - **Solution**: Follow accessibility guidelines and test readability
 
+### Pre-Flight Checklist Before Inserting Diagrams
+
+**Before adding any Mermaid diagram to markdown, verify:**
+
+- [ ] Code block uses exactly ` ```mermaid` (lowercase, no spaces)
+- [ ] Closing fence uses exactly ` ``` ` (three backticks, no trailing spaces)
+- [ ] No indentation on opening/closing fences (column 0)
+- [ ] All node labels with special characters are properly quoted
+- [ ] All arrows use correct syntax (`-->`, `->>`, `-->>`, etc.)
+- [ ] All brackets, braces, and parentheses are properly closed
+- [ ] Style properties separated by commas (no spaces after commas)
+- [ ] No blank lines breaking connections
+- [ ] Participant names in sequence diagrams use aliases if they contain spaces
+- [ ] Subgraphs have matching `end` keywords
+- [ ] Consistent indentation throughout the diagram
+
 ### Troubleshooting Guide
 
 **Rendering Issues:**
@@ -376,10 +749,17 @@ flowchart LR
 
 **Integration Problems:**
 
-1. Ensure proper markdown code block fencing
+1. Ensure proper markdown code block fencing (` ```mermaid` exactly)
 2. Check for conflicting CSS styles
 3. Verify Mermaid library is loaded
 4. Test diagram isolation from page content
+
+**Syntax Validation:**
+
+1. Copy diagram code to [Mermaid Live Editor](https://mermaid.live) to test
+2. Check browser console for specific error messages
+3. Verify all special characters are properly escaped or quoted
+4. Ensure no trailing whitespace on code block fences
 
 ---
 
