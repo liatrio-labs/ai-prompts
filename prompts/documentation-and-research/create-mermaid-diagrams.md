@@ -207,7 +207,7 @@ sequenceDiagram
 
 **Standard Format:**
 
-```markdown
+````markdown
 ### System Architecture Overview
 
 ```mermaid
@@ -221,9 +221,7 @@ flowchart TD
 ```
 
 The diagram above illustrates the three-tier architecture pattern used in this system.
-
-```text
-```
+````
 
 **CRITICAL Markdown Integration Rules:**
 
@@ -237,67 +235,60 @@ The diagram above illustrates the three-tier architecture pattern used in this s
 
 ❌ **Incorrect**: Using markdown code blocks inside examples
 
-```markdown
+````markdown
 ```mermaid
 flowchart TD
     ```markdown
     This breaks the diagram
     ```
 ```
-
-```text
-```
+````
 
 ✅ **Correct**: Use comments or notes instead
 
+````markdown
 ```mermaid
 flowchart TD
     A --> B
     %% This is a comment, not markdown
 ```
+````
 
 ❌ **Incorrect**: Indenting the code block fence
 
-```markdown
+````markdown
     ```mermaid
     flowchart TD
         A --> B
     ```
-```text
-```
+````
 
 ✅ **Correct**: Fence at column 0
 
-```markdown
+````markdown
 ```mermaid
 flowchart TD
     A --> B
 ```
-
-```text
-```
+````
 
 ❌ **Incorrect**: Wrong language identifier
 
-```markdown
+````markdown
 ```markdown
 flowchart TD
     A --> B
 ```
-
-```text
-```
+````
 
 ✅ **Correct**: Use `mermaid` identifier
 
-```markdown
+````markdown
 ```mermaid
 flowchart TD
     A --> B
 ```
-
-```text
-```
+````
 
 ### Multi-Diagram Workflows
 
@@ -428,14 +419,12 @@ flowchart LR
 
 **REQUIRED Format:**
 
-```markdown
+````markdown
 ```mermaid
 flowchart TD
     A --> B
 ```
-
-```text
-```
+````
 
 **CRITICAL Rules:**
 
@@ -448,12 +437,12 @@ flowchart TD
 
 **Common Errors to Avoid:**
 
-```markdown
+````markdown
 ❌ ``` markdown  (space before markdown)
 ❌ ```mermaid   (trailing spaces)
 ❌   ```mermaid  (indented fence)
 ❌ ```markdown  (wrong language identifier)
-```
+````
 
 #### 2. Indentation and Spacing
 
@@ -465,31 +454,29 @@ flowchart TD
 
 **Correct Format:**
 
-```markdown
+````markdown
 ```mermaid
 flowchart TD
     A[Start] --> B{Decision}
     B -->|Yes| C[Action]
     B -->|No| D[Alternative]
 ```
-
-```text
-```
+````
 
 **Incorrect Formats:**
 
-```markdown
+````markdown
 ❌ ```mermaid
     flowchart TD  (extra indentation on first line)
         A --> B
-```
+````
 
-```markdown
+````markdown
 ❌ ```mermaid
 flowchart TD
 A --> B  (inconsistent indentation)
     C --> D
-```
+````
 
 #### 3. Special Character Escaping
 
@@ -503,17 +490,21 @@ A --> B  (inconsistent indentation)
 
 **Correct:**
 
+````markdown
 ```mermaid
 flowchart LR
     A["Label with 'quotes'"]
     B["Label with #quot;escaped#quot; quotes"]
 ```
+````
 
 **Incorrect:**
 
+````markdown
 ```mermaid
 ❌ A[Label with "quotes"]  (unquoted quotes cause parsing errors)
 ```
+````
 
 **Parentheses in Labels:**
 
@@ -522,17 +513,21 @@ flowchart LR
 
 **Correct:**
 
+````markdown
 ```mermaid
 flowchart LR
     A["Process (Step 1)"]
     B["Function(x, y)"]
 ```
+````
 
 **Incorrect:**
 
+````markdown
 ```mermaid
 ❌ A[Process (Step 1)]  (parentheses interpreted as shape syntax)
 ```
+````
 
 **Backticks in Labels:**
 
@@ -541,11 +536,13 @@ flowchart LR
 
 **Correct:**
 
+````markdown
 ```mermaid
 flowchart LR
     A["`Code with **markdown**`"]
     B["Text with #96;backtick#96;"]
 ```
+````
 
 #### 4. Arrow and Connection Syntax
 
@@ -553,25 +550,34 @@ flowchart LR
 
 **Correct Arrow Formats:**
 
+````markdown
 ```mermaid
 flowchart LR
-    A --> B          (solid arrow)
-    A -.-> B         (dotted arrow)
-    A ==> B          (thick arrow)
-    A -->|Label| B   (labeled arrow)
+    %% solid arrow
+    A --> B
+    %% dotted arrow
+    A -.-> B
+    %% thick arrow
+    A ==> B
+    %% labeled arrow
+    A -->|Label| B
 ```
+````
 
 **Incorrect Arrow Formats:**
 
+````markdown
 ```mermaid
 ❌ A -> B           (single dash, missing arrowhead)
 ❌ A --- B          (no arrowhead)
 ❌ A -->> B         (double arrowhead syntax error)
 ❌ A --> |Label| B  (spaces around pipe break syntax)
 ```
+````
 
 **Sequence Diagram Arrows:**
 
+````markdown
 ```mermaid
 sequenceDiagram
     A->>B: Solid arrow
@@ -579,6 +585,7 @@ sequenceDiagram
     A->>+B: Activation start
     A-->>-B: Activation end
 ```
+````
 
 **CRITICAL**: Use `->>` for solid arrows, `-->>` for dashed arrows in sequence diagrams
 
@@ -586,6 +593,7 @@ sequenceDiagram
 
 **Flowchart Node Shapes:**
 
+````markdown
 ```mermaid
 flowchart LR
     A[Rectangle]        (square brackets)
@@ -594,14 +602,17 @@ flowchart LR
     D[("Circle")]       (double parentheses)
     E[["Stadium"]]      (double square brackets)
 ```
+````
 
 **Common Errors:**
 
+````markdown
 ```mermaid
 ❌ A[Label] --> B[Label  (missing closing bracket)
 ❌ A[Label with "quotes"]  (unquoted quotes)
 ❌ A --> B{Decision  (missing closing brace)
 ```
+````
 
 #### 6. Blank Lines and Spacing
 
@@ -614,6 +625,7 @@ flowchart LR
 
 **Correct:**
 
+````markdown
 ```mermaid
 flowchart TD
     A --> B
@@ -622,20 +634,24 @@ flowchart TD
     style A fill:#e1f5fe
     style B fill:#c8e6c9
 ```
+````
 
 **Incorrect:**
 
+````markdown
 ```mermaid
 ❌ flowchart TD
     A -->
 
     B  (blank line breaks connection)
 ```
+````
 
 #### 7. Style Syntax
 
 **Correct Style Format:**
 
+````markdown
 ```mermaid
 flowchart TD
     A --> B
@@ -643,14 +659,17 @@ flowchart TD
     style A fill:#e1f5fe,stroke:#01579b
     style B fill:#c8e6c9,stroke:#2e7d32
 ```
+````
 
 **Common Style Errors:**
 
+````markdown
 ```mermaid
 ❌ style A fill:#e1f5fe stroke:#01579b  (missing comma)
 ❌ style A fill:#e1f5fe,stroke:#01579b;  (semicolon not needed)
 ❌ style A fill:#e1f5fe, stroke:#01579b  (space after comma causes issues)
 ```
+````
 
 **CRITICAL**: Use commas (no spaces) to separate style properties, no semicolons
 
@@ -658,6 +677,7 @@ flowchart TD
 
 **Correct Subgraph Format:**
 
+````markdown
 ```mermaid
 flowchart TD
     subgraph "Title"
@@ -668,9 +688,11 @@ flowchart TD
         C --> D
     end
 ```
+````
 
 **Common Errors:**
 
+````markdown
 ```mermaid
 ❌ subgraph Title  (missing quotes for multi-word titles)
 ❌ subgraph "Title"
@@ -679,11 +701,13 @@ flowchart TD
         A --> B
     end  (inconsistent indentation)
 ```
+````
 
 #### 9. Sequence Diagram Participant Syntax
 
 **Correct Participant Format:**
 
+````markdown
 ```mermaid
 sequenceDiagram
     participant Client as Client Application
@@ -691,14 +715,17 @@ sequenceDiagram
 
     Client->>API: Request
 ```
+````
 
 **Common Errors:**
 
+````markdown
 ```mermaid
 ❌ participant Client Application  (spaces without alias)
 ❌ Client Application->>API: Request  (spaces in participant name)
 ❌ participant Client as "Client Application"  (quotes not needed with alias)
 ```
+````
 
 ### Avoid These Issues
 
