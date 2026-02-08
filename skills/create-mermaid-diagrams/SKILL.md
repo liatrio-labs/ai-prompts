@@ -31,11 +31,16 @@ When manual invocation is needed, trigger this skill using whatever mechanism yo
    - Opening fence must be ` ```mermaid`.
    - Closing fence must be ` ``` `.
    - Keep fence markers at column 0.
-3. Extract Mermaid body and validate with `scripts/validate_mermaid.sh`.
+3. Validate the full markdown file with `mmdc`:
+
+   ```bash
+   mmdc -i <input.md> -o /tmp/<name>-rendered.md -a /tmp/<name>-mermaid-artifacts
+   ```
+
 4. If validation fails:
-   - Read the raw Mermaid CLI error output.
-   - Apply the minimal targeted fix.
-   - Re-run validation.
+   - Read raw Mermaid CLI output from `mmdc`.
+   - Apply the minimal targeted fix in the failing Mermaid fence.
+   - Re-run the same full-file validation command.
 5. Repeat failure analysis and correction up to 3 attempts.
 6. If still failing after 3 attempts, return:
    - Best-effort corrected diagram.
@@ -50,20 +55,32 @@ When manual invocation is needed, trigger this skill using whatever mechanism yo
 - Preserve user intent and semantic meaning while repairing syntax.
 - Stop retrying early when validation succeeds.
 
+## Runtime Requirements
+
+- `mmdc` must be available in `PATH`.
+- If running in a sandboxed AI tool, allow execution of `mmdc` explicitly.
+- Treat `mmdc` stdout/stderr as the source of truth for pass/fail and diagnosis.
+
 ## Existing Documentation with Multiple Mermaid Diagrams
 
 When validating an existing markdown file that includes multiple Mermaid blocks:
 
-1. Enumerate each Mermaid fence block in order.
-2. Validate each block independently with `scripts/validate_mermaid.sh`.
-3. Report per-block status with block index and nearby heading context.
-4. Patch only failing blocks, then re-validate only modified blocks.
+1. Run one full-file validation command with `mmdc`.
+2. Parse CLI output to identify discovered block count and rendered artifacts.
+3. For failures, use parse error snippet and caret location to identify the failing fence.
+4. Patch only failing blocks, then re-run full-file validation.
 5. Provide a final rollup: total blocks, passed, failed, fixed, unresolved.
 
 ## Error Handling
 
-Treat any non-zero validator exit as a failure and use Mermaid CLI output as the source of truth for diagnosis and repair.
-For dependency or input failures, return installation/runtime guidance and do not continue retries.
+Treat any non-zero `mmdc` exit as a failure and use Mermaid CLI output as the source of truth for diagnosis and repair.
+For dependency, access, or input failures (for example `mmdc` not executable in sandbox), stop immediately and do not continue retries.
+When validation cannot run, the response must clearly state that validation did not occur and include:
+
+- the exact `mmdc` command that failed
+- exit code (if available)
+- a raw stderr excerpt
+- explicit next steps to grant `mmdc` execution access or fix file/path permissions
 
 ## Output Requirements
 

@@ -4,23 +4,26 @@ Use this workflow when working with existing markdown documents that already con
 
 ## Goals
 
-- Validate each Mermaid block independently.
+- Validate all Mermaid blocks via one deterministic full-file run.
 - Avoid broad rewrites across unrelated diagrams.
 - Produce a deterministic pass/fail report per block.
 
 ## Procedure
 
-1. Locate Mermaid fences in order of appearance.
-2. Extract each block body (exclude fence lines).
-3. Validate each block via `scripts/validate_mermaid.sh`.
-4. Store per-block result:
+1. Run `mmdc` against the full markdown file:
+
+   ```bash
+   mmdc -i <input.md> -o /tmp/<name>-rendered.md -a /tmp/<name>-mermaid-artifacts
+   ```
+
+2. Parse CLI output and store per-block result:
    - block index
    - nearby heading or context snippet
-   - exit code (`0` pass, non-zero fail)
+   - rendered artifact path (for passed blocks)
    - stderr excerpt (raw Mermaid CLI output on failure)
-5. For failures, read raw CLI output and apply targeted fix.
-6. Revalidate only blocks that were changed.
-7. Emit rollup summary.
+3. For failures, read raw CLI output and apply targeted fix only in implicated fences.
+4. Re-run full-file `mmdc` validation.
+5. Emit rollup summary.
 
 ## Suggested Report Format
 
@@ -40,3 +43,4 @@ Block 5 (### State Model): unresolved (syntax)
 - Keep original ordering and surrounding markdown unchanged.
 - Do not change diagram semantics unless needed to resolve parser/runtime failure.
 - If many blocks fail, fix highest-priority sections first and report remaining backlog.
+- Optional cleanup: remove generated `/tmp/<name>-rendered.md` and `/tmp/<name>-mermaid-artifacts` when finished.

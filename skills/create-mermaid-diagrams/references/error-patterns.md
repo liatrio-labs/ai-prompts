@@ -2,29 +2,33 @@
 
 ## Error Input from Validator
 
-Use the script exit code and raw Mermaid CLI stderr output.
+Use `mmdc` exit code and raw Mermaid CLI stderr output from the full markdown file run.
 
 ## Repair Rules by Error Pattern
 
 ## Dependency/Input Failures
 
 - Stop retries.
-- Report dependency or input issue and how to fix it (`node`, `npx`, missing file, empty input).
+- Treat `mmdc` execution/access failures as hard-stop errors (for example command not found, sandbox deny, permission denied).
+- State clearly that validation did not run to completion; do not imply success or partial validation for the failing run.
+- Report dependency or input issue and how to fix it (`mmdc` not found, missing input markdown file, unreadable file, output path permissions).
+- Include the exact failed command, exit code (if available), and raw stderr excerpt.
 - Do not guess syntax changes when CLI cannot run.
 
 ## Syntax/Parse Errors
 
-- Inspect stderr for parser location hints.
+- Inspect stderr for parser location hints (`Parse error on line`, snippet, and caret pointer).
 - Fix only the smallest likely syntax fault per attempt:
   - broken arrows
   - missing bracket/brace
   - invalid diagram type keyword
   - malformed edge labels
+  - unquoted text with special characters (for example `(` and `)`)
 - Revalidate immediately after each fix.
 
 ## Fence/Markdown Extraction Errors
 
-- Ensure diagram content excludes markdown fence lines before validation.
+- Ensure Mermaid fences are valid in the source markdown file.
 - Ensure fences are exactly ` ```mermaid` and ` ``` ` in final markdown.
 - Ensure no nested or indented fence markers.
 
@@ -43,10 +47,10 @@ Use the script exit code and raw Mermaid CLI stderr output.
 
 ## Retry Loop Contract
 
-1. Run validator.
+1. Run `mmdc` on the full markdown file.
 2. If non-zero, read raw CLI output.
 3. Apply one focused correction.
-4. Re-run validator.
+4. Re-run full-file `mmdc`.
 5. Stop at success or after 3 attempts.
 
 ## Final Failure Report Shape
