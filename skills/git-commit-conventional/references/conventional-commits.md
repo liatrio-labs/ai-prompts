@@ -1,5 +1,10 @@
 # Conventional Commits Reference
 
+See also:
+
+- Commit pressure thresholds: `references/commit-hygiene-thresholds.md`
+- AI attribution policy: `references/ai-attribution.md`
+
 ## Subject Format
 
 Use one of these forms:
@@ -60,12 +65,22 @@ Reviewed-by: username
 BREAKING CHANGE: describe incompatible behavior
 ```
 
+When AI attribution is required by policy, add it in the footer only:
+
+```text
+Co-Authored-By: <runtime-model-identity>
+```
+
+Do not mention AI generation in the subject or body.
+
 ## Multi-Commit Decision Heuristics
 
 Split commits when any of the following are true:
 
 - Changes represent different logical goals.
 - Docs and code can be committed independently.
+- Formatting-only changes and logic changes can be committed independently.
+- Dependency/tooling changes and behavior changes can be committed independently.
 - A single commit would be too broad to review safely.
 - One file contains mixed-intent hunks (for example, rename and refactor).
 
