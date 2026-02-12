@@ -73,8 +73,10 @@ The marker for this skill is: `🎯`
 1. Apply AI attribution policy before each commit:
    - Always include a footer-only `Co-Authored-By` attribution on agent-created commits.
    - Never mention AI generation in the subject or body.
-   - Source attribution identity dynamically from runtime model/tool metadata.
-   - If runtime identity is unavailable, stop and ask the user for attribution identity before committing.
+   - Use best effort self-identification to determine AI name and email from runtime/model self-awareness metadata.
+   - If email is not readily available, use `no-reply@example.com`.
+   - If name is not readily available, use `AI Assistant`.
+   - Never block commit flow by asking the user for attribution identity.
 1. Use deterministic output contract for single-commit and multi-commit runs:
    - Before committing, present `Commit Plan`:
      - `commit_count`

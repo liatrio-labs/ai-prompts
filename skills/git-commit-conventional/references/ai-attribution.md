@@ -10,13 +10,14 @@ Use this policy when creating commits through the `git-commit-conventional` skil
 
 ## Attribution Source
 
-- Resolve attribution identity dynamically from runtime model/tool metadata.
-- Do not hardcode provider-specific identities in the skill.
+- Use best effort self-identification to determine AI name and email from runtime/model self-awareness metadata.
+- If email is not readily available, use `no-reply@example.com`.
+- If name is not readily available, use `AI Assistant`.
 
 ## Missing Identity Rule
 
-- If runtime identity cannot be resolved, stop and ask the user for the attribution identity before committing.
-- Do not guess a generic placeholder identity.
+- Do not block the commit flow with a user prompt for attribution identity.
+- Build attribution with available self-identified values and the fallback defaults above.
 
 ## Footer Format
 
