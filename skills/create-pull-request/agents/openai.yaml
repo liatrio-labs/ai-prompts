@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Pull Request"
+  short_description: "Help with Create Pull Request tasks"
+  default_prompt: "Analyze branch changes, draft a reviewer-ready PR/MR title and body, and optionally create the PR with user approval."
