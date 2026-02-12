@@ -33,7 +33,7 @@ fix(auth): handle refresh token expiry race
 Prevent duplicate refresh requests from invalidating active sessions during token rollover.
 
 Refs #123
-Co-Authored-By: Model Name <noreply@example.com>
+Co-Authored-By: Model Name <no-reply@example.com>
 ```
 
 ## Anti-Patterns

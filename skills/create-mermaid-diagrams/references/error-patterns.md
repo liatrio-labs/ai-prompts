@@ -29,7 +29,7 @@ Use `mmdc` exit code and raw Mermaid CLI stderr output from the full markdown fi
 ## Fence/Markdown Extraction Errors
 
 - Ensure Mermaid fences are valid in the source markdown file.
-- Ensure fences are exactly ` ```mermaid` and ` ``` ` in final markdown.
+- Ensure fences are exactly `` ```mermaid `` and `` ``` `` in final markdown.
 - Ensure no nested or indented fence markers.
 
 ## Unsupported Feature Errors
