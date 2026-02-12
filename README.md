@@ -72,8 +72,8 @@ Context Markers are emoji-based verification techniques used to detect context r
 
 | Emoji | Prompt/Skill File | Description |
 | :---: | :--- | :--- |
-| 🎯 | `development/commit.md` | Conventional Commit Generator |
-| 🚀 | `development/create-pull-request.md` | Pull Request / Merge Request Description Generator |
+| 🎯 | `skills/git-commit-conventional/SKILL.md` | Conventional Commit Skill |
+| 🚀 | `skills/create-pull-request/SKILL.md` | Pull Request / Merge Request Description Skill |
 | 📋 | `development/address-pr-review-feedback.md` | Fetch PR Review Feedback |
 | 🔍 | `development/review-branch.md` | Review Branch Against Base |
 | 🔄 | `development/squash-merge.md` | Squash Merge to Main |

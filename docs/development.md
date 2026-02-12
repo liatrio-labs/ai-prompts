@@ -60,12 +60,13 @@ uv run scripts/quick_validate.py skills/my-skill
 
 If `quick_validate.py` reports `Description must be a string, got list`, ensure `description:` in `SKILL.md` frontmatter is a quoted YAML string.
 
-### Adding or Editing Prompts
+### Adding or Editing Prompts and Skills
 
-1. Create/update files inside `prompts/<category>/` using Markdown.
-2. Follow existing structure: heading, context, instructions, tool guidance.
-3. Run `pre-commit run --all-files` to ensure formatting/linting passes.
-4. Open a PR using the template checklist (ensures docs + CI expectations are met).
+1. For prompts, create/update files inside `prompts/<category>/` using Markdown.
+2. For skills, scaffold/update under `skills/<skill-name>/` and include `SKILL.md`.
+3. Follow existing structure and conventions for the selected artifact type.
+4. Run `pre-commit run --all-files` to ensure formatting/linting passes.
+5. Open a PR using the template checklist (ensures docs + CI expectations are met).
 
 ## Slash Command Manager (Optional)
 
