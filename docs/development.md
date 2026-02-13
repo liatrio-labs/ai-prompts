@@ -1,6 +1,6 @@
 # Development Guide
 
-This repository stores reusable AI prompts. Most automation revolves around Markdown quality gates and release workflows, so local setup is intentionally lightweight.
+This repository stores reusable AI prompts and skills. Most automation revolves around Markdown quality gates and release workflows, so local setup is intentionally lightweight.
 
 ## Local Development Setup
 
@@ -30,7 +30,7 @@ pre-commit install
 pre-commit run --all-files
 
 # Spot-check a single file while editing
-pre-commit run markdownlint-fix --files prompts/example.md
+pre-commit run markdownlint-fix --files prompts/development/address-pr-review-feedback.md
 ```
 
 ## Skill Authoring Helpers
@@ -59,6 +59,16 @@ uv run scripts/quick_validate.py skills/my-skill
 ### Troubleshooting Skill Scripts
 
 If `quick_validate.py` reports `Description must be a string, got list`, ensure `description:` in `SKILL.md` frontmatter is a quoted YAML string.
+
+### Skills.sh Compatibility Checklist
+
+Use this checklist before publishing or recommending a skill for `npx skills` consumption:
+
+1. `SKILL.md` exists in `skills/<skill-name>/`.
+2. Frontmatter includes non-empty `name` and `description` values.
+3. `name` is hyphen-case (lowercase letters, digits, hyphens only) and matches directory naming.
+4. Optional frontmatter keys remain portable across agents (for example, use `allowed-tools` only when needed).
+5. `uv run scripts/quick_validate.py skills/<skill-name>` passes.
 
 ### Adding or Editing Prompts and Skills
 

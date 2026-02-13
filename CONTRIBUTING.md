@@ -22,10 +22,25 @@ Thank you for contributing to this project! This guide will help you understand 
 ### Making Changes
 
 1. Make your changes in a feature branch
-2. Write clear, descriptive commit messages using [Conventional Commits](#conventional-commits)
-3. Ensure all tests pass and pre-commit hooks succeed
-4. Push your branch and create a pull request
-5. Address review feedback and update your branch
+2. Add or update content in the correct location:
+   - Prompts: `prompts/<category>/`
+   - Skills: `skills/<skill-name>/` with `SKILL.md`
+3. Write clear, descriptive commit messages using [Conventional Commits](#conventional-commits)
+4. Ensure all tests pass and pre-commit hooks succeed
+5. Push your branch and create a pull request
+6. Address review feedback and update your branch
+
+### Contributing Skills
+
+When contributing or updating a skill, use the local helper scripts and validation flow documented in [docs/development.md](docs/development.md):
+
+```bash
+uv run scripts/init_skill.py my-skill --path skills --resources scripts,references --examples
+uv run scripts/generate_openai_yaml.py skills/my-skill
+uv run scripts/quick_validate.py skills/my-skill
+```
+
+Keep `name` and `description` in `SKILL.md` frontmatter valid and non-empty so the skill remains compatible with `skills.sh` discovery.
 
 ### Pull Request Process
 
