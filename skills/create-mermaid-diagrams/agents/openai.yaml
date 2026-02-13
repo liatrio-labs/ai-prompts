@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create Mermaid Diagrams"
+  short_description: "Help with Create Mermaid Diagrams tasks"
+  default_prompt: "Create Mermaid markdown diagrams, validate them with CLI feedback, and iteratively repair errors."
