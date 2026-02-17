@@ -1,0 +1,4 @@
+interface:
+  display_name: "Git Commit Conventional"
+  short_description: "Create conventional commits with review guardrails"
+  default_prompt: "Analyze git changes and create Conventional Commit messages, then commit safely."

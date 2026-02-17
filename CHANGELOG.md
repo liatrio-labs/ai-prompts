@@ -2,6 +2,25 @@
 
 <!-- version list -->
 
+## Unreleased
+
+### Documentation
+
+- Reframe repository docs to cover both prompts and skills, including `skills.sh` / `npx skills` usage guidance.
+- Normalize README context marker file paths and add prompt-to-skill migration mapping for migrated artifacts.
+- Expand development and contribution documentation with skill-focused workflows and compatibility checks.
+
+### Features
+
+- Add local helper scripts for skill authoring workflows: `scripts/init_skill.py`, `scripts/generate_openai_yaml.py`, and `scripts/quick_validate.py`.
+
+### Refactoring
+
+- Migrate selected prompts into skills:
+  - `prompts/development/commit.md` -> `skills/git-commit-conventional/SKILL.md`
+  - `prompts/development/create-pull-request.md` -> `skills/create-pull-request/SKILL.md`
+  - `prompts/documentation-and-research/create-mermaid-diagrams.md` -> `skills/create-mermaid-diagrams/SKILL.md`
+
 ## v0.3.0 (2025-11-26)
 
 ### Bug Fixes
@@ -40,7 +59,6 @@
   ([#2](https://github.com/liatrio-labs/ai-prompts/pull/2),
   [`c4aacd8`](https://github.com/liatrio-labs/ai-prompts/commit/c4aacd8edbdeb2d61d9b80547d04a5f94c8ee078))
 
-
 ## v0.2.1 (2025-11-24)
 
 ### Bug Fixes
@@ -57,7 +75,6 @@
   ([#3](https://github.com/liatrio-labs/ai-prompts/pull/3),
   [`a86e9e6`](https://github.com/liatrio-labs/ai-prompts/commit/a86e9e6c2e42cf758c4827bf9f8288c7165a8c4e))
 
-
 ## v0.2.0 (2025-11-21)
 
 ### Chores
@@ -72,7 +89,6 @@
 
 - Intial addition of prompts
   ([`bbc4a6c`](https://github.com/liatrio-labs/ai-prompts/commit/bbc4a6cc12d091cb5d6a2a75a5ae4d4dc760c24f))
-
 
 ## v0.1.0 (2025-11-20)
 
