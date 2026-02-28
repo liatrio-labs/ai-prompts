@@ -1,8 +1,12 @@
 ---
 name: liatrio-brand-guidelines
-description: Applies Liatrio brand guidelines to UI and visual design work, brand audits, and asset selection. Use when the user asks for Liatrio styling, logo usage, color/typography decisions, component polish, or visual brand compliance checks.
+description: Applies Liatrio brand guidelines to UI design, brand audits, and asset selection. Use when users request Liatrio styling, logo variants, typography or color decisions, visual polish, or formal brand compliance checks.
+license: Apache-2.0
 metadata:
-  compatibility: Requires markdown and image file reading support, plus optional network access to verify live Liatrio brand sources.
+  owner: liatrio
+  compatibility: Designed for skills-compatible coding agents with markdown reading. Optional network access improves accuracy by verifying live brand sources.
+  canonical-brand-source: https://www.liatrio.com/brand-data.json
+  canonical-brand-page: https://www.liatrio.com/brand
 ---
 
 # Liatrio Brand Guidelines
@@ -11,97 +15,62 @@ metadata:
 
 Use this skill when the user asks for any of the following:
 
-- Liatrio UI styling, branding, or visual polish
-- brand compliance or brand audit feedback
-- logo variant selection for light/dark backgrounds
-- typography, color, spacing, or component-level brand decisions
-- updates to brand-facing docs, design specs, or screenshots
-
-## Quick Start
-
-When the user needs Liatrio-branded UI or a brand audit:
-
-1. Load visual baseline first:
-   `assets/liatrio-brand-guidelines-consolidated.png`
-2. Load detailed written reference when precision matters:
-   `references/liatrio-brand-guidelines.md`
-3. Use live source for current site behavior and assets:
-   `https://www.liatrio.com/brand` and `https://www.liatrio.com/brand-data.json`
-4. Apply typography, color, logo, spacing, and accessibility rules.
-5. Validate contrast and background-specific logo choices.
+- Liatrio-branded UI implementation (web, docs, decks, screenshots)
+- brand audits and compliance review deliverables
+- logo and logomark variant selection for light or dark backgrounds
+- typography, color, spacing, iconography, or component decisions
+- correcting stale or conflicting brand values in existing artifacts
 
 ## Source Priority and Conflict Resolution
 
 If sources disagree, use this order:
 
-1. `https://www.liatrio.com/brand-data.json` (live structured source)
+1. `https://www.liatrio.com/brand-data.json` (canonical structured source)
 2. `references/liatrio-brand-guidelines.md` (local detailed reference)
 3. `assets/liatrio-brand-guidelines-consolidated.png` (visual snapshot)
 4. `https://www.liatrio.com/brand` (rendered page content)
 
 When conflicts appear, call out the mismatch explicitly in your response.
 
-## Reference Loading Strategy
+If network access is unavailable, proceed with local references and explicitly state that live verification was not performed.
 
-Use progressive disclosure to keep work fast and accurate:
+## Quick Start Workflow
 
-- Start with the PNG snapshot for quick visual direction.
-- Read the markdown guide for exact values (hex, RGB/CMYK, download URLs, written rules).
-- Use the live JSON/page when you need to confirm current production behavior.
-
-Load markdown immediately when the task includes:
-
-- exact token values or color tables
-- logo download links or file variant selection
-- formal documentation updates
-- compliance/audit deliverables
+1. Determine request mode:
+   - `implementation`: user wants assets, tokens, and style decisions applied.
+   - `audit`: user wants compliance findings and corrective actions.
+2. Confirm background context (light or dark) and output surface (web, docs, slides, image review).
+3. Load local references:
+   - `references/liatrio-brand-guidelines.md`
+   - `assets/liatrio-brand-guidelines-consolidated.png`
+4. If precision or freshness matters, verify live source values:
+   - `bash scripts/fetch-brand-data.sh`
+5. Apply brand rules and run the verification loop before final output.
 
 ## Core Rules
 
 ### Typography
 
-- Typeface: DM Sans for all text.
-- Weights: Bold/Semibold for headlines; Regular/Medium for body and UI.
+- Primary typeface: DM Sans for all brand-facing text.
+- Weights: Bold and SemiBold for headlines; Regular and Medium for body and UI.
 - Size targets: H1 48-60px, H2 36-40px, H3 28-32px, Body 16-18px.
 
 ### Colors
 
-Primary colors:
+- Hero brand color: `#24AE1D` (Primary Green).
+- Accent highlight: `#89DF00` (Bright Green), used sparingly.
+- Core text contrast on light surfaces: `#111111`.
+- Dark mode surfaces: `#1A1F23` and `#1E2327`.
+- Use live reference values for full primary, secondary, tertiary, and background palettes.
 
-- Primary Green: `#24AE1D` (hero color, primary actions)
-- Bright Green: `#89DF00` (sparingly for highlights)
-- Grey 800: `#111111` (primary text on light backgrounds)
-- White: `#FFFFFF` (light backgrounds)
-
-Secondary / accent colors:
-
-- Grey 700: `#1E1E1E`
-- Grey 100: `#EEEEEE`
-- Lagoon: `#00C1DB`
-- Dark Blue: `#003D5C`
-- Deep Sea: `#006989`
-- Hot Red: `#E63946` (alerts)
-- Flame Orange: `#F77F00`
-
-Backgrounds:
-
-- Dark mode primary: `#1A1F23`
-- Dark mode secondary: `#1E2327`
-
-Usage notes:
-
-- Primary Green is the hero color.
-- Bright Green is for small accents only.
-- Keep strong contrast: use Grey 800 on light backgrounds and white on dark.
-
-### Logo usage
+### Logo Usage
 
 - Maintain clear space around the logo equal to the height of the "L" in Liatrio.
 - Never distort, rotate, or recolor the logo.
-- Pick the correct variant by background brightness:
-  - Light backgrounds: Main logo or Black logo.
-  - Dark backgrounds: Reverse Color or Reverse White logo.
-- Logomark: avoid green backgrounds; use the square logomark when even padding is required.
+- Use variants by background brightness:
+  - Light: `logo_Liatrio.svg` (default) or `logo_Liatrio_black.svg`
+  - Dark: `logo_Liatrio_reverse-preferred.svg` (preferred) or `logo_Liatrio_reverse.svg`
+- For logomarks, avoid green backgrounds and use the square logomark when equal padding is required.
 
 ### Accessibility
 
@@ -122,26 +91,40 @@ Use these defaults unless the user requests otherwise:
 Apply brand-consistent patterns that match the Brand page system:
 
 - Buttons: use Primary Green for key CTA actions; use destructive red only for destructive actions.
-- Alerts/messages: success/information/error must use both color and text semantics.
-- Inputs/cards: keep clean contrast, restrained borders, and subtle elevation.
+- Alerts and messages: success, information, and error states must use both color and text semantics.
+- Inputs and cards: keep clean contrast, restrained borders, and subtle elevation.
 - Spacing rhythm: preserve 4px increments across padding, gaps, and vertical flow.
 
-## Output Format
+## Output Contracts
 
-For brand audits or recommendations, use this concise structure:
+### Brand Audit Format
+
+Use this exact structure for brand audits:
 
 ```markdown
 ## Brand Audit
 
 - Scope: [screens/files/components reviewed]
 - Compliant: [what matches Liatrio standards]
-- Issues: [specific mismatches]
-- Fixes: [exact changes with tokens/variants]
+- Issues: [specific mismatches with source references]
+- Fixes: [exact token and asset substitutions]
 - Verification: [contrast/logo/background checks performed]
+- Source Validation: [live JSON checked or local-only fallback]
 ```
 
-For direct implementation tasks, provide the exact token or asset selection in-line
-and avoid unnecessary narrative.
+### Implementation Decision Format
+
+Use this exact structure for direct implementation tasks:
+
+```markdown
+## Implementation Decision
+
+- Context: [surface + light/dark + component/page]
+- Token Choices: [exact hex/type/spacing values]
+- Asset Choices: [exact logo/logomark file variants]
+- Rationale: [1-3 bullets tied to brand rules]
+- Verification: [contrast + variant + conflict checks]
+```
 
 ## Verification Loop
 
@@ -149,10 +132,10 @@ Before finalizing, run this loop:
 
 1. Draft recommendation or implementation choices.
 2. Check against `references/liatrio-brand-guidelines.md` for exact values.
-3. Confirm visual intent against
-   `assets/liatrio-brand-guidelines-consolidated.png`.
-4. Verify accessibility constraints (contrast and non-color-only semantics).
-5. Return only validated guidance.
+3. If freshness matters, run `bash scripts/fetch-brand-data.sh` and compare values.
+4. Confirm logo variant matches background brightness.
+5. Verify accessibility constraints (contrast and non-color-only semantics).
+6. Report any source conflicts or inability to verify live data.
 
 ## Workflow Checklist
 
@@ -165,10 +148,20 @@ Before finalizing, run this loop:
 - [ ] Confirm outputs align with the PNG visual snapshot.
 - [ ] If precision is required, verify against the markdown guide values.
 - [ ] If sources conflict, apply the source-priority order and note the conflict.
+- [ ] State whether live verification was performed.
+
+## Optional Maintenance Scripts
+
+- `scripts/fetch-brand-data.sh`
+  - Reads and prints current structured data from `brand-data.json`.
+- `scripts/download-brand-assets.sh`
+  - Downloads logo files referenced by live JSON into `assets/logos/`.
+  - Use when refreshing bundled logo assets.
 
 ## References
 
 - `assets/liatrio-brand-guidelines-consolidated.png`
 - `references/liatrio-brand-guidelines.md`
+- `assets/logos/` (if populated)
 - `https://liatrio.com/brand`
 - `https://www.liatrio.com/brand-data.json`
