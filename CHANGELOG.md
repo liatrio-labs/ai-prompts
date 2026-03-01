@@ -2,6 +2,35 @@
 
 <!-- version list -->
 
+## v0.4.0 (2026-03-01)
+
+### Bug Fixes
+
+- **skills**: Add io guards and init rollback safety
+  ([#7](https://github.com/liatrio-labs/ai-prompts/pull/7),
+  [`5a25d54`](https://github.com/liatrio-labs/ai-prompts/commit/5a25d545401298699af66e19f0e5bef052ac3f2c))
+
+- **skills**: Harden skill validation and docs marker
+  ([#7](https://github.com/liatrio-labs/ai-prompts/pull/7),
+  [`5a25d54`](https://github.com/liatrio-labs/ai-prompts/commit/5a25d545401298699af66e19f0e5bef052ac3f2c))
+
+### Chores
+
+- **entire**: Initialize Entire CLI setup for repo experiment
+  ([#18](https://github.com/liatrio-labs/ai-prompts/pull/18),
+  [`efcca10`](https://github.com/liatrio-labs/ai-prompts/commit/efcca10b8d1b5497abc2f408ea360458d2d8f097))
+
+### Features
+
+- **repo**: Add skills authoring scaffolding and validation helpers
+  ([#7](https://github.com/liatrio-labs/ai-prompts/pull/7),
+  [`5a25d54`](https://github.com/liatrio-labs/ai-prompts/commit/5a25d545401298699af66e19f0e5bef052ac3f2c))
+
+- **skills**: Add local skill-authoring helper scripts
+  ([#7](https://github.com/liatrio-labs/ai-prompts/pull/7),
+  [`5a25d54`](https://github.com/liatrio-labs/ai-prompts/commit/5a25d545401298699af66e19f0e5bef052ac3f2c))
+
+
 ## v0.3.0 (2025-11-26)
 
 ### Bug Fixes
