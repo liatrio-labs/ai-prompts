@@ -38,9 +38,9 @@ Access Tilt UI at: `http://localhost:<PORT>`
 
 Common ports:
 
-- 10102 (genimg project)
-- 10301 (ai-usage-analyzer project)
-- 10350 (gemimg-nodejs-version project, default)
+- 10350 (Tilt default)
+- 10102 (example custom port)
+- 10301 (example custom port)
 
 ## Important Concepts
 
@@ -81,7 +81,7 @@ Tiltfiles use Starlark, a Python-like language with limitations:
 
 ### Local Resources
 
-Most projects use `local_resource` in Tiltfiles (no Docker/Kubernetes yet):
+`local_resource` is common for process-based local development loops, but Tilt is fully designed to orchestrate Docker and Kubernetes resources as well:
 
 ```python
 local_resource(
@@ -89,6 +89,14 @@ local_resource(
     serve_cmd='npm run dev',
     serve_dir='.'
 )
+```
+
+Kubernetes-oriented setups commonly use resources such as:
+
+```python
+docker_build('backend-image', '.')
+k8s_yaml('k8s/deployment.yaml')
+k8s_resource('backend')
 ```
 
 ## Troubleshooting
@@ -104,12 +112,10 @@ local_resource(
 
 Different projects use different ports. Common patterns:
 
-- Tilt UI: 10102, 10301, 10350
-- Backend: 3000, 8000
-- Frontend: 3001
-- Mastra: 4111, 14111, 10305
-- Postgres: 10302
-- Metabase: 10303
+- Tilt UI: 10350 by default (or custom `--port`)
+- Backend APIs: often 3000 or 8000
+- Frontend apps: often 3001 or 5173
+- Mastra/API services: project-specific
 
 ### Hot Reload Not Working
 
@@ -120,9 +126,9 @@ Tilt automatically watches files and reloads. If changes aren't applying:
 3. Check resource logs for errors
 4. Restart specific resource if needed (via Tilt UI)
 
-## Project-Specific Examples
+## Example Workflows
 
-### genimg (Python + React)
+### Python + React Stack
 
 ```bash
 tilt up --port 10102
@@ -131,19 +137,20 @@ tilt logs --port 10102 backend
 tilt logs --port 10102 frontend
 ```
 
-### gemimg-nodejs-version
+### Node.js + Frontend + API
 
 ```bash
 tilt up --port 10350
 curl http://localhost:3000/health
 curl http://localhost:3001/
-curl http://localhost:14111/swagger-ui
+curl http://localhost:4111/swagger-ui
 ```
 
-### ai-usage-analyzer
+### Multi-Service Stack
 
 ```bash
 tilt up --port 10301
-# Services: postgres, metabase, fake-data-api, mastra
-tilt logs --port 10301 mastra
+# Services vary by project; inspect active resources first
+tilt get uiresources --port 10301
+tilt logs --port 10301 <resource>
 ```
