@@ -2,6 +2,38 @@
 
 <!-- version list -->
 
+## v0.5.0 (2026-03-01)
+
+### Bug Fixes
+
+- **skills**: Add jq preflight to latest-thread script
+  ([#13](https://github.com/liatrio-labs/ai-prompts/pull/13),
+  [`baa6bc3`](https://github.com/liatrio-labs/ai-prompts/commit/baa6bc3446633379a8c2e1940982a33235f10525))
+
+- **skills**: Encode query params and validate thread JSON
+  ([#13](https://github.com/liatrio-labs/ai-prompts/pull/13),
+  [`baa6bc3`](https://github.com/liatrio-labs/ai-prompts/commit/baa6bc3446633379a8c2e1940982a33235f10525))
+
+- **skills**: Harden mastra-api script parsing and docs
+  ([#13](https://github.com/liatrio-labs/ai-prompts/pull/13),
+  [`baa6bc3`](https://github.com/liatrio-labs/ai-prompts/commit/baa6bc3446633379a8c2e1940982a33235f10525))
+
+### Documentation
+
+- **skills**: Generalize mastra-api reference examples
+  ([#13](https://github.com/liatrio-labs/ai-prompts/pull/13),
+  [`baa6bc3`](https://github.com/liatrio-labs/ai-prompts/commit/baa6bc3446633379a8c2e1940982a33235f10525))
+
+### Features
+
+- **skills**: Add mastra-api skill ([#13](https://github.com/liatrio-labs/ai-prompts/pull/13),
+  [`baa6bc3`](https://github.com/liatrio-labs/ai-prompts/commit/baa6bc3446633379a8c2e1940982a33235f10525))
+
+- **skills**: Add mastra-api skill with debugging scripts
+  ([#13](https://github.com/liatrio-labs/ai-prompts/pull/13),
+  [`baa6bc3`](https://github.com/liatrio-labs/ai-prompts/commit/baa6bc3446633379a8c2e1940982a33235f10525))
+
+
 ## v0.4.0 (2026-03-01)
 
 ### Bug Fixes
