@@ -9,7 +9,7 @@ echo "🔧 Listing Mastra Tools"
 echo "   API: $BASE_URL"
 echo ""
 
-RESPONSE=$(curl -sS "$BASE_URL/tools" 2>/dev/null)
+RESPONSE=$(curl -f -sS "$BASE_URL/tools" 2>/dev/null)
 
 if [ $? -ne 0 ]; then
     echo "❌ Failed to connect to Mastra API"
@@ -23,7 +23,10 @@ if [ -z "$RESPONSE" ] || [ "$RESPONSE" = "{}" ]; then
     exit 0
 fi
 
-echo "$RESPONSE" | jq -r 'to_entries[] | "\n📦 \(.key)\n   ID: \(.value.id)\n   Description: \(.value.description)\n   Input Schema: \(.value.inputSchema | fromjson.json.properties // {} | keys | join(", ") // "none")\n   Requires Approval: \(.value.requireApproval)"'
+echo "$RESPONSE" | jq -r '
+  to_entries[] |
+  "\n📦 \(.key)\n   ID: \(.value.id // "unknown")\n   Description: \(.value.description // "n/a")\n   Input Schema: \((try (.value.inputSchema | fromjson | .json.properties // {} | keys | join(", ")) catch "none"))\n   Requires Approval: \(.value.requireApproval // false)"
+'
 
 if [ $? -ne 0 ]; then
     echo "⚠️  Could not parse tool data. Raw response:"

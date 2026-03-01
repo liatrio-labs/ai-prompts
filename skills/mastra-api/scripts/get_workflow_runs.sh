@@ -17,16 +17,18 @@ if [ -z "$WORKFLOW_NAME" ]; then
 fi
 
 BASE_URL="http://localhost:$PORT/api"
+ENCODED_WORKFLOW_NAME=$(python3 -c 'import sys, urllib.parse; print(urllib.parse.quote(sys.argv[1], safe=""))' "$WORKFLOW_NAME")
 
-echo "🏃 Workflow Runs: $WORKFLOW_NAME"
-echo "   API: $BASE_URL"
-echo "   Page: $PAGE, PerPage: $PER_PAGE"
-echo ""
+echo "🏃 Workflow Runs: $WORKFLOW_NAME" >&2
+echo "   API: $BASE_URL" >&2
+echo "   Page: $PAGE, PerPage: $PER_PAGE" >&2
+echo "" >&2
 
-RESPONSE=$(curl -sS "$BASE_URL/workflows/$WORKFLOW_NAME/runs?page=$PAGE&perPage=$PER_PAGE" 2>/dev/null)
+RESPONSE=$(curl -f -sS "$BASE_URL/workflows/$ENCODED_WORKFLOW_NAME/runs?page=$PAGE&perPage=$PER_PAGE" 2>&1)
 
 if [ $? -ne 0 ]; then
-    echo "❌ Failed to get workflow runs"
+    echo "❌ Failed to get workflow runs" >&2
+    echo "$RESPONSE" >&2
     exit 1
 fi
 
@@ -36,5 +38,5 @@ echo "$RESPONSE" | jq '.'
 TOTAL=$(echo "$RESPONSE" | jq -r '.total // 0')
 RUN_COUNT=$(echo "$RESPONSE" | jq -r '.runs | length')
 
-echo ""
-echo "📈 Summary: $RUN_COUNT run(s) shown, $TOTAL total"
+echo "" >&2
+echo "📈 Summary: $RUN_COUNT run(s) shown, $TOTAL total" >&2

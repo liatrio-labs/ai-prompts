@@ -11,6 +11,8 @@ Interact with the Mastra dev server API to debug agents, view conversations, ins
 
 ### Agent Debugging
 
+Run these `scripts/...` commands from the `skills/mastra-api/` directory. From repo root, prefix them with `skills/mastra-api/`.
+
 ```bash
 # Get latest conversation
 scripts/get_latest_thread.sh <agent-id> [port]
@@ -25,6 +27,8 @@ curl --globoff -sS \
 ```
 
 ### Tools and Workflows
+
+Run these `scripts/...` commands from the `skills/mastra-api/` directory. From repo root, prefix them with `skills/mastra-api/`.
 
 ```bash
 # List all tools
@@ -109,10 +113,10 @@ curl -sS http://localhost:4111/api/workflows/my-workflow | \
 
 ```bash
 # Get traces
-GET /api/observability/traces
+curl -sS http://localhost:4111/api/observability/traces | jq '.'
 
 # Get logs
-GET /api/logs
+curl -sS http://localhost:4111/api/logs | jq '.'
 ```
 
 ## Important Notes

@@ -100,7 +100,7 @@ GET /api/workspaces/{workspaceId}/skills
 
 ```bash
 curl --globoff -sS \
-  "http://localhost:4111/api/memory/threads?page=0&perPage=1&agentId=metabase-agent&orderBy[field]=updatedAt&orderBy[direction]=DESC"
+  "http://localhost:4111/api/memory/threads?page=0&perPage=1&agentId=YOUR_AGENT_ID&orderBy[field]=updatedAt&orderBy[direction]=DESC"
 ```
 
 ### Get Thread Messages
@@ -108,7 +108,7 @@ curl --globoff -sS \
 ```bash
 # Replace THREAD_ID with actual ID
 curl --globoff -sS \
-  "http://localhost:4111/api/memory/threads/THREAD_ID/messages?page=0&perPage=50&agentId=metabase-agent&orderBy[field]=createdAt&orderBy[direction]=DESC"
+  "http://localhost:4111/api/memory/threads/THREAD_ID/messages?page=0&perPage=50&agentId=YOUR_AGENT_ID&orderBy[field]=createdAt&orderBy[direction]=DESC"
 ```
 
 ### Format JSON Output
@@ -128,6 +128,8 @@ curl ... | jq '.'
 ## Debugging Workflow
 
 When the UI doesn't show errors clearly:
+
+Command paths shown as `scripts/...` assume your current working directory is `skills/mastra-api/`. From repo root, use `skills/mastra-api/scripts/...`.
 
 1. **Get the latest thread:**
 

@@ -23,18 +23,21 @@ echo "   API: $BASE_URL"
 echo ""
 
 # Get latest thread
-THREAD_RESPONSE=$(curl --globoff -sS \
-  "$BASE_URL/memory/threads?page=0&perPage=1&agentId=$AGENT_ID&orderBy[field]=updatedAt&orderBy[direction]=DESC" \
-  2>/dev/null)
-
-if [ $? -ne 0 ]; then
+THREAD_RESPONSE=$(curl --globoff -f -sS \
+  "$BASE_URL/memory/threads?page=0&perPage=1&agentId=$AGENT_ID&orderBy[field]=updatedAt&orderBy[direction]=DESC") || {
     echo "❌ Failed to connect to Mastra API"
     echo "   Check that Mastra is running at $BASE_URL"
     exit 1
-fi
+}
 
-# Extract thread ID (using basic JSON parsing)
-THREAD_ID=$(echo "$THREAD_RESPONSE" | grep -o '"id":"[^"]*"' | head -1 | cut -d'"' -f4)
+# Extract thread ID
+THREAD_ID=$(echo "$THREAD_RESPONSE" | jq -r '
+    if type == "array" then .[0].id // empty
+    elif (.threads? | type == "array") then .threads[0].id // empty
+    elif (.data? | type == "array") then .data[0].id // empty
+    else .id // empty
+    end
+')
 
 if [ -z "$THREAD_ID" ]; then
     echo "❌ No threads found for agent: $AGENT_ID"
@@ -48,8 +51,11 @@ if [ "$DETAILED" = "true" ]; then
     echo "📝 Fetching messages..."
     echo ""
 
-    MESSAGES=$(curl --globoff -sS \
-      "$BASE_URL/memory/threads/$THREAD_ID/messages?page=0&perPage=50&agentId=$AGENT_ID&orderBy[field]=createdAt&orderBy[direction]=DESC")
+    MESSAGES=$(curl --globoff -f -sS \
+      "$BASE_URL/memory/threads/$THREAD_ID/messages?page=0&perPage=50&agentId=$AGENT_ID&orderBy[field]=createdAt&orderBy[direction]=DESC") || {
+        echo "❌ Failed to fetch messages for thread: $THREAD_ID"
+        exit 1
+    }
 
     echo "$MESSAGES" | python3 -m json.tool 2>/dev/null || echo "$MESSAGES"
 else
