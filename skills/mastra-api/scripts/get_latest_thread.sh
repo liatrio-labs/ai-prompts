@@ -18,6 +18,12 @@ fi
 
 BASE_URL="http://localhost:$PORT/api"
 
+if ! command -v jq >/dev/null 2>&1; then
+    echo "❌ jq is required but not installed."
+    echo "   Install jq and retry."
+    exit 1
+fi
+
 echo "🔍 Fetching latest thread for agent: $AGENT_ID"
 echo "   API: $BASE_URL"
 echo ""
