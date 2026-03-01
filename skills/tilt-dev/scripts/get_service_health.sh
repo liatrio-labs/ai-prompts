@@ -7,7 +7,7 @@ echo ""
 
 # Backend
 echo "Backend (port 3000):"
-if curl -s --max-time 2 http://localhost:3000/health > /dev/null 2>&1; then
+if curl -sSf --max-time 2 http://localhost:3000/health > /dev/null; then
     echo "  ✅ Healthy"
 else
     echo "  ❌ Unreachable or unhealthy"
@@ -15,7 +15,7 @@ fi
 
 # Frontend
 echo "Frontend (port 3001):"
-if curl -s --max-time 2 http://localhost:3001/ > /dev/null 2>&1; then
+if curl -sSf --max-time 2 http://localhost:3001/ > /dev/null; then
     echo "  ✅ Healthy"
 else
     echo "  ❌ Unreachable or unhealthy"
@@ -25,11 +25,11 @@ fi
 echo "Mastra (port 4111 or 14111):"
 MASTRA_PORT=4111
 MASTRA_HEALTHY=0
-if curl -s --max-time 2 "http://localhost:$MASTRA_PORT/swagger-ui" > /dev/null 2>&1; then
+if curl -sSf --max-time 2 "http://localhost:$MASTRA_PORT/swagger-ui" > /dev/null; then
     MASTRA_HEALTHY=1
 else
     MASTRA_PORT=14111
-    if curl -s --max-time 2 "http://localhost:$MASTRA_PORT/swagger-ui" > /dev/null 2>&1; then
+    if curl -sSf --max-time 2 "http://localhost:$MASTRA_PORT/swagger-ui" > /dev/null; then
         MASTRA_HEALTHY=1
     fi
 fi

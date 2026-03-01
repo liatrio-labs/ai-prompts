@@ -59,7 +59,8 @@ Services may already be running with hot reload enabled. Before running `tilt up
    ```bash
    curl http://localhost:3000/health     # Backend
    curl http://localhost:3001/           # Frontend
-   curl http://localhost:4111/swagger-ui # Mastra
+   curl http://localhost:4111/swagger-ui # Mastra (primary)
+   curl http://localhost:14111/swagger-ui # Mastra (fallback)
    ```
 
 ### Tiltfile Language (Starlark)
