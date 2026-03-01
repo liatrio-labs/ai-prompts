@@ -163,5 +163,5 @@ Before finalizing, run this loop:
 - `assets/liatrio-brand-guidelines-consolidated.png`
 - `references/liatrio-brand-guidelines.md`
 - `assets/logos/` (if populated)
-- `https://liatrio.com/brand`
+- `https://www.liatrio.com/brand`
 - `https://www.liatrio.com/brand-data.json`

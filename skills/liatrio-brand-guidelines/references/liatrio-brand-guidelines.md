@@ -33,8 +33,8 @@ Primary logo for light backgrounds.
 
 **Downloads:**
 
-- [SVG](/brand-logos/logo_Liatrio.svg)
-- [PNG](/brand-logos/logo_Liatrio.png)
+- [SVG](https://www.liatrio.com/brand-logos/logo_Liatrio.svg)
+- [PNG](https://www.liatrio.com/brand-logos/logo_Liatrio.png)
 
 ### Black Logo (Light Backgrounds)
 
@@ -46,8 +46,8 @@ Black variant for light backgrounds.
 
 **Downloads:**
 
-- [SVG](/brand-logos/logo_Liatrio_black.svg)
-- [PNG](/brand-logos/logo_Liatrio_black.png)
+- [SVG](https://www.liatrio.com/brand-logos/logo_Liatrio_black.svg)
+- [PNG](https://www.liatrio.com/brand-logos/logo_Liatrio_black.png)
 
 ### Reverse Color Logo (Dark Backgrounds)
 
@@ -59,8 +59,8 @@ For dark backgrounds.
 
 **Downloads:**
 
-- [SVG](/brand-logos/logo_Liatrio_reverse-preferred.svg)
-- [PNG](/brand-logos/logo_Liatrio_reverse-preferred.png)
+- [SVG](https://www.liatrio.com/brand-logos/logo_Liatrio_reverse-preferred.svg)
+- [PNG](https://www.liatrio.com/brand-logos/logo_Liatrio_reverse-preferred.png)
 
 ### Reverse White Logo (Dark Backgrounds)
 
@@ -72,8 +72,8 @@ White variant for dark backgrounds.
 
 **Downloads:**
 
-- [SVG](/brand-logos/logo_Liatrio_reverse.svg)
-- [PNG](/brand-logos/logo_Liatrio_reverse.png)
+- [SVG](https://www.liatrio.com/brand-logos/logo_Liatrio_reverse.svg)
+- [PNG](https://www.liatrio.com/brand-logos/logo_Liatrio_reverse.png)
 
 ### Logomarks
 
@@ -85,8 +85,8 @@ Works on light or dark backgrounds (avoid green backgrounds).
 
 **Downloads:**
 
-- [SVG](/brand-logos/logomark_Liatrio.svg)
-- [PNG](/brand-logos/logomark_Liatrio.png)
+- [SVG](https://www.liatrio.com/brand-logos/logomark_Liatrio.svg)
+- [PNG](https://www.liatrio.com/brand-logos/logomark_Liatrio.png)
 
 #### Square Logomark
 
@@ -94,8 +94,8 @@ For when logomark must be displayed evenly on all sides.
 
 **Downloads:**
 
-- [SVG](/brand-logos/logomark_Liatrio_background.svg)
-- [PNG](/brand-logos/logomark_Liatrio_background.png)
+- [SVG](https://www.liatrio.com/brand-logos/logomark_Liatrio_background.svg)
+- [PNG](https://www.liatrio.com/brand-logos/logomark_Liatrio_background.png)
 
 #### Reverse Logomark
 
@@ -103,8 +103,8 @@ For dark backgrounds.
 
 **Downloads:**
 
-- [SVG](/brand-logos/logomark_Liatrio_reverse.svg)
-- [PNG](/brand-logos/logomark_Liatrio_reverse.png)
+- [SVG](https://www.liatrio.com/brand-logos/logomark_Liatrio_reverse.svg)
+- [PNG](https://www.liatrio.com/brand-logos/logomark_Liatrio_reverse.png)
 
 #### Black Logomark
 
@@ -112,8 +112,8 @@ For light backgrounds.
 
 **Downloads:**
 
-- [SVG](/brand-logos/logomark_Liatrio_black.svg)
-- [PNG](/brand-logos/logomark_Liatrio_black.png)
+- [SVG](https://www.liatrio.com/brand-logos/logomark_Liatrio_black.svg)
+- [PNG](https://www.liatrio.com/brand-logos/logomark_Liatrio_black.png)
 
 ---
 
