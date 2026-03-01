@@ -29,7 +29,7 @@ ALLOWED_RESOURCES = {"scripts", "references", "assets"}
 
 SKILL_TEMPLATE = """---
 name: {skill_name}
-description: [TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this skill - specific scenarios, file types, or tasks that trigger it.]
+description: "TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this skill - specific scenarios, file types, or tasks that trigger it."
 ---
 
 # {skill_title}
@@ -284,7 +284,7 @@ def init_skill(skill_name, path, resources, include_examples, interface_override
     try:
         skill_dir.mkdir(parents=True, exist_ok=False)
         print(f"[OK] Created skill directory: {skill_dir}")
-    except Exception as e:
+    except OSError as e:
         print(f"[ERROR] Error creating directory: {e}")
         return None
 
@@ -296,7 +296,7 @@ def init_skill(skill_name, path, resources, include_examples, interface_override
     try:
         skill_md_path.write_text(skill_content)
         print("[OK] Created SKILL.md")
-    except Exception as e:
+    except (OSError, UnicodeEncodeError) as e:
         print(f"[ERROR] Error creating SKILL.md: {e}")
         return None
 
@@ -305,7 +305,7 @@ def init_skill(skill_name, path, resources, include_examples, interface_override
         result = write_openai_yaml(skill_dir, skill_name, interface_overrides)
         if not result:
             return None
-    except Exception as e:
+    except (OSError, UnicodeEncodeError) as e:
         print(f"[ERROR] Error creating agents/openai.yaml: {e}")
         return None
 
@@ -313,7 +313,7 @@ def init_skill(skill_name, path, resources, include_examples, interface_override
     if resources:
         try:
             create_resource_dirs(skill_dir, skill_name, skill_title, resources, include_examples)
-        except Exception as e:
+        except (OSError, UnicodeEncodeError) as e:
             print(f"[ERROR] Error creating resource directories: {e}")
             return None
 
