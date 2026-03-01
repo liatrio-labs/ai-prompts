@@ -2,6 +2,34 @@
 
 <!-- version list -->
 
+## v0.6.0 (2026-03-01)
+
+### Bug Fixes
+
+- **skills**: Align tilt health checks with HTTP failure semantics
+  ([#14](https://github.com/liatrio-labs/ai-prompts/pull/14),
+  [`a2893b8`](https://github.com/liatrio-labs/ai-prompts/commit/a2893b89d3d404606338850692cea1ad4c7feb1c))
+
+- **skills**: Harden tilt-dev service checks and docs
+  ([#14](https://github.com/liatrio-labs/ai-prompts/pull/14),
+  [`a2893b8`](https://github.com/liatrio-labs/ai-prompts/commit/a2893b89d3d404606338850692cea1ad4c7feb1c))
+
+### Documentation
+
+- **skills**: Generalize tilt command reference
+  ([#14](https://github.com/liatrio-labs/ai-prompts/pull/14),
+  [`a2893b8`](https://github.com/liatrio-labs/ai-prompts/commit/a2893b89d3d404606338850692cea1ad4c7feb1c))
+
+### Features
+
+- **skills**: Add tilt-dev skill ([#14](https://github.com/liatrio-labs/ai-prompts/pull/14),
+  [`a2893b8`](https://github.com/liatrio-labs/ai-prompts/commit/a2893b89d3d404606338850692cea1ad4c7feb1c))
+
+- **skills**: Add tilt-dev skill for local environment operations
+  ([#14](https://github.com/liatrio-labs/ai-prompts/pull/14),
+  [`a2893b8`](https://github.com/liatrio-labs/ai-prompts/commit/a2893b89d3d404606338850692cea1ad4c7feb1c))
+
+
 ## v0.5.0 (2026-03-01)
 
 ### Bug Fixes
