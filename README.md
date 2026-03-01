@@ -76,6 +76,7 @@ Context Markers are emoji-based verification techniques used to detect context r
 | 🚀 | `development/create-pull-request.md` | Pull Request / Merge Request Description Generator |
 | 📋 | `development/address-pr-review-feedback.md` | Fetch PR Review Feedback |
 | 🔍 | `development/review-branch.md` | Review Branch Against Base |
+| ✅ | `development/review-tasks.md` | Interactive Task Review |
 | 🔄 | `development/squash-merge.md` | Squash Merge to Main |
 | 📚 | `documentation-and-research/check-docs.md` | Check Documentation |
 | 🧪 | `documentation-and-research/improve-prompt-with-research.md` | Improve Prompt with Research-Backed Best Practices |
