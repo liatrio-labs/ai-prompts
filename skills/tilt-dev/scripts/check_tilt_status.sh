@@ -7,8 +7,8 @@ PORT=${1:-10350}
 echo "🔍 Checking Tilt status on port $PORT..."
 echo ""
 
-# Check if Tilt is running
-if ! pgrep -f "tilt.*--port.*$PORT" > /dev/null; then
+# Check if Tilt API is reachable on the target port
+if ! curl -s --max-time 2 "http://localhost:$PORT/api/view" > /dev/null 2>&1; then
     echo "❌ Tilt does not appear to be running on port $PORT"
     echo ""
     echo "To start Tilt:"

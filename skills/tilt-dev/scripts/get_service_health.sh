@@ -24,11 +24,17 @@ fi
 # Mastra dev server
 echo "Mastra (port 4111 or 14111):"
 MASTRA_PORT=4111
-if ! curl -s --max-time 2 http://localhost:$MASTRA_PORT/swagger-ui > /dev/null 2>&1; then
+MASTRA_HEALTHY=0
+if curl -s --max-time 2 "http://localhost:$MASTRA_PORT/swagger-ui" > /dev/null 2>&1; then
+    MASTRA_HEALTHY=1
+else
     MASTRA_PORT=14111
+    if curl -s --max-time 2 "http://localhost:$MASTRA_PORT/swagger-ui" > /dev/null 2>&1; then
+        MASTRA_HEALTHY=1
+    fi
 fi
 
-if curl -s --max-time 2 http://localhost:$MASTRA_PORT/swagger-ui > /dev/null 2>&1; then
+if [ "$MASTRA_HEALTHY" -eq 1 ]; then
     echo "  ✅ Healthy (port $MASTRA_PORT)"
     echo "     Swagger: http://localhost:$MASTRA_PORT/swagger-ui"
 else

@@ -9,6 +9,8 @@ Manage and troubleshoot local development stacks orchestrated by Tilt.
 
 ## Quick Start
 
+Script paths shown as `scripts/...` assume your current working directory is `skills/tilt-dev/`. From repo root, use `skills/tilt-dev/scripts/...`.
+
 ### Check if Services Are Running
 
 Always check before starting Tilt:
