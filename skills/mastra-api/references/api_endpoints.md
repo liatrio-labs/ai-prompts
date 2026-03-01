@@ -2,10 +2,9 @@
 
 ## Base Configuration
 
-**Base URLs:**
+**Base URL:**
 
 - Standard: `http://localhost:4111/api`
-- Custom ports: `http://localhost:10305/api` (varies by project)
 
 **Swagger UI:**
 
@@ -184,15 +183,9 @@ Some endpoints support filtering by:
 - `workspaceId` - Filter by workspace
 - Other endpoint-specific filters
 
-## Project-Specific Port Configurations
+## Port Configuration Notes
 
-| Project | Mastra Port |
-|---------|-------------|
-| Default | 4111 |
-| gemimg-nodejs-version | 14111 |
-| ai-usage-analyzer | 10305 |
-
-Always check project documentation or Tiltfile for port configuration.
+Always check project documentation for port configuration.
 
 ## Error Handling
 
@@ -200,7 +193,7 @@ Always check project documentation or Tiltfile for port configuration.
 
 If connection fails:
 
-1. Check if Mastra is running (Tilt status)
+1. Check if Mastra is running
 2. Verify correct port
 3. Check health endpoint: `curl http://localhost:4111/health`
 

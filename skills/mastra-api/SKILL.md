@@ -102,7 +102,7 @@ scripts/get_workflow_runs.sh my-workflow | \
 ```bash
 # Get tool input parameters
 curl -sS http://localhost:4111/api/tools | \
-  jq '.weatherTool.inputSchema | fromjson.json.properties | keys'
+  jq '.YOUR_TOOL_KEY.inputSchema | fromjson.json.properties | keys'
 
 # Get workflow input requirements
 curl -sS http://localhost:4111/api/workflows/my-workflow | \
@@ -134,12 +134,6 @@ Without `--globoff`, curl treats `[...]` as character ranges.
 ### API Base URLs
 
 Standard: `http://localhost:4111/api`
-
-Project-specific ports:
-
-- gemimg-nodejs-version: `14111`
-- ai-usage-analyzer: `10305`
-- Default: `4111`
 
 ### Swagger Documentation
 

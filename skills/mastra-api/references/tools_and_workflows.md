@@ -219,7 +219,7 @@ If `/api/tools` or `/api/workflows` returns `{}`:
 
 - Tools/workflows may not be registered yet
 - Check that Mastra instance has been initialized
-- Verify tool/workflow imports in `src/mastra/index.ts`
+- Verify tools/workflows are registered in your Mastra bootstrap/runtime setup
 
 ### Schema Parsing Errors
 
