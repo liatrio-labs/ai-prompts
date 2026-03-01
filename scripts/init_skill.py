@@ -19,6 +19,7 @@ Examples:
 
 import argparse
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -288,6 +289,15 @@ def init_skill(skill_name, path, resources, include_examples, interface_override
         print(f"[ERROR] Error creating directory: {e}")
         return None
 
+    def rollback_skill_dir():
+        if not skill_dir.exists():
+            return
+        try:
+            shutil.rmtree(skill_dir)
+            print(f"[INFO] Rolled back partially created skill directory: {skill_dir}")
+        except OSError as cleanup_err:
+            print(f"[WARN] Failed to clean up {skill_dir}: {cleanup_err}")
+
     # Create SKILL.md from template
     skill_title = title_case_skill_name(skill_name)
     skill_content = SKILL_TEMPLATE.format(skill_name=skill_name, skill_title=skill_title)
@@ -298,15 +308,18 @@ def init_skill(skill_name, path, resources, include_examples, interface_override
         print("[OK] Created SKILL.md")
     except (OSError, UnicodeEncodeError) as e:
         print(f"[ERROR] Error creating SKILL.md: {e}")
+        rollback_skill_dir()
         return None
 
     # Create agents/openai.yaml
     try:
         result = write_openai_yaml(skill_dir, skill_name, interface_overrides)
         if not result:
+            rollback_skill_dir()
             return None
     except (OSError, UnicodeEncodeError) as e:
         print(f"[ERROR] Error creating agents/openai.yaml: {e}")
+        rollback_skill_dir()
         return None
 
     # Create resource directories if requested
@@ -315,6 +328,7 @@ def init_skill(skill_name, path, resources, include_examples, interface_override
             create_resource_dirs(skill_dir, skill_name, skill_title, resources, include_examples)
         except (OSError, UnicodeEncodeError) as e:
             print(f"[ERROR] Error creating resource directories: {e}")
+            rollback_skill_dir()
             return None
 
     # Print next steps
