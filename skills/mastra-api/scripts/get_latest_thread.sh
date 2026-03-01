@@ -29,21 +29,31 @@ echo "   API: $BASE_URL"
 echo ""
 
 # Get latest thread
-THREAD_RESPONSE=$(curl --globoff -f -sS \
-  "$BASE_URL/memory/threads?page=0&perPage=1&agentId=$AGENT_ID&orderBy[field]=updatedAt&orderBy[direction]=DESC") || {
+THREAD_RESPONSE=$(curl --globoff -f -sS --get \
+  --data-urlencode "page=0" \
+  --data-urlencode "perPage=1" \
+  --data-urlencode "agentId=$AGENT_ID" \
+  --data-urlencode "orderBy[field]=updatedAt" \
+  --data-urlencode "orderBy[direction]=DESC" \
+  "$BASE_URL/memory/threads") || {
     echo "❌ Failed to connect to Mastra API"
     echo "   Check that Mastra is running at $BASE_URL"
     exit 1
 }
 
+if ! jq -e '.' >/dev/null 2>&1 <<<"$THREAD_RESPONSE"; then
+    echo "❌ Unexpected non-JSON THREAD_RESPONSE from Mastra API"
+    exit 1
+fi
+
 # Extract thread ID
-THREAD_ID=$(echo "$THREAD_RESPONSE" | jq -r '
+THREAD_ID=$(jq -r '
     if type == "array" then .[0].id // empty
     elif (.threads? | type == "array") then .threads[0].id // empty
     elif (.data? | type == "array") then .data[0].id // empty
     else .id // empty
     end
-')
+' <<<"$THREAD_RESPONSE")
 
 if [ -z "$THREAD_ID" ]; then
     echo "❌ No threads found for agent: $AGENT_ID"
@@ -57,8 +67,13 @@ if [ "$DETAILED" = "true" ]; then
     echo "📝 Fetching messages..."
     echo ""
 
-    MESSAGES=$(curl --globoff -f -sS \
-      "$BASE_URL/memory/threads/$THREAD_ID/messages?page=0&perPage=50&agentId=$AGENT_ID&orderBy[field]=createdAt&orderBy[direction]=DESC") || {
+    MESSAGES=$(curl --globoff -f -sS --get \
+      --data-urlencode "page=0" \
+      --data-urlencode "perPage=50" \
+      --data-urlencode "agentId=$AGENT_ID" \
+      --data-urlencode "orderBy[field]=createdAt" \
+      --data-urlencode "orderBy[direction]=DESC" \
+      "$BASE_URL/memory/threads/$THREAD_ID/messages") || {
         echo "❌ Failed to fetch messages for thread: $THREAD_ID"
         exit 1
     }
@@ -66,5 +81,5 @@ if [ "$DETAILED" = "true" ]; then
     echo "$MESSAGES" | python3 -m json.tool 2>/dev/null || echo "$MESSAGES"
 else
     echo "💡 To see messages, run:"
-    echo "   curl --globoff -sS \"$BASE_URL/memory/threads/$THREAD_ID/messages?page=0&perPage=50&agentId=$AGENT_ID&orderBy[field]=createdAt&orderBy[direction]=DESC\" | python3 -m json.tool"
+    echo "   curl --globoff -sS --get \"$BASE_URL/memory/threads/$THREAD_ID/messages\" --data-urlencode \"page=0\" --data-urlencode \"perPage=50\" --data-urlencode \"agentId=$AGENT_ID\" --data-urlencode \"orderBy[field]=createdAt\" --data-urlencode \"orderBy[direction]=DESC\" | python3 -m json.tool"
 fi
