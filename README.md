@@ -1,12 +1,12 @@
-# AI Prompts
+# AI Prompts and Skills
 
-A collection of prompts for use in AI tools as part of day-to-day software development.
+A collection of reusable prompts and skills for AI tools used in day-to-day software development.
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://github.com/liatrio-labs/ai-prompts/blob/main/LICENSE)
 
 ## About This Collection
 
-This collection contains curated prompts for AI tools that support day-to-day software development activities. The prompts are organized by use case and designed to be easily integrated into various development workflows.
+This collection contains curated prompts and skills for AI tools that support day-to-day software development activities. Prompts and skills are organized by use case and designed to be integrated into different assistant workflows.
 
 ## Quick Start
 
@@ -17,12 +17,22 @@ git clone https://github.com/liatrio-labs/ai-prompts.git
 cd ai-prompts
 ```
 
-### 2. Browse the Prompts
+### 2. Browse Prompts and Skills
 
-The prompts are organized in the `prompts/` directory by category:
+Prompts are organized in the `prompts/` directory by category:
 
 - `development/` - Development workflow and coding prompts
 - `documentation-and-research/` - Documentation, content generation, and research prompts
+
+Skills are organized in the `skills/` directory by capability:
+
+- `git-commit-conventional/` - Conventional commit message and commit hygiene guidance
+- `create-pull-request/` - PR/MR drafting and optional creation workflow
+- `create-mermaid-diagrams/` - Mermaid diagram creation and validation workflow
+- `liatrio-brand-guidelines/` - Liatrio visual brand standards and UI compliance guidance
+- `mastra-api/` - Mastra development API debugging and inspection workflows
+- `tilt-dev/` - Tilt-based local development environment operations
+- `uv-usage/` - `uv` package manager workflows and command guidance
 
 ### 3. Use Prompts with AI Tools
 
@@ -48,6 +58,33 @@ uvx --from git+https://github.com/liatrio-labs/slash-command-manager slash-man g
 
 See the [Slash Command Manager documentation](https://github.com/liatrio-labs/slash-command-manager) for more details.
 
+### 4. Use Skills with `npx skills`
+
+Install repository skills using the [`skills.sh`](https://skills.sh) CLI:
+
+```bash
+# List available skills in this repository without installing
+npx skills add liatrio-labs/ai-prompts --list
+
+# Install all skills from this repository
+npx skills add liatrio-labs/ai-prompts --all
+
+# Install specific skills
+npx skills add liatrio-labs/ai-prompts --skill git-commit-conventional --skill create-pull-request
+
+# Install to specific agents
+npx skills add liatrio-labs/ai-prompts --skill create-mermaid-diagrams -a cursor -a codex
+
+# Install globally instead of project scope
+npx skills add liatrio-labs/ai-prompts --skill git-commit-conventional -g
+```
+
+Compatibility notes:
+
+- `allowed-tools` support varies by agent, so keep frontmatter portable across assistants.
+- Use `DISABLE_TELEMETRY=1` (or `DO_NOT_TRACK=1`) to opt out of telemetry when running the CLI.
+- If internal skills are introduced later, prefix the command with `INSTALL_INTERNAL_SKILLS=1` (for example, `INSTALL_INTERNAL_SKILLS=1 npx skills add liatrio-labs/ai-prompts --list`) to include them in discovery.
+
 ## Skill Creation Scripts (Agent-Focused)
 
 This repository includes local helper scripts for AI-agent-driven skill authoring workflows.
@@ -70,30 +107,61 @@ For a fuller workflow and troubleshooting notes, see [docs/development.md](docs/
 
 Context Markers are emoji-based verification techniques used to detect context rot and ensure critical instructions are being processed correctly by AI agents. This approach provides immediate visual feedback that instructions are being followed, addressing the systematic degradation of AI performance as context length increases. The technique involves requiring AI responses to begin with specific emoji markers, giving users a coarse check that may help detect when context instructions have been lost due to context window limitations or compaction inefficiencies.
 
+### Skills
+
+| Emoji | Skill File | Description |
+| :---: | :--- | :--- |
+| 🎯 | `skills/git-commit-conventional/SKILL.md` | Conventional Commit Skill |
+| 🚀 | `skills/create-pull-request/SKILL.md` | Pull Request / Merge Request Description Skill |
+| 🎨 | `skills/create-mermaid-diagrams/SKILL.md` | Create Mermaid Diagrams Skill |
+
+Only skills with marker-based context-rot checks are listed here. Skills without marker rows in this table (for example, `liatrio-brand-guidelines`, `mastra-api`, `tilt-dev`, and `uv-usage`) do not define required response markers.
+
+### Prompts
+
 | Emoji | Prompt File | Description |
 | :---: | :--- | :--- |
-| 🎯 | `development/commit.md` | Conventional Commit Generator |
-| 🚀 | `development/create-pull-request.md` | Pull Request / Merge Request Description Generator |
-| 📋 | `development/address-pr-review-feedback.md` | Fetch PR Review Feedback |
-| 🔍 | `development/review-branch.md` | Review Branch Against Base |
-| 🔄 | `development/squash-merge.md` | Squash Merge to Main |
-| 📚 | `documentation-and-research/check-docs.md` | Check Documentation |
-| 🧪 | `documentation-and-research/improve-prompt-with-research.md` | Improve Prompt with Research-Backed Best Practices |
-| 📖 | `documentation-and-research/review-documentation.md` | Review and Improve Codebase Documentation |
-| 🎨 | `documentation-and-research/create-mermaid-diagrams.md` | Create Effective Mermaid Diagrams |
-| 🤖 | `AGENTS.md` | AI Agent Instructions and Configuration |
+| 📋 | `prompts/development/address-pr-review-feedback.md` | Fetch PR Review Feedback |
+| 🔍 | `prompts/development/review-branch.md` | Review Branch Against Base |
+| 🔄 | `prompts/development/squash-merge.md` | Squash Merge to Main |
+| 📚 | `prompts/documentation-and-research/check-docs.md` | Check Documentation |
+| 🧪 | `prompts/documentation-and-research/improve-prompt-with-research.md` | Improve Prompt with Research-Backed Best Practices |
+| 📖 | `prompts/documentation-and-research/review-documentation.md` | Review and Improve Codebase Documentation |
+
+Repository marker: `🤖` in `AGENTS.md` for AI Agent Instructions and configuration.
+
+## Skills Catalog
+
+| Skill | File | Description |
+| :--- | :--- | :--- |
+| `git-commit-conventional` | `skills/git-commit-conventional/SKILL.md` | Create conventional commits with commit hygiene and pre-commit-aware workflows. |
+| `create-pull-request` | `skills/create-pull-request/SKILL.md` | Draft reviewer-ready PR/MR descriptions and optionally create PRs via CLI. |
+| `create-mermaid-diagrams` | `skills/create-mermaid-diagrams/SKILL.md` | Create, validate, and repair Mermaid diagrams with a deterministic CLI loop. |
+| `liatrio-brand-guidelines` | `skills/liatrio-brand-guidelines/SKILL.md` | Apply Liatrio brand guidance for UI design and brand compliance reviews. |
+| `mastra-api` | `skills/mastra-api/SKILL.md` | Debug Mastra agents, tools, workflows, and runtime state via API workflows. |
+| `tilt-dev` | `skills/tilt-dev/SKILL.md` | Manage and troubleshoot Tilt-orchestrated local development stacks. |
+| `uv-usage` | `skills/uv-usage/SKILL.md` | Provide concise guidance for `uv` project and dependency workflows. |
+
+## Prompt-to-Skill Migration Map
+
+The following prompts have been migrated to skills:
+
+- `prompts/development/commit.md` -> `skills/git-commit-conventional/SKILL.md`
+- `prompts/development/create-pull-request.md` -> `skills/create-pull-request/SKILL.md`
+- `prompts/documentation-and-research/create-mermaid-diagrams.md` -> `skills/create-mermaid-diagrams/SKILL.md`
 
 ## Documentation
 
-- [Contributing Guidelines](CONTRIBUTING.md) - How to contribute new prompts and improvements
+- [Contributing Guidelines](CONTRIBUTING.md) - How to contribute prompts, skills, and improvements
+- [Development Guide](docs/development.md) - Prompt and skill authoring workflow and validation
 - [Code of Conduct](CODE_OF_CONDUCT.md) - Community expectations and reporting guidance
 
 ## Contributing
 
 We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on:
 
-- Adding new prompts
-- Improving existing prompts
+- Adding new prompts and skills
+- Improving existing prompts and skills
 - Submitting issues and feedback
 - Following our commit conventions
 
