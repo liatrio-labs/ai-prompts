@@ -11,9 +11,10 @@ Use uv as a fast, unified tool for Python projects:
 
 1. Initialize a project: `uv init`
 2. Add deps: `uv add <package>`
-3. Create lockfile: `uv lock`
-4. Sync env: `uv sync`
-5. Run commands: `uv run <cmd>`
+3. Sync env: `uv sync`
+4. Run commands: `uv run <cmd>`
+
+`uv add` updates `uv.lock` automatically; use `uv lock` when you need to re-lock after manual `pyproject.toml` edits.
 
 ## Inline dependencies (PEP 723 scripts)
 
@@ -58,7 +59,7 @@ Use these for drop-in workflows or legacy projects:
 ```bash
 uv pip install <package>
 uv pip install -r requirements.txt
-uv pip compile -o requirements.txt
+uv pip compile requirements.in -o requirements.txt
 uv pip sync requirements.txt
 ```
 
@@ -91,4 +92,5 @@ uv run script.py
 ## Notes
 
 - uv offers pip-compatible commands, but behavior can differ in edge cases.
-- Prefer project workflow (`uv add`, `uv lock`, `uv sync`) for new work.
+- Use `uvx <tool>` (alias for `uv tool run`) to run tools ephemerally without installing them globally.
+- Prefer project workflow (`uv add`, `uv sync`) for new work, and run `uv lock` when re-locking after manual `pyproject.toml` changes.
