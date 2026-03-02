@@ -1,0 +1,3 @@
+interface:
+  display_name: "Branch Surgery PR Split"
+  short_description: "Split oversized branches into safe, reviewable PR stacks"
