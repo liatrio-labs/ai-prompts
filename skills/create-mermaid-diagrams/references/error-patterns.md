@@ -56,5 +56,7 @@ Use `mmdc` exit code and raw Mermaid CLI stderr output from the full markdown fi
 ## Final Failure Report Shape
 
 - `attempts`: integer
+- `failed_command`: exact command used for the last failed run
+- `exit_code`: integer or `null` if unavailable
 - `last_error_excerpt`: stderr excerpt
 - `suggested_next_fix`: concise manual action
