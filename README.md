@@ -67,6 +67,9 @@ Install repository skills using the [`skills.sh`](https://skills.sh) CLI:
 # List available skills in this repository without installing
 npx skills add liatrio-labs/ai-prompts --list
 
+# Add all skills from this repository to your local setup (non-interactive)
+npx -y skills add liatrio-labs/ai-prompts --all
+
 # Install all skills from this repository
 npx skills add liatrio-labs/ai-prompts --all
 
