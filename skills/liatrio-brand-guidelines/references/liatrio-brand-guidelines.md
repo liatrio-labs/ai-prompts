@@ -14,7 +14,7 @@ Official brand guidelines, assets, and resources for Liatrio.
 - [Icons](#icons)
 - [Components](#components)
 - [Spacing & Layout](#spacing--layout)
-- [Brand Guidelines](#brand-guidelines)
+- [Brand Usage Guidelines](#brand-usage-guidelines)
 - [Programmatic Access](#programmatic-access)
 
 ---
@@ -336,7 +336,7 @@ Elevation and depth effects.
 
 ---
 
-## Brand Guidelines
+## Brand Usage Guidelines
 
 Essential principles for maintaining brand consistency.
 

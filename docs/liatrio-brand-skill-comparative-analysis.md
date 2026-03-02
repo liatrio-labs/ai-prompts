@@ -8,7 +8,7 @@ This document compares three Liatrio brand skills and records the consolidation 
 
 1. [liatrio/liatrio-branding-skill](https://github.com/liatrio/liatrio-branding-skill) (`skills/liatrio-brand/SKILL.md`)
 2. [liatrio-labs/claude-plugins](https://github.com/liatrio-labs/claude-plugins/tree/main/plugins/liatrio-branding/skills/liatrio-brand-guide) (`plugins/liatrio-branding/skills/liatrio-brand-guide/SKILL.md`)
-3. [liatrio-labs/ai-prompts](https://github.com/liatrio-labs/ai-prompts/pull/12/changes/8547d317a401f1c0d02ae120563ff066ca7d755f) (`skills/liatrio-brand-guidelines/SKILL.md`)
+3. [liatrio-labs/ai-prompts](https://github.com/liatrio-labs/ai-prompts/blob/main/skills/liatrio-brand-guidelines/SKILL.md) (`skills/liatrio-brand-guidelines/SKILL.md`)
 
 ## Canonical Brand Source
 
