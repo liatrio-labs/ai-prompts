@@ -2,6 +2,47 @@
 
 <!-- version list -->
 
+## v0.8.0 (2026-03-02)
+
+### Bug Fixes
+
+- **prompts**: Align review-feedback prerequisites and body-length logic
+  ([#8](https://github.com/liatrio-labs/ai-prompts/pull/8),
+  [`ff92631`](https://github.com/liatrio-labs/ai-prompts/commit/ff926319c1f9ca951503261ec2f3c020afbaa035))
+
+- **prompts**: Permit required gh commands in allowed-tools
+  ([#8](https://github.com/liatrio-labs/ai-prompts/pull/8),
+  [`ff92631`](https://github.com/liatrio-labs/ai-prompts/commit/ff926319c1f9ca951503261ec2f3c020afbaa035))
+
+- **skills**: Harden create-pr context collection and docs
+  ([#10](https://github.com/liatrio-labs/ai-prompts/pull/10),
+  [`7636c65`](https://github.com/liatrio-labs/ai-prompts/commit/7636c6518ec3bb0897b5474ee9aacd03ade80a41))
+
+### Features
+
+- **prompts**: Add Chain-of-Verification guidance for review feedback
+  ([#8](https://github.com/liatrio-labs/ai-prompts/pull/8),
+  [`ff92631`](https://github.com/liatrio-labs/ai-prompts/commit/ff926319c1f9ca951503261ec2f3c020afbaa035))
+
+- **prompts**: Add Chain-of-Verification to review feedback prompts
+  ([#8](https://github.com/liatrio-labs/ai-prompts/pull/8),
+  [`ff92631`](https://github.com/liatrio-labs/ai-prompts/commit/ff926319c1f9ca951503261ec2f3c020afbaa035))
+
+- **skills**: Add create-pull-request skill
+  ([#10](https://github.com/liatrio-labs/ai-prompts/pull/10),
+  [`7636c65`](https://github.com/liatrio-labs/ai-prompts/commit/7636c6518ec3bb0897b5474ee9aacd03ade80a41))
+
+- **skills**: Add create-pull-request skill and migrate prompt
+  ([#10](https://github.com/liatrio-labs/ai-prompts/pull/10),
+  [`7636c65`](https://github.com/liatrio-labs/ai-prompts/commit/7636c6518ec3bb0897b5474ee9aacd03ade80a41))
+
+### Refactoring
+
+- **prompts**: Migrate create-pull-request prompt to skill
+  ([#10](https://github.com/liatrio-labs/ai-prompts/pull/10),
+  [`7636c65`](https://github.com/liatrio-labs/ai-prompts/commit/7636c6518ec3bb0897b5474ee9aacd03ade80a41))
+
+
 ## v0.7.0 (2026-03-02)
 
 ### Bug Fixes
