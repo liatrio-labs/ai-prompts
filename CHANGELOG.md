@@ -2,6 +2,29 @@
 
 <!-- version list -->
 
+## v0.10.0 (2026-03-02)
+
+### Documentation
+
+- **repo**: Align docs with prompts-to-skills migration
+  ([#16](https://github.com/liatrio-labs/ai-prompts/pull/16),
+  [`8267e7e`](https://github.com/liatrio-labs/ai-prompts/commit/8267e7e72e5509a3a87b72c82c26064d2841b799))
+
+- **skills**: Clarify branch-surgery review criteria
+  ([#17](https://github.com/liatrio-labs/ai-prompts/pull/17),
+  [`d3811be`](https://github.com/liatrio-labs/ai-prompts/commit/d3811be1b4369ea7237a333180b14f479e539d73))
+
+### Features
+
+- **skills**: Add branch surgery PR split skill
+  ([#17](https://github.com/liatrio-labs/ai-prompts/pull/17),
+  [`d3811be`](https://github.com/liatrio-labs/ai-prompts/commit/d3811be1b4369ea7237a333180b14f479e539d73))
+
+- **skills**: Add branch-surgery-pr-split skill
+  ([#17](https://github.com/liatrio-labs/ai-prompts/pull/17),
+  [`d3811be`](https://github.com/liatrio-labs/ai-prompts/commit/d3811be1b4369ea7237a333180b14f479e539d73))
+
+
 ## v0.9.0 (2026-03-02)
 
 ### Bug Fixes
