@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v0.13.0 (2026-03-02)
+
+### Features
+
+- **workflows**: Add Codex AI review workflow
+  ([#20](https://github.com/liatrio-labs/ai-prompts/pull/20),
+  [`69de04b`](https://github.com/liatrio-labs/ai-prompts/commit/69de04ba99250b7f7411806795d93d6a79190572))
+
+
 ## v0.12.0 (2026-03-02)
 
 ### Features
