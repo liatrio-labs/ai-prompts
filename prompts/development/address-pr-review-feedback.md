@@ -1,6 +1,6 @@
 ---
 description: Fetch PR review feedback from GitHub using gh CLI and produce an actionable remediation plan
-allowed-tools: Bash(gh api:*), Bash(gh pr:*), Bash(jq:*), Bash(git:*), Bash(npm view:*), Bash(npm info:*), WebFetch
+allowed-tools: Bash(gh api:*), Bash(gh pr:*), Bash(gh auth:*), Bash(gh repo:*), Bash(jq:*), Bash(git:*), Bash(npm view:*), Bash(npm info:*), WebFetch
 ---
 
 # Fetch PR Review Feedback
