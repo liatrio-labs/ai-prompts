@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.4.8",
+  "checkpoint_id": "47fcd6b0698f",
+  "session_id": "ses_352d80804ffeTvswGRy5NQmK5H",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-02T06:23:48.977053876Z",
+  "branch": "chore/docs-drift-guardrails",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "README.md"
+  ],
+  "agent": "OpenCode",
+  "turn_id": "be9ecdac302a",
+  "token_usage": {
+    "input_tokens": 19077,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 336,
+    "api_call_count": 1
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-02T06:23:48.952252205Z",
+    "agent_lines": 0,
+    "human_added": 3,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 3,
+    "agent_percentage": 0
+  }
+}

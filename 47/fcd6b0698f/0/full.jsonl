@@ -1,0 +1,173 @@
+{
+  "info": {
+    "id": "ses_352d80804ffeTvswGRy5NQmK5H",
+    "slug": "quiet-wizard",
+    "projectID": "c4ee88dd92c3b7ea11be972e0c7bb973c67df9f6",
+    "directory": "/home/damien/Liatrio/repos/ai-prompts",
+    "title": "Home folder: codex agent skills installed info",
+    "version": "1.2.10",
+    "summary": {
+      "additions": 0,
+      "deletions": 0,
+      "files": 0
+    },
+    "time": {
+      "created": 1772431603707,
+      "updated": 1772431604757
+    }
+  },
+  "messages": [
+    {
+      "info": {
+        "role": "user",
+        "time": {
+          "created": 1772431603722
+        },
+        "summary": {
+          "diffs": []
+        },
+        "agent": "build",
+        "model": {
+          "providerID": "openai",
+          "modelID": "gpt-5.3-codex"
+        },
+        "id": "msg_cad27f7fe001yXKOLAQgigXt21",
+        "sessionID": "ses_352d80804ffeTvswGRy5NQmK5H"
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "look in my home folder and show me information about what agent skills are installed for codex",
+          "id": "prt_cad27f7ff001nCG2M2McOpRXhW",
+          "sessionID": "ses_352d80804ffeTvswGRy5NQmK5H",
+          "messageID": "msg_cad27f7fe001yXKOLAQgigXt21"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1772431603733,
+          "completed": 1772432565839
+        },
+        "parentID": "msg_cad27f7fe001yXKOLAQgigXt21",
+        "modelID": "gpt-5.3-codex",
+        "providerID": "openai",
+        "mode": "build",
+        "agent": "build",
+        "path": {
+          "cwd": "/home/damien/Liatrio/repos/ai-prompts",
+          "root": "/home/damien/Liatrio/repos/ai-prompts"
+        },
+        "cost": 0.04184075,
+        "tokens": {
+          "total": 19413,
+          "input": 19077,
+          "output": 336,
+          "reasoning": 268,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "finish": "tool-calls",
+        "id": "REDACTED",
+        "sessionID": "ses_352d80804ffeTvswGRy5NQmK5H"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "4172e3eeccac60830bb0df7b9b5b41c1a22489dc",
+          "id": "prt_cad27fb0f001EIogiOdjkeEenT",
+          "sessionID": "ses_352d80804ffeTvswGRy5NQmK5H",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "reasoning",
+          "text": "**Inspecting agent skill directories**",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_00af16dea878d0610169a528f4fcf081978422b58e03edcc93",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "time": {
+            "start": 1772431605015,
+            "end": 1772431611015
+          },
+          "id": "REDACTED",
+          "sessionID": "ses_352d80804ffeTvswGRy5NQmK5H",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "tool",
+          "callID": "call_eH7edKaCjr1lzE3RUWtgJrm7",
+          "tool": "read",
+          "state": {
+            "status": "error",
+            "input": {
+              "filePath": "/home/damien/.config/opencode/skills"
+            },
+            "error": "Error: The user rejected permission to use this specific tool call.",
+            "time": {
+              "start": 1772431611036,
+              "end": 1772432565815
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_00af16dea878d0610169a528fafb108197a76f37fc3fe612f8"
+            }
+          },
+          "id": "prt_cad281489001CmdCkenYLZRo0d",
+          "sessionID": "ses_352d80804ffeTvswGRy5NQmK5H",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "tool",
+          "callID": "REDACTED",
+          "tool": "read",
+          "state": {
+            "status": "error",
+            "input": {
+              "filePath": "/home/damien/.agents/skills"
+            },
+            "error": "Error: The user rejected permission to use this specific tool call.",
+            "time": {
+              "start": 1772431611040,
+              "end": 1772432565817
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_00af16dea878d0610169a528fafb2081979576b4208bea04c0"
+            }
+          },
+          "id": "prt_cad28149e001d0mGM66BLajvTU",
+          "sessionID": "ses_352d80804ffeTvswGRy5NQmK5H",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "step-finish",
+          "reason": "tool-calls",
+          "snapshot": "4172e3eeccac60830bb0df7b9b5b41c1a22489dc",
+          "cost": 0.04184075,
+          "tokens": {
+            "total": 19413,
+            "input": 19077,
+            "output": 336,
+            "reasoning": 268,
+            "cache": {
+              "read": 0,
+              "write": 0
+            }
+          },
+          "id": "prt_cad36a63b001MTpgprI04MlQnU",
+          "sessionID": "ses_352d80804ffeTvswGRy5NQmK5H",
+          "messageID": "REDACTED"
+        }
+      ]
+    }
+  ]
+}
