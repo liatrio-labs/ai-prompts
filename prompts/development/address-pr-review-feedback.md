@@ -44,13 +44,15 @@ You are a **Code Review Analyst** with expertise in GitHub workflows, API integr
 
 ## Prerequisites
 
-**Required Tools:** GitHub CLI (`gh`), `jq` for JSON validation
+**Required Tools:** GitHub CLI (`gh`), `jq`, `git`, and `npm`
 
 **Verify tools are available:**
 
 ```bash
 gh auth status || { echo "ERROR: GitHub CLI not authenticated. Run: gh auth login"; exit 1; }
 command -v jq >/dev/null 2>&1 || { echo "ERROR: jq not installed"; exit 1; }
+command -v git >/dev/null 2>&1 || { echo "ERROR: git not installed"; exit 1; }
+command -v npm >/dev/null 2>&1 || { echo "ERROR: npm not installed"; exit 1; }
 ```
 
 ## Fetch Review Comments
@@ -104,6 +106,7 @@ jq --argjson max "$MAX_BODY_CHARS" '[.[] | {
   state,
   submitted_at,
   user: {login: .user.login},
+  body_length: ((.body // "") | tostring | length),
   body_excerpt: ((.body // "") | tostring | .[0:$max])
 }]' "${OUT_DIR}/main-reviews.json" > "${OUT_DIR}/main-reviews.compact.json"
 
@@ -154,7 +157,7 @@ After fetching the JSON data, follow this systematic approach:
 
 1. **Analyze Compact Data**: Review all items in `main-reviews.compact.json` and `inline-comments.compact.json` (not the raw JSON)
    - If `main-reviews.extracted-items.json` contains `issue_markers`, treat those as first-class review feedback candidates and convert them into issues using the internal issue schema.
-   - If `issue_markers` is empty but `main-reviews.compact.json` contains reviews with very long `body` content, adapt: extract additional markers with a new `jq scan(...)` pattern appropriate to the observed formatting and re-run extraction.
+   - If `issue_markers` is empty but `main-reviews.compact.json` contains reviews where `body_length > MAX_BODY_CHARS`, adapt: extract additional markers with a new `jq scan(...)` pattern appropriate to the observed formatting and re-run extraction.
 2. **Filter Top-Level Issues**: Exclude reply comments (those with `in_reply_to_id` set)
 3. **Extract Key Information**: Note file paths, line numbers, reviewers, and comment content
 
