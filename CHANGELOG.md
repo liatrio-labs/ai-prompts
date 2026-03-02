@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v0.12.0 (2026-03-02)
+
+### Features
+
+- **skills**: Add git-commit-conventional skill and migrate prompt
+  ([#9](https://github.com/liatrio-labs/ai-prompts/pull/9),
+  [`8b73c7b`](https://github.com/liatrio-labs/ai-prompts/commit/8b73c7bcdffc44f1a1e6a7f46b439223f7f8ba4c))
+
+
 ## v0.11.0 (2026-03-02)
 
 ### Bug Fixes
