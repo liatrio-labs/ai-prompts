@@ -33,3 +33,13 @@ uv run scripts/quick_validate.py skills/my-skill
 ```
 
 If validation reports `Description must be a string, got list`, update the `description:` value in `SKILL.md` frontmatter to a quoted YAML string.
+
+## Documentation Drift Guardrail
+
+Treat `skills/*/SKILL.md` as the canonical source for skill inventory.
+
+When adding, removing, or renaming skills, keep repository docs in sync and run:
+
+```bash
+python scripts/check_docs_drift.py
+```

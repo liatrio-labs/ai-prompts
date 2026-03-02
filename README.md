@@ -33,6 +33,7 @@ Skills are organized in the `skills/` directory by capability:
 - `mastra-api/` - Mastra development API debugging and inspection workflows
 - `tilt-dev/` - Tilt-based local development environment operations
 - `uv-usage/` - `uv` package manager workflows and command guidance
+- `branch-surgery-pr-split/` - Branch decomposition strategy for splitting oversized or mixed-concern PRs
 
 ### 3. Use Prompts with AI Tools
 
@@ -65,6 +66,9 @@ Install repository skills using the [`skills.sh`](https://skills.sh) CLI:
 ```bash
 # List available skills in this repository without installing
 npx skills add liatrio-labs/ai-prompts --list
+
+# Add all skills from this repository to your local setup (non-interactive)
+npx -y skills add liatrio-labs/ai-prompts --all
 
 # Install all skills from this repository
 npx skills add liatrio-labs/ai-prompts --all
@@ -115,7 +119,7 @@ Context Markers are emoji-based verification techniques used to detect context r
 | 🚀 | `skills/create-pull-request/SKILL.md` | Pull Request / Merge Request Description Skill |
 | 🎨 | `skills/create-mermaid-diagrams/SKILL.md` | Create Mermaid Diagrams Skill |
 
-Only skills with marker-based context-rot checks are listed here. Skills without marker rows in this table (for example, `liatrio-brand-guidelines`, `mastra-api`, `tilt-dev`, and `uv-usage`) do not define required response markers.
+Only skills with marker-based context-rot checks are listed here. Skills without marker rows in this table do not define required response markers.
 
 ### Prompts
 
@@ -141,6 +145,7 @@ Repository marker: `🤖` in `AGENTS.md` for AI Agent Instructions and configura
 | `mastra-api` | `skills/mastra-api/SKILL.md` | Debug Mastra agents, tools, workflows, and runtime state via API workflows. |
 | `tilt-dev` | `skills/tilt-dev/SKILL.md` | Manage and troubleshoot Tilt-orchestrated local development stacks. |
 | `uv-usage` | `skills/uv-usage/SKILL.md` | Provide concise guidance for `uv` project and dependency workflows. |
+| `branch-surgery-pr-split` | `skills/branch-surgery-pr-split/SKILL.md` | Split oversized or mixed-concern branches into reviewable PR stacks with parity audits and merge sequencing. |
 
 ## Prompt-to-Skill Migration Map
 

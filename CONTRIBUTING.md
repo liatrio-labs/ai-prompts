@@ -7,15 +7,14 @@ Thank you for contributing to this project! This guide will help you understand 
 - [Development Workflow](#development-workflow)
 - [Conventional Commits](#conventional-commits)
 - [Branch Naming Conventions](#branch-naming-conventions)
-- [Pre-commit Hooks](#pre-commit-hooks)
-- [Testing Guidelines](#testing-guidelines)
+- [Quality Gates](#quality-gates)
 
 ## Development Workflow
 
 ### Setup
 
 1. Fork and clone the repository
-2. Install dependencies for your language/framework
+2. Install Python 3.12 tooling (`pre-commit`) and `uv` for skill helper scripts
 3. Install pre-commit hooks: `pre-commit install`
 4. Create a feature branch following our [naming conventions](#branch-naming-conventions)
 
@@ -139,120 +138,28 @@ Use descriptive branch names that indicate the type of work:
 - Keep names concise but descriptive
 - Use the same type prefixes as commits (feat, fix, docs, etc.)
 
-## Pre-commit Hooks
+## Quality Gates
 
-### Installing Pre-commit Hooks
-
-This template includes language-agnostic pre-commit hooks by default (YAML validation, markdown linting, conventional commits). To add hooks for your specific programming language, update `.pre-commit-config.yaml` with the appropriate hooks.
-
-### JavaScript/TypeScript Example
-
-```yaml
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v9.0.0
-    hooks:
-      - id: eslint
-        files: \.[jt]sx?$
-        types: [file]
-```
-
-### Python Example
-
-```yaml
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.0
-    hooks:
-      - id: ruff-check
-        args: [--fix, --exit-non-zero-on-fix]
-      - id: ruff-format
-```
-
-### Go Example
-
-```yaml
-  - repo: https://github.com/golangci/golangci-lint
-    rev: v1.55.0
-    hooks:
-      - id: golangci-lint
-```
-
-### Rust Example
-
-```yaml
-  - repo: https://github.com/doublify/pre-commit-rust
-    rev: v1.0
-    hooks:
-      - id: fmt
-      - id: clippy
-```
-
-## Enabling/Disabling Hooks
-
-To skip a specific hook during commit:
+Run these checks before opening or updating a PR:
 
 ```bash
-SKIP=hook-id git commit -m "message"
+pre-commit run --all-files
+python scripts/check_docs_drift.py
 ```
 
-To disable the `no-commit-to-branch` hook (if enabled locally):
+Current pre-commit hooks in this repository cover:
 
-```bash
-SKIP=no-commit-to-branch git commit -m "message"
-```
+- YAML/TOML/basic file hygiene checks
+- Markdown lint and auto-fix
+- Conventional Commit message linting
+- Secret scanning with gitleaks
 
-## Testing Guidelines
+Do not bypass hooks. Fix failures and rerun checks until clean.
 
-### Writing Tests
+If your PR adds or removes skills, ensure docs stay in sync:
 
-<!-- Add project-specific testing guidelines here -->
-
-- Write tests for all new features and bug fixes
-- Follow the testing conventions of your language/framework
-- Aim for high code coverage (target: 80%+)
-- Include unit tests, integration tests, and end-to-end tests as appropriate
-
-### Running Tests Locally
-
-```bash
-# Add your project's test command here
-# Examples:
-# npm test                    # Node.js
-# pytest                      # Python
-# go test ./...               # Go
-# cargo test                  # Rust
-# mvn test                    # Java (Maven)
-```
-
-### Test Requirements
-
-- All tests must pass before merging
-- New code should maintain or improve code coverage
-- Tests should be deterministic and not flaky
-- Mock external dependencies appropriately
-
-## Language-Specific Guidelines
-
-<!-- Add language-specific contribution guidelines here as your project evolves -->
-
-### Examples
-
-#### Python Projects
-
-- Follow PEP 8 style guidelines
-- Use type hints for function signatures
-- Add docstrings for public APIs
-
-#### JavaScript/TypeScript Projects
-
-- Follow Airbnb JavaScript Style Guide
-- Use ESLint and Prettier for code formatting
-- Add JSDoc comments for public APIs
-
-#### Go Projects
-
-- Follow Effective Go guidelines
-- Use `gofmt` for code formatting
-- Add godoc comments for exported identifiers
+- Update `README.md` skill inventory/catalog sections.
+- Re-run `python scripts/check_docs_drift.py` and confirm it passes.
 
 ## Questions?
 
