@@ -1,6 +1,6 @@
 # Multi-Diagram Markdown Validation
 
-Use this workflow when working with existing markdown documents that already contain multiple Mermaid diagrams.
+Use this workflow when working with existing Markdown documents that already contain multiple Mermaid diagrams.
 
 ## Goals
 

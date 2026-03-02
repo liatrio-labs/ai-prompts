@@ -28,8 +28,8 @@ When manual invocation is needed, trigger this skill using whatever mechanism yo
    - `sequenceDiagram` for interaction timelines.
    - `stateDiagram-v2` for state transitions.
 2. Generate markdown with exactly one Mermaid fence per requested diagram:
-   - Opening fence must be ` ```mermaid`.
-   - Closing fence must be ` ``` `.
+   - Opening fence must be exactly <code>```mermaid</code> (no leading space; any spaced example is only Markdown escaping).
+   - Closing fence must be exactly <code>```</code> (no leading space; any spaced example is only Markdown escaping).
    - Keep fence markers at column 0.
 3. Validate the full markdown file with `mmdc`:
 

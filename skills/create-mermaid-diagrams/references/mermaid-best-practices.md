@@ -9,8 +9,8 @@
 
 ## Markdown Fence Rules
 
-- Opening fence must be exactly ` ```mermaid`.
-- Closing fence must be exactly ` ``` `.
+- Opening fence must be exactly <code>```mermaid</code> (no leading space; any spaced example is only Markdown escaping).
+- Closing fence must be exactly <code>```</code> (no leading space; any spaced example is only Markdown escaping).
 - Place both fences at column 0.
 - Do not nest markdown fences inside Mermaid blocks.
 - Keep one Mermaid diagram per fence.

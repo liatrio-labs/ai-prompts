@@ -6,7 +6,7 @@ Use `mmdc` exit code and raw Mermaid CLI stderr output from the full markdown fi
 
 ## Repair Rules by Error Pattern
 
-## Dependency/Input Failures
+### Dependency/Input Failures
 
 - Stop retries.
 - Treat `mmdc` execution/access failures as hard-stop errors (for example command not found, sandbox deny, permission denied).
@@ -15,7 +15,7 @@ Use `mmdc` exit code and raw Mermaid CLI stderr output from the full markdown fi
 - Include the exact failed command, exit code (if available), and raw stderr excerpt.
 - Do not guess syntax changes when CLI cannot run.
 
-## Syntax/Parse Errors
+### Syntax/Parse Errors
 
 - Inspect stderr for parser location hints (`Parse error on line`, snippet, and caret pointer).
 - Fix only the smallest likely syntax fault per attempt:
@@ -26,19 +26,19 @@ Use `mmdc` exit code and raw Mermaid CLI stderr output from the full markdown fi
   - unquoted text with special characters (for example `(` and `)`)
 - Revalidate immediately after each fix.
 
-## Fence/Markdown Extraction Errors
+### Fence/Markdown Extraction Errors
 
 - Ensure Mermaid fences are valid in the source markdown file.
 - Ensure fences are exactly `` ```mermaid `` and `` ``` `` in final markdown.
 - Ensure no nested or indented fence markers.
 
-## Unsupported Feature Errors
+### Unsupported Feature Errors
 
 - Replace unsupported syntax with compatible alternatives.
 - Keep semantics but downgrade to widely-supported constructs.
 - Revalidate.
 
-## Unknown/Other Errors
+### Unknown/Other Errors
 
 - Use first stderr line as local hint.
 - Apply one conservative syntax normalization change.
