@@ -9,7 +9,7 @@ This repository stores reusable AI prompts and skills. Most automation revolves 
 - Git 2.43+
 - Python 3.12 (used for `pre-commit` and semantic-release tooling)
 - `pipx` or `pip` for installing Python CLIs
-- (Optional) [`uv`](https://github.com/astral-sh/uv) for running Slash Command Manager
+- [`uv`](https://github.com/astral-sh/uv) for skill authoring helper scripts and optional Slash Command Manager workflows
 
 ### Initial Setup
 
@@ -70,6 +70,14 @@ Use this checklist before publishing or recommending a skill for `npx skills` co
 4. Optional frontmatter keys remain portable across agents (for example, use `allowed-tools` only when needed).
 5. `uv run scripts/quick_validate.py skills/<skill-name>` passes.
 
+### Documentation Drift Check
+
+Run this check whenever you add/remove skills or update repository documentation sections that reference skills or scripts:
+
+```bash
+python scripts/check_docs_drift.py
+```
+
 ### Adding or Editing Prompts and Skills
 
 1. For prompts, create/update files inside `prompts/<category>/` using Markdown.
@@ -111,4 +119,4 @@ Semantic Release runs after the CI workflow succeeds on `main`. To publish succe
 | Markdown lint fails on tables/lists | Use `markdownlint --fix <file>` or let the hook auto-fix |
 | `quick_validate.py` reports a frontmatter type error | Follow the `Troubleshooting Skill Scripts` section above and ensure frontmatter values use valid YAML scalar strings |
 | Release workflow cannot mint a token | Verify the Chainguard STS subject matches `liatrio-labs/ai-prompts` and rerun the job |
-| Branch protection blocks merge | Confirm the CI workflow completed; rerun `./scripts/apply-repo-settings.sh` if rules drift |
+| Branch protection blocks merge | Confirm all required checks have completed on the PR and re-run failed jobs from GitHub Actions if needed |

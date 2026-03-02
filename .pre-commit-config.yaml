@@ -13,6 +13,15 @@ default_stages: [pre-commit]
 # Then run: pre-commit install with SKIP=no-commit-to-branch if needed
 
 repos:
+  - repo: local
+    hooks:
+      - id: check-docs-drift
+        name: check documentation drift for skills and script references
+        entry: python scripts/check_docs_drift.py
+        language: system
+        pass_filenames: false
+        files: "^(README\\.md|CONTRIBUTING\\.md|docs/development\\.md|AGENTS\\.md|skills/.*|scripts/check_docs_drift\\.py)$"
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
