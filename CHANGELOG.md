@@ -2,6 +2,39 @@
 
 <!-- version list -->
 
+## v0.7.0 (2026-03-02)
+
+### Bug Fixes
+
+- **skills**: Normalize liatrio brand guideline source links
+  ([#12](https://github.com/liatrio-labs/ai-prompts/pull/12),
+  [`4af3ac6`](https://github.com/liatrio-labs/ai-prompts/commit/4af3ac61f3bb45febd2b546bcc2bb4cd49b94f7a))
+
+- **skills**: Resolve remaining coderabbit items for pr 12
+  ([#12](https://github.com/liatrio-labs/ai-prompts/pull/12),
+  [`4af3ac6`](https://github.com/liatrio-labs/ai-prompts/commit/4af3ac61f3bb45febd2b546bcc2bb4cd49b94f7a))
+
+### Documentation
+
+- Add comparative analysis of existing skills for branding guidelines
+  ([#12](https://github.com/liatrio-labs/ai-prompts/pull/12),
+  [`4af3ac6`](https://github.com/liatrio-labs/ai-prompts/commit/4af3ac61f3bb45febd2b546bcc2bb4cd49b94f7a))
+
+### Features
+
+- **liatrio-brand-guidelines**: Refresh guidance and add brand data scripts
+  ([#12](https://github.com/liatrio-labs/ai-prompts/pull/12),
+  [`4af3ac6`](https://github.com/liatrio-labs/ai-prompts/commit/4af3ac61f3bb45febd2b546bcc2bb4cd49b94f7a))
+
+- **skills**: Add liatrio brand guidelines skill
+  ([#12](https://github.com/liatrio-labs/ai-prompts/pull/12),
+  [`4af3ac6`](https://github.com/liatrio-labs/ai-prompts/commit/4af3ac61f3bb45febd2b546bcc2bb4cd49b94f7a))
+
+- **skills**: Add liatrio-brand-guidelines skill
+  ([#12](https://github.com/liatrio-labs/ai-prompts/pull/12),
+  [`4af3ac6`](https://github.com/liatrio-labs/ai-prompts/commit/4af3ac61f3bb45febd2b546bcc2bb4cd49b94f7a))
+
+
 ## v0.6.0 (2026-03-01)
 
 ### Bug Fixes
