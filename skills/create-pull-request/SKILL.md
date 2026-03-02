@@ -49,12 +49,12 @@ Blocking check: complete before collecting artifacts.
 
 1. Run the collector script:
 
-```bash
-BASE_BRANCH="${BASE_BRANCH:-main}" bash scripts/collect_pr_context.sh
-```
+   ```bash
+   BASE_BRANCH="${BASE_BRANCH:-main}" bash scripts/collect_pr_context.sh
+   ```
 
-1. Read the emitted artifact directory and `MANIFEST.txt`.
-2. Analyze artifact files from disk, not by streaming huge diffs to chat.
+2. Read the emitted artifact directory and `MANIFEST.txt`.
+3. Analyze artifact files from disk, not by streaming huge diffs to chat.
 
 Blocking check: all required artifacts exist.
 
