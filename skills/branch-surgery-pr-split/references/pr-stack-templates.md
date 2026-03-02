@@ -34,6 +34,12 @@
 - [ ] Per-file parity
 - [ ] Deletion semantics parity
 - [ ] Scope boundaries valid
+
+### Risk Register
+
+| Risk ID | Description | Likelihood | Impact | Mitigation | Owner |
+| --- | --- | --- | --- | --- | --- |
+| R1 | `<failure mode>` | `<low/medium/high>` | `<low/medium/high>` | `<planned action>` | `<name>` |
 ```
 
 ## Per-PR Description Template

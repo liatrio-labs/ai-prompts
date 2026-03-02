@@ -86,7 +86,7 @@ Execution rules:
 ## Step 6: Audit Before Confidence
 
 Run audit gates from `references/audit-gates.md`.
-A split is not complete until all gates pass or deviations are documented.
+A split is incomplete until all gates pass or deviations are documented.
 
 Mandatory checks:
 

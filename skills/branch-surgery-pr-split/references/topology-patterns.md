@@ -25,6 +25,16 @@ Choose patterns by signal:
 - Heavy cross-cutting docs churn -> include docs tail or two-phase split.
 - Tight release sequencing constraints -> favor explicit stack segments.
 
+Calibration rubric:
+
+| Signal | Practical threshold examples |
+| --- | --- |
+| High dependency density | 30%+ of changed files import or call across planned slice boundaries, or 10+ cross-slice dependency links in review notes. |
+| High shared setup + low inter-feature dependency | 20%+ of changed files are shared setup, while each feature slice has 3 or fewer cross-slice links after setup is isolated. |
+| Low shared-file overlap | Less than 15% of changed files are touched by more than one planned slice. |
+| Heavy cross-cutting docs churn | 8+ docs files changed across multiple domains or docs touched in 50%+ of functional commits. |
+| Tight release sequencing constraints | 2+ slices are explicitly blocked on earlier slices, or release notes require a strict merge/install order. |
+
 ## What to Include in Option Tradeoffs
 
 For each proposed option, include:

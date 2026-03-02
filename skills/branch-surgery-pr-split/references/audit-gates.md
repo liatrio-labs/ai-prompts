@@ -26,12 +26,24 @@ git diff --name-only <base>...<original-branch> | sort -u
 git diff --name-only <base>...<split-branch> | sort -u
 ```
 
+Interpretation checklist:
+
+- Files present in original but absent in split: fail for missing coverage.
+- Files present in split but absent in original: fail for unexpected extras.
+- Identical file lists: proceed to per-file content and deletion-semantics parity checks.
+
+Acceptance criteria:
+
+- Pass only if there are no missing files, no unexpected extras, and all per-file parity checks pass.
+- Fail if any missing, extra, content mismatch, or deletion mismatch remains unresolved.
+
 ## Ownership Ledger Method
 
 1. Build a ledger of files changed in the original branch.
 2. Assign each file to one or more split branches by ownership intent.
 3. Verify each file is represented exactly as expected in split outputs.
 4. Investigate all unowned or multiply owned files.
+5. Record pass/fail verdict with evidence links for each gate.
 
 ## Remediation Loop
 
