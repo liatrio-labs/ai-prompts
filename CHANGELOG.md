@@ -2,6 +2,25 @@
 
 <!-- version list -->
 
+## v0.11.0 (2026-03-02)
+
+### Bug Fixes
+
+- **skills**: Align mermaid failure report schema
+  ([#11](https://github.com/liatrio-labs/ai-prompts/pull/11),
+  [`1a5deb2`](https://github.com/liatrio-labs/ai-prompts/commit/1a5deb25376ad9d8d53e0da61aa99e36caad1a49))
+
+- **skills**: Clarify mermaid fence and heading guidance
+  ([#11](https://github.com/liatrio-labs/ai-prompts/pull/11),
+  [`1a5deb2`](https://github.com/liatrio-labs/ai-prompts/commit/1a5deb25376ad9d8d53e0da61aa99e36caad1a49))
+
+### Features
+
+- **skills**: Add create-mermaid-diagrams skill and migrate prompt
+  ([#11](https://github.com/liatrio-labs/ai-prompts/pull/11),
+  [`1a5deb2`](https://github.com/liatrio-labs/ai-prompts/commit/1a5deb25376ad9d8d53e0da61aa99e36caad1a49))
+
+
 ## v0.10.0 (2026-03-02)
 
 ### Documentation
