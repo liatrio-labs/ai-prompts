@@ -1,0 +1,30 @@
+name: Codex Review
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+
+jobs:
+  codex-review:
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: liatrio-labs/ai-code-review-workflows/.github/workflows/codex-review-reusable.yml@v0.1.0
+    with:
+      pr_number: ${{ github.event.pull_request.number }}
+      base_ref: ${{ github.event.pull_request.base.ref }}
+      head_ref: ${{ github.event.pull_request.head.ref }}
+      base_sha: ${{ github.event.pull_request.base.sha }}
+      head_sha: ${{ github.event.pull_request.head.sha }}
+      author_association: ${{ github.event.pull_request.author_association }}
+      is_draft: ${{ github.event.pull_request.draft }}
+      codex_model: ${{ vars.CODEX_MODEL || 'gpt-5.3-codex' }}
+      publish_inline_comments: true
+      publish_summary_comment: true
+      allow_external_contributors: false
+    secrets:
+      openai_api_key: ${{ secrets.OPENAI_API_KEY_FOR_OPENCODE }}
