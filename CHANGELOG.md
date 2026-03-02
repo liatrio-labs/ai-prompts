@@ -2,6 +2,20 @@
 
 <!-- version list -->
 
+## v0.9.0 (2026-03-02)
+
+### Bug Fixes
+
+- **skills**: Correct uv usage commands and notes
+  ([#15](https://github.com/liatrio-labs/ai-prompts/pull/15),
+  [`4bbf5b0`](https://github.com/liatrio-labs/ai-prompts/commit/4bbf5b0d2b9c50b3069e811ad1fd11b636a3486d))
+
+### Features
+
+- **skills**: Add uv-usage skill ([#15](https://github.com/liatrio-labs/ai-prompts/pull/15),
+  [`4bbf5b0`](https://github.com/liatrio-labs/ai-prompts/commit/4bbf5b0d2b9c50b3069e811ad1fd11b636a3486d))
+
+
 ## v0.8.0 (2026-03-02)
 
 ### Bug Fixes
