@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "skill-builder-auditor": {
+      "source": "/home/damien/Liatrio/repos/forge-program-tracker/temp/skill-builder-auditor",
+      "sourceType": "local",
+      "computedHash": "0b60db86dc862434488252c2b61b1e8f165cba3fd4b17acfe685d7b5b68c88bb"
+    }
+  }
+}
