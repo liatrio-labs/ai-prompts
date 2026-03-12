@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.4.8",
+  "checkpoint_id": "5897506f931b",
+  "strategy": "manual-commit",
+  "branch": "feat/add-ai-native-repo-skill",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "skills/ai-native-repo-bootstrap/SKILL.md",
+    "skills/ai-native-repo-bootstrap/checklists/preflight-checklist.md",
+    "skills/ai-native-repo-bootstrap/checklists/verification-checklist.md",
+    "skills/ai-native-repo-bootstrap/evals/evals.json",
+    "skills/ai-native-repo-bootstrap/references/baseline-rubric.md",
+    "skills/ai-native-repo-bootstrap/references/github-governance.md",
+    "skills/ai-native-repo-bootstrap/templates/delta-report-template.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/58/97506f931b/0/metadata.json",
+      "transcript": "/58/97506f931b/0/full.jsonl",
+      "context": "/58/97506f931b/0/context.md",
+      "content_hash": "/58/97506f931b/0/content_hash.txt",
+      "prompt": "/58/97506f931b/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 34286,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 287360,
+    "output_tokens": 4477,
+    "api_call_count": 12
+  }
+}

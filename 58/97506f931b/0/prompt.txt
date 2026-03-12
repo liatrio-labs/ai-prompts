@@ -1,0 +1,16 @@
+Execute iteration-2 baseline eval 8 for the snapshot version of `ai-native-repo-bootstrap`.
+
+Use this snapshot version as the only skill guidance:
+- `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2-baseline-snapshot/SKILL.md`
+- Read only the bundled resources from that snapshot when relevant.
+
+Task prompt:
+Audit a repository that already has `.github/workflows/release.yml` and `.releaserc.toml`, but branch protections and rulesets would block release commits or tags from the default workflow actor. Evaluate release-path viability, explain why the current auth path is insufficient, and identify the required prerequisite without pretending the release path is already ready.
+
+Constraints:
+- Treat this as a hypothetical evaluation prompt and answer directly without assuming hidden repo facts.
+- Do not modify any repository files.
+- Do not apply any remote changes.
+- Save the final report to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-8-release-path-blocked-by-governance/old_skill/run-1/outputs/report.md`.
+- Save concise uncertainties/notes to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-8-release-path-blocked-by-governance/old_skill/run-1/outputs/user_notes.md`.
+- Return a short completion note listing files written.
