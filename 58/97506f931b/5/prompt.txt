@@ -1,0 +1,14 @@
+Execute iteration-2 eval 6 for the updated skill `ai-native-repo-bootstrap`.
+
+Use this skill version:
+- `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/SKILL.md`
+- Read only the bundled references/checklists/templates that are relevant.
+
+Task prompt:
+You are remediating an early-implementation repository with real code, weak governance, missing AI docs, and no proven release prerequisites. Produce a bootstrap plan that adds the minimum honest baseline first, surfaces stronger target-state options that are intentionally deferred, does not invent concrete CODEOWNERS owners, and avoids low-value cosmetic churn.
+
+Constraints:
+- Treat this as planning only; do not modify any repository files.
+- Save the final report to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-6-early-implementation-remediation-ownership/with_skill/run-1/outputs/report.md`.
+- Save concise uncertainties/notes to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-6-early-implementation-remediation-ownership/with_skill/run-1/outputs/user_notes.md`.
+- Return a short completion note listing files written.
