@@ -1,0 +1,15 @@
+Execute eval 1 for the skill `ai-native-repo-bootstrap`.
+
+Use this skill version:
+- `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/SKILL.md`
+- Read only the bundled references/checklists/templates that are relevant.
+
+Task prompt:
+Audit `/home/damien/Liatrio/repos/base-repo-template` for AI-native repo readiness. Do not edit files. Classify maturity, decide whether the template-repo lens applies, separate minimum baseline from stronger target-state, and call out any governance-invalidating placeholders or unsafe remote apply guidance.
+
+Constraints:
+- Audit only. Do not modify any repository files.
+- Do not apply any remote changes.
+- Save the final report to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-1/template-repo-audit/with_skill/outputs/report.md`.
+- Save concise uncertainties/notes to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-1/template-repo-audit/with_skill/outputs/user_notes.md`.
+- Return a short completion note listing files written.
