@@ -1,0 +1,16 @@
+Execute baseline eval 5 for the previous snapshot of `ai-native-repo-bootstrap`.
+
+Use this snapshot version as the only skill guidance:
+- `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/skill-snapshot/SKILL.md`
+- Read only the bundled resources from that snapshot when relevant.
+
+Task prompt:
+Audit a docs-first repository that already has strong branch rulesets and release automation. Confirm whether it is still docs-first, explain why governance does not automatically imply active delivery, and report only the real gaps. Treat remote governance as audit-only.
+
+Constraints:
+- Treat this as a hypothetical evaluation prompt and answer directly without assuming hidden repo facts.
+- Do not modify any repository files.
+- Do not apply any remote changes.
+- Save the final report to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-1/governance-heavy-docs-first/old_skill/outputs/report.md`.
+- Save concise uncertainties/notes to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-1/governance-heavy-docs-first/old_skill/outputs/user_notes.md`.
+- Return a short completion note listing files written.
