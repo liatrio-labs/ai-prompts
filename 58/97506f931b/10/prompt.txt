@@ -1,0 +1,15 @@
+Execute iteration-2 baseline eval 3 for the snapshot version of `ai-native-repo-bootstrap`.
+
+Use this snapshot version as the only skill guidance:
+- `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2-baseline-snapshot/SKILL.md`
+- Read only the bundled resources from that snapshot when relevant.
+
+Task prompt:
+You are reviewing an early-implementation repository that already has real code and a basic test command, but it still has stale template docs and placeholder CI. Produce an upgrade plan that preserves valid conventions, replaces fake checks with real ones where justified, and separates local desired state from live GitHub governance. Keep remote work audit-only unless explicitly approved.
+
+Constraints:
+- Treat this as planning only; do not modify any repository files.
+- Do not apply any remote changes.
+- Save the final report to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-3-early-implementation-upgrade-plan/old_skill/run-1/outputs/report.md`.
+- Save concise uncertainties/notes to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-3-early-implementation-upgrade-plan/old_skill/run-1/outputs/user_notes.md`.
+- Return a short completion note listing files written.
