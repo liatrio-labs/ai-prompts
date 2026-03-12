@@ -1,0 +1,33 @@
+{
+  "cli_version": "0.4.8",
+  "checkpoint_id": "f640274940e4",
+  "session_id": "ses_31df582edffeCjvfCk3Oz29l1k",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-12T21:40:54.047712696Z",
+  "branch": "feat/add-ai-native-repo-skill",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "skills/ai-native-repo-bootstrap/SKILL.md",
+    "skills/ai-native-repo-bootstrap/agents/openai.yaml",
+    "skills/ai-native-repo-bootstrap/templates/check-results-template.md",
+    "skills/ai-native-repo-bootstrap/templates/execution-log-template.json.md"
+  ],
+  "agent": "OpenCode",
+  "turn_id": "aa5524058cff",
+  "token_usage": {
+    "input_tokens": 119626,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 794624,
+    "output_tokens": 11776,
+    "api_call_count": 21
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-12T21:40:53.867072136Z",
+    "agent_lines": 0,
+    "human_added": 4857,
+    "human_modified": 4,
+    "human_removed": 0,
+    "total_committed": 4857,
+    "agent_percentage": 0
+  }
+}
