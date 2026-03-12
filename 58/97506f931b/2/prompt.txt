@@ -1,0 +1,16 @@
+Execute iteration-2 baseline eval 7 for the snapshot version of `ai-native-repo-bootstrap`.
+
+Use this snapshot version as the only skill guidance:
+- `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2-baseline-snapshot/SKILL.md`
+- Read only the bundled resources from that snapshot when relevant.
+
+Task prompt:
+Audit a repository that already has `.github/workflows/release.yml` and `.releaserc.toml`. The repo uses GitHub, but its current protections do not block the workflow actor from pushing release commits or tags. Evaluate release-path viability, explain whether `GITHUB_TOKEN` is sufficient, and avoid requiring Chainguard or Octo STS unless governance actually demands it.
+
+Constraints:
+- Treat this as a hypothetical evaluation prompt and answer directly without assuming hidden repo facts.
+- Do not modify any repository files.
+- Do not apply any remote changes.
+- Save the final report to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/old_skill/run-1/outputs/report.md`.
+- Save concise uncertainties/notes to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/old_skill/run-1/outputs/user_notes.md`.
+- Return a short completion note listing files written.
