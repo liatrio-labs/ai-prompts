@@ -1,0 +1,26 @@
+{
+  "cli_version": "0.4.8",
+  "checkpoint_id": "b9dcaa09fb76",
+  "strategy": "manual-commit",
+  "branch": "feat/add-ai-native-repo-skill",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "skills/ai-native-repo-bootstrap/SKILL.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/b9/dcaa09fb76/0/metadata.json",
+      "transcript": "/b9/dcaa09fb76/0/full.jsonl",
+      "context": "/b9/dcaa09fb76/0/context.md",
+      "content_hash": "/b9/dcaa09fb76/0/content_hash.txt",
+      "prompt": "/b9/dcaa09fb76/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 35517,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 359936,
+    "output_tokens": 4956,
+    "api_call_count": 14
+  }
+}
