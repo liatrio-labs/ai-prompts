@@ -3,7 +3,7 @@
   "checkpoint_id": "f640274940e4",
   "strategy": "manual-commit",
   "branch": "feat/add-ai-native-repo-skill",
-  "checkpoints_count": 6,
+  "checkpoints_count": 7,
   "files_touched": [
     "skills/ai-native-repo-bootstrap/SKILL.md",
     "skills/ai-native-repo-bootstrap/agents/openai.yaml",
@@ -52,13 +52,20 @@
       "context": "/f6/40274940e4/5/context.md",
       "content_hash": "/f6/40274940e4/5/content_hash.txt",
       "prompt": "/f6/40274940e4/5/prompt.txt"
+    },
+    {
+      "metadata": "/f6/40274940e4/6/metadata.json",
+      "transcript": "/f6/40274940e4/6/full.jsonl",
+      "context": "/f6/40274940e4/6/context.md",
+      "content_hash": "/f6/40274940e4/6/content_hash.txt",
+      "prompt": "/f6/40274940e4/6/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 468003,
+    "input_tokens": 601765,
     "cache_creation_tokens": 0,
-    "cache_read_tokens": 2055680,
-    "output_tokens": 38345,
-    "api_call_count": 79
+    "cache_read_tokens": 3176576,
+    "output_tokens": 51359,
+    "api_call_count": 102
   }
 }
