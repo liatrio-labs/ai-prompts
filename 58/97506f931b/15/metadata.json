@@ -1,0 +1,36 @@
+{
+  "cli_version": "0.4.8",
+  "checkpoint_id": "5897506f931b",
+  "session_id": "ses_31bd80e97ffeQm5zWGJgOk2ClC",
+  "strategy": "manual-commit",
+  "created_at": "2026-03-12T23:08:46.886258515Z",
+  "branch": "feat/add-ai-native-repo-skill",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "skills/ai-native-repo-bootstrap/SKILL.md",
+    "skills/ai-native-repo-bootstrap/checklists/preflight-checklist.md",
+    "skills/ai-native-repo-bootstrap/checklists/verification-checklist.md",
+    "skills/ai-native-repo-bootstrap/evals/evals.json",
+    "skills/ai-native-repo-bootstrap/references/baseline-rubric.md",
+    "skills/ai-native-repo-bootstrap/references/github-governance.md",
+    "skills/ai-native-repo-bootstrap/templates/delta-report-template.md"
+  ],
+  "agent": "OpenCode",
+  "turn_id": "0ba0f652dabb",
+  "token_usage": {
+    "input_tokens": 68234,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 870400,
+    "output_tokens": 12052,
+    "api_call_count": 18
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-03-12T23:08:46.658889321Z",
+    "agent_lines": 0,
+    "human_added": 204,
+    "human_modified": 20,
+    "human_removed": 0,
+    "total_committed": 204,
+    "agent_percentage": 0
+  }
+}
