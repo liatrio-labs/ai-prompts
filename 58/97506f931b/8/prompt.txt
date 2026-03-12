@@ -1,0 +1,15 @@
+Execute iteration-2 baseline eval 4 for the snapshot version of `ai-native-repo-bootstrap`.
+
+Use this snapshot version as the only skill guidance:
+- `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2-baseline-snapshot/SKILL.md`
+- Read only the bundled resources from that snapshot when relevant.
+
+Task prompt:
+Bootstrap this repository for AI-native development, but do not inspect or discuss GitHub remote settings. Focus only on local docs, AGENTS guidance, guardrails, CI honesty, and verification steps. Keep the plan maturity-aware and do not assume application code already exists.
+
+Constraints:
+- Treat this as planning only; do not modify any repository files.
+- Do not inspect or discuss live GitHub remote settings.
+- Save the final report to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-4-local-only-bootstrap/old_skill/run-1/outputs/report.md`.
+- Save concise uncertainties/notes to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-4-local-only-bootstrap/old_skill/run-1/outputs/user_notes.md`.
+- Return a short completion note listing files written.
