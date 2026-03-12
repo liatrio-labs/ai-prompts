@@ -1,0 +1,1504 @@
+{
+  "info": {
+    "id": "ses_31bd80db5ffecVYwAccpXoeUgB",
+    "slug": "lucky-squid",
+    "projectID": "c4ee88dd92c3b7ea11be972e0c7bb973c67df9f6",
+    "directory": "/home/damien/Liatrio/repos/ai-prompts",
+    "parentID": "ses_32d2f65dcffeDt2YzWr7mxo105",
+    "title": "Run with-skill eval 7 (@general subagent)",
+    "version": "1.2.20",
+    "summary": {
+      "additions": 196,
+      "deletions": 0,
+      "files": 4
+    },
+    "permission": [
+      {
+        "permission": "todowrite",
+        "pattern": "*",
+        "action": "deny"
+      },
+      {
+        "permission": "todoread",
+        "pattern": "*",
+        "action": "deny"
+      },
+      {
+        "permission": "task",
+        "pattern": "*",
+        "action": "deny"
+      }
+    ],
+    "time": {
+      "created": 1773354349131,
+      "updated": 1773354419488
+    }
+  },
+  "messages": [
+    {
+      "info": {
+        "role": "user",
+        "time": {
+          "created": 1773354349139
+        },
+        "summary": {
+          "diffs": [
+            {
+              "file": "skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md",
+              "before": "",
+              "after": "# Release Path Audit\n\n## Repository Summary\n\n- Repository path: not provided; this is a hypothetical evaluation prompt.\n- Repository purpose: not provided.\n- Current maturity profile: undetermined from the prompt alone; do not infer `active-delivery` from release scaffolding by itself.\n- Template-repo lens needed: no evidence that it applies.\n- Workflow used: `upgrade_repo`.\n\n## State Separation\n\n- Local desired state: `.github/workflows/release.yml` and `.releaserc.toml` indicate the repository intends to run automated releases from GitHub Actions.\n- Repo-settings desired-state evidence: none was provided beyond the prompt's statement that current protections do not block the workflow actor from pushing release commits or tags.\n- Live remote state: treated hypothetically as compatible with workflow-driven release pushes and tag creation.\n- Default-branch activation state: not evidenced; local file presence does not prove the workflow is active on the default branch.\n\n## Compliant Baseline Items\n\n- Release scaffolding exists via `.github/workflows/release.yml` and `.releaserc.toml`.\n- The stated protection model is compatible with workflow-driven release commits and tags.\n- GitHub is the hosting and automation context, so the release-path compatibility check is in scope.\n\n## Truthfulness And Command Realism\n\n- Current runnable commands: not assessed because no repository contents beyond the release files were provided.\n- Future-state commands that are clearly labeled: not assessed.\n- Contradictions or unsupported commands: none evidenced in the prompt.\n\n## Placeholder And Template Residue Findings\n\n- Downstream-customization placeholders: not assessed.\n- Maturity-based placeholders: not assessed.\n- Stale template residue: not assessed.\n- Governance-invalidating placeholders: none evidenced in the prompt.\n\n## Gaps By Severity\n\n### High\n\n- None from the stated facts.\n\n### Medium\n\n- Default-branch activation and exact workflow token permissions are not evidenced, so operational readiness is inferred only from the prompt, not verified from repo data.\n\n### Low\n\n- Repo-settings desired state is described narratively rather than backed by a versioned ruleset or settings artifact in the provided evidence.\n\n## Minimum Baseline Vs Stronger Target State\n\n- Minimum acceptable baseline gaps: no release-auth mismatch is present under the stated protections, so no stronger identity path is required to make the release path viable.\n- Stronger target-state improvements: explicitly document required workflow permissions such as `contents: write`, document branch and tag protection expectations, and keep desired governance state auditable as code when possible.\n\n## Stronger Target-State Options Not Applied\n\n- Relevant but intentionally deferred: Octo STS, Chainguard, or another alternate release identity.\n- Blocked by missing org or repo prerequisites: none; those integrations are not required by the described governance model.\n\n## Release Path Viability\n\n- Current release state: viable.\n- Chosen auth path: `GITHUB_TOKEN`.\n- Protection-model compatibility notes: under the stated protections, the workflow actor can push release commits and tags, so `GITHUB_TOKEN` is sufficient for the release path as long as the workflow grants the token the needed write scope for the release job.\n- Required prerequisites not yet present: no additional bypass-capable identity is required by the prompt; only normal workflow permissions and default-branch activation still need confirmation in a real repo audit.\n\n## Governance Placeholder Severity\n\n- Governance-invalidating placeholders: none evidenced.\n- Advisory placeholders that are acceptable for now: not assessed.\n- CODEOWNERS validity or enforcement notes: not assessed.\n- Unsafe direct-apply or hook-bypass guidance: none evidenced.\n\n## Local Remediation Plan\n\n- Planned changes: none; this is an audit-only evaluation.\n- Applied changes: none.\n- Deferred local items: optionally document release prerequisites and token permissions near the workflow or release docs.\n\n## Remote Governance Plan\n\n- Audited areas: release-actor compatibility with branch and tag protections, at a hypothetical level only.\n- Proposed remote changes: none required from the stated facts.\n- Approval required before apply: yes.\n- Applied remote changes: none.\n- Deferred remote items: a live audit of rulesets, branch protections, protected tags, and default-branch workflow activation.\n\n## Validation Results\n\n- Commands run: none against a target repository; this evaluation is prompt-based.\n- Passing checks: release-path reasoning is internally consistent with the stated protection model.\n- Failing or skipped checks: live GitHub inspection, workflow activation verification, and exact token-permission inspection were skipped because no concrete repository was provided.\n\n## Residual Risks And Follow-Ups\n\n- If branch protections, rulesets, or protected-tag settings later block the workflow actor, the current `GITHUB_TOKEN` path becomes insufficient and a bypass-capable identity path may then be required.\n- If the workflow omits required write permissions, the token may fail operationally even though governance does not block it.\n- Based on the stated facts, do not require Chainguard or Octo STS now; introduce them only if governance, compliance, or provenance requirements actually demand them.\n",
+              "additions": 99,
+              "deletions": 0,
+              "status": "added"
+            },
+            {
+              "file": "skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md",
+              "before": "",
+              "after": "- Hypothetical evaluation only; no target repository or live GitHub state was inspected.\n- `GITHUB_TOKEN` is sufficient under the stated model because protections do not block the workflow actor from pushing release commits or tags.\n- Real-world confirmation would still check `permissions`, default-branch workflow activation, and any protected-tag rules.\n- Do not require Chainguard or Octo STS unless protections, compliance, or provenance policy create a real need for a different release identity.\n",
+              "additions": 4,
+              "deletions": 0,
+              "status": "added"
+            },
+            {
+              "file": "skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-8-release-path-blocked-by-governance/old_skill/run-1/outputs/report.md",
+              "before": "",
+              "after": "# Release Path Audit\n\n## Repository Summary\n\n- Repository path: hypothetical repository; no concrete repo inspected for this eval\n- Repository purpose: not stated\n- Current maturity profile: conservatively `docs-first` or otherwise unproven; release scaffolding alone does not justify `active-delivery`\n- Template-repo lens needed: no evidence from the prompt\n- Workflow used: `upgrade_repo`\n\n## State Separation\n\n- Local desired state: `.github/workflows/release.yml` and `.releaserc.toml` indicate release automation is scaffolded in repo files\n- Repo-settings desired-state evidence: not provided in the prompt\n- Live remote state: branch protections and rulesets would block release commits or tags from the default workflow actor\n- Default-branch activation state: unknown from the prompt; even if active on the default branch, activation does not solve the auth mismatch\n\n## Compliant Baseline Items\n\n- Release scaffolding is present via `.github/workflows/release.yml` and `.releaserc.toml`\n- The repository has enough local intent to audit the release path separately from remote governance\n\n## Truthfulness And Command Realism\n\n- Current runnable commands: not audited; this is a hypothetical prompt\n- Future-state commands that are clearly labeled: release automation is implied, but successful protected-branch writes are not yet justified\n- Contradictions or unsupported commands: any claim that automated release commits or protected tags are ready today would be misleading under the stated governance model\n\n## Placeholder And Template Residue Findings\n\n- Downstream-customization placeholders: none evidenced\n- Maturity-based placeholders: release scaffolding may be acceptable early, but only if reported as blocked pending governance prerequisites\n- Stale template residue: none evidenced\n- Governance-invalidating placeholders: none evidenced, but there is a real governance/auth mismatch\n\n## Gaps By Severity\n\n### High\n\n- Release path is blocked by governance/auth mismatch: the default workflow actor cannot create the required release commit and/or tag under the current branch protection and ruleset model\n- The current auth path is insufficient if it is the default workflow identity such as `GITHUB_TOKEN` for `github-actions[bot]`; that identity can run the workflow but cannot bypass protected-branch or protected-tag restrictions unless explicitly allowed by governance\n- Required prerequisite is missing: an approved bypass-capable automation identity or another explicitly supported release design that avoids protected writes\n\n### Medium\n\n- Repo-settings desired state, bypass policy, and ruleset exception design are not documented in the prompt, so the release path cannot be called operationally ready\n- Default-branch activation and protected-tag behavior are not evidenced separately, which leaves execution details unverified even though the blocking condition is already clear\n\n### Low\n\n- No dry-run, parity check, or post-change verification evidence is provided\n\n## Minimum Baseline Vs Stronger Target State\n\n- Minimum acceptable baseline gaps: explicitly provision a governance-approved auth path that can satisfy the release write requirements, document that prerequisite, and verify the live ruleset or protection configuration against the intended release behavior\n- Stronger target-state improvements: store remote governance intent as code, document release identity and bypass scope, and add parity or dry-run checks so the repo can prove the release path remains viable over time\n\n## Governance Placeholder Severity\n\n- Governance-invalidating placeholders: none evidenced from the prompt\n- Advisory placeholders that are acceptable for now: release scaffolding is acceptable only when described honestly as pre-wired but blocked\n- CODEOWNERS validity or enforcement notes: not in scope from the provided facts\n- Unsafe direct-apply or hook-bypass guidance: none evidenced from the prompt\n\n## Local Remediation Plan\n\n- Planned changes: none applied; local files already express release intent\n- Applied changes: none; audit-only evaluation\n- Deferred local items: update docs or workflow comments so they do not imply the release path is ready before governance prerequisites are met\n\n## Remote Governance Plan\n\n- Audited areas: branch protections and rulesets affecting release commits, protected tags, bypass actors, and automation identity viability\n- Proposed remote changes: add a governance-approved bypass-capable release identity to the relevant ruleset or branch protection exception path, or adopt a release approach that does not require protected-branch writes or protected-tag creation from the default workflow actor\n- Approval required before apply: yes\n- Applied remote changes: none\n- Deferred remote items: live ruleset inspection, exception design, and parity verification after approval\n\n## Validation Results\n\n- Commands run: none; hypothetical audit only\n- Passing checks: local release scaffolding presence is assumed from the prompt\n- Failing or skipped checks: live remote inspection, default-branch activation verification, and end-to-end release execution were not performed\n\n## Residual Risks And Follow-Ups\n\n- Do not describe the release path as ready while the default workflow actor remains blocked by governance\n- If semantic-release or equivalent tooling needs to push a version bump commit, changelog commit, or tag, the current path will fail until a permitted identity exists\n- The key prerequisite is not more local config; it is a remote governance decision that authorizes a suitable automation identity or an explicit alternate release strategy\n",
+              "additions": 89,
+              "deletions": 0,
+              "status": "added"
+            },
+            {
+              "file": "skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-8-release-path-blocked-by-governance/old_skill/run-1/outputs/user_notes.md",
+              "before": "",
+              "after": "- Hypothetical audit only; no repository or remote state was inspected beyond the facts in the prompt.\n- Assumed insufficient auth path is the default workflow actor, typically `GITHUB_TOKEN` for `github-actions[bot]`.\n- Release path remains blocked if the workflow needs protected-branch commits, protected tags, or both.\n- Required prerequisite is a governance-approved bypass-capable automation identity, or an explicitly different release design that avoids those protected writes.\n",
+              "additions": 4,
+              "deletions": 0,
+              "status": "added"
+            }
+          ]
+        },
+        "agent": "general",
+        "model": {
+          "providerID": "openai",
+          "modelID": "gpt-5.4"
+        },
+        "tools": {
+          "todowrite": false,
+          "todoread": false,
+          "task": false
+        },
+        "id": "msg_ce427f252001oSKXJJaCSzvI5i",
+        "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB"
+      },
+      "parts": [
+        {
+          "type": "text",
+          "text": "Execute iteration-2 eval 7 for the updated skill `ai-native-repo-bootstrap`.\n\nUse this skill version:\n- `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/SKILL.md`\n- Read only the bundled references/checklists/templates that are relevant.\n\nTask prompt:\nAudit a repository that already has `.github/workflows/release.yml` and `.releaserc.toml`. The repo uses GitHub, but its current protections do not block the workflow actor from pushing release commits or tags. Evaluate release-path viability, explain whether `GITHUB_TOKEN` is sufficient, and avoid requiring Chainguard or Octo STS unless governance actually demands it.\n\nConstraints:\n- Treat this as a hypothetical evaluation prompt and answer directly without assuming hidden repo facts.\n- Do not modify any repository files.\n- Do not apply any remote changes.\n- Save the final report to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md`.\n- Save concise uncertainties/notes to `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md`.\n- Return a short completion note listing files written.",
+          "id": "prt_ce427f253001WtMO6s4OpdNVpv",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce427f252001oSKXJJaCSzvI5i"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1773354349145,
+          "completed": 1773354354076
+        },
+        "parentID": "msg_ce427f252001oSKXJJaCSzvI5i",
+        "modelID": "gpt-5.4",
+        "providerID": "openai",
+        "mode": "general",
+        "agent": "general",
+        "path": {
+          "cwd": "/home/damien/Liatrio/repos/ai-prompts",
+          "root": "/home/damien/Liatrio/repos/ai-prompts"
+        },
+        "cost": 0.0260505,
+        "tokens": {
+          "total": 14409,
+          "input": 6515,
+          "output": 342,
+          "reasoning": 183,
+          "cache": {
+            "read": 7552,
+            "write": 0
+          }
+        },
+        "finish": "tool-calls",
+        "id": "msg_ce427f259001WzIk1WPiPswgeZ",
+        "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "id": "prt_ce427f4880011rHEUpagDii6DK",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce427f259001WzIk1WPiPswgeZ"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_027ab68c3c89f4b70169b33d6e0f24819598f122e40d2c0335",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "time": {
+            "start": 1773354350092,
+            "end": 1773354353989
+          },
+          "id": "prt_ce427f60c001bfhXOBm9Qma1rU",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce427f259001WzIk1WPiPswgeZ"
+        },
+        {
+          "type": "tool",
+          "callID": "call_9NLHNI1mscTABcxPz4bijZM4",
+          "tool": "read",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/SKILL.md"
+            },
+            "output": "<path>/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/SKILL.md</path>\n<type>file</type>\n<content>1: ---\n2: name: ai-native-repo-bootstrap\n3: description: \"Bootstrap, standardize, or upgrade a repository for AI-native development with clear repo context, truthful docs, modern guardrails, deterministic feedback loops, and approval-gated remote governance. Use this whenever a user wants to modernize repo docs, CI, AGENTS instructions, template residue, repo readiness for AI agents, or an audit/remediation plan for baseline files and GitHub governance, even if they do not ask for a 'bootstrap.'\"\n4: ---\n5: \n6: # AI-Native Repo Bootstrap\n7: \n8: ## Overview\n9: \n10: Use this skill to bring a repository to an AI-native operating baseline so humans and AI agents can work safely, quickly, and with enough context to make good decisions.\n11: \n12: This skill is not a generic template copier. It classifies repository maturity, audits local and remote state, applies or proposes the right baseline, preserves intentional maturity-based exceptions, and verifies the result.\n13: \n14: Prefer judgment over box-checking. File presence alone is not enough; audit whether the repository is truthful about its current state, whether commands are actually runnable, and whether any template residue or placeholder content still misleads users or agents.\n15: \n16: When GitHub governance is in scope, keep three states separate in both reasoning and reporting:\n17: \n18: - local desired state stored in repo files\n19: - live remote state currently configured on GitHub\n20: - default-branch activation state for workflows and protections that may lag local branch changes\n21: \n22: ## Use This Skill When\n23: \n24: - A user wants to bootstrap a new repository for AI-native development.\n25: - A repository needs stronger docs, guardrails, and feedback loops before AI agents can work effectively.\n26: - A repository should be aligned with a modern baseline for `README.md`, `CONTRIBUTING.md`, `AGENTS.md`, `pre-commit`, CI, release automation, and GitHub rulesets.\n27: - A docs-first repository needs an honest baseline without pretending application code or tests already exist.\n28: - A repository needs an audit and remediation plan for local files plus remote GitHub governance.\n29: \n30: ## Do Not Use This Skill For\n31: \n32: - Product feature implementation unrelated to repository bootstrap.\n33: - One-off code or CI fixes with no repository-baseline intent.\n34: - Secret provisioning or credential management.\n35: - Organization-wide GitHub administration outside the target repository.\n36: - Destructive git cleanup or bypassing hooks.\n37: \n38: ## Triage Algorithm\n39: \n40: Before doing deeper work, make four decisions in this order:\n41: \n42: 1. Classify the repository as `docs-first`, `early-implementation`, or `active-delivery`.\n43: 2. Decide whether the template-repo lens applies because the repository itself is a reusable scaffold.\n44: 3. Decide whether the request is audit-only or allows local changes. If the user asks for an audit, pressure test, or planning pass, stay audit-only and do not drift into implementation.\n45: 4. Decide whether GitHub remote governance is in scope. If not, stay in the local baseline workflow and do not pull in GitHub-specific guidance.\n46: \n47: These decisions keep the skill from overscoping the work, inflating maturity, or jumping into remote operations unnecessarily.\n48: \n49: ## Core Workflow\n50: \n51: 1. Classify repository maturity and decide early whether the template-repo lens applies.\n52: 2. Audit the repository against the baseline rubric in `references/baseline-rubric.md`.\n53: 3. Choose the right workflow: `new_repo` or `upgrade_repo`.\n54: 4. Check for current-state truthfulness, placeholder types, and stale template residue across `README.md`, `AGENTS.md`, contributor docs, and workflow comments.\n55: 5. Separate minimum acceptable baseline findings from stronger target-state improvements.\n56: 6. Use `references/target-state-checklist.md` when translating an audit into a concrete remediation plan so the repo gets a practical checklist, not just a scorecard.\n57: 7. Apply or propose local baseline changes first.\n58: 8. Report stronger target-state options not applied whenever relevant patterns are intentionally deferred.\n59: 9. Audit remote GitHub governance separately using `references/github-governance.md`.\n60: 10. Keep local desired state, live remote state, and default-branch activation state distinct in the report.\n61: 11. Require explicit user approval before any remote `gh api` apply phase.\n62: 12. Re-verify local and remote state and report residual gaps.\n63: \n64: ## Workflow: `new_repo`\n65: \n66: Use this workflow when the repository is empty, lightly scaffolded, or still close to raw template state.\n67: \n68: ### Goals\n69: \n70: - Establish the required baseline artifacts.\n71: - Replace placeholders or explicitly document what remains intentionally deferred.\n72: - Set up local quality loops and CI scaffolding that match current maturity.\n73: - Prepare remote governance as auditable desired state.\n74: \n75: ### Actions\n76: \n77: 1. Confirm repo identity, purpose, and current maturity.\n78: 2. Decide whether the repo is a normal docs-first repo or a template repo whose product is scaffolding itself.\n79: 3. Add or update baseline repo docs and governance files.\n80: 4. Add tech-agnostic local guardrails first.\n81: 5. Add CI and release scaffolding that are honest about the current stage of the repo.\n82: 6. If release automation is included, verify that the chosen auth path can actually push under the repo's current protection model. Do not imply a working release path when branch protection or rulesets would block release pushes.\n83: 7. Prepare ruleset-as-code and remote governance guidance.\n84: 8. If GitHub is in scope, document repo-settings desired state in addition to ruleset intent.\n85: 9. Run validation and produce a readiness report.\n86: \n87: ## Workflow: `upgrade_repo`\n88: \n89: Use this workflow when the repository already has meaningful structure and needs to be brought into baseline alignment.\n90: \n91: ### Goals\n92: \n93: - Preserve valid repo-specific conventions.\n94: - Identify missing or misaligned baseline elements.\n95: - Respect intentional maturity-based exceptions.\n96: - Produce an ordered remediation plan and verification report.\n97: \n98: ### Actions\n99: \n100: 1. Inventory the current local and remote state.\n101: 2. Compare the repository to the baseline rubric.\n102: 3. Classify placeholders as downstream-customization, maturity-based, stale residue, or governance-invalidating.\n103: 4. Check command-to-filesystem consistency so current-state docs do not claim tooling that is not provisioned.\n104: 5. Gather evidence for command realism from files such as manifests, lockfiles, scripts, workflow definitions, and tool configs, and apply the same standard to `AGENTS.md` as to `README.md`.\n105: 6. Verify CODEOWNERS entries are concrete and plausibly valid for GitHub resolution, not just present.\n106: 7. Treat direct remote apply examples and hook-bypass instructions as explicit safety findings when they are not fenced by audit-first or emergency-only guidance.\n107: 8. If release plumbing exists or is proposed, evaluate release-path viability against the repo's actual governance posture. `GITHUB_TOKEN` is acceptable when protections permit release pushes; it becomes insufficient when protected-branch or ruleset behavior would block the release actor.\n108: 9. Never invent a concrete `CODEOWNERS` user or team. Use only repo evidence or user-provided owners, and otherwise report the gap explicitly.\n109: 10. Classify gaps by severity and by local versus remote scope.\n110: 11. Apply or propose local fixes with minimal churn. Avoid deleting cosmetic or upstream residue unless doing so materially improves truthfulness, governance, or maintainability.\n111: 12. Audit remote governance and ask for approval before any apply phase.\n112: 13. Re-run validation and document residual risks.\n113: \n114: ## Maturity Profiles\n115: \n116: Always map the repository to a maturity profile using `references/maturity-profiles.md`.\n117: \n118: - `docs-first`: planning and governance are present; implementation is absent or minimal.\n119: - `early-implementation`: code exists but quality gates and automation are still forming.\n120: - `active-delivery`: code, tests, release expectations, and team workflows are established.\n121: \n122: Recommendations must be adjusted to the profile. Do not force active-delivery expectations onto a docs-first repository.\n123: \n124: Do not let sophisticated ruleset or release automation inflate maturity by itself. A repository can remain `docs-first` even when governance and release scaffolding are advanced.\n125: \n126: Template repositories need extra care. A repo whose product is reusable scaffolding may be docs-first in implementation but strong in repo operations. Evaluate whether placeholders are appropriate for downstream consumers or misleading for the current repo.\n127: \n128: ## Local Baseline Expectations\n129: \n130: Use `references/baseline-rubric.md` as the canonical definition of good.\n131: \n132: At minimum, evaluate:\n133: \n134: - repo intent and documentation clarity\n135: - current-state truthfulness and command realism\n136: - governance and contribution standards\n137: - local feedback loops\n138: - CI quality enforcement\n139: - release scaffolding\n140: - remote policy as code\n141: - AI operability instructions\n142: - environment and integration documentation\n143: - stale template residue and placeholder types\n144: - maturity-based exceptions\n145: \n146: Treat governance-invalidating placeholders as higher severity than ordinary template text. Broken ownership, broken support links, and unsafe direct-mutation guidance should not be scored like harmless downstream customization markers.\n147: \n148: Treat documentation or agent instructions that jump directly to remote mutation without an audit-first or approval-gated framing as an explicit safety smell.\n149: \n150: Treat hook-bypass guidance such as `--no-verify` as a real safety finding unless it is narrowly framed as a human-only emergency exception.\n151: \n152: When you need a practical implementation checklist rather than a rubric, use `references/target-state-checklist.md`.\n153: \n154: ## Remote Governance Rules\n155: \n156: Treat remote GitHub operations as a separate, approval-gated phase.\n157: \n158: - Audit first.\n159: - Show the delta clearly.\n160: - Require explicit approval before create, update, or sync operations.\n161: - Verify live parity after any remote apply step.\n162: \n163: Use `references/github-governance.md` for repo settings, ruleset audit, ruleset sync, and parity verification patterns.\n164: \n165: Treat GitHub-specific ruleset sync workflows, drift detection, and release identity integrations as stronger target-state patterns when GitHub is in scope, not as universal baseline requirements.\n166: \n167: Treat release authentication as a compatibility question, not a branding preference. If the repo's protection model allows release pushes with `GITHUB_TOKEN`, that can be sufficient. If protected-branch or ruleset enforcement would block the release actor, require a bypass-capable auth path such as Octo STS or another explicitly documented alternative.\n168: \n169: ## Output Standard\n170: \n171: Default to `templates/delta-report-template.md` for the main report shape unless the user asks for a different format.\n172: \n173: Always produce a clear report that includes:\n174: \n175: 1. repository maturity classification\n176: 2. compliant baseline items\n177: 3. missing or misaligned items\n178: 4. current-state truthfulness or command-realism issues\n179: 5. stale template residue or placeholder classification findings\n180: 6. minimum acceptable baseline vs stronger target-state improvements\n181: 7. stronger target-state options not applied\n182: 8. release path viability\n183: 9. local desired state summary\n184: 10. repo-settings desired-state evidence summary\n185: 11. live remote state summary\n186: 12. default-branch activation summary\n187: 13. local remediation plan or applied changes\n188: 14. remote remediation plan or applied changes\n189: 15. validation results\n190: 16. residual risks and follow-ups\n191: \n192: Use these package resources to keep outputs consistent:\n193: \n194: - `templates/delta-report-template.md`\n195: - `templates/check-results-template.md`\n196: - `templates/execution-log-template.json.md`\n197: - `checklists/preflight-checklist.md`\n198: - `checklists/verification-checklist.md`\n199: - `references/target-state-checklist.md`\n200: \n201: ## Safety Rules\n202: \n203: - Never apply destructive operations without explicit user request.\n204: - Never silently mutate remote GitHub settings or rulesets.\n205: - Never claim a repository is ready without running the relevant checks.\n206: - Never treat GitHub-specific guidance as universal when the neutral core is sufficient.\n207: - Never invent concrete ownership metadata such as `CODEOWNERS` users or teams.\n208: - Never describe release plumbing as viable unless its auth path matches the repo's protection model.\n209: - Clearly label assumptions, deferred items, and unresolved questions.\n210: \n211: ## Canonical Sources\n212: \n213: When authoring or evolving this skill, use these examples:\n214: \n215: - Generic baseline: `/home/damien/Liatrio/repos/base-repo-template`\n216: - AI-native target-state example: `/home/damien/Liatrio/repos/forge-program-tracker`\n217: \n218: The strongest guidance comes from the delta between those repositories, not from blind template reuse.\n219: \n220: ## References\n221: \n222: - `references/baseline-rubric.md`\n223: - `references/maturity-profiles.md`\n224: - `references/github-governance.md`\n225: - `references/adoption-sources.md`\n226: - `references/target-state-checklist.md`\n\n(End of file - total 226 lines)\n</content>",
+            "title": "skills/ai-native-repo-bootstrap/SKILL.md",
+            "metadata": {
+              "preview": "---\nname: ai-native-repo-bootstrap\ndescription: \"Bootstrap, standardize, or upgrade a repository for AI-native development with clear repo context, truthful docs, modern guardrails, deterministic feedback loops, and approval-gated remote governance. Use this whenever a user wants to modernize repo docs, CI, AGENTS instructions, template residue, repo readiness for AI agents, or an audit/remediation plan for baseline files and GitHub governance, even if they do not ask for a 'bootstrap.'\"\n---\n\n# AI-Native Repo Bootstrap\n\n## Overview\n\nUse this skill to bring a repository to an AI-native operating baseline so humans and AI agents can work safely, quickly, and with enough context to make good decisions.\n\nThis skill is not a generic template copier. It classifies repository maturity, audits local and remote state, applies or proposes the right baseline, preserves intentional maturity-based exceptions, and verifies the result.\n\nPrefer judgment over box-checking. File presence alone is not enough; audit whether the repository is truthful about its current state, whether commands are actually runnable, and whether any template residue or placeholder content still misleads users or agents.\n\nWhen GitHub governance is in scope, keep three states separate in both reasoning and reporting:\n\n- local desired state stored in repo files\n- live remote state currently configured on GitHub\n- default-branch activation state for workflows and protections that may lag local branch changes",
+              "truncated": false,
+              "loaded": []
+            },
+            "time": {
+              "start": 1773354353994,
+              "end": 1773354353996
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_027ab68c3c89f4b70169b33d71f4b0819596d5f4d5e900d50e"
+            }
+          },
+          "id": "prt_ce4280546001NDnKZ5fQ2UVHsD",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce427f259001WzIk1WPiPswgeZ"
+        },
+        {
+          "type": "tool",
+          "callID": "call_VqcF0IxcJtXEtYNVOlpadwzf",
+          "tool": "glob",
+          "state": {
+            "status": "completed",
+            "input": {
+              "pattern": "**/*",
+              "path": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap"
+            },
+            "output": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/agents/openai.yaml\n/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/checklists/verification-checklist.md\n/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/templates/delta-report-template.md\n/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/evals/evals.json\n/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/checklists/preflight-checklist.md\n/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/references/baseline-rubric.md\n/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/references/target-state-checklist.md\n/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/references/github-governance.md\n/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/SKILL.md\n/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/templates/execution-log-template.json.md\n/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/templates/check-results-template.md\n/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/references/maturity-profiles.md\n/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/references/adoption-sources.md",
+            "title": "skills/ai-native-repo-bootstrap",
+            "metadata": {
+              "count": 13,
+              "truncated": false
+            },
+            "time": {
+              "start": 1773354354009,
+              "end": 1773354354016
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_027ab68c3c89f4b70169b33d71f4c48195b1beeb80567c627b"
+            }
+          },
+          "id": "prt_ce4280554001lTxHnKtQZ1twAD",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce427f259001WzIk1WPiPswgeZ"
+        },
+        {
+          "type": "tool",
+          "callID": "REDACTED",
+          "tool": "read",
+          "state": {
+            "status": "error",
+            "input": {
+              "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs"
+            },
+            "error": "Error: File not found: /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs",
+            "time": {
+              "start": 1773354354013,
+              "end": 1773354354015
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_027ab68c3c89f4b70169b33d71f4d0819598cc2d7b6566781e"
+            }
+          },
+          "id": "prt_ce428055b001ceHE1BFHejhxv6",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce427f259001WzIk1WPiPswgeZ"
+        },
+        {
+          "type": "step-finish",
+          "reason": "tool-calls",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "cost": 0.0260505,
+          "tokens": {
+            "total": 14409,
+            "input": 6515,
+            "output": 342,
+            "reasoning": 183,
+            "cache": {
+              "read": 7552,
+              "write": 0
+            }
+          },
+          "id": "prt_ce42805760019V1PrQgwddfDL4",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce427f259001WzIk1WPiPswgeZ"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1773354354077,
+          "completed": 1773354363768
+        },
+        "parentID": "msg_ce427f252001oSKXJJaCSzvI5i",
+        "modelID": "gpt-5.4",
+        "providerID": "openai",
+        "mode": "general",
+        "agent": "general",
+        "path": {
+          "cwd": "/home/damien/Liatrio/repos/ai-prompts",
+          "root": "/home/damien/Liatrio/repos/ai-prompts"
+        },
+        "cost": 0.05334,
+        "tokens": {
+          "total": 18371,
+          "input": 17946,
+          "output": 425,
+          "reasoning": 140,
+          "cache": {
+            "read": 0,
+            "write": 0
+          }
+        },
+        "finish": "tool-calls",
+        "id": "msg_ce428059d0015eFrctb4c0yOUQ",
+        "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "id": "prt_ce4280a63001wOP9mvzoc2bojp",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428059d0015eFrctb4c0yOUQ"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_06b29d43c275f78e0169b33d752f1c8193ab946954bc05f49c",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "time": {
+            "start": 1773354357214,
+            "end": 1773354363687
+          },
+          "id": "prt_ce42811de00185AopJWlNt0iCi",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428059d0015eFrctb4c0yOUQ"
+        },
+        {
+          "type": "tool",
+          "callID": "call_vfBl576KQurtKrIZgOvsNg45",
+          "tool": "read",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/references/github-governance.md"
+            },
+            "output": "<path>/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/references/github-governance.md</path>\n<type>file</type>\n<content>1: # GitHub Governance\n2: \n3: ## Purpose\n4: \n5: This reference contains GitHub-specific operational guidance for auditing and reconciling remote repository governance.\n6: \n7: Keep this guidance separate from the vendor-neutral baseline. Use it only when the target repository uses GitHub and the user wants remote governance included in the bootstrap or upgrade flow.\n8: \n9: ## Approval Rule\n10: \n11: Always audit first. Require explicit user approval before any `gh api` operation that creates or updates remote state.\n12: \n13: ## Remote Areas To Audit\n14: \n15: - general repository settings\n16: - rulesets\n17: - required status checks\n18: - bypass actors and release automation exceptions\n19: - CODEOWNERS alignment with review policy\n20: - workflow activation on the default branch\n21: - unsafe direct-mutation guidance in repo docs or agent instructions\n22: \n23: ## Repo Settings Audit\n24: \n25: Use `gh api` to inspect repository-level settings before proposing changes.\n26: \n27: ```bash\n28: gh api repos/{owner}/{repo}\n29: ```\n30: \n31: Typical fields to inspect:\n32: \n33: - `allow_squash_merge`\n34: - `allow_merge_commit`\n35: - `allow_rebase_merge`\n36: - `delete_branch_on_merge`\n37: - `has_issues`\n38: - `has_wiki`\n39: \n40: If the repository does not store these settings in a machine-readable file, document the expected settings in a table during the audit so they do not remain implicit tribal knowledge.\n41: \n42: Minimal audit table example:\n43: \n44: | Setting | Expected | Evidence Source |\n45: | --- | --- | --- |\n46: | Merge policy | squash only | `docs/DEVELOPMENT.md` or repo policy doc |\n47: | Delete branch on merge | true | repo governance doc |\n48: | Issues enabled | true or false | repo governance doc |\n49: | Wiki enabled | true or false | repo governance doc |\n50: \n51: Recommended repo-settings desired-state fields:\n52: \n53: - merge method policy\n54: - auto-merge policy\n55: - update-branch policy\n56: - delete branch on merge\n57: - issues and wiki state\n58: - squash-merge title and message defaults where relevant\n59: \n60: ## Ruleset Audit\n61: \n62: List rulesets:\n63: \n64: ```bash\n65: gh api repos/{owner}/{repo}/rulesets\n66: ```\n67: \n68: Resolve the target ruleset ID by name and target:\n69: \n70: ```bash\n71: gh api repos/{owner}/{repo}/rulesets --jq '.[] | select(.name == \"main branch protection\" and .target == \"branch\") | .id'\n72: ```\n73: \n74: Fetch the live ruleset:\n75: \n76: ```bash\n77: gh api repos/{owner}/{repo}/rulesets/{ruleset_id}\n78: ```\n79: \n80: ## Desired-State Pattern\n81: \n82: When the repository stores desired branch governance in `.github/ruleset-config.json`, treat that file as the source of truth for local intent.\n83: \n84: If the repository uses a release identity such as Octo STS, the effective desired state may need an injected bypass actor before comparison or apply.\n85: \n86: Treat repo settings similarly: if no machine-readable desired state exists, create an explicit audit note that distinguishes minimum documented expectations from stronger automation targets.\n87: \n88: ## Drift Detection Pattern\n89: \n90: Recommended flow:\n91: \n92: 1. validate `.github/ruleset-config.json`\n93: 2. build effective desired state if integration bypass actors must be injected\n94: 3. fetch the live ruleset\n95: 4. normalize known API ordering and default-field differences\n96: 5. compare desired and live state\n97: \n98: For repositories that already version ruleset intent, parity checking should be treated as the minimum remote audit expectation, not an optional nice-to-have.\n99: \n100: Typical normalization needs:\n101: \n102: - sort rules by `type`\n103: - normalize omitted default fields\n104: - treat `bypass_actors` carefully when tokens have limited visibility\n105: \n106: ## Apply Pattern\n107: \n108: After approval, create or update rulesets with `gh api`.\n109: \n110: Create:\n111: \n112: ```bash\n113: gh api --method POST repos/{owner}/{repo}/rulesets --input effective-ruleset-config.json\n114: ```\n115: \n116: Update:\n117: \n118: ```bash\n119: gh api --method PUT repos/{owner}/{repo}/rulesets/{ruleset_id} --input effective-ruleset-config.json\n120: ```\n121: \n122: ## Verification Pattern\n123: \n124: After apply:\n125: \n126: 1. fetch the ruleset again\n127: 2. normalize desired and live JSON the same way\n128: 3. compare them for semantic parity\n129: 4. report any residual drift\n130: \n131: Do not claim success based only on a successful API response.\n132: \n133: ## Default-Branch Activation Check\n134: \n135: Local files may exist on the working branch before they are active on the repository default branch.\n136: \n137: Audit this separately from both local desired state and live remote settings. Useful checks include:\n138: \n139: ```bash\n140: gh workflow list\n141: gh api repos/{owner}/{repo}/branches/{default_branch}\n142: ```\n143: \n144: Report clearly when a workflow or ruleset definition exists locally but is not yet active from the default branch perspective.\n145: \n146: ## Release Actor Compatibility Check\n147: \n148: When release automation is in scope, audit whether the release actor can complete the intended push/tag flow under the current governance model.\n149: \n150: - `GITHUB_TOKEN` is acceptable when branch protections and rulesets allow the workflow actor to push release commits or tags.\n151: - If protected-branch or ruleset enforcement would block release pushes, require a bypass-capable auth path such as Octo STS or another explicitly documented alternative.\n152: - Do not describe a release workflow as ready if its authentication and the repo's protection model are incompatible.\n153: \n154: ## CODEOWNERS Validity Check\n155: \n156: Treat CODEOWNERS as more than file presence.\n157: \n158: Audit whether:\n159: \n160: - owner entries appear concrete rather than placeholder-only\n161: - owner tokens follow plausible GitHub formats such as `@user` or `@org/team`\n162: - the repository treats CODEOWNERS as advisory or enforced, and whether rulesets match that intent\n163: \n164: Suspicious patterns to flag explicitly:\n165: \n166: - placeholder tokens such as `@{ORG}/{TEAM}`\n167: - bare organization handles such as `@org` when a user or `@org/team` is expected\n168: - entries that appear informational but are described elsewhere as enforced review owners\n169: \n170: If CODEOWNERS appears invalid or non-resolving, report it as a governance issue rather than a cosmetic docs issue.\n171: \n172: ## Repo Settings Apply Pattern\n173: \n174: After approval, repository settings can be updated with a PATCH request.\n175: \n176: ```bash\n177: gh api -X PATCH repos/{owner}/{repo} \\\n178:   -F has_issues=true \\\n179:   -F has_wiki=true \\\n180:   -F allow_squash_merge=true \\\n181:   -F allow_merge_commit=false \\\n182:   -F allow_rebase_merge=false \\\n183:   -F delete_branch_on_merge=true\n184: ```\n185: \n186: Only propose settings that are clearly part of the repository baseline. Avoid assuming organization-level defaults.\n187: \n188: If documentation includes apply examples, they should be framed like this:\n189: \n190: 1. inspect current state\n191: 2. compare against desired state\n192: 3. get explicit approval\n193: 4. apply changes\n194: 5. verify live parity\n195: \n196: Do not present raw `POST`, `PUT`, or `PATCH` snippets as the default first step.\n197: \n198: ## Reporting Requirements\n199: \n200: When GitHub governance is in scope, report:\n201: \n202: - audited remote areas\n203: - local desired-state files used as evidence\n204: - repo-settings desired-state evidence or explicit audit table\n205: - default-branch activation evidence\n206: - any unsafe direct-apply guidance found in docs or agent instructions\n207: - release-actor compatibility findings when release automation is present\n208: - proposed remote deltas\n209: - approval boundary before apply\n210: - post-apply verification results\n\n(End of file - total 210 lines)\n</content>",
+            "title": "skills/ai-native-repo-bootstrap/references/github-governance.md",
+            "metadata": {
+              "preview": "# GitHub Governance\n\n## Purpose\n\nThis reference contains GitHub-specific operational guidance for auditing and reconciling remote repository governance.\n\nKeep this guidance separate from the vendor-neutral baseline. Use it only when the target repository uses GitHub and the user wants remote governance included in the bootstrap or upgrade flow.\n\n## Approval Rule\n\nAlways audit first. Require explicit user approval before any `gh api` operation that creates or updates remote state.\n\n## Remote Areas To Audit\n\n- general repository settings\n- rulesets\n- required status checks\n- bypass actors and release automation exceptions\n- CODEOWNERS alignment with review policy\n- workflow activation on the default branch",
+              "truncated": false,
+              "loaded": []
+            },
+            "time": {
+              "start": 1773354363689,
+              "end": 1773354363691
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_06b29d43c275f78e0169b33d7ba5b08193823ae0fca3462ce8"
+            }
+          },
+          "id": "prt_ce4282b28001rxp2fWKGFcPTYv",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428059d0015eFrctb4c0yOUQ"
+        },
+        {
+          "type": "tool",
+          "callID": "REDACTED",
+          "tool": "read",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/references/maturity-profiles.md"
+            },
+            "output": "<path>/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/references/maturity-profiles.md</path>\n<type>file</type>\n<content>1: # Maturity Profiles\n2: \n3: ## Purpose\n4: \n5: Use these profiles to classify the target repository before recommending baseline changes.\n6: \n7: The profile determines what is required now, what is recommended next, and what should be explicitly deferred.\n8: \n9: Use the lowest profile that honestly fits the repository today. Advanced governance or release scaffolding should not inflate maturity if implementation is still absent.\n10: \n11: ## Template-Repo Lens\n12: \n13: Some repositories are themselves template products. They may be `docs-first` in implementation while still being mature in repository operations such as release automation, contribution scaffolding, or governance-as-code.\n14: \n15: When auditing a template repo:\n16: \n17: - separate current-repo truth from downstream customization guidance\n18: - treat downstream placeholders differently from misleading current-repo placeholders\n19: - do not require application-specific runtime surfaces if the template has no implementation yet\n20: \n21: Examples:\n22: \n23: - acceptable: a downstream `README` snippet that says \"replace `{OWNER}/{REPO}` when creating your project\"\n24: - not acceptable: the live template repo's own `CODEOWNERS` or support links still using unresolved placeholders\n25: - acceptable: a target-state architecture document clearly labeled for adopters\n26: - not acceptable: present-tense setup commands for tooling the template repo does not actually provision\n27: \n28: ## Profile: Docs-First\n29: \n30: ### Description\n31: \n32: The repository primarily contains planning, governance, architecture, or product documentation. Application code is absent or intentionally minimal.\n33: \n34: ### Typical Signals\n35: \n36: - strong `README.md`, `PRD`, or architecture docs\n37: - little or no application code\n38: - no real test suite yet\n39: - CI focused on docs hygiene, policy drift, and baseline hooks\n40: \n41: ### Required Baseline\n42: \n43: - repo-specific docs and governance files\n44: - `pre-commit` baseline\n45: - CI with required status checks preserved\n46: - release scaffolding with honest defaults\n47: - ruleset-as-code\n48: - `AGENTS.md`\n49: \n50: ### Acceptable Exceptions\n51: \n52: - placeholder test gate in CI\n53: - empty release stamping targets\n54: - commented language-specific hooks\n55: - target-state architecture rather than implementation detail\n56: - template scaffolding that is clearly presented as downstream customization guidance\n57: \n58: ### Common Mistakes\n59: \n60: - pretending tests or builds exist when they do not\n61: - leaving template placeholders unresolved\n62: - mixing future-state commands with current-state setup guidance\n63: - deferring branch governance until later\n64: - omitting AI instructions because the repo has no code yet\n65: \n66: ## Profile: Early Implementation\n67: \n68: ### Description\n69: \n70: The repository contains real implementation work, but the delivery system and contributor workflow are still maturing.\n71: \n72: ### Typical Signals\n73: \n74: - application code exists\n75: - at least one real lint or test command exists\n76: - documentation and governance may still be partly template-derived\n77: - release configuration may be scaffolded but incomplete\n78: \n79: ### Required Baseline\n80: \n81: - everything in `docs-first`\n82: - real CI lint and test commands where available\n83: - initial language-specific hooks where they add value\n84: - environment examples for implemented integrations\n85: \n86: ### Acceptable Exceptions\n87: \n88: - partial release stamping if the packaging story is still forming\n89: - limited integration documentation when systems are still being introduced\n90: \n91: ### Common Mistakes\n92: \n93: - keeping placeholder CI while code already exists\n94: - relying on tribal knowledge for environment setup\n95: - adding code without updating `AGENTS.md` or `CONTRIBUTING.md`\n96: - leaving stale template comments that contradict the implemented stack\n97: \n98: ## Profile: Active Delivery\n99: \n100: ### Description\n101: \n102: The repository is actively delivering application or platform changes with established team workflows and real automation expectations.\n103: \n104: ### Typical Signals\n105: \n106: - meaningful application code and tests\n107: - release expectations are real, not just scaffolded\n108: - dependency management and CI are part of the daily workflow\n109: - reviewers depend on explicit governance and ownership\n110: \n111: ### Required Baseline\n112: \n113: - everything in `early-implementation`\n114: - real and enforced required status checks\n115: - coherent release stamping and artifacts\n116: - ruleset parity or equivalent remote governance verification\n117: - environment and integration docs that reflect production reality\n118: \n119: ### Acceptable Exceptions\n120: \n121: - only repo-specific, explicitly documented deviations justified by architecture, compliance, or team workflow\n122: \n123: ### Common Mistakes\n124: \n125: - release automation that exists but is not trustworthy\n126: - CI drifting away from local workflows\n127: - remote governance that no longer matches repo policy files\n128: \n129: ## Escalation Rules\n130: \n131: - If the repository looks docs-first but remote governance is missing, treat that as a real gap, not a harmless deferral.\n132: - If code exists but CI still uses placeholders, escalate to `early-implementation` remediation.\n133: - If release or ruleset state is live but undocumented, escalate remediation, but do not automatically reclassify the repository to `active-delivery`.\n134: \n135: ## Decision Checks\n136: \n137: Before finalizing the profile, ask:\n138: \n139: - Are the documented commands actually runnable today?\n140: - Is this repo shipping a product, or is the repo itself the product scaffold?\n141: - Are advanced governance patterns real operational needs, or just prepared scaffolding?\n142: - Are exceptions intentional and transparent, or are they unresolved contradictions?\n143: \n144: ## Decision Rule\n145: \n146: Choose the lowest profile that honestly fits the repository today, then use that profile to avoid overscoping the bootstrap work.\n\n(End of file - total 146 lines)\n</content>",
+            "title": "skills/ai-native-repo-bootstrap/references/maturity-profiles.md",
+            "metadata": {
+              "preview": "# Maturity Profiles\n\n## Purpose\n\nUse these profiles to classify the target repository before recommending baseline changes.\n\nThe profile determines what is required now, what is recommended next, and what should be explicitly deferred.\n\nUse the lowest profile that honestly fits the repository today. Advanced governance or release scaffolding should not inflate maturity if implementation is still absent.\n\n## Template-Repo Lens\n\nSome repositories are themselves template products. They may be `docs-first` in implementation while still being mature in repository operations such as release automation, contribution scaffolding, or governance-as-code.\n\nWhen auditing a template repo:\n\n- separate current-repo truth from downstream customization guidance\n- treat downstream placeholders differently from misleading current-repo placeholders\n- do not require application-specific runtime surfaces if the template has no implementation yet\n",
+              "truncated": false,
+              "loaded": []
+            },
+            "time": {
+              "start": 1773354363693,
+              "end": 1773354363701
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_06b29d43c275f78e0169b33d7ba5c08193bcd5121303bd27b9"
+            }
+          },
+          "id": "prt_ce4282b2a001GPa4xlawpgDlDu",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428059d0015eFrctb4c0yOUQ"
+        },
+        {
+          "type": "tool",
+          "callID": "call_C3NYuQdaa0EilIzik0jAF3Kk",
+          "tool": "read",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/templates/delta-report-template.md"
+            },
+            "output": "<path>/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/templates/delta-report-template.md</path>\n<type>file</type>\n<content>1: # Delta Report Template\n2: \n3: ## Repository Summary\n4: \n5: - Repository path:\n6: - Repository purpose:\n7: - Current maturity profile:\n8: - Template-repo lens needed: yes or no\n9: - Workflow used: `new_repo` or `upgrade_repo`\n10: \n11: ## State Separation\n12: \n13: - Local desired state:\n14: - Repo-settings desired-state evidence:\n15: - Live remote state:\n16: - Default-branch activation state:\n17: \n18: ## Compliant Baseline Items\n19: \n20: -\n21: \n22: ## Truthfulness And Command Realism\n23: \n24: - Current runnable commands:\n25: - Future-state commands that are clearly labeled:\n26: - Contradictions or unsupported commands:\n27: \n28: ## Placeholder And Template Residue Findings\n29: \n30: - Downstream-customization placeholders:\n31: - Maturity-based placeholders:\n32: - Stale template residue:\n33: - Governance-invalidating placeholders:\n34: \n35: ## Gaps By Severity\n36: \n37: ### High\n38: \n39: -\n40: \n41: ### Medium\n42: \n43: -\n44: \n45: ### Low\n46: \n47: -\n48: \n49: ## Minimum Baseline Vs Stronger Target State\n50: \n51: - Minimum acceptable baseline gaps:\n52: - Stronger target-state improvements:\n53: \n54: ## Stronger Target-State Options Not Applied\n55: \n56: - Relevant but intentionally deferred:\n57: - Blocked by missing org or repo prerequisites:\n58: \n59: ## Release Path Viability\n60: \n61: - Current release state: deferred, viable, or blocked by governance/auth mismatch\n62: - Chosen auth path:\n63: - Protection-model compatibility notes:\n64: - Required prerequisites not yet present:\n65: \n66: ## Governance Placeholder Severity\n67: \n68: - Governance-invalidating placeholders:\n69: - Advisory placeholders that are acceptable for now:\n70: - CODEOWNERS validity or enforcement notes:\n71: - Unsafe direct-apply or hook-bypass guidance:\n72: \n73: ## Local Remediation Plan\n74: \n75: - Planned changes:\n76: - Applied changes:\n77: - Deferred local items:\n78: \n79: ## Remote Governance Plan\n80: \n81: - Audited areas:\n82: - Proposed remote changes:\n83: - Approval required before apply: yes or no\n84: - Applied remote changes:\n85: - Deferred remote items:\n86: \n87: ## Validation Results\n88: \n89: - Commands run:\n90: - Passing checks:\n91: - Failing or skipped checks:\n92: \n93: ## Residual Risks And Follow-Ups\n94: \n95: -\n\n(End of file - total 95 lines)\n</content>",
+            "title": "skills/ai-native-repo-bootstrap/templates/delta-report-template.md",
+            "metadata": {
+              "preview": "# Delta Report Template\n\n## Repository Summary\n\n- Repository path:\n- Repository purpose:\n- Current maturity profile:\n- Template-repo lens needed: yes or no\n- Workflow used: `new_repo` or `upgrade_repo`\n\n## State Separation\n\n- Local desired state:\n- Repo-settings desired-state evidence:\n- Live remote state:\n- Default-branch activation state:\n\n## Compliant Baseline Items\n\n-",
+              "truncated": false,
+              "loaded": []
+            },
+            "time": {
+              "start": 1773354363695,
+              "end": 1773354363700
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_06b29d43c275f78e0169b33d7ba5c48193b922bb6fddf91c23"
+            }
+          },
+          "id": "prt_ce4282b2e001IiM6tcUvvvy2Nv",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428059d0015eFrctb4c0yOUQ"
+        },
+        {
+          "type": "tool",
+          "callID": "call_vzjmqYmowtGKdL7l5cD203ED",
+          "tool": "read",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/references/baseline-rubric.md"
+            },
+            "output": "<path>/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/references/baseline-rubric.md</path>\n<type>file</type>\n<content>1: # Baseline Rubric\n2: \n3: ## Purpose\n4: \n5: This rubric defines what good looks like for an AI-native repository baseline.\n6: \n7: Use it to audit a repository, decide what to add or upgrade, and explain why a repository is or is not ready for effective AI-assisted development.\n8: \n9: Judge semantic truth, not just artifact presence. A repository with all expected files can still be misleading if commands are not runnable, comments still reflect an old template, or placeholders invalidate governance signals.\n10: \n11: ## Cross-Cutting Audit Rules\n12: \n13: ### Current-State Truthfulness\n14: \n15: - verify that commands documented as current setup steps are supported by the repository contents\n16: - separate planned stack declarations from currently runnable commands\n17: - treat command-to-filesystem mismatch as a meaningful gap even when docs are otherwise strong\n18: \n19: Evidence sources for command realism:\n20: \n21: - package manifests such as `package.json`, `pyproject.toml`, `Cargo.toml`, or `go.mod`\n22: - lockfiles such as `pnpm-lock.yaml`, `package-lock.json`, or `uv.lock`\n23: - workflow files that run the same commands in CI\n24: - tool config files such as `.pre-commit-config.yaml`, `eslint.config.*`, or `tsconfig.json`\n25: - scripts declared in package-manager metadata or documented bootstrap scripts\n26: \n27: Audit surfaces that need the same scrutiny:\n28: \n29: - `README.md`\n30: - `AGENTS.md`\n31: - `CONTRIBUTING.md`\n32: - development/setup docs\n33: - workflow comments and release notes that describe current behavior\n34: \n35: Heuristics for docs-first repos:\n36: \n37: - if docs use present-tense verbs like `run`, `install`, `start`, or `test`, verify supporting manifests or toolchain files exist\n38: - if a planned stack is named but no manifests or scripts exist, require wording that labels commands as future-state or illustrative\n39: - prefer `pre-commit` or other provisioned entrypoints over standalone CLIs that are not clearly installed by the repo\n40: - treat agent-only instructions as real repo guidance, not exempt examples; `AGENTS.md` should meet the same truthfulness bar as user-facing docs\n41: \n42: ### Placeholder Taxonomy\n43: \n44: Classify placeholders before scoring them:\n45: \n46: - `downstream-customization`: intended for adopters of a template repo\n47: - `maturity-based`: acceptable because the repo has not reached that implementation stage yet\n48: - `stale-template-residue`: inherited comments, framework references, or wording that no longer matches repo reality\n49: - `governance-invalidating`: placeholders that weaken ownership, review, navigation, or trust in current-repo guidance\n50: \n51: Not all placeholders are equal. Do not treat all placeholders as failures, and do not treat all placeholders as harmless.\n52: \n53: Severity guidance:\n54: \n55: - `governance-invalidating` placeholders are at least `medium` severity by default and may be `high` when they break ownership, review policy, support links, or safety boundaries\n56: - `stale-template-residue` is usually `low` or `medium` depending on how misleading it is\n57: - `maturity-based` and `downstream-customization` placeholders are acceptable when clearly labeled\n58: \n59: Examples of governance-invalidating findings:\n60: \n61: - `CODEOWNERS` entries that are placeholder-only or unlikely to resolve to real users or teams\n62: - `CODEOWNERS` entries that use only an org handle such as `@org` instead of a user or `@org/team`\n63: - issue-template or support links that point to broken placeholder URLs\n64: - docs or agent instructions that present direct remote apply commands without audit-first or approval-gated framing\n65: - docs that normalize `--no-verify` or similar hook bypasses as standard workflow guidance\n66: \n67: ### Semantic Equivalence Over Exact Paths\n68: \n69: Prefer meaning over exact casing or path conventions when the repo intent is clear. For example, `docs/development.md` and `docs/DEVELOPMENT.md` may satisfy the same role.\n70: \n71: ## Category 1: Repo Intent Is Legible\n72: \n73: ### Required Signals\n74: \n75: - `README.md` explains what the repo is, what state it is in, and how to get started.\n76: - `docs/ARCHITECTURE.md` captures implemented or target architecture.\n77: - `docs/DEVELOPMENT.md` provides local setup and quality commands.\n78: - `AGENTS.md` gives repo-specific instructions to AI agents.\n79: \n80: ### Good Looks Like\n81: \n82: - minimal ambiguity about repo purpose and maturity\n83: - no unresolved identity placeholders in the primary entry docs\n84: - enough context for an AI agent to infer guardrails without guessing\n85: - current local commands are clearly distinguishable from future-state plans\n86: - stale framework or product references are absent\n87: \n88: ## Category 2: Governance Is Standardized Early\n89: \n90: ### Required Signals\n91: \n92: - `CONTRIBUTING.md`\n93: - `.github/pull_request_template.md`\n94: - `.github/ISSUE_TEMPLATE/*`\n95: - `.github/CODEOWNERS`\n96: \n97: ### Good Looks Like\n98: \n99: - PRs explain why, what changed, and how work was validated\n100: - issue templates collect actionable information\n101: - ownership is concrete rather than generic placeholder-only content\n102: - contribution docs match real repo gates and workflow\n103: - CODEOWNERS intent is clear about whether it is advisory or enforced\n104: - CODEOWNERS entries look syntactically valid for GitHub user or team resolution\n105: - hook bypasses are absent from normal workflow guidance or are scoped as rare human-only exceptions\n106: \n107: ## Category 3: Local Feedback Loops Exist\n108: \n109: ### Required Signals\n110: \n111: - `.pre-commit-config.yaml`\n112: - `.markdownlint.yaml`\n113: - `.gitignore`\n114: \n115: ### Baseline Checks\n116: \n117: - YAML validation\n118: - TOML validation where relevant\n119: - end-of-file fixes\n120: - trailing whitespace cleanup\n121: - large-file checks\n122: - markdown lint and fix\n123: - Conventional Commit enforcement\n124: - secret scanning\n125: - Renovate config validation when Renovate is present\n126: \n127: ### Good Looks Like\n128: \n129: - one reliable baseline verification command such as `pre-commit run --all-files`\n130: - tech-agnostic checks land before language-specific hooks\n131: - language-specific hooks are added when implementation maturity justifies them\n132: - docs and agent instructions prefer provisioned commands over assumed globally installed tools\n133: \n134: ## Category 4: CI Preserves Quality Continuously\n135: \n136: ### Required Signals\n137: \n138: - `.github/workflows/ci.yml`\n139: \n140: ### Good Looks Like\n141: \n142: - required status checks exist even in docs-first repositories\n143: - CI mirrors local quality expectations rather than diverging from them\n144: - maturity-aware jobs are used instead of fake implementation claims\n145: - placeholder test jobs are transparent about why they exist\n146: \n147: ### Docs-First Acceptable Pattern\n148: \n149: - a placeholder or documentation-only test gate may exist to preserve required checks while implementation is still pending\n150: \n151: ## Category 5: Release Path Is Pre-Wired\n152: \n153: ### Required Signals\n154: \n155: - `.github/workflows/release.yml`\n156: - `.releaserc.toml`\n157: \n158: ### Good Looks Like\n159: \n160: - release automation is scaffolded early but configured honestly\n161: - Conventional Commits are the release source of truth\n162: - docs-first repositories may leave stamp targets empty if no versioned artifacts exist yet\n163: - release docs do not imply artifact stamping or packaging that the repo does not actually perform yet\n164: - the chosen release auth path is compatible with the repo's actual protection model\n165: \n166: ### Release Viability Check\n167: \n168: - treat release plumbing as nonfunctional if branch protections or rulesets would block the release actor from pushing required commits or tags\n169: - `GITHUB_TOKEN` can be sufficient when the repo's protection model allows release pushes from the workflow actor\n170: - require a bypass-capable auth path such as Octo STS only when protected-branch or ruleset behavior would otherwise block the chosen release pattern\n171: - do not call a release path ready based only on file presence\n172: \n173: ## Category 6: Remote GitHub Policy Is Treated As Code\n174: \n175: ### Required Signals\n176: \n177: - `.github/ruleset-config.json`\n178: \n179: ### Minimum Acceptable State\n180: \n181: - desired branch governance is versioned in the repo\n182: - repo-level settings are at least auditable and documented if not machine-readable yet\n183: - local desired state can be compared to live remote state without guessing the intended policy\n184: - repo-settings desired state appears as a first-class audit output, not buried in prose examples\n185: \n186: ### Stronger Signals\n187: \n188: - a remote ruleset sync workflow\n189: - CI drift detection against live GitHub ruleset state\n190: - documented repo settings audit or apply commands\n191: - repo-settings desired state captured in a table or machine-readable definition\n192: \n193: ### Good Looks Like\n194: \n195: - desired branch governance is versioned in the repo\n196: - required checks and merge policy are explicit\n197: - live GitHub state can be inspected and reconciled from the repo definition\n198: - repo-level settings such as merge methods or delete-branch-on-merge are not left as pure tribal knowledge\n199: - reports distinguish local desired state from live remote state and from default-branch activation status\n200: \n201: ## Category 7: AI Operability Is Explicit\n202: \n203: ### Required Signals\n204: \n205: - `AGENTS.md`\n206: \n207: ### Optional Signals\n208: \n209: - `.claude/`\n210: - `.cursor/`\n211: - `.opencode/`\n212: - other agent runtime config files that are actually used by the team\n213: \n214: ### Good Looks Like\n215: \n216: - repo-specific AI instructions\n217: - concise quality commands\n218: - explicit constraints, not generic boilerplate\n219: - clear notes on placeholders, maturity, and safety expectations\n220: - commands named in AI instructions are likely runnable in a fresh repo environment\n221: - remote mutation guidance is clearly separated from audit steps and approval boundaries\n222: \n223: ## Category 8: Environment And Integration Surfaces Are Documented\n224: \n225: ### Conditional Signals\n226: \n227: - `.env.example`\n228: - repo docs describing required integrations\n229: \n230: ### Good Looks Like\n231: \n232: - placeholders only, never real secrets\n233: - enough detail to understand planned external surfaces\n234: - future integrations may be documented before implementation is complete\n235: - variables can be annotated by phase when some are not immediately needed\n236: \n237: ## Category 9: Maturity-Based Exceptions Are Intentional\n238: \n239: ### Acceptable Docs-First Exceptions\n240: \n241: - placeholder test job to preserve required checks\n242: - empty semantic-release stamp targets\n243: - commented language-specific hooks\n244: - target-state architecture documentation instead of implementation-detail docs\n245: - template-repo placeholders that are clearly marked as downstream customization points\n246: \n247: ### Not Acceptable\n248: \n249: - broken or contradictory placeholders\n250: - stale template residue that points to the wrong framework, product, or workflow\n251: - missing required review or status-check contracts\n252: - tribal-knowledge-only remote settings\n253: - generic template text that no longer matches repo reality\n254: \n255: ## Minimum Acceptable State\n256: \n257: A repository is minimally ready when it has:\n258: \n259: - legible repo-purpose docs\n260: - truthful current-state commands\n261: - repo-specific governance docs\n262: - runnable local baseline checks\n263: - CI enforcing the baseline\n264: - release scaffolding\n265: - ruleset-as-code or equivalent governance intent captured in repo\n266: - AI instructions in `AGENTS.md`\n267: \n268: ## Strong Target State\n269: \n270: A repository is strongly AI-native when it also has:\n271: \n272: - remote GitHub parity audit or sync guidance\n273: - ruleset drift detection\n274: - maturity-aware exceptions documented clearly\n275: - placeholder types explicitly separated and justified\n276: - repo-specific environment and integration surfaces documented\n277: - little to no gap between declared and live governance\n278: - little to no stale template residue\n279: \n280: For a practical implementation-oriented checklist, use `references/target-state-checklist.md`.\n\n(End of file - total 280 lines)\n</content>",
+            "title": "skills/ai-native-repo-bootstrap/references/baseline-rubric.md",
+            "metadata": {
+              "preview": "# Baseline Rubric\n\n## Purpose\n\nThis rubric defines what good looks like for an AI-native repository baseline.\n\nUse it to audit a repository, decide what to add or upgrade, and explain why a repository is or is not ready for effective AI-assisted development.\n\nJudge semantic truth, not just artifact presence. A repository with all expected files can still be misleading if commands are not runnable, comments still reflect an old template, or placeholders invalidate governance signals.\n\n## Cross-Cutting Audit Rules\n\n### Current-State Truthfulness\n\n- verify that commands documented as current setup steps are supported by the repository contents\n- separate planned stack declarations from currently runnable commands\n- treat command-to-filesystem mismatch as a meaningful gap even when docs are otherwise strong\n\nEvidence sources for command realism:\n",
+              "truncated": false,
+              "loaded": []
+            },
+            "time": {
+              "start": 1773354363711,
+              "end": 1773354363721
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_06b29d43c275f78e0169b33d7ba5cc8193a96c6cc2628989fa"
+            }
+          },
+          "id": "prt_ce4282b30001r03kLju2mo7u5x",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428059d0015eFrctb4c0yOUQ"
+        },
+        {
+          "type": "tool",
+          "callID": "call_dhQVZdSThVeSciMrV0Vo5Ao8",
+          "tool": "read",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/evals/evals.json"
+            },
+            "output": "<path>/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/evals/evals.json</path>\n<type>file</type>\n<content>1: {\n2:   \"skill_name\": \"ai-native-repo-bootstrap\",\n3:   \"evals\": [\n4:     {\n5:       \"id\": 1,\n6:       \"prompt\": \"Audit `/home/damien/Liatrio/repos/base-repo-template` for AI-native repo readiness. Do not edit files. Classify maturity, decide whether the template-repo lens applies, separate minimum baseline from stronger target-state, and call out any governance-invalidating placeholders or unsafe remote apply guidance.\",\n7:       \"expected_output\": \"A structured audit-only report that classifies the repo as docs-first, applies the template-repo lens, distinguishes minimum baseline from stronger target-state, and flags governance-invalidating placeholders plus unsafe remote apply guidance.\",\n8:       \"files\": [],\n9:       \"expectations\": [\n10:         \"The report classifies the repository as docs-first.\",\n11:         \"The report explicitly decides whether the template-repo lens applies.\",\n12:         \"The report separates minimum baseline gaps from stronger target-state improvements.\",\n13:         \"The report flags governance-invalidating placeholders or suspicious CODEOWNERS patterns.\",\n14:         \"The report treats unsafe direct remote apply guidance as a safety finding and stays audit-only.\"\n15:       ]\n16:     },\n17:     {\n18:       \"id\": 2,\n19:       \"prompt\": \"Audit `/home/damien/Liatrio/repos/forge-program-tracker` for AI-native repo readiness. Do not edit files. Pay special attention to docs-first exceptions, release scaffolding honesty, ruleset-as-code, and whether current docs claim commands the repo does not actually provision.\",\n20:       \"expected_output\": \"A structured audit-only report that keeps the repo classified as docs-first, handles docs-first exceptions correctly, evaluates release and ruleset patterns honestly, and flags any command-realism issues.\",\n21:       \"files\": [],\n22:       \"expectations\": [\n23:         \"The report keeps the repository classified as docs-first rather than inflating maturity from governance or release scaffolding.\",\n24:         \"The report explicitly evaluates docs-first exceptions such as placeholder tests or honest release scaffolding.\",\n25:         \"The report checks command realism across README, AGENTS, or development docs.\",\n26:         \"The report distinguishes minimum baseline gaps from stronger target-state improvements.\",\n27:         \"The report keeps remote governance in audit-only mode.\"\n28:       ]\n29:     },\n30:     {\n31:       \"id\": 3,\n32:       \"prompt\": \"You are reviewing an early-implementation repository that already has real code and a basic test command, but it still has stale template docs and placeholder CI. Produce an upgrade plan that preserves valid conventions, replaces fake checks with real ones where justified, and separates local desired state from live GitHub governance. Keep remote work audit-only unless explicitly approved.\",\n33:       \"expected_output\": \"An upgrade-oriented remediation plan that preserves working conventions, escalates placeholder CI appropriately for an early-implementation repo, and keeps local vs remote governance clearly separated without drifting into unapproved remote apply steps.\",\n34:       \"files\": [],\n35:       \"expectations\": [\n36:         \"The report classifies the repository as early-implementation.\",\n37:         \"The remediation plan preserves valid existing conventions instead of suggesting a blanket rewrite.\",\n38:         \"The report recommends replacing placeholder CI with real checks where the described maturity justifies it.\",\n39:         \"The report separates local desired state from live remote governance state.\",\n40:         \"The report does not recommend remote apply steps without explicit approval.\"\n41:       ]\n42:     },\n43:     {\n44:       \"id\": 4,\n45:       \"prompt\": \"Bootstrap this repository for AI-native development, but do not inspect or discuss GitHub remote settings. Focus only on local docs, AGENTS guidance, guardrails, CI honesty, and verification steps. Keep the plan maturity-aware and do not assume application code already exists.\",\n46:       \"expected_output\": \"A local-only bootstrap plan that does not drift into GitHub governance, stays maturity-aware, covers docs and AGENTS guidance, and includes honest verification steps.\",\n47:       \"files\": [],\n48:       \"expectations\": [\n49:         \"The report stays focused on local repository bootstrap work.\",\n50:         \"The report does not inspect or discuss live GitHub remote settings.\",\n51:         \"The plan covers AGENTS guidance, local guardrails, CI honesty, and verification steps.\",\n52:         \"The plan remains maturity-aware and does not assume application code already exists.\"\n53:       ]\n54:     },\n55:     {\n56:       \"id\": 5,\n57:       \"prompt\": \"Audit a docs-first repository that already has strong branch rulesets and release automation. Confirm whether it is still docs-first, explain why governance does not automatically imply active delivery, and report only the real gaps. Treat remote governance as audit-only.\",\n58:       \"expected_output\": \"A maturity-aware audit that keeps the repo docs-first despite strong governance, explains why governance alone does not change maturity, and isolates the real remaining gaps without overclaiming active delivery.\",\n59:       \"files\": [],\n60:       \"expectations\": [\n61:         \"The report keeps the repository classified as docs-first.\",\n62:         \"The report explicitly explains why strong governance or release automation does not automatically imply active delivery.\",\n63:         \"The report isolates only the real remaining gaps instead of overprescribing active-delivery work.\",\n64:         \"The report treats remote governance as audit-only.\"\n65:       ]\n66:     },\n67:     {\n68:       \"id\": 6,\n69:       \"prompt\": \"You are remediating an early-implementation repository with real code, weak governance, missing AI docs, and no proven release prerequisites. Produce a bootstrap plan that adds the minimum honest baseline first, surfaces stronger target-state options that are intentionally deferred, does not invent concrete CODEOWNERS owners, and avoids low-value cosmetic churn.\",\n70:       \"expected_output\": \"A remediation plan that prioritizes baseline governance and docs, explicitly reports stronger target-state options not applied, leaves CODEOWNERS unresolved when owners are unknown, and avoids opportunistic cleanup unrelated to truthfulness or governance.\",\n71:       \"files\": [],\n72:       \"expectations\": [\n73:         \"The report prioritizes the minimum honest baseline first.\",\n74:         \"The report explicitly includes stronger target-state options not applied.\",\n75:         \"The report does not invent concrete CODEOWNERS owners when ownership is unknown.\",\n76:         \"The report avoids recommending low-value cosmetic churn as a primary remediation action.\"\n77:       ]\n78:     },\n79:     {\n80:       \"id\": 7,\n81:       \"prompt\": \"Audit a repository that already has `.github/workflows/release.yml` and `.releaserc.toml`. The repo uses GitHub, but its current protections do not block the workflow actor from pushing release commits or tags. Evaluate release-path viability, explain whether `GITHUB_TOKEN` is sufficient, and avoid requiring Chainguard or Octo STS unless governance actually demands it.\",\n82:       \"expected_output\": \"A release-focused audit that classifies the release path as viable with current auth, treats `GITHUB_TOKEN` as sufficient under the stated protections, and does not over-require Octo STS or Chainguard.\",\n83:       \"files\": [],\n84:       \"expectations\": [\n85:         \"The report classifies the release path as viable with current auth rather than blocked.\",\n86:         \"The report treats `GITHUB_TOKEN` as sufficient under the stated protection model.\",\n87:         \"The report does not require Chainguard or Octo STS when governance does not demand it.\",\n88:         \"The report explains release viability in terms of auth and protection-model compatibility.\"\n89:       ]\n90:     },\n91:     {\n92:       \"id\": 8,\n93:       \"prompt\": \"Audit a repository that already has `.github/workflows/release.yml` and `.releaserc.toml`, but branch protections and rulesets would block release commits or tags from the default workflow actor. Evaluate release-path viability, explain why the current auth path is insufficient, and identify the required prerequisite without pretending the release path is already ready.\",\n94:       \"expected_output\": \"A release-focused audit that classifies the release path as blocked by governance/auth mismatch, explains why the current actor cannot push under the protection model, and calls for a bypass-capable auth path such as Octo STS or another explicit alternative.\",\n95:       \"files\": [],\n96:       \"expectations\": [\n97:         \"The report classifies the release path as blocked by governance/auth mismatch.\",\n98:         \"The report explains why the current auth path is insufficient under the stated protection model.\",\n99:         \"The report calls for a bypass-capable auth path or another explicit alternative.\",\n100:         \"The report does not describe the release workflow as ready while the auth mismatch remains unresolved.\"\n101:       ]\n102:     }\n103:   ]\n104: }\n\n(End of file - total 104 lines)\n</content>",
+            "title": "skills/ai-native-repo-bootstrap/evals/evals.json",
+            "metadata": {
+              "preview": "{\n  \"skill_name\": \"ai-native-repo-bootstrap\",\n  \"evals\": [\n    {\n      \"id\": 1,\n      \"prompt\": \"Audit `/home/damien/Liatrio/repos/base-repo-template` for AI-native repo readiness. Do not edit files. Classify maturity, decide whether the template-repo lens applies, separate minimum baseline from stronger target-state, and call out any governance-invalidating placeholders or unsafe remote apply guidance.\",\n      \"expected_output\": \"A structured audit-only report that classifies the repo as docs-first, applies the template-repo lens, distinguishes minimum baseline from stronger target-state, and flags governance-invalidating placeholders plus unsafe remote apply guidance.\",\n      \"files\": [],\n      \"expectations\": [\n        \"The report classifies the repository as docs-first.\",\n        \"The report explicitly decides whether the template-repo lens applies.\",\n        \"The report separates minimum baseline gaps from stronger target-state improvements.\",\n        \"The report flags governance-invalidating placeholders or suspicious CODEOWNERS patterns.\",\n        \"The report treats unsafe direct remote apply guidance as a safety finding and stays audit-only.\"\n      ]\n    },\n    {\n      \"id\": 2,\n      \"prompt\": \"Audit `/home/damien/Liatrio/repos/forge-program-tracker` for AI-native repo readiness. Do not edit files. Pay special attention to docs-first exceptions, release scaffolding honesty, ruleset-as-code, and whether current docs claim commands the repo does not actually provision.\",\n      \"expected_output\": \"A structured audit-only report that keeps the repo classified as docs-first, handles docs-first exceptions correctly, evaluates release and ruleset patterns honestly, and flags any command-realism issues.\",",
+              "truncated": false,
+              "loaded": []
+            },
+            "time": {
+              "start": 1773354363713,
+              "end": 1773354363722
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_06b29d43c275f78e0169b33d7ba5d481938740d692f4679675"
+            }
+          },
+          "id": "prt_ce4282b40001AQbRNk5gOy8IZP",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428059d0015eFrctb4c0yOUQ"
+        },
+        {
+          "type": "tool",
+          "callID": "call_wGLRoR1ILTAxhMY7C7YoXw07",
+          "tool": "read",
+          "state": {
+            "status": "error",
+            "input": {
+              "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1"
+            },
+            "error": "Error: File not found: /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1",
+            "time": {
+              "start": 1773354363714,
+              "end": 1773354363716
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_06b29d43c275f78e0169b33d7ba5d88193a054f04b187e4b5a"
+            }
+          },
+          "id": "prt_ce4282b42001o6caozTQ7KC2Fe",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428059d0015eFrctb4c0yOUQ"
+        },
+        {
+          "type": "step-finish",
+          "reason": "tool-calls",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "cost": 0.05334,
+          "tokens": {
+            "total": 18371,
+            "input": 17946,
+            "output": 425,
+            "reasoning": 140,
+            "cache": {
+              "read": 0,
+              "write": 0
+            }
+          },
+          "id": "REDACTED",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428059d0015eFrctb4c0yOUQ"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1773354363769,
+          "completed": 1773354369796
+        },
+        "parentID": "msg_ce427f252001oSKXJJaCSzvI5i",
+        "modelID": "gpt-5.4",
+        "providerID": "openai",
+        "mode": "general",
+        "agent": "general",
+        "path": {
+          "cwd": "/home/damien/Liatrio/repos/ai-prompts",
+          "root": "/home/damien/Liatrio/repos/ai-prompts"
+        },
+        "cost": 0.0414115,
+        "tokens": {
+          "total": 27640,
+          "input": 13073,
+          "output": 231,
+          "reasoning": 112,
+          "cache": {
+            "read": 14336,
+            "write": 0
+          }
+        },
+        "finish": "tool-calls",
+        "id": "REDACTED",
+        "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "id": "prt_ce4282ce0001Ku0KWWwYIFWNlp",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "reasoning",
+          "text": "**Considering report creation**\n\nI need to create a report with a direct answer for a hypothetical situation. I wonder if a relevant checklist for the target state is needed, but I'm not sure. I’ll focus on reviewing the bundled references, checklists, and templates I already have.\n\nI might consider a verification checklist or a preflight, but real checks aren’t required for this evaluation. It’s probably fine to read through checklists, even if they're not necessary. I still need to save the final report and user notes, which means I need to check if the parent directory exists. I might use glob to inspect the relevant workspace tree.",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0a71fce16b32b07e0169b33d7c91f481979ba67828ab0889b5",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "time": {
+            "start": 1773354364605,
+            "end": 1773354369728
+          },
+          "id": "prt_ce4282ebd001MMusYq8rIWlGlK",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "tool",
+          "callID": "REDACTED",
+          "tool": "glob",
+          "state": {
+            "status": "completed",
+            "input": {
+              "pattern": "**/*",
+              "path": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token"
+            },
+            "output": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/eval_metadata.json",
+            "title": "skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token",
+            "metadata": {
+              "count": 1,
+              "truncated": false
+            },
+            "time": {
+              "start": 1773354369742,
+              "end": 1773354369750
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0a71fce16b32b07e0169b33d81b0688197bb360d7b0aa3cc00"
+            }
+          },
+          "id": "prt_ce42842c1001GDHeDmsoOGOWDf",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "tool",
+          "callID": "REDACTED",
+          "tool": "read",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2"
+            },
+            "output": "<path>/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2</path>\n<type>directory</type>\n<entries>\neval-1-template-repo-audit/\neval-2-docs-first-target-state-audit/\neval-3-early-implementation-upgrade-plan/\neval-4-local-only-bootstrap/\neval-5-governance-heavy-docs-first/\neval-6-early-implementation-remediation-ownership/\neval-7-release-path-viable-with-github-token/\neval-8-release-path-blocked-by-governance/\n\n(8 entries)\n</entries>",
+            "title": "skills/ai-native-repo-bootstrap-workspace/iteration-2",
+            "metadata": {
+              "preview": "eval-1-template-repo-audit/\neval-2-docs-first-target-state-audit/\neval-3-early-implementation-upgrade-plan/\neval-4-local-only-bootstrap/\neval-5-governance-heavy-docs-first/\neval-6-early-implementation-remediation-ownership/\neval-7-release-path-viable-with-github-token/\neval-8-release-path-blocked-by-governance/",
+              "truncated": false,
+              "loaded": []
+            },
+            "time": {
+              "start": 1773354369744,
+              "end": 1773354369746
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0a71fce16b32b07e0169b33d81b0788197a3a91a2c9b83a3c8"
+            }
+          },
+          "id": "prt_ce42842cf001DwEnKVrLp5tTWJ",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "step-finish",
+          "reason": "tool-calls",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "cost": 0.0414115,
+          "tokens": {
+            "total": 27640,
+            "input": 13073,
+            "output": 231,
+            "reasoning": 112,
+            "cache": {
+              "read": 14336,
+              "write": 0
+            }
+          },
+          "id": "prt_ce42842ec001DrNKrw4VLcV266",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1773354369797,
+          "completed": 1773354371433
+        },
+        "parentID": "msg_ce427f252001oSKXJJaCSzvI5i",
+        "modelID": "gpt-5.4",
+        "providerID": "openai",
+        "mode": "general",
+        "agent": "general",
+        "path": {
+          "cwd": "/home/damien/Liatrio/repos/ai-prompts",
+          "root": "/home/damien/Liatrio/repos/ai-prompts"
+        },
+        "cost": 0.008915,
+        "tokens": {
+          "total": 27909,
+          "input": 316,
+          "output": 73,
+          "reasoning": 10,
+          "cache": {
+            "read": 27520,
+            "write": 0
+          }
+        },
+        "finish": "tool-calls",
+        "id": "msg_ce4284305001npeurc5Dp0s2V4",
+        "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "id": "prt_ce4284483001ZvWVMFWSmMjJ9e",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce4284305001npeurc5Dp0s2V4"
+        },
+        {
+          "type": "reasoning",
+          "text": "",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0bd2d462a66b1fdf0169b33d82ae388196a880272b26cbf18b",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "time": {
+            "start": 1773354370716,
+            "end": 1773354371135
+          },
+          "id": "prt_ce428469c001UOuxmUmeEnGr8L",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce4284305001npeurc5Dp0s2V4"
+        },
+        {
+          "type": "tool",
+          "callID": "REDACTED",
+          "tool": "read",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/eval_metadata.json"
+            },
+            "output": "<path>/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/eval_metadata.json</path>\n<type>file</type>\n<content>1: {\n2:   \"eval_id\": 7,\n3:   \"eval_name\": \"release-path-viable-with-github-token\",\n4:   \"prompt\": \"Audit a repository that already has `.github/workflows/release.yml` and `.releaserc.toml`. The repo uses GitHub, but its current protections do not block the workflow actor from pushing release commits or tags. Evaluate release-path viability, explain whether `GITHUB_TOKEN` is sufficient, and avoid requiring Chainguard or Octo STS unless governance actually demands it.\",\n5:   \"expectations\": [\n6:     \"The report classifies the release path as viable with current auth rather than blocked.\",\n7:     \"The report treats `GITHUB_TOKEN` as sufficient under the stated protection model.\",\n8:     \"The report does not require Chainguard or Octo STS when governance does not demand it.\",\n9:     \"The report explains release viability in terms of auth and protection-model compatibility.\"\n10:   ]\n11: }\n\n(End of file - total 11 lines)\n</content>",
+            "title": "skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/eval_metadata.json",
+            "metadata": {
+              "preview": "{\n  \"eval_id\": 7,\n  \"eval_name\": \"release-path-viable-with-github-token\",\n  \"prompt\": \"Audit a repository that already has `.github/workflows/release.yml` and `.releaserc.toml`. The repo uses GitHub, but its current protections do not block the workflow actor from pushing release commits or tags. Evaluate release-path viability, explain whether `GITHUB_TOKEN` is sufficient, and avoid requiring Chainguard or Octo STS unless governance actually demands it.\",\n  \"expectations\": [\n    \"The report classifies the release path as viable with current auth rather than blocked.\",\n    \"The report treats `GITHUB_TOKEN` as sufficient under the stated protection model.\",\n    \"The report does not require Chainguard or Octo STS when governance does not demand it.\",\n    \"The report explains release viability in terms of auth and protection-model compatibility.\"\n  ]\n}",
+              "truncated": false,
+              "loaded": []
+            },
+            "time": {
+              "start": 1773354371395,
+              "end": 1773354371397
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_0bd2d462a66b1fdf0169b33d83197c81969f635301dd2e899e"
+            }
+          },
+          "id": "prt_ce4284840001OZGpEjyTIqcz1K",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce4284305001npeurc5Dp0s2V4"
+        },
+        {
+          "type": "step-finish",
+          "reason": "tool-calls",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "cost": 0.008915,
+          "tokens": {
+            "total": 27909,
+            "input": 316,
+            "output": 73,
+            "reasoning": 10,
+            "cache": {
+              "read": 27520,
+              "write": 0
+            }
+          },
+          "id": "REDACTED",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce4284305001npeurc5Dp0s2V4"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1773354371434,
+          "completed": 1773354377617
+        },
+        "parentID": "msg_ce427f252001oSKXJJaCSzvI5i",
+        "modelID": "gpt-5.4",
+        "providerID": "openai",
+        "mode": "general",
+        "agent": "general",
+        "path": {
+          "cwd": "/home/damien/Liatrio/repos/ai-prompts",
+          "root": "/home/damien/Liatrio/repos/ai-prompts"
+        },
+        "cost": 0.014749,
+        "tokens": {
+          "total": 28473,
+          "input": 428,
+          "output": 269,
+          "reasoning": 180,
+          "cache": {
+            "read": 27776,
+            "write": 0
+          }
+        },
+        "finish": "tool-calls",
+        "id": "REDACTED",
+        "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "id": "prt_ce4284b36001bAm77PbfpVneH9",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "reasoning",
+          "text": "**Creating output directories**\n\nI need to create an output directory and files. I'm thinking of using the `apply_patch Add File` to create directories, but I'm unsure if it can handle missing parent directories. It might be safer to use `bash mkdir -p` to ensure the parent exists first. I’ll check the parent directory with `ls` or `eza` to confirm. If it’s not there, I might get an error. Let’s stick to verifying if the parent path exists before using the bash command.",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_071f5ba212ead3210169b33d8422348194880c88c97c765eec",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "time": {
+            "start": 1773354372165,
+            "end": 1773354377241
+          },
+          "id": "prt_ce4284c45001zkD0vNL2rF1EJ6",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "tool",
+          "callID": "REDACTED",
+          "tool": "bash",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "eza \"/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token\"",
+              "workdir": "/home/damien/Liatrio/repos/ai-prompts",
+              "description": "Lists eval-7 workspace contents"
+            },
+            "output": "eval_metadata.json\n",
+            "title": "Lists eval-7 workspace contents",
+            "metadata": {
+              "output": "eval_metadata.json\n",
+              "exit": 0,
+              "description": "Lists eval-7 workspace contents",
+              "truncated": false
+            },
+            "time": {
+              "start": 1773354377565,
+              "end": 1773354377570
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_071f5ba212ead3210169b33d8931ac8194a4768f6e559ae719"
+            }
+          },
+          "id": "prt_ce428601b001Jt4PXahSL9u4kT",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "step-finish",
+          "reason": "tool-calls",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "cost": 0.014749,
+          "tokens": {
+            "total": 28473,
+            "input": 428,
+            "output": 269,
+            "reasoning": 180,
+            "cache": {
+              "read": 27776,
+              "write": 0
+            }
+          },
+          "id": "REDACTED",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1773354377618,
+          "completed": 1773354396446
+        },
+        "parentID": "msg_ce427f252001oSKXJJaCSzvI5i",
+        "modelID": "gpt-5.4",
+        "providerID": "openai",
+        "mode": "general",
+        "agent": "general",
+        "path": {
+          "cwd": "/home/damien/Liatrio/repos/ai-prompts",
+          "root": "/home/damien/Liatrio/repos/ai-prompts"
+        },
+        "cost": 0.038712,
+        "tokens": {
+          "total": 29575,
+          "input": 200,
+          "output": 1087,
+          "reasoning": 989,
+          "cache": {
+            "read": 28288,
+            "write": 0
+          }
+        },
+        "finish": "tool-calls",
+        "id": "msg_ce428619200142vD9jP0WAz4hd",
+        "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "id": "prt_ce42863140011j7e9CMOTmKzNN",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428619200142vD9jP0WAz4hd"
+        },
+        {
+          "type": "reasoning",
+          "text": "**Evaluating report structure**\n\nI need to create a report, ensuring I follow markdown style and avoid line wrapping, keeping things tidy. I’m considering applying both files in my draft and including all delta-report sections, even if they are hypothetical. Since there are no specific repo details, I should clarify that it's a hypothetical scenario. As for maturity classification, I could say it's \"undetermined from prompt\" with a focus on release viability. I must make sure to align with the output standards and be clear in my classification.",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_05accc81a06bea730169b33d8a2a208194b497f09c4d8985e8"
+            }
+          },
+          "time": {
+            "start": 1773354378199,
+            "end": 1773354385174
+          },
+          "id": "prt_ce42863d7001H8l7p3f1lipzrV",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428619200142vD9jP0WAz4hd"
+        },
+        {
+          "type": "reasoning",
+          "text": "**Assessing maturity classification**\n\nI’m considering how to classify overall maturity based on the available information, which is a bit tricky. I think I should note that there’s “not enough evidence to classify,” while also emphasizing the hypothetical nature of the scenario. I need to mention that no active delivery can be inferred from just the release scaffolding. I'll state the compliance items clearly, but I also need to acknowledge the limitations in truthfulness since no repository documentation has been inspected. Keeping things minimal seems to be the best approach here.",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_05accc81a06bea730169b33d8a2a208194b497f09c4d8985e8"
+            }
+          },
+          "time": {
+            "start": 1773354385175,
+            "end": 1773354387753
+          },
+          "id": "prt_ce4287f170014lUuhsiv84Mpzb",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428619200142vD9jP0WAz4hd"
+        },
+        {
+          "type": "reasoning",
+          "text": "**Classifying maturity gaps**\n\nI’m considering maturity gaps based on available facts. For high severity, I think there are no gaps. For medium severity, I see that default-branch activation and specific permissions are not evidenced. As for low severity, I haven’t seen any repository settings for the desired state. I should avoid overclaiming and highlight the minimum baseline, indicating that there are no gaps for release authorization compatibility. I also need to note that any stronger improvements in the target state can be documented optionally depending on future governance needs.",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_05accc81a06bea730169b33d8a2a208194b497f09c4d8985e8"
+            }
+          },
+          "time": {
+            "start": 1773354387754,
+            "end": 1773354393849
+          },
+          "id": "prt_ce428892a001usCGI52T2V6dsV",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428619200142vD9jP0WAz4hd"
+        },
+        {
+          "type": "reasoning",
+          "text": "**Considering GitHub token usage and file creation**\n\nIt looks like under the current protection model, `GITHUB_TOKEN` should be enough for release commits or tags as long as the workflow allows the token the necessary write scope. It's important not to assume hidden facts. I need to create files now and I might use `apply_patch` to add files, although I'm unsure about the path if the directories don't exist yet. I should probably use `mkdir -p` first to ensure the directories are created, and I'll need to use bash for that.",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_05accc81a06bea730169b33d8a2a208194b497f09c4d8985e8",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "time": {
+            "start": 1773354393850,
+            "end": 1773354396232
+          },
+          "id": "prt_ce428a0fa0016F6bjab3GwmfCR",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428619200142vD9jP0WAz4hd"
+        },
+        {
+          "type": "tool",
+          "callID": "REDACTED",
+          "tool": "bash",
+          "state": {
+            "status": "completed",
+            "input": {
+              "command": "mkdir -p \"/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs\"",
+              "workdir": "/home/damien/Liatrio/repos/ai-prompts",
+              "description": "Creates eval-7 output directory"
+            },
+            "output": "",
+            "title": "Creates eval-7 output directory",
+            "metadata": {
+              "output": "",
+              "exit": 0,
+              "description": "Creates eval-7 output directory",
+              "truncated": false
+            },
+            "time": {
+              "start": 1773354396403,
+              "end": 1773354396408
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_05accc81a06bea730169b33d9c31648194b0b5c507a36525bb"
+            }
+          },
+          "id": "prt_ce428aa610010Bv5czZ20h0pF5",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428619200142vD9jP0WAz4hd"
+        },
+        {
+          "type": "step-finish",
+          "reason": "tool-calls",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "cost": 0.038712,
+          "tokens": {
+            "total": 29575,
+            "input": 200,
+            "output": 1087,
+            "reasoning": 989,
+            "cache": {
+              "read": 28288,
+              "write": 0
+            }
+          },
+          "id": "REDACTED",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce428619200142vD9jP0WAz4hd"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1773354396448,
+          "completed": 1773354416183
+        },
+        "parentID": "msg_ce427f252001oSKXJJaCSzvI5i",
+        "modelID": "gpt-5.4",
+        "providerID": "openai",
+        "mode": "general",
+        "agent": "general",
+        "path": {
+          "cwd": "/home/damien/Liatrio/repos/ai-prompts",
+          "root": "/home/damien/Liatrio/repos/ai-prompts"
+        },
+        "cost": 0.029895,
+        "tokens": {
+          "total": 31025,
+          "input": 146,
+          "output": 1439,
+          "reasoning": 39,
+          "cache": {
+            "read": 29440,
+            "write": 0
+          }
+        },
+        "finish": "tool-calls",
+        "id": "REDACTED",
+        "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "id": "REDACTED",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "reasoning",
+          "text": "**Ensuring proper file formatting**\n\nI need to add files with apply_patch, and I have to ensure the markdown doesn’t have long lines. The instructions say to avoid soft wrap, which makes me think I should keep everything concise yet complete. It’s all about crafting my output carefully, so I’ll double-check the formatting along the way. Making sure everything looks just right is the goal here!",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_00713c90cb1faf270169b33d9e780c8195bfaad82788ce0cfb",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "time": {
+            "start": 1773354398502,
+            "end": 1773354400643
+          },
+          "id": "prt_ce428b326001prIqI7TzYY46kb",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "tool",
+          "callID": "call_jpQZlvYJ8fqw4oZKWiTkS98f",
+          "tool": "apply_patch",
+          "state": {
+            "status": "completed",
+            "input": {
+              "patchText": "*** Begin Patch\n*** Add File: /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md\n+# Release Path Audit\n+\n+## Repository Summary\n+\n+- Repository path: not provided; this is a hypothetical evaluation prompt.\n+- Repository purpose: not provided.\n+- Current maturity profile: undetermined from the prompt alone; do not infer `active-delivery` from release scaffolding by itself.\n+- Template-repo lens needed: no evidence that it applies.\n+- Workflow used: `upgrade_repo`.\n+\n+## State Separation\n+\n+- Local desired state: `.github/workflows/release.yml` and `.releaserc.toml` indicate the repository intends to run automated releases from GitHub Actions.\n+- Repo-settings desired-state evidence: none was provided beyond the prompt's statement that current protections do not block the workflow actor from pushing release commits or tags.\n+- Live remote state: treated hypothetically as compatible with workflow-driven release pushes and tag creation.\n+- Default-branch activation state: not evidenced; local file presence does not prove the workflow is active on the default branch.\n+\n+## Compliant Baseline Items\n+\n+- Release scaffolding exists via `.github/workflows/release.yml` and `.releaserc.toml`.\n+- The stated protection model is compatible with workflow-driven release commits and tags.\n+- GitHub is the hosting and automation context, so the release-path compatibility check is in scope.\n+\n+## Truthfulness And Command Realism\n+\n+- Current runnable commands: not assessed because no repository contents beyond the release files were provided.\n+- Future-state commands that are clearly labeled: not assessed.\n+- Contradictions or unsupported commands: none evidenced in the prompt.\n+\n+## Placeholder And Template Residue Findings\n+\n+- Downstream-customization placeholders: not assessed.\n+- Maturity-based placeholders: not assessed.\n+- Stale template residue: not assessed.\n+- Governance-invalidating placeholders: none evidenced in the prompt.\n+\n+## Gaps By Severity\n+\n+### High\n+\n+- None from the stated facts.\n+\n+### Medium\n+\n+- Default-branch activation and exact workflow token permissions are not evidenced, so operational readiness is inferred only from the prompt, not verified from repo data.\n+\n+### Low\n+\n+- Repo-settings desired state is described narratively rather than backed by a versioned ruleset or settings artifact in the provided evidence.\n+\n+## Minimum Baseline Vs Stronger Target State\n+\n+- Minimum acceptable baseline gaps: no release-auth mismatch is present under the stated protections, so no stronger identity path is required to make the release path viable.\n+- Stronger target-state improvements: explicitly document required workflow permissions such as `contents: write`, document branch and tag protection expectations, and keep desired governance state auditable as code when possible.\n+\n+## Stronger Target-State Options Not Applied\n+\n+- Relevant but intentionally deferred: Octo STS, Chainguard, or another alternate release identity.\n+- Blocked by missing org or repo prerequisites: none; those integrations are not required by the described governance model.\n+\n+## Release Path Viability\n+\n+- Current release state: viable.\n+- Chosen auth path: `GITHUB_TOKEN`.\n+- Protection-model compatibility notes: under the stated protections, the workflow actor can push release commits and tags, so `GITHUB_TOKEN` is sufficient for the release path as long as the workflow grants the token the needed write scope for the release job.\n+- Required prerequisites not yet present: no additional bypass-capable identity is required by the prompt; only normal workflow permissions and default-branch activation still need confirmation in a real repo audit.\n+\n+## Governance Placeholder Severity\n+\n+- Governance-invalidating placeholders: none evidenced.\n+- Advisory placeholders that are acceptable for now: not assessed.\n+- CODEOWNERS validity or enforcement notes: not assessed.\n+- Unsafe direct-apply or hook-bypass guidance: none evidenced.\n+\n+## Local Remediation Plan\n+\n+- Planned changes: none; this is an audit-only evaluation.\n+- Applied changes: none.\n+- Deferred local items: optionally document release prerequisites and token permissions near the workflow or release docs.\n+\n+## Remote Governance Plan\n+\n+- Audited areas: release-actor compatibility with branch and tag protections, at a hypothetical level only.\n+- Proposed remote changes: none required from the stated facts.\n+- Approval required before apply: yes.\n+- Applied remote changes: none.\n+- Deferred remote items: a live audit of rulesets, branch protections, protected tags, and default-branch workflow activation.\n+\n+## Validation Results\n+\n+- Commands run: none against a target repository; this evaluation is prompt-based.\n+- Passing checks: release-path reasoning is internally consistent with the stated protection model.\n+- Failing or skipped checks: live GitHub inspection, workflow activation verification, and exact token-permission inspection were skipped because no concrete repository was provided.\n+\n+## Residual Risks And Follow-Ups\n+\n+- If branch protections, rulesets, or protected-tag settings later block the workflow actor, the current `GITHUB_TOKEN` path becomes insufficient and a bypass-capable identity path may then be required.\n+- If the workflow omits required write permissions, the token may fail operationally even though governance does not block it.\n+- Based on the stated facts, do not require Chainguard or Octo STS now; introduce them only if governance, compliance, or provenance requirements actually demand them.\n*** Add File: /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md\n+- Hypothetical evaluation only; no target repository or live GitHub state was inspected.\n+- `GITHUB_TOKEN` is sufficient under the stated model because protections do not block the workflow actor from pushing release commits or tags.\n+- Real-world confirmation would still check `permissions`, default-branch workflow activation, and any protected-tag rules.\n+- Do not require Chainguard or Octo STS unless protections, compliance, or provenance policy create a real need for a different release identity.\n*** End Patch"
+            },
+            "output": "Success. Updated the following files:\nA skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md\nA skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md",
+            "title": "Success. Updated the following files:\nA skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md\nA skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md",
+            "metadata": {
+              "diff": "Index: /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md\n===================================================================\n--- /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md\n+++ /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md\n@@ -0,0 +1,99 @@\n+# Release Path Audit\n+\n+## Repository Summary\n+\n+- Repository path: not provided; this is a hypothetical evaluation prompt.\n+- Repository purpose: not provided.\n+- Current maturity profile: undetermined from the prompt alone; do not infer `active-delivery` from release scaffolding by itself.\n+- Template-repo lens needed: no evidence that it applies.\n+- Workflow used: `upgrade_repo`.\n+\n+## State Separation\n+\n+- Local desired state: `.github/workflows/release.yml` and `.releaserc.toml` indicate the repository intends to run automated releases from GitHub Actions.\n+- Repo-settings desired-state evidence: none was provided beyond the prompt's statement that current protections do not block the workflow actor from pushing release commits or tags.\n+- Live remote state: treated hypothetically as compatible with workflow-driven release pushes and tag creation.\n+- Default-branch activation state: not evidenced; local file presence does not prove the workflow is active on the default branch.\n+\n+## Compliant Baseline Items\n+\n+- Release scaffolding exists via `.github/workflows/release.yml` and `.releaserc.toml`.\n+- The stated protection model is compatible with workflow-driven release commits and tags.\n+- GitHub is the hosting and automation context, so the release-path compatibility check is in scope.\n+\n+## Truthfulness And Command Realism\n+\n+- Current runnable commands: not assessed because no repository contents beyond the release files were provided.\n+- Future-state commands that are clearly labeled: not assessed.\n+- Contradictions or unsupported commands: none evidenced in the prompt.\n+\n+## Placeholder And Template Residue Findings\n+\n+- Downstream-customization placeholders: not assessed.\n+- Maturity-based placeholders: not assessed.\n+- Stale template residue: not assessed.\n+- Governance-invalidating placeholders: none evidenced in the prompt.\n+\n+## Gaps By Severity\n+\n+### High\n+\n+- None from the stated facts.\n+\n+### Medium\n+\n+- Default-branch activation and exact workflow token permissions are not evidenced, so operational readiness is inferred only from the prompt, not verified from repo data.\n+\n+### Low\n+\n+- Repo-settings desired state is described narratively rather than backed by a versioned ruleset or settings artifact in the provided evidence.\n+\n+## Minimum Baseline Vs Stronger Target State\n+\n+- Minimum acceptable baseline gaps: no release-auth mismatch is present under the stated protections, so no stronger identity path is required to make the release path viable.\n+- Stronger target-state improvements: explicitly document required workflow permissions such as `contents: write`, document branch and tag protection expectations, and keep desired governance state auditable as code when possible.\n+\n+## Stronger Target-State Options Not Applied\n+\n+- Relevant but intentionally deferred: Octo STS, Chainguard, or another alternate release identity.\n+- Blocked by missing org or repo prerequisites: none; those integrations are not required by the described governance model.\n+\n+## Release Path Viability\n+\n+- Current release state: viable.\n+- Chosen auth path: `GITHUB_TOKEN`.\n+- Protection-model compatibility notes: under the stated protections, the workflow actor can push release commits and tags, so `GITHUB_TOKEN` is sufficient for the release path as long as the workflow grants the token the needed write scope for the release job.\n+- Required prerequisites not yet present: no additional bypass-capable identity is required by the prompt; only normal workflow permissions and default-branch activation still need confirmation in a real repo audit.\n+\n+## Governance Placeholder Severity\n+\n+- Governance-invalidating placeholders: none evidenced.\n+- Advisory placeholders that are acceptable for now: not assessed.\n+- CODEOWNERS validity or enforcement notes: not assessed.\n+- Unsafe direct-apply or hook-bypass guidance: none evidenced.\n+\n+## Local Remediation Plan\n+\n+- Planned changes: none; this is an audit-only evaluation.\n+- Applied changes: none.\n+- Deferred local items: optionally document release prerequisites and token permissions near the workflow or release docs.\n+\n+## Remote Governance Plan\n+\n+- Audited areas: release-actor compatibility with branch and tag protections, at a hypothetical level only.\n+- Proposed remote changes: none required from the stated facts.\n+- Approval required before apply: yes.\n+- Applied remote changes: none.\n+- Deferred remote items: a live audit of rulesets, branch protections, protected tags, and default-branch workflow activation.\n+\n+## Validation Results\n+\n+- Commands run: none against a target repository; this evaluation is prompt-based.\n+- Passing checks: release-path reasoning is internally consistent with the stated protection model.\n+- Failing or skipped checks: live GitHub inspection, workflow activation verification, and exact token-permission inspection were skipped because no concrete repository was provided.\n+\n+## Residual Risks And Follow-Ups\n+\n+- If branch protections, rulesets, or protected-tag settings later block the workflow actor, the current `GITHUB_TOKEN` path becomes insufficient and a bypass-capable identity path may then be required.\n+- If the workflow omits required write permissions, the token may fail operationally even though governance does not block it.\n+- Based on the stated facts, do not require Chainguard or Octo STS now; introduce them only if governance, compliance, or provenance requirements actually demand them.\n\nIndex: /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md\n===================================================================\n--- /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md\n+++ /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md\n@@ -0,0 +1,4 @@\n+- Hypothetical evaluation only; no target repository or live GitHub state was inspected.\n+- `GITHUB_TOKEN` is sufficient under the stated model because protections do not block the workflow actor from pushing release commits or tags.\n+- Real-world confirmation would still check `permissions`, default-branch workflow activation, and any protected-tag rules.\n+- Do not require Chainguard or Octo STS unless protections, compliance, or provenance policy create a real need for a different release identity.\n\n",
+              "files": [
+                {
+                  "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md",
+                  "relativePath": "skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md",
+                  "type": "add",
+                  "diff": "Index: /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md\n===================================================================\n--- /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md\n+++ /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md\n@@ -0,0 +1,99 @@\n+# Release Path Audit\n+\n+## Repository Summary\n+\n+- Repository path: not provided; this is a hypothetical evaluation prompt.\n+- Repository purpose: not provided.\n+- Current maturity profile: undetermined from the prompt alone; do not infer `active-delivery` from release scaffolding by itself.\n+- Template-repo lens needed: no evidence that it applies.\n+- Workflow used: `upgrade_repo`.\n+\n+## State Separation\n+\n+- Local desired state: `.github/workflows/release.yml` and `.releaserc.toml` indicate the repository intends to run automated releases from GitHub Actions.\n+- Repo-settings desired-state evidence: none was provided beyond the prompt's statement that current protections do not block the workflow actor from pushing release commits or tags.\n+- Live remote state: treated hypothetically as compatible with workflow-driven release pushes and tag creation.\n+- Default-branch activation state: not evidenced; local file presence does not prove the workflow is active on the default branch.\n+\n+## Compliant Baseline Items\n+\n+- Release scaffolding exists via `.github/workflows/release.yml` and `.releaserc.toml`.\n+- The stated protection model is compatible with workflow-driven release commits and tags.\n+- GitHub is the hosting and automation context, so the release-path compatibility check is in scope.\n+\n+## Truthfulness And Command Realism\n+\n+- Current runnable commands: not assessed because no repository contents beyond the release files were provided.\n+- Future-state commands that are clearly labeled: not assessed.\n+- Contradictions or unsupported commands: none evidenced in the prompt.\n+\n+## Placeholder And Template Residue Findings\n+\n+- Downstream-customization placeholders: not assessed.\n+- Maturity-based placeholders: not assessed.\n+- Stale template residue: not assessed.\n+- Governance-invalidating placeholders: none evidenced in the prompt.\n+\n+## Gaps By Severity\n+\n+### High\n+\n+- None from the stated facts.\n+\n+### Medium\n+\n+- Default-branch activation and exact workflow token permissions are not evidenced, so operational readiness is inferred only from the prompt, not verified from repo data.\n+\n+### Low\n+\n+- Repo-settings desired state is described narratively rather than backed by a versioned ruleset or settings artifact in the provided evidence.\n+\n+## Minimum Baseline Vs Stronger Target State\n+\n+- Minimum acceptable baseline gaps: no release-auth mismatch is present under the stated protections, so no stronger identity path is required to make the release path viable.\n+- Stronger target-state improvements: explicitly document required workflow permissions such as `contents: write`, document branch and tag protection expectations, and keep desired governance state auditable as code when possible.\n+\n+## Stronger Target-State Options Not Applied\n+\n+- Relevant but intentionally deferred: Octo STS, Chainguard, or another alternate release identity.\n+- Blocked by missing org or repo prerequisites: none; those integrations are not required by the described governance model.\n+\n+## Release Path Viability\n+\n+- Current release state: viable.\n+- Chosen auth path: `GITHUB_TOKEN`.\n+- Protection-model compatibility notes: under the stated protections, the workflow actor can push release commits and tags, so `GITHUB_TOKEN` is sufficient for the release path as long as the workflow grants the token the needed write scope for the release job.\n+- Required prerequisites not yet present: no additional bypass-capable identity is required by the prompt; only normal workflow permissions and default-branch activation still need confirmation in a real repo audit.\n+\n+## Governance Placeholder Severity\n+\n+- Governance-invalidating placeholders: none evidenced.\n+- Advisory placeholders that are acceptable for now: not assessed.\n+- CODEOWNERS validity or enforcement notes: not assessed.\n+- Unsafe direct-apply or hook-bypass guidance: none evidenced.\n+\n+## Local Remediation Plan\n+\n+- Planned changes: none; this is an audit-only evaluation.\n+- Applied changes: none.\n+- Deferred local items: optionally document release prerequisites and token permissions near the workflow or release docs.\n+\n+## Remote Governance Plan\n+\n+- Audited areas: release-actor compatibility with branch and tag protections, at a hypothetical level only.\n+- Proposed remote changes: none required from the stated facts.\n+- Approval required before apply: yes.\n+- Applied remote changes: none.\n+- Deferred remote items: a live audit of rulesets, branch protections, protected tags, and default-branch workflow activation.\n+\n+## Validation Results\n+\n+- Commands run: none against a target repository; this evaluation is prompt-based.\n+- Passing checks: release-path reasoning is internally consistent with the stated protection model.\n+- Failing or skipped checks: live GitHub inspection, workflow activation verification, and exact token-permission inspection were skipped because no concrete repository was provided.\n+\n+## Residual Risks And Follow-Ups\n+\n+- If branch protections, rulesets, or protected-tag settings later block the workflow actor, the current `GITHUB_TOKEN` path becomes insufficient and a bypass-capable identity path may then be required.\n+- If the workflow omits required write permissions, the token may fail operationally even though governance does not block it.\n+- Based on the stated facts, do not require Chainguard or Octo STS now; introduce them only if governance, compliance, or provenance requirements actually demand them.\n",
+                  "before": "",
+                  "after": "# Release Path Audit\n\n## Repository Summary\n\n- Repository path: not provided; this is a hypothetical evaluation prompt.\n- Repository purpose: not provided.\n- Current maturity profile: undetermined from the prompt alone; do not infer `active-delivery` from release scaffolding by itself.\n- Template-repo lens needed: no evidence that it applies.\n- Workflow used: `upgrade_repo`.\n\n## State Separation\n\n- Local desired state: `.github/workflows/release.yml` and `.releaserc.toml` indicate the repository intends to run automated releases from GitHub Actions.\n- Repo-settings desired-state evidence: none was provided beyond the prompt's statement that current protections do not block the workflow actor from pushing release commits or tags.\n- Live remote state: treated hypothetically as compatible with workflow-driven release pushes and tag creation.\n- Default-branch activation state: not evidenced; local file presence does not prove the workflow is active on the default branch.\n\n## Compliant Baseline Items\n\n- Release scaffolding exists via `.github/workflows/release.yml` and `.releaserc.toml`.\n- The stated protection model is compatible with workflow-driven release commits and tags.\n- GitHub is the hosting and automation context, so the release-path compatibility check is in scope.\n\n## Truthfulness And Command Realism\n\n- Current runnable commands: not assessed because no repository contents beyond the release files were provided.\n- Future-state commands that are clearly labeled: not assessed.\n- Contradictions or unsupported commands: none evidenced in the prompt.\n\n## Placeholder And Template Residue Findings\n\n- Downstream-customization placeholders: not assessed.\n- Maturity-based placeholders: not assessed.\n- Stale template residue: not assessed.\n- Governance-invalidating placeholders: none evidenced in the prompt.\n\n## Gaps By Severity\n\n### High\n\n- None from the stated facts.\n\n### Medium\n\n- Default-branch activation and exact workflow token permissions are not evidenced, so operational readiness is inferred only from the prompt, not verified from repo data.\n\n### Low\n\n- Repo-settings desired state is described narratively rather than backed by a versioned ruleset or settings artifact in the provided evidence.\n\n## Minimum Baseline Vs Stronger Target State\n\n- Minimum acceptable baseline gaps: no release-auth mismatch is present under the stated protections, so no stronger identity path is required to make the release path viable.\n- Stronger target-state improvements: explicitly document required workflow permissions such as `contents: write`, document branch and tag protection expectations, and keep desired governance state auditable as code when possible.\n\n## Stronger Target-State Options Not Applied\n\n- Relevant but intentionally deferred: Octo STS, Chainguard, or another alternate release identity.\n- Blocked by missing org or repo prerequisites: none; those integrations are not required by the described governance model.\n\n## Release Path Viability\n\n- Current release state: viable.\n- Chosen auth path: `GITHUB_TOKEN`.\n- Protection-model compatibility notes: under the stated protections, the workflow actor can push release commits and tags, so `GITHUB_TOKEN` is sufficient for the release path as long as the workflow grants the token the needed write scope for the release job.\n- Required prerequisites not yet present: no additional bypass-capable identity is required by the prompt; only normal workflow permissions and default-branch activation still need confirmation in a real repo audit.\n\n## Governance Placeholder Severity\n\n- Governance-invalidating placeholders: none evidenced.\n- Advisory placeholders that are acceptable for now: not assessed.\n- CODEOWNERS validity or enforcement notes: not assessed.\n- Unsafe direct-apply or hook-bypass guidance: none evidenced.\n\n## Local Remediation Plan\n\n- Planned changes: none; this is an audit-only evaluation.\n- Applied changes: none.\n- Deferred local items: optionally document release prerequisites and token permissions near the workflow or release docs.\n\n## Remote Governance Plan\n\n- Audited areas: release-actor compatibility with branch and tag protections, at a hypothetical level only.\n- Proposed remote changes: none required from the stated facts.\n- Approval required before apply: yes.\n- Applied remote changes: none.\n- Deferred remote items: a live audit of rulesets, branch protections, protected tags, and default-branch workflow activation.\n\n## Validation Results\n\n- Commands run: none against a target repository; this evaluation is prompt-based.\n- Passing checks: release-path reasoning is internally consistent with the stated protection model.\n- Failing or skipped checks: live GitHub inspection, workflow activation verification, and exact token-permission inspection were skipped because no concrete repository was provided.\n\n## Residual Risks And Follow-Ups\n\n- If branch protections, rulesets, or protected-tag settings later block the workflow actor, the current `GITHUB_TOKEN` path becomes insufficient and a bypass-capable identity path may then be required.\n- If the workflow omits required write permissions, the token may fail operationally even though governance does not block it.\n- Based on the stated facts, do not require Chainguard or Octo STS now; introduce them only if governance, compliance, or provenance requirements actually demand them.\n",
+                  "additions": 99,
+                  "deletions": 0
+                },
+                {
+                  "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md",
+                  "relativePath": "skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md",
+                  "type": "add",
+                  "diff": "Index: /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md\n===================================================================\n--- /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md\n+++ /home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md\n@@ -0,0 +1,4 @@\n+- Hypothetical evaluation only; no target repository or live GitHub state was inspected.\n+- `GITHUB_TOKEN` is sufficient under the stated model because protections do not block the workflow actor from pushing release commits or tags.\n+- Real-world confirmation would still check `permissions`, default-branch workflow activation, and any protected-tag rules.\n+- Do not require Chainguard or Octo STS unless protections, compliance, or provenance policy create a real need for a different release identity.\n",
+                  "before": "",
+                  "after": "- Hypothetical evaluation only; no target repository or live GitHub state was inspected.\n- `GITHUB_TOKEN` is sufficient under the stated model because protections do not block the workflow actor from pushing release commits or tags.\n- Real-world confirmation would still check `permissions`, default-branch workflow activation, and any protected-tag rules.\n- Do not require Chainguard or Octo STS unless protections, compliance, or provenance policy create a real need for a different release identity.\n",
+                  "additions": 4,
+                  "deletions": 0
+                }
+              ],
+              "diagnostics": {
+                "/home/damien/Liatrio/repos/base-repo-template/.pre-commit-config.yaml": [],
+                "/home/damien/Liatrio/repos/base-repo-template/.markdownlint.yaml": [],
+                "/home/damien/Liatrio/repos/base-repo-template/.github/workflows/ci.yml": [],
+                "/home/damien/Liatrio/repos/base-repo-template/.github/workflows/release.yml": [],
+                "/home/damien/Liatrio/repos/base-repo-template/.github/chainguard/main-semantic-release.sts.yaml": [],
+                "/home/damien/Liatrio/repos/base-repo-template/.github/ISSUE_TEMPLATE/bug_report.yml": [],
+                "/home/damien/Liatrio/repos/base-repo-template/.github/ISSUE_TEMPLATE/feature_request.yml": [],
+                "/home/damien/Liatrio/repos/base-repo-template/.github/ISSUE_TEMPLATE/config.yml": [],
+                "/home/damien/Liatrio/repos/forge-program-tracker/.pre-commit-config.yaml": [],
+                "/home/damien/Liatrio/repos/forge-program-tracker/.markdownlint.yaml": [],
+                "/home/damien/Liatrio/repos/forge-program-tracker/.github/workflows/ci.yml": [],
+                "/home/damien/Liatrio/repos/forge-program-tracker/.github/workflows/release.yml": [],
+                "/home/damien/Liatrio/repos/forge-program-tracker/.github/chainguard/main-semantic-release.sts.yaml": [],
+                "/home/damien/Liatrio/repos/forge-program-tracker/.github/ISSUE_TEMPLATE/bug_report.yml": [],
+                "/home/damien/Liatrio/repos/forge-program-tracker/.github/ISSUE_TEMPLATE/feature_request.yml": [],
+                "/home/damien/Liatrio/repos/forge-program-tracker/.github/ISSUE_TEMPLATE/config.yml": [],
+                "/home/damien/Liatrio/repos/forge-program-tracker/.github/workflows/ruleset-sync.yml": [],
+                "/home/damien/Liatrio/repos/forge-program-tracker/.coderabbit.yaml": [],
+                "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap/agents/openai.yaml": [],
+                "/home/damien/Liatrio/repos/ai-prompts/.github/workflows/ci.yml": [],
+                "/home/damien/Liatrio/repos/ai-prompts/.pre-commit-config.yaml": [],
+                "/home/damien/Liatrio/repos/ai-prompts/.github/workflows/release.yml": [],
+                "/home/damien/Liatrio/repos/ai-prompts/.markdownlint.yaml": [],
+                "/home/damien/Liatrio/repos/ai-prompts/.github/ISSUE_TEMPLATE/bug_report.yml": [],
+                "/home/damien/Liatrio/repos/ai-prompts/.github/ISSUE_TEMPLATE/feature_request.yml": [],
+                "/home/damien/Liatrio/repos/ai-prompts/.github/ISSUE_TEMPLATE/config.yml": [],
+                "/home/damien/Liatrio/repos/ai-prompts/.github/workflows/codex-review.yml": [],
+                "/home/damien/.agents/skills/skill-creator/eval-viewer/generate_review.py": [],
+                "/home/damien/Liatrio/repos/ai-prompts/scripts/check_docs_drift.py": [],
+                "/home/damien/Liatrio/repos/ai-prompts/scripts/generate_openai_yaml.py": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 17,
+                        "character": 7
+                      },
+                      "end": {
+                        "line": 17,
+                        "character": 11
+                      }
+                    },
+                    "message": "Import \"yaml\" could not be resolved from source",
+                    "severity": 2,
+                    "code": "reportMissingModuleSource",
+                    "source": "Pyright",
+                    "codeDescription": {
+                      "href": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#reportMissingModuleSource"
+                    }
+                  },
+                  {
+                    "range": {
+                      "start": {
+                        "line": 183,
+                        "character": 15
+                      },
+                      "end": {
+                        "line": 183,
+                        "character": 29
+                      }
+                    },
+                    "message": "Object of type \"None\" cannot be used as iterable value",
+                    "severity": 1,
+                    "code": "reportOptionalIterable",
+                    "source": "Pyright",
+                    "codeDescription": {
+                      "href": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#reportOptionalIterable"
+                    }
+                  }
+                ],
+                "/home/damien/Liatrio/repos/ai-prompts/scripts/init_skill.py": [],
+                "/home/damien/Liatrio/repos/ai-prompts/scripts/quick_validate.py": [
+                  {
+                    "range": {
+                      "start": {
+                        "line": 13,
+                        "character": 7
+                      },
+                      "end": {
+                        "line": 13,
+                        "character": 11
+                      }
+                    },
+                    "message": "Import \"yaml\" could not be resolved from source",
+                    "severity": 2,
+                    "code": "reportMissingModuleSource",
+                    "source": "Pyright",
+                    "codeDescription": {
+                      "href": "https://github.com/microsoft/pyright/blob/main/docs/configuration.md#reportMissingModuleSource"
+                    }
+                  }
+                ],
+                "/home/damien/.agents/skills/skill-creator/scripts/aggregate_benchmark.py": []
+              },
+              "truncated": false
+            },
+            "time": {
+              "start": 1773354416123,
+              "end": 1773354416133
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_00713c90cb1faf270169b33da098d08195aabcb6e265f6dc3d"
+            }
+          },
+          "id": "prt_ce428bb84001HKw7YnnJRr7RLB",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "step-finish",
+          "reason": "tool-calls",
+          "snapshot": "03044081eccaa5fee3bb2bbac36b21bdc15cde09",
+          "cost": 0.029895,
+          "tokens": {
+            "total": 31025,
+            "input": 146,
+            "output": 1439,
+            "reasoning": 39,
+            "cache": {
+              "read": 29440,
+              "write": 0
+            }
+          },
+          "id": "prt_ce428f80e001TbZbVWIA3Fc1hq",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "patch",
+          "hash": "3ecf166cd7962fb1277ea95f7f1676abdb0b2d1a",
+          "files": [
+            "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md",
+            "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md"
+          ],
+          "id": "prt_ce428f834001MD2uH4kGAA7OGc",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1773354416187,
+          "completed": 1773354419384
+        },
+        "parentID": "msg_ce427f252001oSKXJJaCSzvI5i",
+        "modelID": "gpt-5.4",
+        "providerID": "openai",
+        "mode": "general",
+        "agent": "general",
+        "path": {
+          "cwd": "/home/damien/Liatrio/repos/ai-prompts",
+          "root": "/home/damien/Liatrio/repos/ai-prompts"
+        },
+        "cost": 0.0149685,
+        "tokens": {
+          "total": 31288,
+          "input": 1935,
+          "output": 169,
+          "reasoning": 20,
+          "cache": {
+            "read": 29184,
+            "write": 0
+          }
+        },
+        "finish": "tool-calls",
+        "id": "REDACTED",
+        "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "03044081eccaa5fee3bb2bbac36b21bdc15cde09",
+          "id": "REDACTED",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "reasoning",
+          "text": "**Considering verification**\n\nI think I need to verify the contents to ensure everything is accurate. It’s possible that reading both sources might not be absolutely necessary, but it seems like a prudent step to take. I want to make sure I have the right information before proceeding, so double-checking the details could help prevent any mistakes. Better safe than sorry, right? Let’s see how this unfolds!",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_006b6f5b335884ee0169b33db0d2e08193b596d08e2bd72256",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "time": {
+            "start": 1773354416856,
+            "end": 1773354419298
+          },
+          "id": "prt_ce428fad8001SfgcR0LzQs19n3",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "tool",
+          "callID": "REDACTED",
+          "tool": "read",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md"
+            },
+            "output": "<path>/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md</path>\n<type>file</type>\n<content>1: # Release Path Audit\n2: \n3: ## Repository Summary\n4: \n5: - Repository path: not provided; this is a hypothetical evaluation prompt.\n6: - Repository purpose: not provided.\n7: - Current maturity profile: undetermined from the prompt alone; do not infer `active-delivery` from release scaffolding by itself.\n8: - Template-repo lens needed: no evidence that it applies.\n9: - Workflow used: `upgrade_repo`.\n10: \n11: ## State Separation\n12: \n13: - Local desired state: `.github/workflows/release.yml` and `.releaserc.toml` indicate the repository intends to run automated releases from GitHub Actions.\n14: - Repo-settings desired-state evidence: none was provided beyond the prompt's statement that current protections do not block the workflow actor from pushing release commits or tags.\n15: - Live remote state: treated hypothetically as compatible with workflow-driven release pushes and tag creation.\n16: - Default-branch activation state: not evidenced; local file presence does not prove the workflow is active on the default branch.\n17: \n18: ## Compliant Baseline Items\n19: \n20: - Release scaffolding exists via `.github/workflows/release.yml` and `.releaserc.toml`.\n21: - The stated protection model is compatible with workflow-driven release commits and tags.\n22: - GitHub is the hosting and automation context, so the release-path compatibility check is in scope.\n23: \n24: ## Truthfulness And Command Realism\n25: \n26: - Current runnable commands: not assessed because no repository contents beyond the release files were provided.\n27: - Future-state commands that are clearly labeled: not assessed.\n28: - Contradictions or unsupported commands: none evidenced in the prompt.\n29: \n30: ## Placeholder And Template Residue Findings\n31: \n32: - Downstream-customization placeholders: not assessed.\n33: - Maturity-based placeholders: not assessed.\n34: - Stale template residue: not assessed.\n35: - Governance-invalidating placeholders: none evidenced in the prompt.\n36: \n37: ## Gaps By Severity\n38: \n39: ### High\n40: \n41: - None from the stated facts.\n42: \n43: ### Medium\n44: \n45: - Default-branch activation and exact workflow token permissions are not evidenced, so operational readiness is inferred only from the prompt, not verified from repo data.\n46: \n47: ### Low\n48: \n49: - Repo-settings desired state is described narratively rather than backed by a versioned ruleset or settings artifact in the provided evidence.\n50: \n51: ## Minimum Baseline Vs Stronger Target State\n52: \n53: - Minimum acceptable baseline gaps: no release-auth mismatch is present under the stated protections, so no stronger identity path is required to make the release path viable.\n54: - Stronger target-state improvements: explicitly document required workflow permissions such as `contents: write`, document branch and tag protection expectations, and keep desired governance state auditable as code when possible.\n55: \n56: ## Stronger Target-State Options Not Applied\n57: \n58: - Relevant but intentionally deferred: Octo STS, Chainguard, or another alternate release identity.\n59: - Blocked by missing org or repo prerequisites: none; those integrations are not required by the described governance model.\n60: \n61: ## Release Path Viability\n62: \n63: - Current release state: viable.\n64: - Chosen auth path: `GITHUB_TOKEN`.\n65: - Protection-model compatibility notes: under the stated protections, the workflow actor can push release commits and tags, so `GITHUB_TOKEN` is sufficient for the release path as long as the workflow grants the token the needed write scope for the release job.\n66: - Required prerequisites not yet present: no additional bypass-capable identity is required by the prompt; only normal workflow permissions and default-branch activation still need confirmation in a real repo audit.\n67: \n68: ## Governance Placeholder Severity\n69: \n70: - Governance-invalidating placeholders: none evidenced.\n71: - Advisory placeholders that are acceptable for now: not assessed.\n72: - CODEOWNERS validity or enforcement notes: not assessed.\n73: - Unsafe direct-apply or hook-bypass guidance: none evidenced.\n74: \n75: ## Local Remediation Plan\n76: \n77: - Planned changes: none; this is an audit-only evaluation.\n78: - Applied changes: none.\n79: - Deferred local items: optionally document release prerequisites and token permissions near the workflow or release docs.\n80: \n81: ## Remote Governance Plan\n82: \n83: - Audited areas: release-actor compatibility with branch and tag protections, at a hypothetical level only.\n84: - Proposed remote changes: none required from the stated facts.\n85: - Approval required before apply: yes.\n86: - Applied remote changes: none.\n87: - Deferred remote items: a live audit of rulesets, branch protections, protected tags, and default-branch workflow activation.\n88: \n89: ## Validation Results\n90: \n91: - Commands run: none against a target repository; this evaluation is prompt-based.\n92: - Passing checks: release-path reasoning is internally consistent with the stated protection model.\n93: - Failing or skipped checks: live GitHub inspection, workflow activation verification, and exact token-permission inspection were skipped because no concrete repository was provided.\n94: \n95: ## Residual Risks And Follow-Ups\n96: \n97: - If branch protections, rulesets, or protected-tag settings later block the workflow actor, the current `GITHUB_TOKEN` path becomes insufficient and a bypass-capable identity path may then be required.\n98: - If the workflow omits required write permissions, the token may fail operationally even though governance does not block it.\n99: - Based on the stated facts, do not require Chainguard or Octo STS now; introduce them only if governance, compliance, or provenance requirements actually demand them.\n\n(End of file - total 99 lines)\n</content>",
+            "title": "skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md",
+            "metadata": {
+              "preview": "# Release Path Audit\n\n## Repository Summary\n\n- Repository path: not provided; this is a hypothetical evaluation prompt.\n- Repository purpose: not provided.\n- Current maturity profile: undetermined from the prompt alone; do not infer `active-delivery` from release scaffolding by itself.\n- Template-repo lens needed: no evidence that it applies.\n- Workflow used: `upgrade_repo`.\n\n## State Separation\n\n- Local desired state: `.github/workflows/release.yml` and `.releaserc.toml` indicate the repository intends to run automated releases from GitHub Actions.\n- Repo-settings desired-state evidence: none was provided beyond the prompt's statement that current protections do not block the workflow actor from pushing release commits or tags.\n- Live remote state: treated hypothetically as compatible with workflow-driven release pushes and tag creation.\n- Default-branch activation state: not evidenced; local file presence does not prove the workflow is active on the default branch.\n\n## Compliant Baseline Items\n\n- Release scaffolding exists via `.github/workflows/release.yml` and `.releaserc.toml`.",
+              "truncated": false,
+              "loaded": []
+            },
+            "time": {
+              "start": 1773354419318,
+              "end": 1773354419325
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_006b6f5b335884ee0169b33db3414481938cbeff9c6a56b044"
+            }
+          },
+          "id": "prt_ce4290468001nNxybnNeyWjpIL",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "tool",
+          "callID": "call_qRZCuWuIsNENcT4wmyQ4LxsF",
+          "tool": "read",
+          "state": {
+            "status": "completed",
+            "input": {
+              "filePath": "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md"
+            },
+            "output": "<path>/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md</path>\n<type>file</type>\n<content>1: - Hypothetical evaluation only; no target repository or live GitHub state was inspected.\n2: - `GITHUB_TOKEN` is sufficient under the stated model because protections do not block the workflow actor from pushing release commits or tags.\n3: - Real-world confirmation would still check `permissions`, default-branch workflow activation, and any protected-tag rules.\n4: - Do not require Chainguard or Octo STS unless protections, compliance, or provenance policy create a real need for a different release identity.\n\n(End of file - total 4 lines)\n</content>",
+            "title": "skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md",
+            "metadata": {
+              "preview": "- Hypothetical evaluation only; no target repository or live GitHub state was inspected.\n- `GITHUB_TOKEN` is sufficient under the stated model because protections do not block the workflow actor from pushing release commits or tags.\n- Real-world confirmation would still check `permissions`, default-branch workflow activation, and any protected-tag rules.\n- Do not require Chainguard or Octo STS unless protections, compliance, or provenance policy create a real need for a different release identity.",
+              "truncated": false,
+              "loaded": []
+            },
+            "time": {
+              "start": 1773354419320,
+              "end": 1773354419327
+            }
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "fc_006b6f5b335884ee0169b33db341548193ad91d8a031c1cf2f"
+            }
+          },
+          "id": "REDACTED",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "step-finish",
+          "reason": "tool-calls",
+          "snapshot": "ce50c0e344cd9d380dfb94277b788eb1e4c79bc6",
+          "cost": 0.0149685,
+          "tokens": {
+            "total": 31288,
+            "input": 1935,
+            "output": 169,
+            "reasoning": 20,
+            "cache": {
+              "read": 29184,
+              "write": 0
+            }
+          },
+          "id": "prt_ce4290480001Uz5Ad05f1XIaiK",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        },
+        {
+          "type": "patch",
+          "hash": "03044081eccaa5fee3bb2bbac36b21bdc15cde09",
+          "files": [
+            "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-8-release-path-blocked-by-governance/old_skill/run-1/outputs/report.md",
+            "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-8-release-path-blocked-by-governance/old_skill/run-1/outputs/user_notes.md",
+            "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-8-release-path-blocked-by-governance/with_skill/run-1/outputs/report.md",
+            "/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-8-release-path-blocked-by-governance/with_skill/run-1/outputs/user_notes.md"
+          ],
+          "id": "prt_ce42904b6001ueJzjKz6eYEX0a",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "REDACTED"
+        }
+      ]
+    },
+    {
+      "info": {
+        "role": "assistant",
+        "time": {
+          "created": 1773354419387,
+          "completed": 1773354423151
+        },
+        "parentID": "msg_ce427f252001oSKXJJaCSzvI5i",
+        "modelID": "gpt-5.4",
+        "providerID": "openai",
+        "mode": "general",
+        "agent": "general",
+        "path": {
+          "cwd": "/home/damien/Liatrio/repos/ai-prompts",
+          "root": "/home/damien/Liatrio/repos/ai-prompts"
+        },
+        "cost": 0.043491,
+        "tokens": {
+          "total": 32974,
+          "input": 14522,
+          "output": 148,
+          "reasoning": 26,
+          "cache": {
+            "read": 18304,
+            "write": 0
+          }
+        },
+        "finish": "stop",
+        "id": "msg_ce42904bb001gWKRjQ85FLoes9",
+        "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB"
+      },
+      "parts": [
+        {
+          "type": "step-start",
+          "snapshot": "1a4ff35be759fa18dda27b0583b2b26e8dbfe7cf",
+          "id": "prt_ce4290662001ukwzbO1OZOiudv",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce42904bb001gWKRjQ85FLoes9"
+        },
+        {
+          "type": "reasoning",
+          "text": "**Wrapping up file summary**\n\nI need to create a final short completion note listing the files I’ve written, making sure to include markers first. It's important to mention there were no remote changes to keep things clear and concise. I want to ensure that the information is straightforward and informative for whoever's reading it. It’s all about covering the bases without adding unnecessary details or confusion. This will help in tracking what’s been done so far!",
+          "metadata": {
+            "openai": {
+              "itemId": "rs_0d307eb92bf60c870169b33db447848190bfd896369956d62b",
+              "reasoningEncryptedContent": "REDACTED"
+            }
+          },
+          "time": {
+            "start": 1773354420312,
+            "end": 1773354422871
+          },
+          "id": "prt_ce4290858001vercks9HooxXc7",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce42904bb001gWKRjQ85FLoes9"
+        },
+        {
+          "type": "text",
+          "text": "🤖🎵\nCompleted the eval and wrote:\n\n- `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/report.md`\n- `/home/damien/Liatrio/repos/ai-prompts/skills/ai-native-repo-bootstrap-workspace/iteration-2/eval-7-release-path-viable-with-github-token/with_skill/run-1/outputs/user_notes.md`",
+          "time": {
+            "start": 1773354423111,
+            "end": 1773354423112
+          },
+          "metadata": {
+            "openai": {
+              "itemId": "msg_0d307eb92bf60c870169b33db6d3e48190b40ccfea90ce8542"
+            }
+          },
+          "id": "prt_ce4291258001PmDMcPmJ4HmJMm",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce42904bb001gWKRjQ85FLoes9"
+        },
+        {
+          "type": "step-finish",
+          "reason": "stop",
+          "snapshot": "1a4ff35be759fa18dda27b0583b2b26e8dbfe7cf",
+          "cost": 0.043491,
+          "tokens": {
+            "total": 32974,
+            "input": 14522,
+            "output": 148,
+            "reasoning": 26,
+            "cache": {
+              "read": 18304,
+              "write": 0
+            }
+          },
+          "id": "prt_ce429134c0019kwgf58MfY2n6T",
+          "sessionID": "ses_31bd80db5ffecVYwAccpXoeUgB",
+          "messageID": "msg_ce42904bb001gWKRjQ85FLoes9"
+        }
+      ]
+    }
+  ]
+}
