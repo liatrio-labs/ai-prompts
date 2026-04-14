@@ -34,7 +34,7 @@ Skills are organized in the `skills/` directory by capability:
 - `tilt-dev/` - Tilt-based local development environment operations
 - `uv-usage/` - `uv` package manager workflows and command guidance
 - `branch-surgery-pr-split/` - Branch decomposition strategy for splitting oversized or mixed-concern PRs
-- `research-briefing-html-template/` - Standalone HTML briefing/report template for reformatting long-form outputs into decision-ready reports
+- `briefing-report-html-template/` - Standalone HTML briefing/report template for reformatting long-form outputs into decision-ready reports
 
 ### 3. Use Prompts with AI Tools
 
@@ -147,7 +147,7 @@ Repository marker: `🤖` in `AGENTS.md` for AI Agent Instructions and configura
 | `tilt-dev` | `skills/tilt-dev/SKILL.md` | Manage and troubleshoot Tilt-orchestrated local development stacks. |
 | `uv-usage` | `skills/uv-usage/SKILL.md` | Provide concise guidance for `uv` project and dependency workflows. |
 | `branch-surgery-pr-split` | `skills/branch-surgery-pr-split/SKILL.md` | Split oversized or mixed-concern branches into reviewable PR stacks with parity audits and merge sequencing. |
-| `research-briefing-html-template` | `skills/research-briefing-html-template/SKILL.md` | Reformat long-form AI outputs, analysis, or completed research into a polished standalone HTML briefing with citations, tooltips, and decision-ready structure. |
+| `briefing-report-html-template` | `skills/briefing-report-html-template/SKILL.md` | Reformat long-form AI outputs, analysis, or completed research into a polished standalone HTML briefing/report with citations, tooltips, and decision-ready structure. |
 
 ## Prompt-to-Skill Migration Map
 

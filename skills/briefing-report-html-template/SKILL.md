@@ -1,5 +1,5 @@
 ---
-name: research-briefing-html-template
+name: briefing-report-html-template
 description: "Create or refactor standalone HTML briefings and report pages that turn long-form AI outputs, research findings, audits, reviews, or dense conversations into a polished, decision-ready report with this repository's briefing format. Use this whenever the user wants a long response, investigation, analysis, vendor review, risk review, repo audit, or conversation transcript reformatted into a branded HTML report with executive summary, inline citation chips, tooltip previews, references table, PDF-friendly letter-page layout, and polished interaction details."
 license: Apache-2.0
 metadata:
