@@ -1,6 +1,6 @@
 ---
 name: briefing-report-html-template
-description: "Create or refactor standalone HTML briefings and report pages that turn long-form AI outputs, research findings, audits, reviews, or dense conversations into a polished, decision-ready report with this repository's briefing format. Use this whenever the user wants a long response, investigation, analysis, vendor review, risk review, repo audit, or conversation transcript reformatted into a branded HTML report with executive summary, inline citation chips, tooltip previews, references table, PDF-friendly letter-page layout, and polished interaction details."
+description: "Create or refactor standalone HTML briefings and report pages that turn long-form AI outputs, research findings, audits, reviews, or dense conversations into a polished, clear, readable report with this repository's briefing format. Use this whenever the user wants a long response, investigation, analysis, vendor review, risk review, repo audit, or conversation transcript reformatted into a branded HTML report with executive summary, inline citation chips, tooltip previews, references table, PDF-friendly letter-page layout, and polished interaction details."
 license: Apache-2.0
 metadata:
   owner: liatrio
@@ -39,11 +39,11 @@ Treat these bundled files as the source of truth for the target format:
 - `assets/logo_Liatrio_reverse-preferred.svg`
   - Default dark-background Liatrio logo asset when Liatrio branding is desired.
 - `references/template-sections.md`
-  - Section-by-section explanation of what each briefing area is doing and how to map arbitrary research into it.
+  - Section-by-section explanation of what each briefing area is doing and how to map arbitrary source material into it.
 - `references/content-mapping-worksheet.md`
-  - Compact worksheet for planning the transformation from raw research into the briefing template.
+  - Compact worksheet for planning the transformation from raw source material into the briefing template.
 - `references/example-mapping.md`
-  - One concrete example of mapping a real research topic into the template structure and theme choice.
+  - One concrete example of mapping source material into the template structure and theme choice.
 - `references/interaction-contract.md`
   - Required behavior for citation chips, tooltips, references table, back-to-top behavior, and theme selection.
 
@@ -89,7 +89,7 @@ Before touching layout, reduce the input into a concise briefing model regardles
 - subtitle / briefing purpose
 - 3-5 top summary points
 - major analytical sections
-- decision guidance / recommendation section
+- optional follow-up, guidance, or next-steps section when it is actually needed
 - ordered references list
 
 When the source material does not naturally contain all template sections, adapt the section names while preserving the same reading rhythm:
@@ -159,7 +159,7 @@ Examples:
 
 - `What the Approval Screen Is Telling You` → `What the Evidence Actually Shows`
 - `Recent Changes Worth Knowing About` → `Recent Changes`, `Timeline`, or `What Changed`
-- `Decision Guidance` → `Recommended Action`, `Decision Framing`, or `Next Steps`
+- `Decision Guidance` → `Follow-Up Notes`, `Key Takeaways`, `What To Watch`, or `Next Steps`
 
 The goal is structural parity, not literal copying of headings.
 
@@ -198,7 +198,7 @@ Unless the user explicitly asks otherwise, produce a standalone HTML page that s
 - a clear H1 briefing title
 - concise subtitle/purpose text
 - top summary framing or executive summary
-- evidence/risk/decision sections tailored to the topic
+- evidence, context, comparison, or follow-up sections tailored to the topic
 - inline citation chips attached to claims
 - bottom references table with normalized numbering
 - polished dark-mode presentation
@@ -206,17 +206,17 @@ Unless the user explicitly asks otherwise, produce a standalone HTML page that s
 
 ## Content Mapping Guidance
 
-Use `references/template-sections.md` when deciding how to map arbitrary research into the template.
+Use `references/template-sections.md` when deciding how to map arbitrary source material into the template.
 
-Default section mapping pattern:
+Default section mapping pattern (adapt as needed, do not force every section):
 
 1. Hero / framing
-2. Executive Summary
+2. Executive Summary / Overview
 3. Key evidence interpretation block
-4. Risk / sensitivity / implications block
-5. Important findings or anomalies
+4. Comparison / status / implications block
+5. Important findings, patterns, or anomalies
 6. Recent changes / timeline block if applicable
-7. Decision Guidance / recommendation block
+7. Optional follow-up / notes / next-steps block when needed
 8. References
 
 If the source material is short, compress the number of sections but keep the same narrative flow.

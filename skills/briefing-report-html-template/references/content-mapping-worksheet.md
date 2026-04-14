@@ -1,12 +1,12 @@
 # Content Mapping Worksheet
 
-Use this worksheet when turning raw research into the briefing template.
+Use this worksheet when turning raw source material into the briefing/report template.
 
 ## 1) Briefing intent
 
 - Topic:
 - Audience:
-- Decision to support:
+- Delivery goal:
 - Tone:
 
 ## 2) Source inventory
@@ -24,25 +24,25 @@ Use this worksheet when turning raw research into the briefing template.
   - URL:
   - why it matters:
 
-## 3) Core findings
+## 3) Core takeaways
 
-List the 3-5 findings that most change the reader’s decision.
+List the 3-5 takeaways that most help the reader understand the material.
 
-- finding:
-- evidence:
-- implication:
+- takeaway:
+- evidence or supporting detail:
+- interpretation or context:
 
 ## 4) Section mapping
 
-Map the findings into the template’s narrative flow.
+Map the content into the template’s narrative flow.
 
 - Hero / framing:
-- Executive Summary:
-- Evidence / interpretation:
-- Risk / sensitivity:
-- Why it matters:
-- Timeline / recent changes:
-- Decision Guidance:
+- Executive Summary or Overview:
+- Main analysis / explanation:
+- Comparison / status / confidence / emphasis block:
+- Why it matters / deeper context:
+- Timeline / recent changes / chronology:
+- Optional next steps / follow-up notes:
 - References:
 
 ## 5) Theme choice
@@ -51,7 +51,7 @@ Choose one:
 
 - Liatrio
 - Dracula
-- Generic Minimal Style Tech Report w/ White Background
+- Minimal
 
 Default for this repository: Liatrio.
 
@@ -66,5 +66,5 @@ Default for this repository: Liatrio.
 
 - Normalize citation numbering before writing HTML.
 - Prefer fewer, denser sections over filler content.
-- Use full-width sections when the subject matter is decision-heavy.
-- Put the strongest recommendation near the end, just before References.
+- Use full-width sections when the material needs more room to breathe.
+- Only include explicit recommendations or next steps when the source material actually supports them.

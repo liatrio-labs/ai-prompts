@@ -1,6 +1,6 @@
 # Template Sections
 
-Use this file to map arbitrary research into the briefing template preserved in `assets/report-template-example.html` and the reusable scaffold in `assets/report-template-starter.html`.
+Use this file to map arbitrary source material into the briefing/report template preserved in `assets/report-template-example.html` and the reusable scaffold in `assets/report-template-starter.html`.
 
 ## Section Functions
 
@@ -8,36 +8,36 @@ Use this file to map arbitrary research into the briefing template preserved in 
 
 Purpose:
 
-- tell the reader what the briefing is about
-- establish why it matters
+- tell the reader what the report is about
+- establish why it matters or what kind of material follows
 - present 3-4 top-level summary cards if useful
 
 Inputs that belong here:
 
 - topic title
-- one-sentence subtitle or briefing purpose
-- headline findings
-- recommendation posture
+- one-sentence subtitle or report purpose
+- headline takeaways
+- optional orientation cards or context markers
 
-### 2. Executive Summary
+### 2. Executive Summary / Overview
 
 Purpose:
 
-- give the reader the whole answer quickly
-- explain the main conclusion before the evidence details
+- give the reader the high-level answer quickly
+- explain the central framing before the details
 
 Good content for this section:
 
-- the core conclusion
+- the core summary
 - the most important nuance or caveat
-- one short “bottom line” callout
+- one short “bottom line” callout when useful
 
 ### 3. Evidence Interpretation Block
 
 Purpose:
 
 - translate raw source evidence into a clear analytical reading
-- show how the visible facts map to the conclusion
+- show how the visible facts map to the larger explanation
 
 Examples:
 
@@ -45,35 +45,37 @@ Examples:
 - what logs actually show
 - what a code path is doing
 - what a benchmark means in practice
+- what changed between two versions
 
-### 4. Confidence / Risk / Sensitivity Block
+### 4. Comparison / Status / Confidence Block
 
 Purpose:
 
-- communicate trust level, risk level, or operational sensitivity
-- give readers a decision-oriented understanding of the stakes
+- communicate trust level, status, confidence, risk, or sensitivity
+- give readers a quick structured read on the most important dimensions
 
 Examples:
 
 - confidence snapshot
-- risk checkpoint
+- comparison cards
+- status summary
 - governance sensitivity
 - operational blast radius
 
-### 5. Why It Matters
+### 5. Why It Matters / Deeper Context
 
 Purpose:
 
 - explain why the evidence matters beyond the raw finding
-- connect the result to user impact, governance, or implementation consequences
+- connect the result to user impact, implementation details, governance, or broader context
 
 Use this when the topic needs interpretation rather than just summary.
 
-### 6. Most Important Finding or Anomaly
+### 6. Most Important Finding / Key Pattern / Anomaly
 
 Purpose:
 
-- spotlight the one finding that most changes the decision
+- spotlight the one finding, pattern, or anomaly that most changes the reader’s understanding
 - create a strong narrative pivot in the middle of the document
 
 This section is especially useful when one issue outweighs the rest.
@@ -87,19 +89,21 @@ Purpose:
 
 Use this section when chronology materially affects interpretation.
 
-### 8. Decision Guidance
+### 8. Optional Follow-Up / Guidance / Next Steps
 
 Purpose:
 
-- convert the analysis into action
-- tell the reader what conditions support approval, delay, escalation, or mitigation
+- capture action-oriented guidance when the material calls for it
+- summarize open questions, validation steps, or suggested follow-up work
 
 Typical sub-parts:
 
-- decision checkpoint / next checks
-- conditions that support action A
-- conditions that support action B
-- recommended posture
+- follow-up checks
+- conditions to verify
+- optional recommendations
+- next steps or unresolved questions
+
+Do not force this section into every report. Use it only when the source material benefits from explicit guidance.
 
 ### 9. References
 
@@ -121,25 +125,26 @@ Preferred format:
 - Rename topic-specific headings when needed, but preserve section function.
 - If the input material is sparse, merge adjacent sections rather than forcing thin cards.
 - If one section becomes too dense, promote it to full width instead of squeezing it into a rail.
-- Use callouts sparingly for the real “bottom line” or most decision-relevant implication.
+- Use callouts sparingly for the true bottom line, key interpretation, or most important contextual note.
+- Only include explicit recommendations when they are genuinely supported by the material.
 
 ## Compression Strategy
 
-If the source research is brief, the minimal acceptable structure is:
+If the source material is brief, the minimal acceptable structure is:
 
 1. Hero / framing
-2. Executive Summary
-3. Main evidence section
-4. Decision Guidance
-5. References
+2. Executive Summary / Overview
+3. Main evidence or explanation section
+4. References
 
 ## Expansion Strategy
 
-If the source research is rich and multi-layered, expand with:
+If the source material is rich and multi-layered, expand with:
 
 - timeline section
-- confidence or legitimacy section
-- anomaly / key risk section
+- confidence or status section
+- anomaly / key pattern section
 - multiple evidence sections
+- optional follow-up or next-steps section
 
 But do not let the page become dashboard clutter. Prefer a clean editorial reading experience.
