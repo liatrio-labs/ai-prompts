@@ -1,0 +1,3 @@
+interface:
+  display_name: "Briefing / Report HTML Template"
+  short_description: "Reformat long-form outputs into a polished standalone HTML briefing/report"

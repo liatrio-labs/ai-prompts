@@ -1,0 +1,1240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Octo STS Permissions Briefing</title>
+  <style>
+    :root {
+      --liatrio-green: #24AE1D;
+      --liatrio-bright: #89DF00;
+      --ink: #f3f6f2;
+      --muted: #b5c0b5;
+      --line: #2f3830;
+      --panel: #1e2327;
+      --panel-2: #182119;
+      --lagoon: #00C1DB;
+      --hot-red: #ff6673;
+      --shadow: rgba(0,0,0,0.38);
+      --page-bg: #11161a;
+      --hero-bg: #171d1a;
+      --card-bg: #161b1f;
+      --card-bg-2: #111619;
+      --callout-bg: #152017;
+      --warn-bg: #241618;
+    }
+
+    @page {
+      size: letter;
+      margin: 0.55in;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--page-bg);
+      color: var(--ink);
+      font-family: "DM Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+      line-height: 1.46;
+      font-size: 11.5pt;
+    }
+
+    body {
+      padding: 0;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 8.5in;
+      margin: 0 auto;
+      padding: 0.2in 0.1in 0.3in;
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      border-top: 10px solid var(--liatrio-green);
+      padding: 0.26in 0.28in 0.22in;
+      background:
+        linear-gradient(135deg, rgba(137,223,0,0.12), rgba(36,174,29,0.00) 40%),
+        linear-gradient(180deg, var(--hero-bg), #12171b);
+      box-shadow: 0 8px 24px var(--shadow);
+      page-break-inside: avoid;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .brand-identity {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      text-decoration: none;
+    }
+
+    .brand-logo img {
+      display: block;
+      width: 138px;
+      height: auto;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .brand-kicker {
+      font-size: 8.5pt;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .brand-name {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 25pt;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 0;
+      font-size: 11.5pt;
+      color: var(--muted);
+      max-width: 92%;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .meta-card {
+      border: 1px solid var(--line);
+      background: var(--card-bg);
+      padding: 12px 12px 10px;
+      min-height: 74px;
+    }
+
+    .meta-label {
+      display: block;
+      font-size: 8.5pt;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .meta-value {
+      font-size: 12pt;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 2.05fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .flow-layout {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .row-two {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.95fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .row-two.equal {
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 1fr);
+    }
+
+    .row-two > .panel,
+    .row-two > .stack {
+      margin: 0;
+    }
+
+    .stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .stack.sidebar {
+      align-content: start;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--card-bg);
+      padding: 0.18in 0.2in;
+      page-break-inside: avoid;
+    }
+
+    .panel.tint {
+      background: var(--panel);
+    }
+
+    .panel.soft-green {
+      background: var(--panel-2);
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 15pt;
+      line-height: 1.15;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 11.5pt;
+      line-height: 1.2;
+    }
+
+    p {
+      margin: 0 0 10px;
+    }
+
+    ul, ol {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    li + li {
+      margin-top: 7px;
+    }
+
+    .callout {
+      border-left: 5px solid var(--liatrio-green);
+      background: var(--callout-bg);
+      padding: 12px 14px;
+      margin-top: 10px;
+    }
+
+    .callout.warn {
+      border-left-color: var(--hot-red);
+      background: var(--warn-bg);
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .score {
+      border: 1px solid var(--line);
+      background: var(--card-bg-2);
+      padding: 11px 12px;
+    }
+
+    .score .title {
+      display: block;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .score .value {
+      font-size: 19pt;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .event {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 12px;
+      align-items: start;
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+    }
+
+    .event:first-child {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    .event .date {
+      font-size: 9pt;
+      font-weight: 700;
+      color: var(--liatrio-green);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 8.5pt;
+      font-weight: 700;
+      border: 1px solid var(--line);
+      background: var(--card-bg);
+    }
+
+    .tag.green {
+      background: rgba(36,174,29,0.18);
+      border-color: rgba(36,174,29,0.30);
+      color: #a7f28f;
+    }
+
+    .tag.blue {
+      background: rgba(0,193,219,0.16);
+      border-color: rgba(0,193,219,0.28);
+      color: #83efff;
+    }
+
+    .tag.red {
+      background: rgba(255,102,115,0.14);
+      border-color: rgba(255,102,115,0.28);
+      color: #ffb4bc;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 10pt;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 9px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: linear-gradient(180deg, rgba(27, 53, 38, 0.98), rgba(17, 36, 27, 0.98));
+      color: #edf9f1;
+      font-size: 8.35pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      border-bottom-color: rgba(112, 196, 138, 0.38);
+    }
+
+    .decision {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .decision .box {
+      border: 1px solid var(--line);
+      padding: 12px;
+      background: var(--card-bg);
+    }
+
+    .references {
+      margin-top: 14px;
+      border-top: 2px solid var(--liatrio-green);
+      padding-top: 12px;
+    }
+
+    .references-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 6px;
+      table-layout: fixed;
+    }
+
+    .references-table col.ref-number-col {
+      width: 2.4em;
+    }
+
+    .references-table col.ref-link-col {
+      width: 32%;
+    }
+
+    .references-table tbody tr + tr td {
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .references-table td {
+      padding: 10px 0;
+      vertical-align: top;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      background: transparent;
+    }
+
+    .references-table td.ref-number {
+      color: var(--ink);
+      font-weight: 700;
+      text-align: right;
+      padding-right: 10px;
+      white-space: nowrap;
+    }
+
+    .references-table td.ref-main {
+      padding-right: 18px;
+    }
+
+    .references-table td.ref-link {
+      text-align: right;
+      min-width: 0;
+    }
+
+    .ref-item {
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .ref-title {
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      min-width: 0;
+    }
+
+    .ref-title-text {
+      min-width: 0;
+    }
+
+    .ref-meta {
+      color: var(--muted);
+      font-size: 9pt;
+    }
+
+    .ref-url {
+      min-width: 0;
+      text-align: right;
+    }
+
+    .ref-url a {
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #83efff;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      vertical-align: baseline;
+    }
+
+    .ref-flash {
+      animation: ref-flash 1.2s ease-in-out 2;
+    }
+
+    @keyframes ref-flash {
+      0%, 100% {
+        background: transparent;
+        box-shadow: none;
+      }
+      25%, 75% {
+        background: rgba(36,174,29,0.12);
+        box-shadow: inset 0 0 0 1px rgba(36,174,29,0.32);
+      }
+      50% {
+        background: rgba(131,239,255,0.12);
+        box-shadow: inset 0 0 0 1px rgba(131,239,255,0.35);
+      }
+    }
+
+    @media screen and (max-width: 900px) {
+      .references-table,
+      .references-table tbody,
+      .references-table tr,
+      .references-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .references-table colgroup {
+        display: none;
+      }
+
+      .references-table tbody tr {
+        padding: 10px 0;
+        border-top: 1px solid rgba(255,255,255,0.07);
+      }
+
+      .references-table tbody tr:first-child {
+        border-top: none;
+      }
+
+      .references-table td {
+        padding: 0;
+      }
+
+      .references-table td.ref-number {
+        text-align: left;
+        padding-bottom: 4px;
+      }
+
+      .references-table td.ref-main {
+        padding-right: 0;
+      }
+
+      .references-table td.ref-link {
+        text-align: left;
+        margin-top: 6px;
+      }
+
+      .back-to-top {
+        right: 14px;
+        bottom: 14px;
+        padding: 9px 12px;
+      }
+    }
+
+    .references-table {
+      font-size: 9.9pt;
+    }
+
+    .references-table col.ref-number-col {
+      width: 2.8em;
+    }
+
+    .references-table col.ref-link-col {
+      width: 34%;
+    }
+
+    .references-table td {
+      padding: 12px 0;
+    }
+
+    .references-table td.ref-number {
+      color: #cfe9d6;
+      font-size: 9.1pt;
+      padding-right: 14px;
+    }
+
+    .references-table td.ref-main {
+      padding-right: 22px;
+    }
+
+    .ref-title {
+      font-size: 10pt;
+      line-height: 1.28;
+    }
+
+    .ref-meta {
+      font-size: 9.2pt;
+      line-height: 1.45;
+    }
+
+    .ref-url a {
+      font-size: 8.95pt;
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 950;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(36,174,29,0.3);
+      background: rgba(18, 24, 29, 0.92);
+      color: #dcf6e2;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease, background-color 120ms ease, border-color 120ms ease;
+    }
+
+    .back-to-top[data-visible="true"] {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover,
+    .back-to-top:focus-visible {
+      background: rgba(24, 36, 31, 0.96);
+      border-color: rgba(36,174,29,0.5);
+      outline: none;
+    }
+
+    .small {
+      font-size: 9.25pt;
+      color: var(--muted);
+    }
+
+    .citation {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.18rem;
+      margin-left: 0.16rem;
+      vertical-align: super;
+      line-height: 1;
+    }
+
+    .citation-trigger {
+      appearance: none;
+      border: 1px solid rgba(131,239,255,0.28);
+      background: rgba(131,239,255,0.08);
+      color: #baf6ff;
+      border-radius: 999px;
+      padding: 0.02rem 0.34rem 0.08rem;
+      font: inherit;
+      font-size: 0.84em;
+      line-height: 1.2;
+      cursor: default;
+      box-shadow: inset 0 0 0 1px rgba(12, 23, 28, 0.18);
+      transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease, transform 120ms ease;
+    }
+
+    .citation-trigger:hover,
+    .citation-trigger:focus-visible {
+      background: rgba(131,239,255,0.16);
+      color: #e6fdff;
+      border-color: rgba(131,239,255,0.48);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .citation-tooltip {
+      position: fixed;
+      z-index: 1000;
+      width: min(340px, calc(100vw - 24px));
+      background: #12181d;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 18px 36px rgba(0,0,0,0.45);
+      padding: 11px 12px 10px;
+      display: none;
+      pointer-events: auto;
+    }
+
+    .citation-tooltip[data-open="true"] {
+      display: block;
+    }
+
+    .citation-tooltip .tooltip-title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.25;
+    }
+
+    .citation-tooltip .tooltip-meta {
+      font-size: 8.9pt;
+      color: var(--muted);
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+
+    .citation-tooltip .tooltip-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .citation-tooltip .tooltip-actions a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(131,239,255,0.28);
+      background: rgba(131,239,255,0.09);
+      color: #d8fbff;
+      text-decoration: none;
+      font-size: 8.8pt;
+      font-weight: 700;
+    }
+
+    .citation-tooltip .tooltip-actions a:hover,
+    .citation-tooltip .tooltip-actions a:focus-visible {
+      background: rgba(131,239,255,0.16);
+      border-color: rgba(131,239,255,0.48);
+      outline: none;
+    }
+
+    .footer-note {
+      margin-top: 12px;
+      font-size: 8.8pt;
+      color: var(--muted);
+    }
+
+    .mini-section + .mini-section {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .mini-section h3 {
+      margin-bottom: 6px;
+      font-size: 10.5pt;
+    }
+
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .page {
+        margin: 0;
+        max-width: none;
+        padding: 0;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+
+    @media screen and (max-width: 900px) {
+      .layout,
+      .decision,
+      .meta-grid,
+      .score-grid,
+      .row-two,
+      .row-two.equal {
+        grid-template-columns: 1fr;
+      }
+
+      .subtitle {
+        max-width: 100%;
+      }
+
+      .event {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="brand-row">
+        <a class="brand-logo" href="https://www.liatrio.com" aria-label="Liatrio">
+          <img src="assets/logo_Liatrio_reverse-preferred.svg" alt="Liatrio logo">
+        </a>
+      </div>
+      <h1>Octo STS Permission Update Briefing</h1>
+      <p class="subtitle">A briefing on what changed, what the GitHub approval screen is really saying, where the risk sits, and what to verify before approving the requested GitHub App permissions.</p>
+
+      <div class="meta-grid">
+        <div class="meta-card">
+          <span class="meta-label">Core finding</span>
+          <div class="meta-value">API Insights is new; Org Administration write is older</div>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Most important nuance</span>
+          <div class="meta-value">Approving now likely accepts both asks shown in the GitHub screen</div>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Operational model</span>
+          <div class="meta-value">Broad app permissions + narrowly governed trust policies</div>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Recommendation</span>
+          <div class="meta-value">Approve only with strong policy governance and a clear org-level need</div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="flow-layout">
+      <section class="panel soft-green">
+          <h2>Executive Summary</h2>
+          <p>Octo STS is a real, actively maintained GitHub App and GitHub Actions workflow designed to exchange OIDC identity tokens for short-lived GitHub tokens governed by trust policy files. Its README explicitly states that, because of GitHub App limitations, the app must request a superset of permissions up front even though the actual tokens it issues are constrained by trust policy <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button></span>.</p>
+          <p>The current approval screen is best understood as two overlapping permission stories. First, Octo STS added Organization API Insights as a new read-only permission in Q2 2026 <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-2" aria-label="Reference 2">2</button><button class="citation-trigger" type="button" data-ref="#ref-3" aria-label="Reference 3">3</button></span>. Second, the more concerning Organization Administration permission was expanded from read-only to read/write back in Q2 2025, not this week <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-4" aria-label="Reference 4">4</button></span>. The screenshot you captured shows that exact split: API Insights is marked “New request,” while Administration is marked “Was read-only” <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-u1" aria-label="Reference U1">11</button></span>.</p>
+          <div class="callout">
+            <strong>Bottom line</strong>
+            The current prompt does not look like a sudden bait-and-switch. It looks like your organization still has an older Administration escalation pending, and GitHub is presenting that older unresolved change together with the new API Insights request <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-u1" aria-label="Reference U1">11</button><button class="citation-trigger" type="button" data-ref="#ref-2" aria-label="Reference 2">2</button><button class="citation-trigger" type="button" data-ref="#ref-4" aria-label="Reference 4">4</button></span>.
+          </div>
+        </section>
+
+      <section class="panel tint">
+          <h2>What the Approval Screen Is Telling You</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Permission shown</th>
+                <th>What the screen says</th>
+                <th>Repository history interpretation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Organization API Insights</strong><br>Read-only</td>
+                <td>“New request” <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-u1" aria-label="Reference U1">11</button></span></td>
+                <td>Matches the open Q2 2026 permission update issue and the README update committed on Apr. 11, 2026 <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-2" aria-label="Reference 2">2</button><button class="citation-trigger" type="button" data-ref="#ref-3" aria-label="Reference 3">3</button></span></td>
+              </tr>
+              <tr>
+                <td><strong>Organization Administration</strong><br>Read and write</td>
+                <td>“Was read-only” <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-u1" aria-label="Reference U1">11</button></span></td>
+                <td>Matches the Q2 2025 permission update issue that explicitly moved administration from read-only to read/write <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-4" aria-label="Reference 4">4</button></span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="callout warn">
+            <strong>Implication</strong>
+            If the screenshot accurately reflects the install state for your org, clicking Accept likely approves both the current API Insights addition and the still-unaccepted Administration escalation at the same time <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-u1" aria-label="Reference U1">11</button><button class="citation-trigger" type="button" data-ref="#ref-2" aria-label="Reference 2">2</button><button class="citation-trigger" type="button" data-ref="#ref-4" aria-label="Reference 4">4</button></span>.
+          </div>
+        </section>
+
+      <section class="panel">
+          <h2>Confidence Snapshot</h2>
+          <div class="score-grid">
+            <div class="score">
+              <span class="title">Project legitimacy</span>
+              <div class="value">High</div>
+              <div class="small">Active public repo, public advisories, recent merges, documented permission process <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button><button class="citation-trigger" type="button" data-ref="#ref-2" aria-label="Reference 2">2</button><button class="citation-trigger" type="button" data-ref="#ref-6" aria-label="Reference 6">6</button><button class="citation-trigger" type="button" data-ref="#ref-8" aria-label="Reference 8">8</button><button class="citation-trigger" type="button" data-ref="#ref-9" aria-label="Reference 9">9</button></span></div>
+            </div>
+            <div class="score">
+              <span class="title">Governance sensitivity</span>
+              <div class="value">High</div>
+              <div class="small">Strong dependency on trust-policy review discipline and install governance <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button><button class="citation-trigger" type="button" data-ref="#ref-5" aria-label="Reference 5">5</button></span></div>
+            </div>
+          </div>
+          <div class="tag-row">
+            <span class="tag green">Actively maintained</span>
+            <span class="tag blue">API Insights is new</span>
+            <span class="tag red">Admin write is powerful</span>
+          </div>
+        </section>
+      <section class="panel">
+          <h2>Why the Write Permission Matters</h2>
+          <p>Octo STS’s own design is not “the app can do anything it wants.” The app reads a trust policy from <code>.github/chainguard/{identity}.sts.yaml</code>, validates the caller’s OIDC token, and then returns a GitHub token with the permissions named in that policy <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button></span>. That is the core safety mechanism.</p>
+          <p>However, that safety mechanism only works if trust policy files are tightly governed. The app’s effective security model is:</p>
+          <ul>
+            <li>request a broad permission envelope from GitHub because GitHub Apps need the capability available up front <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button></span>;</li>
+            <li>rely on policy files to mint narrower tokens at runtime <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button></span>;</li>
+            <li>depend on branch protection, reviews, and repository governance so those policy files cannot be casually widened <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button></span>.</li>
+          </ul>
+          <p>This means the real question is not just “does the app have write access?” but “who can modify the trust policies that control what write access gets issued?”</p>
+        </section>
+
+      <section class="panel tint">
+          <h2>Risk + Approval Gate</h2>
+          <div class="mini-section">
+            <h3>Approval checkpoint</h3>
+            <ul>
+              <li>API Insights is the new request shown on the screen.</li>
+              <li>Administration is the older escalation that remains broader.</li>
+              <li>Verify who can edit <code>.github/chainguard/*.sts.yaml</code> before accepting.</li>
+            </ul>
+          </div>
+          <div class="mini-section">
+            <h3>Risk in Plain Language</h3>
+            <p>The concern is not that Octo STS is obviously malicious. The concern is that it asks GitHub for a broad capability envelope and then relies on your internal policy governance to keep actual issued tokens narrow <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button></span>.</p>
+            <p>If your policy governance is excellent, that can be acceptable. If it is only average, Organization Administration write may represent more risk than the convenience is worth.</p>
+          </div>
+        </section>
+      <section class="panel">
+          <h2>Recent Changes Worth Knowing About</h2>
+          <div class="timeline">
+            <div class="event">
+              <div class="date">Q2 2025</div>
+              <div>
+                <h3>Administration changed from read-only to read/write</h3>
+                <p>The project opened a quarterly permission update issue that explicitly called for the Administration permission to move from read-only to read/write <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-4" aria-label="Reference 4">4</button></span>.</p>
+              </div>
+            </div>
+            <div class="event">
+              <div class="date">Jun 2025</div>
+              <div>
+                <h3>Security advisory: SSRF fixed in v0.5.3</h3>
+                <p>Octo STS disclosed and patched a high-severity SSRF issue affecting versions up to v0.5.2. The advisory recommends upgrading to v0.5.3 or later <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-6" aria-label="Reference 6">6</button></span>.</p>
+              </div>
+            </div>
+            <div class="event">
+              <div class="date">Apr 2026</div>
+              <div>
+                <h3>API Insights added as read-only</h3>
+                <p>The Q2 2026 update issue introduced Organization API Insights as a read-only addition, and the README was updated the next day to reflect that new permission <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-2" aria-label="Reference 2">2</button><button class="citation-trigger" type="button" data-ref="#ref-3" aria-label="Reference 3">3</button></span>.</p>
+              </div>
+            </div>
+            <div class="event">
+              <div class="date">Apr 2026</div>
+              <div>
+                <h3>App pool scaling and routing improvements</h3>
+                <p>Recent merged pull requests added new Octo STS apps to the pool and changed how requests are routed so policies without <code>checks:write</code> can use round-robin distribution, reducing rate-limit skew while keeping consistent routing for check-run ownership cases <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-8" aria-label="Reference 8">8</button><button class="citation-trigger" type="button" data-ref="#ref-9" aria-label="Reference 9">9</button></span>.</p>
+              </div>
+            </div>
+            <div class="event">
+              <div class="date">Action repo</div>
+              <div>
+                <h3>The GitHub Action itself shows normal maintenance, not a permissions surprise</h3>
+                <p>The companion <code>octo-sts/action</code> repository shows routine maintenance and debugging improvements, including better error visibility and workflow linting. I did not find a recent action-side change that explains the Administration write ask; that ask comes from the app permission model, not from a newly introduced workflow feature <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-10" aria-label="Reference 10">10</button></span>.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      <section class="panel soft-green">
+          <h2>Decision Guidance</h2>
+          <div class="mini-section">
+            <h3>Decision checkpoint</h3>
+            <ol>
+              <li>Inventory every <code>.github/chainguard/*.sts.yaml</code> policy in your org.</li>
+              <li>Identify who can change those files today.</li>
+              <li>Look specifically for org-level permissions such as <code>members:write</code>, <code>organization_administration</code>, and project write scopes.</li>
+              <li>Confirm whether your use cases truly require org-level Octo STS tokens.</li>
+              <li>Consider asking maintainers to clarify the current status of issue #1200 before approving <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-5" aria-label="Reference 5">5</button></span>.</li>
+            </ol>
+          </div>
+          <div class="decision">
+            <div class="box">
+              <h3>Conditions that support approval</h3>
+              <ul>
+                <li>You have a real use case for org-level token issuance, not only repo-local automation.</li>
+                <li>Trust policy files are heavily protected with branch rules, required reviews, and a small reviewer set.</li>
+                <li>You understand that the app requests broad permissions but issued tokens are policy-gated <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button></span>.</li>
+                <li>You are comfortable with the remaining uncertainty around repo-scoped policy behavior for org permissions <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-5" aria-label="Reference 5">5</button></span>.</li>
+              </ul>
+            </div>
+            <div class="box">
+              <h3>Conditions that support waiting</h3>
+              <ul>
+                <li>Your use case is mostly repo-scoped and does not need org administration.</li>
+                <li>Policy files live in ordinary repos without unusually strong governance.</li>
+                <li>You cannot quickly verify who can change <code>.github/chainguard/*.sts.yaml</code>.</li>
+                <li>You want a maintainer answer on issue #1200 before accepting the broader org-level blast radius <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-5" aria-label="Reference 5">5</button></span>.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="callout">
+            <strong>Recommended posture</strong>
+            Do not auto-approve solely because the tool has been useful. Approve only after confirming that trust-policy mutation is tightly controlled and that org-level token issuance is genuinely needed.
+          </div>
+        </section>
+      <section class="panel references">
+      <h2>References</h2>
+      <table class="references-table">
+        <colgroup>
+          <col class="ref-number-col">
+          <col class="ref-main-col">
+          <col class="ref-link-col">
+        </colgroup>
+        <tbody>
+          <tr id="ref-1">
+            <td class="ref-number">1.</td>
+            <td class="ref-main">
+              <div class="ref-item">
+                <a class="ref-title ref-title-text" href="https://github.com/octo-sts/app">Octo STS README / main repo</a>
+                <div class="ref-meta">octo-sts/app · project purpose, trust-policy model, current listed permissions, and the documented quarterly permission-update process</div>
+              </div>
+            </td>
+            <td class="ref-link"><div class="ref-url"><a href="https://github.com/octo-sts/app" title="github.com/octo-sts/app">github.com/octo-sts/app</a></div></td>
+          </tr>
+          <tr id="ref-2">
+            <td class="ref-number">2.</td>
+            <td class="ref-main">
+              <div class="ref-item">
+                <a class="ref-title ref-title-text" href="https://github.com/octo-sts/app/issues/1303">Q2 2026 permission update issue</a>
+                <div class="ref-meta">Issue #1303 · adding Organization API Insights as read-only</div>
+              </div>
+            </td>
+            <td class="ref-link"><div class="ref-url"><a href="https://github.com/octo-sts/app/issues/1303" title="github.com/octo-sts/app/issues/1303">github.com/octo-sts/app/issues/1303</a></div></td>
+          </tr>
+          <tr id="ref-3">
+            <td class="ref-number">3.</td>
+            <td class="ref-main">
+              <div class="ref-item">
+                <a class="ref-title ref-title-text" href="https://github.com/octo-sts/app/commit/51f1f9ede77142125b0763f2af4800d255402dbe">README update for API Insights</a>
+                <div class="ref-meta">Commit 51f1f9e · changing API Insights from No Access to Read-only in the README</div>
+              </div>
+            </td>
+            <td class="ref-link"><div class="ref-url"><a href="https://github.com/octo-sts/app/commit/51f1f9ede77142125b0763f2af4800d255402dbe" title="github.com/octo-sts/app/commit/51f1f9ede77142125b0763f2af4800d255402dbe">github.com/octo-sts/app/commit/51f1f9ede77142125b0763f2af4800d255402dbe</a></div></td>
+          </tr>
+          <tr id="ref-4">
+            <td class="ref-number">4.</td>
+            <td class="ref-main">
+              <div class="ref-item">
+                <a class="ref-title ref-title-text" href="https://github.com/octo-sts/app/issues/876">Q2 2025 permission update issue</a>
+                <div class="ref-meta">Issue #876 · changing Administration from read-only to read/write</div>
+              </div>
+            </td>
+            <td class="ref-link"><div class="ref-url"><a href="https://github.com/octo-sts/app/issues/876" title="github.com/octo-sts/app/issues/876">github.com/octo-sts/app/issues/876</a></div></td>
+          </tr>
+          <tr id="ref-5">
+            <td class="ref-number">5.</td>
+            <td class="ref-main">
+              <div class="ref-item">
+                <a class="ref-title ref-title-text" href="https://github.com/octo-sts/app/issues/1200">Repo-scoped trust policy / org permission concern</a>
+                <div class="ref-meta">Issue #1200 · discussing whether repo-scoped policies can yield org-level permissions such as members:write</div>
+              </div>
+            </td>
+            <td class="ref-link"><div class="ref-url"><a href="https://github.com/octo-sts/app/issues/1200" title="github.com/octo-sts/app/issues/1200">github.com/octo-sts/app/issues/1200</a></div></td>
+          </tr>
+          <tr id="ref-6">
+            <td class="ref-number">6.</td>
+            <td class="ref-main">
+              <div class="ref-item">
+                <a class="ref-title ref-title-text" href="https://github.com/octo-sts/app/security/advisories/GHSA-h3qp-hwvr-9xcq">Security advisory</a>
+                <div class="ref-meta">GHSA-h3qp-hwvr-9xcq / CVE-2025-52477 · SSRF issue affecting versions up to v0.5.2, patched in v0.5.3</div>
+              </div>
+            </td>
+            <td class="ref-link"><div class="ref-url"><a href="https://github.com/octo-sts/app/security/advisories/GHSA-h3qp-hwvr-9xcq" title="github.com/octo-sts/app/security/advisories/GHSA-h3qp-hwvr-9xcq">github.com/octo-sts/app/security/advisories/GHSA-h3qp-hwvr-9xcq</a></div></td>
+          </tr>
+          <tr id="ref-7">
+            <td class="ref-number">7.</td>
+            <td class="ref-main">
+              <div class="ref-item">
+                <a class="ref-title ref-title-text" href="https://github.com/octo-sts/app/security/advisories/GHSA-75r6-6jg8-pfcq">Security advisory</a>
+                <div class="ref-meta">GHSA-75r6-6jg8-pfcq / CVE-2024-34079 · unbounded CPU and memory usage issue fixed in 0.1.0</div>
+              </div>
+            </td>
+            <td class="ref-link"><div class="ref-url"><a href="https://github.com/octo-sts/app/security/advisories/GHSA-75r6-6jg8-pfcq" title="github.com/octo-sts/app/security/advisories/GHSA-75r6-6jg8-pfcq">github.com/octo-sts/app/security/advisories/GHSA-75r6-6jg8-pfcq</a></div></td>
+          </tr>
+          <tr id="ref-8">
+            <td class="ref-number">8.</td>
+            <td class="ref-main">
+              <div class="ref-item">
+                <a class="ref-title ref-title-text" href="https://github.com/octo-sts/app/pull/1306">Routing / rate-limit skew change</a>
+                <div class="ref-meta">Pull Request #1306 · introducing permission-aware routing for request distribution</div>
+              </div>
+            </td>
+            <td class="ref-link"><div class="ref-url"><a href="https://github.com/octo-sts/app/pull/1306" title="github.com/octo-sts/app/pull/1306">github.com/octo-sts/app/pull/1306</a></div></td>
+          </tr>
+          <tr id="ref-9">
+            <td class="ref-number">9.</td>
+            <td class="ref-main">
+              <div class="ref-item">
+                <a class="ref-title ref-title-text" href="https://github.com/octo-sts/app/pull/1305">Scaling app pool</a>
+                <div class="ref-meta">Pull Request #1305 · adding new Octo STS apps 6–10</div>
+              </div>
+            </td>
+            <td class="ref-link"><div class="ref-url"><a href="https://github.com/octo-sts/app/pull/1305" title="github.com/octo-sts/app/pull/1305">github.com/octo-sts/app/pull/1305</a></div></td>
+          </tr>
+          <tr id="ref-10">
+            <td class="ref-number">10.</td>
+            <td class="ref-main">
+              <div class="ref-item">
+                <a class="ref-title ref-title-text" href="https://github.com/octo-sts/action">Companion GitHub Action</a>
+                <div class="ref-meta">octo-sts/action · workflow-side context and recent maintenance activity</div>
+              </div>
+            </td>
+            <td class="ref-link"><div class="ref-url"><a href="https://github.com/octo-sts/action" title="github.com/octo-sts/action">github.com/octo-sts/action</a></div></td>
+          </tr>
+          <tr id="ref-u1">
+            <td class="ref-number">11.</td>
+            <td class="ref-main">
+              <div class="ref-item">
+                <span class="ref-title ref-title-text">User-provided screenshot</span>
+                <div class="ref-meta">GitHub organization permissions approval screen showing API Insights as “New request” and Administration as “Was read-only.”</div>
+              </div>
+            </td>
+            <td class="ref-link"></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </section>
+  </main>
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">↑ Back to top</button>
+  <div class="citation-tooltip" id="citation-tooltip" role="tooltip" aria-hidden="true">
+    <div class="tooltip-title"></div>
+    <div class="tooltip-meta"></div>
+    <div class="tooltip-actions">
+      <a href="#" target="_blank" rel="noopener noreferrer">Open source</a>
+      <a href="#">Show Reference</a>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const tooltip = document.getElementById('citation-tooltip');
+      const titleEl = tooltip.querySelector('.tooltip-title');
+      const metaEl = tooltip.querySelector('.tooltip-meta');
+      const actionLinks = tooltip.querySelectorAll('.tooltip-actions a');
+      const backToTopButton = document.getElementById('back-to-top');
+      let activeLink = null;
+      let hideTimer = null;
+      let flashTimer = null;
+
+      function getReferenceData(hash) {
+        const ref = document.querySelector(hash);
+        if (!ref) return null;
+        const titleNode = ref.querySelector('.ref-title');
+        const metaNode = ref.querySelector('.ref-meta');
+        const urlNode = ref.querySelector('.ref-url a');
+        const indexNode = ref.querySelector('.ref-index');
+        const fallbackTitle = indexNode ? `Reference ${indexNode.textContent.trim()}` : hash.replace('#ref-', 'Reference ');
+        return {
+          title: titleNode ? titleNode.textContent.trim() : fallbackTitle,
+          meta: metaNode ? metaNode.textContent.trim() : '',
+          url: urlNode ? urlNode.href : `${location.href.split('#')[0]}${hash}`,
+          refHash: hash,
+        };
+      }
+
+      function positionTooltip(link) {
+        const rect = link.getBoundingClientRect();
+        const tooltipRect = tooltip.getBoundingClientRect();
+        const margin = 12;
+        const vw = document.documentElement.clientWidth;
+        const vh = document.documentElement.clientHeight;
+
+        let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+        let top = rect.bottom + 10;
+
+        if (left + tooltipRect.width > vw - margin) {
+          left = vw - tooltipRect.width - margin;
+        }
+        if (left < margin) {
+          left = margin;
+        }
+        if (top + tooltipRect.height > vh - margin) {
+          top = Math.max(margin, rect.top - tooltipRect.height - 12);
+        }
+
+        tooltip.style.left = `${left}px`;
+        tooltip.style.top = `${Math.max(margin, top)}px`;
+      }
+
+      function showTooltip(link) {
+        const href = link.dataset.ref || '';
+        if (!href.startsWith('#ref-')) return;
+        const data = getReferenceData(href);
+        if (!data) return;
+        activeLink = link;
+        titleEl.textContent = data.title;
+        metaEl.textContent = data.meta;
+        actionLinks[0].href = data.url;
+        actionLinks[1].href = data.refHash;
+        actionLinks[0].target = '_blank';
+        actionLinks[0].rel = 'noopener noreferrer';
+        actionLinks[1].removeAttribute('target');
+        actionLinks[1].removeAttribute('rel');
+        tooltip.dataset.open = 'true';
+        tooltip.setAttribute('aria-hidden', 'false');
+        requestAnimationFrame(() => positionTooltip(link));
+      }
+
+      function hideTooltip() {
+        tooltip.dataset.open = 'false';
+        tooltip.setAttribute('aria-hidden', 'true');
+        activeLink = null;
+      }
+
+      function scheduleHide() {
+        window.clearTimeout(hideTimer);
+        hideTimer = window.setTimeout(hideTooltip, 120);
+      }
+
+      function flashReference(hash) {
+        const ref = document.querySelector(hash);
+        if (!ref) return;
+        window.clearTimeout(flashTimer);
+        ref.classList.remove('ref-flash');
+        void ref.offsetWidth;
+        ref.classList.add('ref-flash');
+        flashTimer = window.setTimeout(() => ref.classList.remove('ref-flash'), 2600);
+      }
+
+      actionLinks[1].addEventListener('click', event => {
+        event.preventDefault();
+        const hash = actionLinks[1].getAttribute('href');
+        if (!hash || !hash.startsWith('#')) return;
+        const ref = document.querySelector(hash);
+        if (!ref) return;
+        hideTooltip();
+        ref.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        window.setTimeout(() => flashReference(hash), 220);
+      });
+
+
+      function updateBackToTopVisibility() {
+        if (!backToTopButton) return;
+        const visible = window.scrollY > 220;
+        backToTopButton.dataset.visible = visible ? 'true' : 'false';
+      }
+
+      if (backToTopButton) {
+        backToTopButton.addEventListener('click', () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+
+      document.querySelectorAll('.citation-trigger').forEach(link => {
+        link.addEventListener('mouseenter', () => {
+          window.clearTimeout(hideTimer);
+          showTooltip(link);
+        });
+        link.addEventListener('focus', () => showTooltip(link));
+        link.addEventListener('mouseleave', scheduleHide);
+        link.addEventListener('blur', scheduleHide);
+      });
+
+      tooltip.addEventListener('mouseenter', () => window.clearTimeout(hideTimer));
+      tooltip.addEventListener('mouseleave', scheduleHide);
+      window.addEventListener('scroll', () => {
+        if (activeLink) positionTooltip(activeLink);
+        updateBackToTopVisibility();
+      }, true);
+      window.addEventListener('resize', () => {
+        if (activeLink) positionTooltip(activeLink);
+      });
+      window.addEventListener('keydown', event => {
+        if (event.key === 'Escape') hideTooltip();
+      });
+      updateBackToTopVisibility();
+    })();
+  </script>
+</body>
+</html>
