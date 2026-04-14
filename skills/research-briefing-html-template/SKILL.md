@@ -1,32 +1,32 @@
 ---
 name: research-briefing-html-template
-description: "Create or refactor standalone HTML research briefings that turn arbitrary research findings into a polished, decision-ready report with this repository's dark-mode briefing format. Use this whenever the user wants research results, audits, investigations, competitive analysis, risk reviews, or multi-source findings reformatted into a branded HTML briefing with executive summary, inline citation chips, tooltip previews, references table, PDF-friendly letter-page layout, and polished interaction details."
+description: "Create or refactor standalone HTML briefings and report pages that turn long-form AI outputs, research findings, audits, reviews, or dense conversations into a polished, decision-ready report with this repository's briefing format. Use this whenever the user wants a long response, investigation, analysis, vendor review, risk review, repo audit, or conversation transcript reformatted into a branded HTML report with executive summary, inline citation chips, tooltip previews, references table, PDF-friendly letter-page layout, and polished interaction details."
 license: Apache-2.0
 metadata:
   owner: liatrio
   compatibility: Designed for coding agents that can edit HTML/CSS/JS and read markdown references. Browser verification is strongly preferred.
 ---
 
-# Research Briefing HTML Template
+# Briefing / Report HTML Template
 
 ## Overview
 
-Use this skill to transform raw research into a polished standalone HTML briefing that matches the briefing format captured in `assets/report-template-example.html` and can start from the reusable scaffold in `assets/report-template-starter.html`.
+Use this skill to transform long-form source material into a polished standalone HTML briefing that matches the format captured in `assets/report-template-example.html` and can start from the reusable scaffold in `assets/report-template-starter.html`.
 
-This skill is for presentation shaping, not for doing the research itself. First make sure the findings and source set are already good enough to brief. Then use this skill to normalize the content into a consistent report structure, preserve citations, and produce a browser-shareable HTML artifact with strong reading UX.
+This skill is for presentation shaping, not for generating the underlying substance from scratch. First make sure the conclusions, arguments, or source material are already good enough to brief. Then use this skill to normalize the content into a consistent report structure, preserve citations where needed, and produce a browser-shareable HTML artifact with strong reading UX.
 
 ## When to Use
 
 Reach for this skill when the user asks for any of the following:
 
-- turn research notes into a clean HTML report
-- produce an executive briefing from multi-source findings
+- turn a long AI response, chat transcript, or dense set of notes into a clean HTML report
+- produce an executive briefing from multi-source findings or a long analytical conversation
 - convert a risk review, security investigation, vendor assessment, repo audit, or architecture analysis into a polished standalone page
-- reformat an existing markdown or rough HTML report into this dark-mode briefing style
+- reformat an existing markdown answer, rough HTML page, or exported conversation into this briefing style
 - preserve citations and references while improving layout, readability, and interaction quality
 - make a report suitable for both browser sharing and PDF export on US letter paper
 
-Do not use this skill when the primary task is conducting the research itself, scraping sources, or writing a simple one-off note with no need for the full briefing format.
+Do not use this skill when the primary task is conducting source gathering itself, scraping content, or writing a simple one-off note with no need for the full briefing/report format.
 
 ## Canonical Template Assets
 
@@ -81,9 +81,9 @@ If citations are messy, duplicated, or inconsistently numbered, normalize them b
 
 ## Workflow
 
-### 1. Normalize the research first
+### 1. Normalize the source material first
 
-Before touching layout, reduce the input into a concise briefing model:
+Before touching layout, reduce the input into a concise briefing model regardless of whether it came from research notes, an LLM conversation, a markdown response, or an existing draft:
 
 - title
 - subtitle / briefing purpose
@@ -106,7 +106,7 @@ When the source material does not naturally contain all template sections, adapt
 
 Use these defaults:
 
-- start from `assets/report-template-starter.html` when creating a new report from arbitrary findings
+- start from `assets/report-template-starter.html` when creating a new report from arbitrary source material
 - inspect `assets/report-template-example.html` when matching the exact visual rhythm or validating whether the result still feels like the approved report format
 
 Theme defaults in the starter template:

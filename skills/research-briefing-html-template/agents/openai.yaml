@@ -1,3 +1,3 @@
 interface:
-  display_name: "Research Briefing HTML Template"
-  short_description: "Reformat research into the polished standalone HTML briefing template"
+  display_name: "Briefing / Report HTML Template"
+  short_description: "Reformat long-form outputs into a polished standalone HTML briefing/report"

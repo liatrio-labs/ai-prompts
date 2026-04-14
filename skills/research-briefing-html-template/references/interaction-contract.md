@@ -1,6 +1,6 @@
 # Interaction Contract
 
-This file captures the UX behaviors that define the current research briefing format.
+This file captures the UX behaviors that define the current briefing/report format.
 
 ## Citation Chips
 
