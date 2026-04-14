@@ -1,0 +1,1213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link id="dynamic-favicon" rel="icon" href="">
+  <title>[Briefing Title]</title>
+  <style>    :root {
+      --liatrio-green: #24AE1D;
+      --liatrio-bright: #89DF00;
+      --ink: #f3f6f2;
+      --muted: #b5c0b5;
+      --label-ink: #c4cfbe;
+      --line: #2f3830;
+      --panel: #1e2327;
+      --panel-2: #182119;
+      --lagoon: #83efff;
+      --hot-red: #ff6673;
+      --shadow: rgba(0,0,0,0.38);
+      --page-bg: #11161a;
+      --hero-bg: #171d1a;
+      --hero-bg-2: #12171b;
+      --hero-accent: linear-gradient(135deg, rgba(137,223,0,0.12), rgba(36,174,29,0.00) 40%);
+      --card-bg: #161b1f;
+      --card-bg-2: #111619;
+      --callout-bg: #152017;
+      --warn-bg: #241618;
+      --table-head-bg: linear-gradient(180deg, rgba(27, 53, 38, 0.98), rgba(17, 36, 27, 0.98));
+      --table-head-border: rgba(112, 196, 138, 0.38);
+      --table-head-ink: #f8fcf8;
+      --theme-control-bg: rgba(17, 24, 28, 0.86);
+      --theme-control-border: rgba(112, 196, 138, 0.30);
+      --theme-control-ink: #eef8f1;
+      --favicon-bg: #171d1a;
+      --favicon-fold: #f3f6f2;
+      --citation-bg: rgba(131,239,255,0.12);
+      --citation-bg-hover: rgba(131,239,255,0.20);
+      --citation-border: rgba(131,239,255,0.34);
+      --citation-ink: #d6fbff;
+      --citation-shadow: rgba(0,0,0,0.16);
+      --font-body: "DM Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+      --font-head: "DM Sans", "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    body[data-theme="dracula"] {
+      --liatrio-green: #bd93f9;
+      --liatrio-bright: #ff79c6;
+      --ink: #f8f8f2;
+      --muted: #c7c3d9;
+      --label-ink: #f0c6de;
+      --line: #45485d;
+      --panel: #252738;
+      --panel-2: #212333;
+      --lagoon: #8be9fd;
+      --hot-red: #ff6b81;
+      --shadow: rgba(0,0,0,0.32);
+      --page-bg: #181924;
+      --hero-bg: #202231;
+      --hero-bg-2: #181a27;
+      --hero-accent: linear-gradient(135deg, rgba(189,147,249,0.24), rgba(255,121,198,0.00) 44%);
+      --card-bg: #232535;
+      --card-bg-2: #1e2030;
+      --callout-bg: #272b3d;
+      --warn-bg: #37242e;
+      --table-head-bg: linear-gradient(180deg, rgba(70, 49, 105, 0.98), rgba(47, 34, 74, 0.98));
+      --table-head-border: rgba(189,147,249,0.42);
+      --table-head-ink: #faf7ff;
+      --theme-control-bg: rgba(29, 31, 45, 0.94);
+      --theme-control-border: rgba(189,147,249,0.34);
+      --theme-control-ink: #f8f8f2;
+      --favicon-bg: #202231;
+      --favicon-fold: #f8f8f2;
+      --citation-bg: rgba(139,233,253,0.12);
+      --citation-bg-hover: rgba(189,147,249,0.18);
+      --citation-border: rgba(189,147,249,0.38);
+      --citation-ink: #f4ddff;
+      --citation-shadow: rgba(0,0,0,0.22);
+      --font-body: "Aptos", "Inter", "Segoe UI", Arial, Helvetica, sans-serif;
+      --font-head: "Trebuchet MS", "Aptos Display", "Segoe UI", Arial, Helvetica, sans-serif;
+    }
+
+    body[data-theme="minimal-light"] {
+      --liatrio-green: #2563eb;
+      --liatrio-bright: #60a5fa;
+      --ink: #16202a;
+      --muted: #5e6c7b;
+      --label-ink: #66768a;
+      --line: #d7dee8;
+      --panel: #ffffff;
+      --panel-2: #fbfcfe;
+      --lagoon: #175cd3;
+      --hot-red: #d94f4f;
+      --shadow: rgba(18, 31, 45, 0.10);
+      --page-bg: #eef2f7;
+      --hero-bg: #ffffff;
+      --hero-bg-2: #f7f9fc;
+      --hero-accent: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(96,165,250,0.00) 44%), linear-gradient(210deg, rgba(244, 247, 252, 0.90), rgba(234, 239, 246, 0.30));
+      --card-bg: #ffffff;
+      --card-bg-2: #f9fbfd;
+      --callout-bg: #eef4ff;
+      --warn-bg: #fff1f1;
+      --table-head-bg: linear-gradient(180deg, rgba(39, 64, 98, 1), rgba(29, 49, 77, 1));
+      --table-head-border: rgba(77, 123, 197, 0.38);
+      --table-head-ink: #ffffff;
+      --theme-control-bg: rgba(255, 255, 255, 0.96);
+      --theme-control-border: rgba(37,99,235,0.18);
+      --theme-control-ink: #16202a;
+      --favicon-bg: #ffffff;
+      --favicon-fold: #16202a;
+      --citation-bg: rgba(37,99,235,0.10);
+      --citation-bg-hover: rgba(37,99,235,0.16);
+      --citation-border: rgba(37,99,235,0.26);
+      --citation-ink: #0f4fb8;
+      --citation-shadow: rgba(37,99,235,0.08);
+      --font-body: "Aptos", "Segoe UI", Arial, Helvetica, sans-serif;
+      --font-head: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+    }
+
+
+    body[data-theme="minimal-light"] .hero {
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    }
+
+    body[data-theme="minimal-light"] .panel,
+    body[data-theme="minimal-light"] .meta-card,
+    body[data-theme="minimal-light"] .score,
+    body[data-theme="minimal-light"] .decision .box {
+      box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+    }
+
+    body[data-theme="minimal-light"] .callout {
+      border-left-color: var(--liatrio-green);
+    }
+
+    body[data-theme="dracula"] .callout {
+      border-left-color: var(--liatrio-bright);
+    }
+
+    .tag.green {
+      background: color-mix(in srgb, var(--liatrio-green) 15%, transparent);
+      border-color: color-mix(in srgb, var(--liatrio-green) 35%, var(--line));
+      color: var(--ink);
+    }
+
+    .tag.blue {
+      background: color-mix(in srgb, var(--lagoon) 14%, transparent);
+      border-color: color-mix(in srgb, var(--lagoon) 30%, var(--line));
+      color: var(--ink);
+    }
+
+    .tag.red {
+      background: color-mix(in srgb, var(--hot-red) 12%, transparent);
+      border-color: color-mix(in srgb, var(--hot-red) 28%, var(--line));
+      color: color-mix(in srgb, var(--hot-red) 32%, var(--ink) 68%);
+    }
+
+    .citation {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.18rem;
+      margin-left: 0.16rem;
+      vertical-align: super;
+      line-height: 1;
+    }
+
+    .citation-trigger {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 1px solid var(--citation-border);
+      background: var(--citation-bg);
+      color: var(--citation-ink);
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.55em;
+      height: 1.55em;
+      padding: 0 0.34em;
+      font: 700 0.76em var(--font-body);
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--citation-shadow), inset 0 0 0 1px rgba(255,255,255,0.02);
+      transition: background-color 120ms ease, border-color 120ms ease, color 120ms ease, transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    .citation-trigger:hover,
+    .citation-trigger:focus-visible {
+      background: var(--citation-bg-hover);
+      color: var(--ink);
+      border-color: color-mix(in srgb, var(--citation-border) 68%, var(--ink) 32%);
+      transform: translateY(-1px);
+      outline: none;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.12), inset 0 0 0 1px rgba(255,255,255,0.04);
+    }
+
+    body[data-theme="minimal-light"] .citation-trigger {
+      box-shadow: 0 1px 0 rgba(37,99,235,0.06), inset 0 0 0 1px rgba(255,255,255,0.06);
+    }
+
+    body[data-theme="dracula"] .citation-trigger {
+      text-shadow: 0 0 0.01px rgba(0,0,0,0.01);
+    }
+
+    .citation-trigger:focus-visible {
+      outline: 2px solid color-mix(in srgb, var(--citation-border) 45%, var(--ink) 55%);
+      outline-offset: 2px;
+    }
+
+
+    body[data-theme="dracula"] .tag.green {
+      background: color-mix(in srgb, var(--liatrio-bright) 20%, transparent);
+      border-color: color-mix(in srgb, var(--liatrio-bright) 38%, var(--line));
+      color: color-mix(in srgb, var(--liatrio-bright) 88%, var(--ink) 12%);
+    }
+
+    body[data-theme="dracula"] .tag.blue {
+      background: color-mix(in srgb, var(--lagoon) 16%, transparent);
+      border-color: color-mix(in srgb, var(--lagoon) 32%, var(--line));
+    }
+
+    body[data-theme="dracula"] .tag.red {
+      background: color-mix(in srgb, #ffb86c 18%, transparent);
+      border-color: color-mix(in srgb, #ffb86c 34%, var(--line));
+    }
+
+    body[data-theme="minimal-light"] {
+      line-height: 1.55;
+    }
+
+    body[data-theme="minimal-light"] .panel,
+    body[data-theme="minimal-light"] .meta-card,
+    body[data-theme="minimal-light"] .score,
+    body[data-theme="minimal-light"] .decision .box {
+      border-color: #dbe3ed;
+    }
+
+    body[data-theme="minimal-light"] .panel {
+      padding-top: 0.2in;
+      padding-bottom: 0.2in;
+    }
+
+    body[data-theme="minimal-light"] .tag.green {
+      background: #e8f6ea;
+      border-color: #b9d9c0;
+      color: #0f5132;
+    }
+
+    body[data-theme="minimal-light"] .tag.blue {
+      background: #e7f4ff;
+      border-color: #b6d4ee;
+      color: #0b4f6c;
+    }
+
+    body[data-theme="minimal-light"] .tag.red {
+      background: #fde9ec;
+      border-color: #efbcc6;
+      color: #8a1f36;
+    }
+
+    body[data-theme="minimal-light"] .ref-meta,
+    body[data-theme="minimal-light"] .small,
+    body[data-theme="minimal-light"] .meta-label,
+    body[data-theme="minimal-light"] .score .title {
+      color: #66788b;
+    }
+
+    @page {
+
+      size: letter;
+      margin: 0.55in;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--page-bg);
+      color: var(--ink);
+      font-family: var(--font);
+      line-height: 1.5;
+      font-size: 11.5pt;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 8.5in;
+      margin: 0 auto;
+      padding: 0.2in 0.1in 0.3in;
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      border-top: 10px solid var(--accent);
+      padding: 0.26in 0.28in 0.22in;
+      background: var(--hero-accent), linear-gradient(180deg, var(--hero-bg), var(--hero-bg-2));
+      box-shadow: 0 8px 24px var(--shadow);
+      page-break-inside: avoid;
+    }
+
+    .utility-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .brand-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-logo img {
+      display: block;
+      width: 138px;
+      height: auto;
+    }
+
+    body:not([data-theme="liatrio"]) .brand-logo {
+      display: none;
+    }
+    .theme-meta {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .theme-meta label {
+      display: none;
+    }
+
+    .theme-meta select {
+      min-width: 112px;
+      padding: 5px 24px 5px 10px;
+      border: 1px solid var(--theme-control-border);
+      background: var(--theme-control-bg);
+      color: var(--theme-control-ink);
+      border-radius: 999px;
+      font: 600 8.8pt var(--font-body);
+      line-height: 1.2;
+      box-shadow: none;
+    }
+
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 25pt;
+      line-height: 1.05;
+      font-family: var(--font-head);
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      max-width: 92%;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .meta-card {
+      border: 1px solid var(--line);
+      background: var(--card-bg);
+      padding: 12px 12px 10px;
+      min-height: 74px;
+    }
+
+    .meta-label {
+      display: block;
+      font-size: 8.5pt;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--label-ink);
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .meta-value {
+      font-size: 12pt;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .flow-layout {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--card-bg);
+      padding: 0.18in 0.2in;
+      page-break-inside: avoid;
+    }
+
+    .panel.tint { background: var(--panel); }
+    .panel.soft { background: var(--panel-2); }
+
+    .row-two {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(240px, 0.95fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 15pt;
+      line-height: 1.15;
+      font-family: var(--font-head);
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 11.5pt;
+      line-height: 1.2;
+      font-family: var(--font-head);
+    }
+
+    p { margin: 0 0 10px; }
+    ul, ol { margin: 0; padding-left: 18px; }
+    li + li { margin-top: 7px; }
+
+    .callout {
+      border-left: 5px solid var(--accent);
+      background: var(--callout-bg);
+      padding: 12px 14px;
+      margin-top: 10px;
+    }
+
+    .callout.warn {
+      border-left-color: var(--hot-red);
+      background: var(--warn-bg);
+    }
+
+    .callout strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .score-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .score {
+      border: 1px solid var(--line);
+      padding: 12px;
+      background: var(--panel-2);
+    }
+
+    .score .title {
+      display: block;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--label-ink);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .score .value {
+      font-size: 18pt;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 8.4pt;
+      color: var(--ink);
+      background: rgba(255,255,255,0.03);
+    }
+
+    .tag.accent {
+      background: color-mix(in srgb, var(--accent) 15%, transparent);
+      border-color: color-mix(in srgb, var(--accent) 35%, var(--line));
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 10pt;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 9px 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: var(--table-head-bg);
+      color: var(--table-head-ink);
+      font-size: 8.35pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      border-bottom-color: var(--table-head-border);
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0;
+      margin-top: 6px;
+    }
+
+    .event {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 12px;
+      padding: 10px 0;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .event:first-child { border-top: none; }
+
+    .date {
+      font-size: 8.5pt;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-2);
+      font-weight: 700;
+    }
+
+    .decision {
+      display: grid;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .decision .box {
+      border: 1px solid var(--line);
+      padding: 12px;
+      background: var(--card-bg);
+    }
+
+    .references-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin-top: 6px;
+      table-layout: fixed;
+      font-size: 9.95pt;
+    }
+
+    .references-table col.ref-number-col { width: 2.8em; }
+    .references-table col.ref-link-col { width: 34%; }
+
+    .references-table tbody tr + tr td {
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .references-table td {
+      padding: 12px 0;
+      vertical-align: top;
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      background: transparent;
+    }
+
+    .references-table td.ref-number {
+      color: color-mix(in srgb, var(--ink) 86%, var(--accent-2) 14%);
+      font-weight: 700;
+      text-align: right;
+      padding-right: 14px;
+      white-space: nowrap;
+      font-size: 9.1pt;
+    }
+
+    .references-table td.ref-main { padding-right: 22px; }
+    .references-table td.ref-link { text-align: right; min-width: 0; }
+
+    .ref-item {
+      display: grid;
+      gap: 4px;
+      min-width: 0;
+    }
+
+    .ref-title {
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      font-size: 10pt;
+      line-height: 1.28;
+    }
+
+    .ref-meta {
+      color: var(--muted);
+      font-size: 9.2pt;
+      line-height: 1.45;
+    }
+
+    .ref-url a {
+      display: inline-block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--link);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 2px;
+      font-size: 8.95pt;
+    }
+
+    .citation {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 0.18rem;
+      margin-left: 0.16rem;
+      vertical-align: super;
+      line-height: 1;
+    }
+
+    .citation-trigger {
+      appearance: none;
+      border: 1px solid color-mix(in srgb, var(--lagoon) 32%, transparent);
+      background: color-mix(in srgb, var(--lagoon) 10%, transparent);
+      color: color-mix(in srgb, var(--lagoon) 70%, var(--ink) 30%);
+      border-radius: 999px;
+      padding: 0.02rem 0.34rem 0.08rem;
+      font: 600 0.84em var(--font-body);
+      line-height: 1.2;
+      cursor: default;
+      transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease, transform 120ms ease;
+    }
+
+    .citation-trigger:hover,
+    .citation-trigger:focus-visible {
+      background: color-mix(in srgb, var(--lagoon) 18%, transparent);
+      color: var(--ink);
+      border-color: color-mix(in srgb, var(--lagoon) 50%, transparent);
+      outline: none;
+      transform: translateY(-1px);
+    }
+
+    .citation-tooltip {
+      position: fixed;
+      z-index: 1000;
+      width: min(340px, calc(100vw - 24px));
+      background: var(--panel);
+      color: var(--ink);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 18px 36px rgba(0,0,0,0.28);
+      padding: 11px 12px 10px;
+      display: none;
+      pointer-events: auto;
+    }
+
+    .citation-tooltip[data-open="true"] { display: block; }
+    .citation-tooltip .tooltip-title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      margin-bottom: 4px;
+      line-height: 1.25;
+    }
+    .citation-tooltip .tooltip-meta {
+      font-size: 8.9pt;
+      color: var(--muted);
+      line-height: 1.35;
+      margin-bottom: 8px;
+    }
+    .citation-tooltip .tooltip-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .citation-tooltip .tooltip-actions a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--lagoon) 28%, transparent);
+      background: color-mix(in srgb, var(--lagoon) 10%, transparent);
+      color: var(--lagoon);
+      text-decoration: none;
+      font-size: 8.8pt;
+      font-weight: 700;
+    }
+
+    .citation-tooltip .tooltip-actions a:hover,
+    .citation-tooltip .tooltip-actions a:focus-visible {
+      background: color-mix(in srgb, var(--lagoon) 16%, transparent);
+      border-color: color-mix(in srgb, var(--lagoon) 48%, transparent);
+      outline: none;
+    }
+
+    .ref-flash {
+      animation: ref-flash 1.2s ease-in-out 2;
+    }
+
+    @keyframes ref-flash {
+      0%, 100% { background: transparent; box-shadow: none; }
+      25%, 75% { background: color-mix(in srgb, var(--accent) 12%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 34%, transparent); }
+      50% { background: color-mix(in srgb, var(--link) 12%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--link) 35%, transparent); }
+    }
+
+    .back-to-top {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 950;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent);
+      background: color-mix(in srgb, var(--panel) 92%, transparent);
+      color: var(--ink);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.22);
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity 160ms ease, transform 160ms ease, visibility 160ms ease;
+    }
+
+    .back-to-top[data-visible="true"] {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    a { color: var(--link); }
+
+    @media screen and (max-width: 900px) {
+      .utility-row,
+      .row-two,
+      .meta-grid,
+      .score-grid {
+        grid-template-columns: 1fr;
+        display: grid;
+      }
+
+      .utility-row {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .theme-meta {
+        justify-content: space-between;
+      }
+
+      .references-table,
+      .references-table tbody,
+      .references-table tr,
+      .references-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .references-table colgroup { display: none; }
+      .references-table tbody tr { padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.07); }
+      .references-table tbody tr:first-child { border-top: none; }
+      .references-table td { padding: 0; }
+      .references-table td.ref-number { text-align: left; padding-bottom: 4px; }
+      .references-table td.ref-main { padding-right: 0; }
+      .references-table td.ref-link { text-align: left; margin-top: 6px; }
+
+      .back-to-top {
+        right: 14px;
+        bottom: 14px;
+        padding: 9px 12px;
+      }
+    }
+  </style>
+</head>
+<body data-theme="liatrio">
+  <main class="page">
+    <section class="hero">
+      <div class="utility-row">
+        <div class="brand-row">
+          <a class="brand-logo" href="https://www.liatrio.com" aria-label="Liatrio">
+            <img src="assets/logo_Liatrio_reverse-preferred.svg" alt="Liatrio logo">
+          </a>
+        </div>
+        <div class="theme-meta">
+          <select id="theme-select" aria-label="Select report theme">
+            <option value="liatrio" selected>Liatrio</option>
+            <option value="dracula">Dracula</option>
+            <option value="minimal-light">Minimal</option>
+          </select>
+        </div>
+      </div>
+
+      <h1>[Briefing Title]</h1>
+      <p class="subtitle">[One-sentence framing paragraph that tells the reader what this report covers, why it matters, and what decision or conclusion it supports.]</p>
+
+      <div class="meta-grid">
+        <div class="meta-card">
+          <span class="meta-label">Core finding</span>
+          <div class="meta-value">[Primary conclusion]</div>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Most important nuance</span>
+          <div class="meta-value">[Decision-relevant caveat]</div>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Operational impact</span>
+          <div class="meta-value">[What changes for the audience]</div>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">Recommendation</span>
+          <div class="meta-value">[Recommended posture or next step]</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="flow-layout">
+      <section class="panel soft">
+        <h2>Executive Summary</h2>
+        <p>[Summarize the overall conclusion in 2-3 short paragraphs.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button></span></p>
+        <p>[Add the most decision-relevant nuance or caution.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-2" aria-label="Reference 2">2</button><button class="citation-trigger" type="button" data-ref="#ref-3" aria-label="Reference 3">3</button></span></p>
+        <div class="callout">
+          <strong>Bottom line</strong>
+          [State the concise takeaway in one strong sentence.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button><button class="citation-trigger" type="button" data-ref="#ref-4" aria-label="Reference 4">4</button></span>
+        </div>
+      </section>
+
+      <section class="panel tint">
+        <h2>[What the Evidence Actually Shows]</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Signal</th>
+              <th>Observed state</th>
+              <th>Interpretation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>[Signal A]</strong><br>[Short qualifier]</td>
+              <td>[Observed fact] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-2" aria-label="Reference 2">2</button></span></td>
+              <td>[Explain what that fact means.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-3" aria-label="Reference 3">3</button></span></td>
+            </tr>
+            <tr>
+              <td><strong>[Signal B]</strong><br>[Short qualifier]</td>
+              <td>[Observed fact] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-4" aria-label="Reference 4">4</button></span></td>
+              <td>[Explain what that fact means.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-5" aria-label="Reference 5">5</button></span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="callout warn">
+          <strong>Implication</strong>
+          [Summarize the key implication from the evidence block.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-5" aria-label="Reference 5">5</button></span>
+        </div>
+      </section>
+
+      <div class="row-two">
+        <section class="panel">
+          <h2>Confidence Snapshot</h2>
+          <div class="score-grid">
+            <div class="score">
+              <span class="title">Confidence</span>
+              <div class="value">[High / Medium / Low]</div>
+              <div class="small">[Why the confidence level is what it is.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button></span></div>
+            </div>
+            <div class="score">
+              <span class="title">Sensitivity</span>
+              <div class="value">[High / Medium / Low]</div>
+              <div class="small">[Why the situation is operationally or governance-sensitive.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-6" aria-label="Reference 6">6</button></span></div>
+            </div>
+          </div>
+          <div class="tag-row">
+            <span class="tag accent">[Tag 1]</span>
+            <span class="tag">[Tag 2]</span>
+            <span class="tag">[Tag 3]</span>
+          </div>
+        </section>
+
+        <section class="panel tint">
+          <h2>[Risk / Decision Checkpoint]</h2>
+          <h3>What to verify</h3>
+          <ul>
+            <li>[Verification item 1]</li>
+            <li>[Verification item 2]</li>
+            <li>[Verification item 3]</li>
+          </ul>
+          <div class="callout">
+            <strong>In plain language</strong>
+            [Translate the technical finding into decision-maker language.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-6" aria-label="Reference 6">6</button></span>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel">
+        <h2>[Why This Matters]</h2>
+        <p>[Explain the system model, governance dependency, product consequence, or architectural reason this finding matters.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-1" aria-label="Reference 1">1</button></span></p>
+        <p>[Explain the real decision question the reader should be asking.]</p>
+      </section>
+
+      <section class="panel tint">
+        <h2>[Most Important Finding]</h2>
+        <p>[Spotlight the one finding that most changes the recommendation.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-7" aria-label="Reference 7">7</button></span></p>
+        <div class="callout warn">
+          <strong>Why this matters</strong>
+          [Explain why this single finding has outsized impact.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-7" aria-label="Reference 7">7</button></span>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>[Recent Changes or Timeline]</h2>
+        <div class="timeline">
+          <div class="event">
+            <div class="date">[Date / phase]</div>
+            <div>
+              <h3>[Change title]</h3>
+              <p>[Describe what changed and why it matters.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-8" aria-label="Reference 8">8</button></span></p>
+            </div>
+          </div>
+          <div class="event">
+            <div class="date">[Date / phase]</div>
+            <div>
+              <h3>[Change title]</h3>
+              <p>[Describe what changed and why it matters.] <span class="citation"><button class="citation-trigger" type="button" data-ref="#ref-9" aria-label="Reference 9">9</button></span></p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel soft">
+        <h2>Decision Guidance</h2>
+        <div class="decision">
+          <div class="box">
+            <h3>Conditions that support approval</h3>
+            <ul>
+              <li>[Condition 1]</li>
+              <li>[Condition 2]</li>
+              <li>[Condition 3]</li>
+            </ul>
+          </div>
+          <div class="box">
+            <h3>Conditions that support waiting</h3>
+            <ul>
+              <li>[Condition 1]</li>
+              <li>[Condition 2]</li>
+              <li>[Condition 3]</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout">
+          <strong>Recommended posture</strong>
+          [State the recommended action in plain language.]
+        </div>
+      </section>
+
+      <section class="panel references">
+        <h2>References</h2>
+        <table class="references-table">
+          <colgroup>
+            <col class="ref-number-col">
+            <col class="ref-main-col">
+            <col class="ref-link-col">
+          </colgroup>
+          <tbody>
+            <tr id="ref-1">
+              <td class="ref-number">1.</td>
+              <td class="ref-main">
+                <div class="ref-item">
+                  <a class="ref-title" href="https://example.com/source-1">[Source title]</a>
+                  <div class="ref-meta">[Short description of why this source matters.]</div>
+                </div>
+              </td>
+              <td class="ref-link"><div class="ref-url"><a href="https://example.com/source-1" title="example.com/source-1">example.com/source-1</a></div></td>
+            </tr>
+            <tr id="ref-2">
+              <td class="ref-number">2.</td>
+              <td class="ref-main">
+                <div class="ref-item">
+                  <a class="ref-title" href="https://example.com/source-2">[Source title]</a>
+                  <div class="ref-meta">[Short description of why this source matters.]</div>
+                </div>
+              </td>
+              <td class="ref-link"><div class="ref-url"><a href="https://example.com/source-2" title="example.com/source-2">example.com/source-2</a></div></td>
+            </tr>
+            <tr id="ref-3">
+              <td class="ref-number">3.</td>
+              <td class="ref-main">
+                <div class="ref-item">
+                  <a class="ref-title" href="https://example.com/source-3">[Source title]</a>
+                  <div class="ref-meta">[Short description of why this source matters.]</div>
+                </div>
+              </td>
+              <td class="ref-link"><div class="ref-url"><a href="https://example.com/source-3" title="example.com/source-3">example.com/source-3</a></div></td>
+            </tr>
+            <tr id="ref-11">
+              <td class="ref-number">11.</td>
+              <td class="ref-main">
+                <div class="ref-item">
+                  <span class="ref-title">[User-provided note or screenshot]</span>
+                  <div class="ref-meta">[Use this row for user-supplied screenshots, internal notes, or non-public artifacts that support the briefing.]</div>
+                </div>
+              </td>
+              <td class="ref-link"></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+  </main>
+
+  <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">↑ Back to top</button>
+
+  <div class="citation-tooltip" id="citation-tooltip" role="tooltip" aria-hidden="true">
+    <div class="tooltip-title"></div>
+    <div class="tooltip-meta"></div>
+    <div class="tooltip-actions">
+      <a href="#" target="_blank" rel="noopener noreferrer">Open source</a>
+      <a href="#">Show Reference</a>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const tooltip = document.getElementById('citation-tooltip');
+      const titleEl = tooltip.querySelector('.tooltip-title');
+      const metaEl = tooltip.querySelector('.tooltip-meta');
+      const actionLinks = tooltip.querySelectorAll('.tooltip-actions a');
+      const backToTopButton = document.getElementById('back-to-top');
+      const themeSelect = document.getElementById('theme-select');
+      const themeStorageKey = 'research-briefing-theme';
+      let activeLink = null;
+      let hideTimer = null;
+      let flashTimer = null;
+
+      function applyTheme(theme) {
+        document.body.dataset.theme = theme;
+        updateFavicon();
+        localStorage.setItem(themeStorageKey, theme);
+      }
+
+      function updateFavicon() {
+        const favicon = document.getElementById('dynamic-favicon');
+        if (!favicon) return;
+        const styles = getComputedStyle(document.body);
+        const accent = styles.getPropertyValue('--liatrio-green').trim() || '#24AE1D';
+        const bg = styles.getPropertyValue('--favicon-bg').trim() || styles.getPropertyValue('--panel').trim() || '#1e2327';
+        const fold = styles.getPropertyValue('--favicon-fold').trim() || styles.getPropertyValue('--ink').trim() || '#f3f6f2';
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="${bg}"/><path d="M18 12h22l10 10v30H18z" fill="none" stroke="${accent}" stroke-width="4"/><path d="M40 12v12h12" fill="${fold}" opacity="0.9"/><path d="M24 28h20M24 36h16M24 44h18" stroke="${accent}" stroke-width="4" stroke-linecap="round"/></svg>`;
+        favicon.href = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+      }
+
+      const savedTheme = localStorage.getItem(themeStorageKey) || 'liatrio';
+      if (themeSelect) {
+        themeSelect.value = savedTheme;
+        applyTheme(savedTheme);
+        themeSelect.addEventListener('change', () => applyTheme(themeSelect.value));
+      }
+
+      function getReferenceData(hash) {
+        const ref = document.querySelector(hash);
+        if (!ref) return null;
+        const titleNode = ref.querySelector('.ref-title');
+        const metaNode = ref.querySelector('.ref-meta');
+        const urlNode = ref.querySelector('.ref-url a');
+        return {
+          title: titleNode ? titleNode.textContent.trim() : hash.replace('#ref-', 'Reference '),
+          meta: metaNode ? metaNode.textContent.trim() : '',
+          url: urlNode ? urlNode.href : `${location.href.split('#')[0]}${hash}`,
+          refHash: hash,
+        };
+      }
+
+      function positionTooltip(link) {
+        const rect = link.getBoundingClientRect();
+        const tooltipRect = tooltip.getBoundingClientRect();
+        const margin = 12;
+        const vw = document.documentElement.clientWidth;
+        const vh = document.documentElement.clientHeight;
+
+        let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+        let top = rect.bottom + 10;
+
+        if (left + tooltipRect.width > vw - margin) left = vw - tooltipRect.width - margin;
+        if (left < margin) left = margin;
+        if (top + tooltipRect.height > vh - margin) top = Math.max(margin, rect.top - tooltipRect.height - 12);
+
+        tooltip.style.left = `${left}px`;
+        tooltip.style.top = `${Math.max(margin, top)}px`;
+      }
+
+      function showTooltip(link) {
+        const href = link.dataset.ref || '';
+        if (!href.startsWith('#ref-')) return;
+        const data = getReferenceData(href);
+        if (!data) return;
+        window.clearTimeout(hideTimer);
+        activeLink = link;
+        titleEl.textContent = data.title;
+        metaEl.textContent = data.meta;
+        actionLinks[0].href = data.url;
+        actionLinks[1].href = data.refHash;
+        actionLinks[0].target = '_blank';
+        actionLinks[0].rel = 'noopener noreferrer';
+        actionLinks[1].removeAttribute('target');
+        actionLinks[1].removeAttribute('rel');
+        tooltip.style.position = 'fixed';
+        tooltip.style.visibility = 'hidden';
+        tooltip.style.opacity = '0';
+        tooltip.style.left = '-9999px';
+        tooltip.style.top = '-9999px';
+        tooltip.dataset.open = 'true';
+        tooltip.setAttribute('aria-hidden', 'false');
+        void tooltip.offsetWidth;
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          if (activeLink !== link) return;
+          positionTooltip(link);
+          tooltip.style.visibility = 'visible';
+          tooltip.style.opacity = '1';
+        }));
+      }
+
+      function hideTooltip() {
+        tooltip.dataset.open = 'false';
+        tooltip.setAttribute('aria-hidden', 'true');
+        tooltip.style.visibility = 'hidden';
+        tooltip.style.opacity = '0';
+        activeLink = null;
+      }
+
+      function scheduleHide() {
+        window.clearTimeout(hideTimer);
+        hideTimer = window.setTimeout(hideTooltip, 120);
+      }
+
+      function flashReference(hash) {
+        const ref = document.querySelector(hash);
+        if (!ref) return;
+        window.clearTimeout(flashTimer);
+        ref.classList.remove('ref-flash');
+        void ref.offsetWidth;
+        ref.classList.add('ref-flash');
+        flashTimer = window.setTimeout(() => ref.classList.remove('ref-flash'), 2600);
+      }
+
+      function updateBackToTopVisibility() {
+        if (!backToTopButton) return;
+        backToTopButton.dataset.visible = window.scrollY > 220 ? 'true' : 'false';
+      }
+
+      actionLinks[1].addEventListener('click', event => {
+        event.preventDefault();
+        const hash = actionLinks[1].getAttribute('href');
+        if (!hash || !hash.startsWith('#')) return;
+        const ref = document.querySelector(hash);
+        if (!ref) return;
+        hideTooltip();
+        ref.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        window.setTimeout(() => flashReference(hash), 220);
+      });
+
+      if (backToTopButton) {
+        backToTopButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      }
+
+      document.querySelectorAll('.citation-trigger').forEach(trigger => {
+        trigger.addEventListener('mouseenter', () => {
+          window.clearTimeout(hideTimer);
+          showTooltip(trigger);
+        });
+        trigger.addEventListener('focus', () => showTooltip(trigger));
+        trigger.addEventListener('mouseleave', scheduleHide);
+        trigger.addEventListener('blur', scheduleHide);
+      });
+
+      tooltip.addEventListener('mouseenter', () => window.clearTimeout(hideTimer));
+      tooltip.addEventListener('mouseleave', scheduleHide);
+      window.addEventListener('scroll', () => {
+        if (activeLink) positionTooltip(activeLink);
+        updateBackToTopVisibility();
+      }, true);
+      window.addEventListener('resize', () => {
+        if (activeLink) positionTooltip(activeLink);
+      });
+      window.addEventListener('keydown', event => {
+        if (event.key === 'Escape') hideTooltip();
+      });
+
+      updateBackToTopVisibility();
+    })();
+  </script>
+</body>
+</html>
