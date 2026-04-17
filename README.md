@@ -34,6 +34,7 @@ Skills are organized in the `skills/` directory by capability:
 - `tilt-dev/` - Tilt-based local development environment operations
 - `uv-usage/` - `uv` package manager workflows and command guidance
 - `branch-surgery-pr-split/` - Branch decomposition strategy for splitting oversized or mixed-concern PRs
+- `minimal-outline/` - Compress writing into a minimal, high signal-to-noise outline with bundled PR/FAQ, one-pager, and six-pager templates
 
 ### 3. Use Prompts with AI Tools
 
@@ -146,6 +147,7 @@ Repository marker: `🤖` in `AGENTS.md` for AI Agent Instructions and configura
 | `tilt-dev` | `skills/tilt-dev/SKILL.md` | Manage and troubleshoot Tilt-orchestrated local development stacks. |
 | `uv-usage` | `skills/uv-usage/SKILL.md` | Provide concise guidance for `uv` project and dependency workflows. |
 | `branch-surgery-pr-split` | `skills/branch-surgery-pr-split/SKILL.md` | Split oversized or mixed-concern branches into reviewable PR stacks with parity audits and merge sequencing. |
+| `minimal-outline` | `skills/minimal-outline/SKILL.md` | Compress drafts, notes, or briefs into a minimal but semantically dense outline; bundles PR/FAQ, one-pager, and six-pager templates. |
 
 ## Prompt-to-Skill Migration Map
 
