@@ -15,7 +15,7 @@ If the repo is not already cloned locally, clone it to the user's working direct
 
 ## Repository Structure
 
-```
+```text
 liatrio-external-dns/
 ├── dns/
 │   ├── liatr_io_records.tf      # All liatr.io DNS records (primary file to edit)
