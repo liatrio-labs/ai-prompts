@@ -2,6 +2,35 @@
 
 <!-- version list -->
 
+## v0.14.0 (2026-05-07)
+
+### Chores
+
+- **repo**: Add docs drift checker and guardrails
+  ([#19](https://github.com/liatrio-labs/ai-prompts/pull/19),
+  [`5460513`](https://github.com/liatrio-labs/ai-prompts/commit/54605137aa8522c914f73faf40581b4d249701aa))
+
+### Documentation
+
+- **contributing**: Align guide with repo quality gates
+  ([#19](https://github.com/liatrio-labs/ai-prompts/pull/19),
+  [`5460513`](https://github.com/liatrio-labs/ai-prompts/commit/54605137aa8522c914f73faf40581b4d249701aa))
+
+- **readme**: Add non-interactive npx skills example
+  ([#19](https://github.com/liatrio-labs/ai-prompts/pull/19),
+  [`5460513`](https://github.com/liatrio-labs/ai-prompts/commit/54605137aa8522c914f73faf40581b4d249701aa))
+
+- **repo**: Add docs drift guardrails and refresh contribution docs
+  ([#19](https://github.com/liatrio-labs/ai-prompts/pull/19),
+  [`5460513`](https://github.com/liatrio-labs/ai-prompts/commit/54605137aa8522c914f73faf40581b4d249701aa))
+
+### Features
+
+- **skills**: Add liatrio-dns skill for liatr.io subdomain provisioning
+  ([#23](https://github.com/liatrio-labs/ai-prompts/pull/23),
+  [`21293cf`](https://github.com/liatrio-labs/ai-prompts/commit/21293cfa5b65c5bbfcf213ea59dfd5936f83ca86))
+
+
 ## v0.13.0 (2026-03-02)
 
 ### Features
