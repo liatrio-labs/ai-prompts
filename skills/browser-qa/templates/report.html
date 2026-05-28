@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Browser QA Report</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1220;
+      --panel: #172033;
+      --panel-2: #0f172a;
+      --panel-3: #111827;
+      --text: #f9fafb;
+      --muted: #a8b3c7;
+      --border: #344258;
+      --pass: #22c55e;
+      --warn: #f59e0b;
+      --fail: #ef4444;
+      --unknown: #94a3b8;
+      --link: #93c5fd;
+      --focus: #a3e635;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: radial-gradient(circle at top left, rgba(147, 197, 253, .12), transparent 34rem), var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 18px;
+      line-height: 1.55;
+      margin: 0;
+    }
+    main { margin: 0 auto; max-width: 1180px; padding: 2.5rem 2rem 4rem; }
+    header { border-bottom: 1px solid var(--border); margin-bottom: 1.75rem; padding-bottom: 1.5rem; }
+    h1 { font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1; margin: 0 0 .75rem; }
+    h2 { font-size: 1.65rem; margin: 2.25rem 0 1rem; }
+    h3 { line-height: 1.25; margin: 0 0 .85rem; }
+    a { color: var(--link); text-underline-offset: .18em; }
+    a:hover { color: #bfdbfe; }
+    select {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: .65rem;
+      color: var(--text);
+      font: inherit;
+      margin-top: .35rem;
+      max-width: 100%;
+      min-width: min(100%, 760px);
+      padding: .75rem .85rem;
+    }
+    code, pre {
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .06);
+      border-radius: .35rem;
+      color: #e5e7eb;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: .9em;
+    }
+    code { overflow-wrap: anywhere; padding: .1rem .3rem; }
+    pre { margin: 0; max-height: 32rem; overflow: auto; padding: 1rem; white-space: pre-wrap; }
+    button {
+      background: var(--panel-2);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      padding: .45rem .9rem;
+    }
+    button:hover { border-color: var(--link); }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+    .eyebrow { color: var(--muted); font-size: .95rem; letter-spacing: .08em; text-transform: uppercase; }
+    .muted { color: var(--muted); }
+    .toolbar { align-items: center; display: flex; flex-wrap: wrap; gap: .75rem; justify-content: space-between; }
+    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+    .card, .check, .artifact-card, .json-panel {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .035), transparent), var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, .18);
+      padding: 1rem;
+    }
+    .card .value { font-size: 1.1rem; font-weight: 700; overflow-wrap: anywhere; }
+    .status { font-weight: 900; letter-spacing: .03em; text-transform: uppercase; }
+    .status-pill {
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      display: inline-flex;
+      font-size: .85rem;
+      font-weight: 900;
+      line-height: 1;
+      padding: .32rem .55rem;
+      text-transform: uppercase;
+    }
+    .pass { color: var(--pass); }
+    .warn { color: var(--warn); }
+    .fail { color: var(--fail); }
+    .unknown { color: var(--unknown); }
+    .checks { display: grid; gap: 1rem; }
+    .check { padding: 1.15rem; }
+    .evidence { display: grid; gap: .65rem; margin: .75rem 0 0; padding: 0; }
+    .evidence li {
+      background: rgba(15, 23, 42, .55);
+      border: 1px solid rgba(255, 255, 255, .06);
+      border-radius: .75rem;
+      list-style: none;
+      padding: .75rem;
+    }
+    .source { display: inline-block; margin-top: .45rem; }
+    .recommendation { border-left: 3px solid var(--warn); margin: 1rem 0 0; padding-left: .85rem; }
+    .artifact-grid { display: grid; gap: .85rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); list-style: none; margin: 0; padding: 0; }
+    .artifact-card { min-height: 6.25rem; padding: .9rem; }
+    .artifact-label { color: var(--muted); display: block; font-size: .85rem; font-weight: 800; letter-spacing: .04em; margin-bottom: .35rem; text-transform: uppercase; }
+    .artifact-filename { display: block; font-weight: 750; overflow-wrap: anywhere; }
+    .artifact-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .65rem; }
+    .preview-wrap { margin-top: 1rem; }
+    img.preview { border: 1px solid var(--border); border-radius: 1rem; display: block; max-height: 440px; max-width: 100%; object-fit: contain; }
+    .json-panel { margin-top: 1rem; }
+    .json-panel[hidden] { display: none; }
+    @media (max-width: 760px) {
+      body { font-size: 16px; }
+      main { padding: 1.25rem; }
+      .toolbar { align-items: stretch; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Browser QA</p>
+      <h1>Evidence Report</h1>
+      <label for="report-select">Report run</label><br>
+      <select id="report-select"></select>
+      <p id="server-root" class="muted"></p>
+    </header>
+
+    <section id="summary"></section>
+    <section>
+      <h2>Checks</h2>
+      <div id="checks" class="checks"></div>
+    </section>
+    <section>
+      <div class="toolbar">
+        <h2>Artifacts</h2>
+        <button id="json-toggle" type="button" aria-expanded="false" aria-controls="raw-json">View raw JSON</button>
+      </div>
+      <ul id="artifacts" class="artifact-grid"></ul>
+      <div id="preview" class="preview-wrap"></div>
+      <section id="raw-json" class="json-panel" hidden>
+        <h3>Raw findings JSON</h3>
+        <pre><code id="raw-json-code"></code></pre>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    const select = document.querySelector('#report-select');
+    const summaryEl = document.querySelector('#summary');
+    const checksEl = document.querySelector('#checks');
+    const artifactsEl = document.querySelector('#artifacts');
+    const previewEl = document.querySelector('#preview');
+    const rootEl = document.querySelector('#server-root');
+    const jsonToggle = document.querySelector('#json-toggle');
+    const rawJsonEl = document.querySelector('#raw-json');
+    const rawJsonCodeEl = document.querySelector('#raw-json-code');
+
+    function cls(status) {
+      return ['pass', 'warn', 'fail', 'unknown'].includes(status) ? status : 'unknown';
+    }
+
+    function text(value) {
+      return value === undefined || value === null || value === '' ? 'unknown' : String(value);
+    }
+
+    function escapeHtml(value) {
+      return text(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    function artifactHref(base, value) {
+      if (!value || value === 'not captured' || value.startsWith('/') || value.startsWith('file:')) return value;
+      if (value.startsWith('http://') || value.startsWith('https://')) return value;
+      return base + value.split('/').filter(Boolean).map(encodeURIComponent).join('/');
+    }
+
+    function artifactType(key, value) {
+      const lower = `${key} ${value}`.toLowerCase();
+      if (lower.endsWith('.json') || lower.includes('json') || key === 'report') return 'JSON';
+      if (lower.match(/\.(png|jpg|jpeg|gif|webp|svg)$/)) return 'Image';
+      return 'Artifact';
+    }
+
+    function render(data) {
+      const meta = data._browser_qa || {};
+      const target = data.target || {};
+      const viewport = target.viewport || {};
+      const sum = data.summary || {};
+      const status = cls(sum.status);
+      const artifactBase = meta.artifact_base_url || '';
+      const counts = `${sum.passes || 0} pass / ${sum.warnings || 0} warn / ${sum.failures || 0} fail / ${sum.unknowns || 0} unknown`;
+
+      summaryEl.innerHTML = `
+        <div class="grid">
+          <div class="card"><div class="muted">Status</div><div class="status ${status}">${escapeHtml(sum.status)}</div></div>
+          <div class="card"><div class="muted">Target</div><div class="value"><a href="${escapeHtml(text(target.url))}" target="_blank" rel="noreferrer">${escapeHtml(target.url)}</a></div></div>
+          <div class="card"><div class="muted">Checked</div><div class="value">${escapeHtml(target.checked_at)}</div></div>
+          <div class="card"><div class="muted">Viewport</div><div class="value">${escapeHtml(viewport.width)}×${escapeHtml(viewport.height)}</div></div>
+          <div class="card"><div class="muted">Counts</div><div class="value">${escapeHtml(counts)}</div></div>
+        </div>`;
+
+      checksEl.innerHTML = (data.checks || []).map((check) => {
+        const checkStatus = cls(check.status);
+        const evidence = (check.evidence || []).map((item) => `
+          <li>
+            <strong>${escapeHtml(item.kind)}:</strong> ${escapeHtml(item.message)}
+            <br><code class="source">${escapeHtml(item.source)}</code>
+          </li>`).join('');
+        const recommendation = check.recommendation ? `<p class="recommendation"><strong>Recommendation:</strong> ${escapeHtml(check.recommendation)}</p>` : '';
+        return `<article class="check"><h3><span class="status-pill ${checkStatus}">${escapeHtml(check.status)}</span> ${escapeHtml(check.label)}</h3><ul class="evidence">${evidence}</ul>${recommendation}</article>`;
+      }).join('') || '<p class="muted">No checks found.</p>';
+
+      const artifacts = data.artifacts || {};
+      artifactsEl.innerHTML = Object.entries(artifacts).map(([key, value]) => {
+        const artifactValue = String(value || '');
+        const href = artifactHref(artifactBase, artifactValue);
+        if (!href || href === 'not captured') {
+          return `<li class="artifact-card"><span class="artifact-label">${escapeHtml(key)}</span><span class="muted">not captured</span></li>`;
+        }
+        const type = artifactType(key, artifactValue);
+        return `
+          <li class="artifact-card">
+            <span class="artifact-label">${escapeHtml(key)} · ${escapeHtml(type)}</span>
+            <a class="artifact-filename" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(artifactValue)}</a>
+            <div class="artifact-actions">
+              <a href="${escapeHtml(href)}" target="_blank" rel="noreferrer">Open</a>
+              <a href="${escapeHtml(href)}" download>Download</a>
+            </div>
+          </li>`;
+      }).join('');
+
+      const screenshot = artifacts.screenshot ? artifactHref(artifactBase, String(artifacts.screenshot)) : '';
+      previewEl.innerHTML = screenshot && !screenshot.startsWith('file:') ? `<img class="preview" src="${escapeHtml(screenshot)}" alt="Browser QA screenshot preview">` : '';
+      rawJsonCodeEl.textContent = JSON.stringify(data, null, 2);
+    }
+
+    async function loadReport(id) {
+      const response = await fetch(`/api/reports/${encodeURIComponent(id)}`);
+      if (!response.ok) throw new Error(`Failed to load report ${id}`);
+      const data = await response.json();
+      render(data);
+      const url = new URL(window.location.href);
+      url.searchParams.set('report', id);
+      history.replaceState(null, '', url);
+    }
+
+    async function init() {
+      const response = await fetch('/api/reports');
+      const payload = await response.json();
+      rootEl.textContent = `Serving: ${payload.root}`;
+      select.innerHTML = payload.reports.map((report) => `<option value="${escapeHtml(report.id)}">${escapeHtml(report.label)}</option>`).join('');
+      if (!payload.reports.length) {
+        summaryEl.innerHTML = '<p class="muted">No reports found yet. Create a run folder under the server temp root with findings.json.</p>';
+        jsonToggle.disabled = true;
+        return;
+      }
+      const requested = new URLSearchParams(window.location.search).get('report');
+      const selected = payload.reports.find((report) => report.id === requested) || payload.reports[0];
+      select.value = selected.id;
+      await loadReport(selected.id);
+    }
+
+    select.addEventListener('change', () => loadReport(select.value));
+    jsonToggle.addEventListener('click', () => {
+      const expanded = jsonToggle.getAttribute('aria-expanded') === 'true';
+      jsonToggle.setAttribute('aria-expanded', String(!expanded));
+      rawJsonEl.hidden = expanded;
+      jsonToggle.textContent = expanded ? 'View raw JSON' : 'Hide raw JSON';
+    });
+    init().catch((error) => {
+      summaryEl.innerHTML = `<p class="fail">${escapeHtml(error.message)}</p>`;
+    });
+  </script>
+</body>
+</html>
