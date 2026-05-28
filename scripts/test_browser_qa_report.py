@@ -102,6 +102,16 @@ class BrowserQAReportTests(unittest.TestCase):
         self.assertIn('href="https://liatrio.ai"', html)
         self.assertIn('Liatrio logomark', html)
 
+    def test_browser_qa_skill_documents_agent_browser_console_capture(self) -> None:
+        skill = (REPO_ROOT / "skills" / "browser-qa" / "SKILL.md").read_text(encoding="utf-8")
+        checks = (REPO_ROOT / "skills" / "browser-qa" / "references" / "checks.md").read_text(encoding="utf-8")
+
+        for content in (skill, checks):
+            self.assertIn("agent-browser console", content)
+            self.assertIn("agent-browser errors", content)
+            self.assertIn("agent-browser network requests", content)
+            self.assertIn("about:blank", content)
+
 
 if __name__ == "__main__":
     unittest.main()

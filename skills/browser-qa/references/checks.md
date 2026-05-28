@@ -13,8 +13,15 @@ Use these checks for the default demo-sized pass. Keep scope narrow and mark a c
 
 Default critical-path order:
 
-1. Load target.
-2. Exercise the primary route/form/CTA.
-3. Inspect console and request failures.
-4. Capture screenshot only when it proves a state, warning, or defect.
-5. Write JSON findings before summarizing.
+1. Open `about:blank` in a named `agent-browser` session and clear `console`, `errors`, and `network requests` buffers.
+2. Load target.
+3. Exercise the primary route/form/CTA.
+4. Inspect `agent-browser errors --json`, `agent-browser console --json`, and `agent-browser network requests --json`.
+5. Capture screenshot only when it proves a state, warning, or defect.
+6. Write JSON findings before summarizing.
+
+Console capture guidance:
+
+- Use the built-in `agent-browser console`, `agent-browser errors`, and `agent-browser network requests` commands rather than injecting a late console interceptor after page load.
+- Mark `console-errors` or `failed-requests` as `unknown` only when those built-in commands fail or are unavailable for the browser provider.
+- Ignore report-viewer-local noise such as `127.0.0.1:10891/favicon.ico` unless the report viewer itself is the target under test.
