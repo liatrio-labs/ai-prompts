@@ -1,0 +1,17 @@
+Perform a deep review of this branch against me. save your findings in an html report in ./temp/. use agent-browser to view liatrio.ai/brand for direction on how to style the report
+
+---
+
+Perform a deep review of this branch against main. save your findings in an html report in ./temp/. use agent-browser to view liatrio.ai/brand for direction on how to style the report
+
+---
+
+do these:
+
+Fix the ..%2F traversal in serve-report.py and add a regression test. Required.
+Add a scheme allowlist in artifactHref and mirror it in the validator. Optional but cheap.
+Stop running filename segments through safe_run_id — validate instead. Optional.
+
+---
+
+there's one other tweak: the drop down in the html report needs to sort the entries alphabetically so they are presented in timestamp order

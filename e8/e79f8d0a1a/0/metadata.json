@@ -1,0 +1,36 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "e8e79f8d0a1a",
+  "session_id": "76423d47-e161-4fd1-9de9-e0dfd396a13f",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-28T15:42:35.057143647Z",
+  "branch": "feat/browser-qa-skill",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "scripts/test_browser_qa_report.py",
+    "skills/browser-qa/scripts/serve-report.py",
+    "skills/browser-qa/scripts/validate-findings.py",
+    "skills/browser-qa/templates/report.html"
+  ],
+  "agent": "Claude Code",
+  "turn_id": "bd33a67846df",
+  "token_usage": {
+    "input_tokens": 54,
+    "cache_creation_tokens": 85118,
+    "cache_read_tokens": 2313774,
+    "output_tokens": 24815,
+    "api_call_count": 34
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-28T15:42:34.856015968Z",
+    "agent_lines": 99,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 99,
+    "agent_percentage": 100
+  }
+}
