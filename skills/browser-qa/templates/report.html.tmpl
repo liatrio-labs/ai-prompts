@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Browser QA Report - {{status}}</title>
+  <style>
+    :root { color-scheme: light dark; --ok: #1a7f37; --warn: #bf8700; --fail: #cf222e; --unknown: #57606a; }
+    body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 2rem; line-height: 1.5; max-width: 960px; }
+    header { border-bottom: 1px solid #d0d7de; margin-bottom: 1.5rem; padding-bottom: 1rem; }
+    h1 { margin: 0 0 .5rem; }
+    .meta, .counts { display: flex; flex-wrap: wrap; gap: .75rem; }
+    .pill { border: 1px solid #d0d7de; border-radius: 999px; padding: .2rem .65rem; }
+    .pass { color: var(--ok); }
+    .warn { color: var(--warn); }
+    .fail { color: var(--fail); }
+    .unknown { color: var(--unknown); }
+    .check { border: 1px solid #d0d7de; border-radius: .5rem; margin: 1rem 0; padding: 1rem; }
+    .evidence { margin: .5rem 0 0; }
+    img { border: 1px solid #d0d7de; border-radius: .5rem; max-width: 100%; }
+    code { background: rgba(127,127,127,.12); border-radius: .25rem; padding: .1rem .25rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Browser QA Report: <span class="{{status}}">{{status}}</span></h1>
+    <div class="meta">
+      <span class="pill">Target: <code>{{target_url}}</code></span>
+      <span class="pill">Checked: {{checked_at}}</span>
+      <span class="pill">Viewport: {{viewport}}</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Proof Summary</h2>
+    <p>{{proof_summary}}</p>
+    <div class="counts">
+      <span class="pill pass">Passes: {{passes}}</span>
+      <span class="pill warn">Warnings: {{warnings}}</span>
+      <span class="pill fail">Failures: {{failures}}</span>
+      <span class="pill unknown">Unknowns: {{unknowns}}</span>
+    </div>
+  </section>
+
+  <section>
+    <h2>Checks</h2>
+    {{checks}}
+    <!-- Render each check as:
+    <article class="check">
+      <h3><span class="pass|warn|fail|unknown">status</span> - Label</h3>
+      <ul class="evidence"><li><strong>kind:</strong> message <code>source</code></li></ul>
+      <p><strong>Recommendation:</strong> next action</p>
+    </article>
+    -->
+  </section>
+
+  <section>
+    <h2>Artifacts</h2>
+    <ul>
+      <li>Findings JSON: <code>{{findings_json}}</code></li>
+      <li>Screenshot: <code>{{screenshot}}</code></li>
+    </ul>
+    {{screenshot_preview}}
+  </section>
+</body>
+</html>
