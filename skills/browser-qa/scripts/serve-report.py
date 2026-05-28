@@ -33,7 +33,19 @@ def report_html_path() -> Path:
 
 
 def safe_run_id(raw: str) -> str:
-    return "".join(ch for ch in raw if ch.isalnum() or ch in {"-", "_", "."})
+    cleaned = "".join(ch for ch in raw if ch.isalnum() or ch in {"-", "_", "."})
+    if cleaned in {"", ".", ".."}:
+        return ""
+    return cleaned
+
+
+def safe_path_segment(raw: str) -> str:
+    """Return the segment unchanged if it is a safe filename, else empty."""
+    if not raw or raw in {".", ".."}:
+        return ""
+    if any(ch in raw for ch in ("/", "\\", "\x00")):
+        return ""
+    return raw
 
 
 def load_json(path: Path) -> dict[str, Any] | None:
@@ -68,7 +80,7 @@ def discover_reports(root: Path) -> list[dict[str, Any]]:
                 "summary": summary,
             }
         )
-    return sorted(reports, key=lambda item: (item.get("checked_at") or "", item["id"]), reverse=True)
+    return sorted(reports, key=lambda item: item["id"], reverse=True)
 
 
 class BrowserQAHandler(SimpleHTTPRequestHandler):
@@ -114,6 +126,9 @@ class BrowserQAHandler(SimpleHTTPRequestHandler):
 
         if path.startswith("/api/reports/"):
             run_id = safe_run_id(unquote(path.removeprefix("/api/reports/")))
+            if not run_id:
+                self.send_error(404, "report not found")
+                return
             findings = self.report_root / run_id / "findings.json"
             data = load_json(findings)
             if data is None:
@@ -132,13 +147,16 @@ class BrowserQAHandler(SimpleHTTPRequestHandler):
                 self.send_error(404, "artifact not found")
                 return
             run_id = safe_run_id(parts[0])
-            rel_parts = [safe_run_id(part) for part in parts[1:]]
-            run_root = (self.report_root / run_id).resolve()
-            requested_rel_path = Path(*rel_parts)
-            artifact_path = (run_root / requested_rel_path).resolve()
-            if requested_rel_path.name == "browser-qa-findings.json" and not artifact_path.exists():
+            rel_parts = [safe_path_segment(part) for part in parts[1:]]
+            if not run_id or not all(rel_parts):
+                self.send_error(404, "artifact not found")
+                return
+            report_root = self.report_root.resolve()
+            run_root = (report_root / run_id).resolve()
+            artifact_path = (run_root / Path(*rel_parts)).resolve()
+            if rel_parts[-1] == "browser-qa-findings.json" and not artifact_path.exists():
                 artifact_path = (run_root / "findings.json").resolve()
-            if run_root not in artifact_path.parents and artifact_path != run_root:
+            if report_root not in artifact_path.parents:
                 self.send_error(403, "invalid artifact path")
                 return
             self.send_file(artifact_path)

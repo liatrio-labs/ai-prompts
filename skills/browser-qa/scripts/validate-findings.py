@@ -7,12 +7,22 @@
 from __future__ import annotations
 
 import json
+import re
 import sys
 from pathlib import Path
 from typing import Any
 
 STATUSES = {"pass", "warn", "fail", "unknown"}
 EVIDENCE_KINDS = {"console", "network", "screenshot", "snapshot", "manual-note"}
+SAFE_URL_SCHEMES = {"http", "https", "file"}
+_SCHEME_RE = re.compile(r"^([a-z][a-z0-9+.\-]*):", re.IGNORECASE)
+
+
+def has_unsafe_scheme(value: str) -> bool:
+    match = _SCHEME_RE.match(value)
+    if not match:
+        return False
+    return match.group(1).lower() not in SAFE_URL_SCHEMES
 
 
 def require_mapping(value: Any, path: str, errors: list[str]) -> dict[str, Any]:
@@ -35,6 +45,9 @@ def validate(data: Any) -> list[str]:
 
     target = require_mapping(root.get("target"), "$.target", errors)
     require_keys(target, ["url", "checked_at", "viewport"], "$.target", errors)
+    target_url = target.get("url")
+    if isinstance(target_url, str) and has_unsafe_scheme(target_url):
+        errors.append(f"$.target.url scheme must be one of {sorted(SAFE_URL_SCHEMES)} or a relative path")
 
     summary = require_mapping(root.get("summary"), "$.summary", errors)
     require_keys(summary, ["status", "passes", "warnings", "failures", "unknowns"], "$.summary", errors)
@@ -73,8 +86,15 @@ def validate(data: Any) -> list[str]:
 
     artifacts = require_mapping(root.get("artifacts"), "$.artifacts", errors)
     for key, value in artifacts.items():
-        if value is not None and not isinstance(value, str):
+        if value is None:
+            continue
+        if not isinstance(value, str):
             errors.append(f"$.artifacts.{key} must be a string or null")
+            continue
+        if has_unsafe_scheme(value):
+            errors.append(
+                f"$.artifacts.{key} scheme must be one of {sorted(SAFE_URL_SCHEMES)} or a relative path"
+            )
 
     return errors
 

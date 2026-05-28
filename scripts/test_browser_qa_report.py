@@ -102,6 +102,36 @@ class BrowserQAReportTests(unittest.TestCase):
         self.assertIn('href="https://liatrio.ai"', html)
         self.assertIn('Liatrio logomark', html)
 
+    def test_artifact_path_traversal_is_blocked(self) -> None:
+        secret = self.root.parent / "browser-qa-traversal-secret.txt"
+        secret.write_text("SECRET", encoding="utf-8")
+        self.addCleanup(secret.unlink)
+        base_url = self.serve()
+
+        cases = [
+            # URL-encoded ".." segment in run_id position
+            f"{base_url}/artifacts/..%2Fbrowser-qa-traversal-secret.txt",
+            # URL-encoded ".." segment inside a valid run_id
+            f"{base_url}/artifacts/demo-run/..%2F..%2Fbrowser-qa-traversal-secret.txt",
+            # Literal ".." segment
+            f"{base_url}/artifacts/../browser-qa-traversal-secret.txt",
+        ]
+        for url in cases:
+            with self.subTest(url=url):
+                with self.assertRaises(HTTPError) as ctx:
+                    urlopen(url, timeout=5)
+                self.assertIn(ctx.exception.code, (403, 404), msg=f"unexpected status for {url}")
+
+    def test_artifact_filenames_with_special_characters_are_served(self) -> None:
+        (self.run_dir / "focus (1).png").write_bytes(b"png-bytes")
+        base_url = self.serve()
+
+        with urlopen(f"{base_url}/artifacts/demo-run/focus%20%281%29.png", timeout=5) as response:
+            body = response.read()
+
+        self.assertEqual(response.status, 200)
+        self.assertEqual(body, b"png-bytes")
+
     def test_browser_qa_skill_documents_agent_browser_console_capture(self) -> None:
         skill = (REPO_ROOT / "skills" / "browser-qa" / "SKILL.md").read_text(encoding="utf-8")
         checks = (REPO_ROOT / "skills" / "browser-qa" / "references" / "checks.md").read_text(encoding="utf-8")

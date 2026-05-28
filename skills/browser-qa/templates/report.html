@@ -301,9 +301,28 @@
         .replaceAll("'", '&#39;');
     }
 
+    const SAFE_URL_SCHEMES = ['http:', 'https:', 'file:'];
+
+    function isSafeAbsoluteUrl(value) {
+      const match = /^([a-z][a-z0-9+.-]*):/i.exec(value);
+      if (!match) return false;
+      return SAFE_URL_SCHEMES.includes(match[1].toLowerCase() + ':');
+    }
+
+    function safeHref(value) {
+      if (!value) return '#';
+      if (/^([a-z][a-z0-9+.-]*):/i.test(value)) {
+        return isSafeAbsoluteUrl(value) ? value : '#';
+      }
+      return value;
+    }
+
     function artifactHref(base, value) {
-      if (!value || value === 'not captured' || value.startsWith('/') || value.startsWith('file:')) return value;
-      if (value.startsWith('http://') || value.startsWith('https://')) return value;
+      if (!value || value === 'not captured') return value;
+      if (value.startsWith('/')) return value;
+      if (/^([a-z][a-z0-9+.-]*):/i.test(value)) {
+        return isSafeAbsoluteUrl(value) ? value : '#';
+      }
       return base + value.split('/').filter(Boolean).map(encodeURIComponent).join('/');
     }
 
@@ -330,7 +349,7 @@
       summaryEl.innerHTML = `
         <div class="grid">
           <div class="card"><div class="muted">Status</div><div class="status ${status}">${escapeHtml(sum.status)}</div></div>
-          <div class="card"><div class="muted">Target</div><div class="value"><a href="${escapeHtml(text(target.url))}" target="_blank" rel="noreferrer">${escapeHtml(target.url)}</a></div></div>
+          <div class="card"><div class="muted">Target</div><div class="value"><a href="${escapeHtml(safeHref(text(target.url)))}" target="_blank" rel="noreferrer">${escapeHtml(target.url)}</a></div></div>
           <div class="card"><div class="muted">Checked</div><div class="value">${escapeHtml(target.checked_at)}</div></div>
           <div class="card"><div class="muted">Viewport</div><div class="value">${escapeHtml(viewport.width)}×${escapeHtml(viewport.height)}</div></div>
           <div class="card"><div class="muted">Counts</div><div class="value">${escapeHtml(counts)}</div></div>
