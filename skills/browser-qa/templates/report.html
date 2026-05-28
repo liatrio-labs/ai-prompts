@@ -7,126 +7,247 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #0b1220;
-      --panel: #172033;
-      --panel-2: #0f172a;
-      --panel-3: #111827;
-      --text: #f9fafb;
-      --muted: #a8b3c7;
-      --border: #344258;
-      --pass: #22c55e;
-      --warn: #f59e0b;
-      --fail: #ef4444;
-      --unknown: #94a3b8;
-      --link: #93c5fd;
-      --focus: #a3e635;
+      --liatrio-black: #111111;
+      --liatrio-grey-700: #1e1e1e;
+      --liatrio-dark: #1a1f23;
+      --liatrio-surface: #1E2327;
+      --liatrio-surface-2: #242a2f;
+      --liatrio-surface-3: #30383f;
+      --liatrio-green: #24AE1D;
+      --liatrio-bright-green: #89df00;
+      --liatrio-lime: #C6F135;
+      --liatrio-lagoon: #00C1DB;
+      --liatrio-violet: #C068F9;
+      --liatrio-red: #E63946;
+      --liatrio-orange: #F77F00;
+      --bg: var(--liatrio-dark);
+      --panel: var(--liatrio-surface);
+      --panel-2: #15191d;
+      --panel-3: var(--liatrio-surface-2);
+      --text: #ffffff;
+      --muted: #c7d0d9;
+      --muted-2: #98a4ad;
+      --border: #3a444c;
+      --border-strong: #59636b;
+      --pass: var(--liatrio-bright-green);
+      --warn: var(--liatrio-orange);
+      --fail: var(--liatrio-red);
+      --unknown: #cccccc;
+      --link: var(--liatrio-lime);
+      --focus: var(--liatrio-bright-green);
     }
     * { box-sizing: border-box; }
     body {
-      background: radial-gradient(circle at top left, rgba(147, 197, 253, .12), transparent 34rem), var(--bg);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(137, 223, 0, .18), transparent 23rem),
+        radial-gradient(circle at 95% 8%, rgba(192, 104, 249, .12), transparent 26rem),
+        linear-gradient(135deg, rgba(36, 174, 29, .08) 0 1px, transparent 1px 30px),
+        var(--bg);
       color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 18px;
-      line-height: 1.55;
+      font-family: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.6;
       margin: 0;
     }
-    main { margin: 0 auto; max-width: 1180px; padding: 2.5rem 2rem 4rem; }
-    header { border-bottom: 1px solid var(--border); margin-bottom: 1.75rem; padding-bottom: 1.5rem; }
-    h1 { font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1; margin: 0 0 .75rem; }
-    h2 { font-size: 1.65rem; margin: 2.25rem 0 1rem; }
-    h3 { line-height: 1.25; margin: 0 0 .85rem; }
-    a { color: var(--link); text-underline-offset: .18em; }
-    a:hover { color: #bfdbfe; }
+    main { margin: 0 auto; max-width: 1180px; padding: 48px 32px 64px; }
+    header {
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+      min-height: 300px;
+      padding: 40px 0 48px;
+      position: relative;
+    }
+    .brand-mark {
+      display: inline-block;
+      line-height: 0;
+      margin-bottom: 28px;
+      text-decoration: none;
+    }
+    .brand-mark svg {
+      display: block;
+      filter: drop-shadow(0 0 30px rgba(137, 223, 0, .22));
+      height: 56px;
+      width: auto;
+    }
+    .brand-mark:hover svg { filter: drop-shadow(0 0 36px rgba(137, 223, 0, .34)); }
+    header::after {
+      background: linear-gradient(90deg, var(--liatrio-bright-green), transparent);
+      bottom: -1px;
+      content: "";
+      height: 2px;
+      left: 0;
+      position: absolute;
+      width: min(36vw, 420px);
+    }
+    h1, h2, h3 { letter-spacing: -.035em; }
+    h1 {
+      font-size: clamp(3rem, 7vw, 5rem);
+      font-weight: 700;
+      line-height: .94;
+      margin: 0 0 20px;
+      max-width: 820px;
+    }
+    h2 { font-size: clamp(2rem, 4vw, 2.5rem); font-weight: 700; line-height: 1; margin: 44px 0 20px; }
+    h3 { font-size: 1.35rem; font-weight: 650; line-height: 1.25; margin: 0 0 14px; }
+    a { color: var(--link); text-underline-offset: .22em; text-decoration-thickness: 1px; }
+    a:hover { color: #ffffff; }
+    label { color: var(--muted); font-weight: 650; }
     select {
       background: var(--panel-2);
-      border: 1px solid var(--border);
-      border-radius: .65rem;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
       color: var(--text);
       font: inherit;
-      margin-top: .35rem;
+      margin-top: 8px;
       max-width: 100%;
       min-width: min(100%, 760px);
-      padding: .75rem .85rem;
+      padding: 12px 14px;
     }
     code, pre {
-      background: rgba(255, 255, 255, .08);
-      border: 1px solid rgba(255, 255, 255, .06);
-      border-radius: .35rem;
-      color: #e5e7eb;
+      background: rgba(0, 0, 0, .24);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 6px;
+      color: #eeeeee;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-size: .9em;
     }
-    code { overflow-wrap: anywhere; padding: .1rem .3rem; }
-    pre { margin: 0; max-height: 32rem; overflow: auto; padding: 1rem; white-space: pre-wrap; }
+    code { overflow-wrap: anywhere; padding: 2px 6px; }
+    pre { margin: 0; max-height: 32rem; overflow: auto; padding: 16px; white-space: pre-wrap; }
     button {
-      background: var(--panel-2);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      color: var(--text);
+      background: var(--liatrio-bright-green);
+      border: 1px solid var(--liatrio-bright-green);
+      border-radius: 6px;
+      color: var(--liatrio-black);
       cursor: pointer;
       font: inherit;
-      padding: .45rem .9rem;
+      font-weight: 700;
+      padding: 10px 16px;
     }
-    button:hover { border-color: var(--link); }
+    button:hover { background: var(--liatrio-lime); border-color: var(--liatrio-lime); }
     :focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
-    .eyebrow { color: var(--muted); font-size: .95rem; letter-spacing: .08em; text-transform: uppercase; }
-    .muted { color: var(--muted); }
-    .toolbar { align-items: center; display: flex; flex-wrap: wrap; gap: .75rem; justify-content: space-between; }
-    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
-    .card, .check, .artifact-card, .json-panel {
-      background: linear-gradient(180deg, rgba(255, 255, 255, .035), transparent), var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 1rem;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, .18);
-      padding: 1rem;
+    .eyebrow {
+      color: var(--liatrio-bright-green);
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      margin: 0 0 10px;
+      text-transform: uppercase;
     }
-    .card .value { font-size: 1.1rem; font-weight: 700; overflow-wrap: anywhere; }
+    .muted { color: var(--muted); }
+    .toolbar { align-items: center; display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; }
+    .grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+    .card, .check, .artifact-card, .json-panel {
+      background: linear-gradient(180deg, rgba(255, 255, 255, .035), transparent 52%), var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, .20);
+      padding: 18px;
+    }
+    .card { position: relative; }
+    .card::before {
+      background: var(--liatrio-bright-green);
+      content: "";
+      height: 3px;
+      left: 18px;
+      position: absolute;
+      right: 18px;
+      top: 0;
+    }
+    .card .value { font-size: 1.05rem; font-weight: 700; overflow-wrap: anywhere; }
     .status { font-weight: 900; letter-spacing: .03em; text-transform: uppercase; }
     .status-pill {
+      background: color-mix(in srgb, currentColor 12%, transparent);
       border: 1px solid currentColor;
       border-radius: 999px;
       display: inline-flex;
-      font-size: .85rem;
+      font-size: .78rem;
       font-weight: 900;
+      letter-spacing: .03em;
       line-height: 1;
-      padding: .32rem .55rem;
+      margin-right: 8px;
+      padding: 6px 9px;
       text-transform: uppercase;
+      vertical-align: .14em;
     }
     .pass { color: var(--pass); }
     .warn { color: var(--warn); }
     .fail { color: var(--fail); }
     .unknown { color: var(--unknown); }
-    .checks { display: grid; gap: 1rem; }
-    .check { padding: 1.15rem; }
-    .evidence { display: grid; gap: .65rem; margin: .75rem 0 0; padding: 0; }
+    .checks { display: grid; gap: 16px; }
+    .check { padding: 20px; }
+    .evidence { display: grid; gap: 10px; margin: 14px 0 0; padding: 0; }
     .evidence li {
-      background: rgba(15, 23, 42, .55);
-      border: 1px solid rgba(255, 255, 255, .06);
-      border-radius: .75rem;
+      background: rgba(0, 0, 0, .18);
+      border: 1px solid rgba(255, 255, 255, .07);
+      border-radius: 6px;
       list-style: none;
-      padding: .75rem;
+      padding: 12px;
     }
-    .source { display: inline-block; margin-top: .45rem; }
-    .recommendation { border-left: 3px solid var(--warn); margin: 1rem 0 0; padding-left: .85rem; }
-    .artifact-grid { display: grid; gap: .85rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); list-style: none; margin: 0; padding: 0; }
-    .artifact-card { min-height: 6.25rem; padding: .9rem; }
-    .artifact-label { color: var(--muted); display: block; font-size: .85rem; font-weight: 800; letter-spacing: .04em; margin-bottom: .35rem; text-transform: uppercase; }
-    .artifact-filename { display: block; font-weight: 750; overflow-wrap: anywhere; }
-    .artifact-actions { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .65rem; }
-    .preview-wrap { margin-top: 1rem; }
-    img.preview { border: 1px solid var(--border); border-radius: 1rem; display: block; max-height: 440px; max-width: 100%; object-fit: contain; }
-    .json-panel { margin-top: 1rem; }
+    .source { display: inline-block; margin-top: 8px; }
+    .recommendation { border-left: 3px solid var(--warn); margin: 16px 0 0; padding-left: 14px; }
+    .artifact-table { border: 1px solid var(--border); border-radius: 10px; display: grid; gap: 0; list-style: none; margin: 0; overflow: hidden; padding: 0; }
+    .artifact-row {
+      background: rgba(30, 35, 39, .86);
+      border-top: 1px solid var(--border);
+      display: grid;
+      gap: 16px;
+      grid-template-columns: minmax(14rem, 1fr) 7rem 13rem;
+      padding: 18px;
+    }
+    .artifact-row:first-child { border-top: 0; }
+    .artifact-main { min-width: 0; }
+    .artifact-label { color: var(--muted-2); display: block; font-size: .76rem; font-weight: 800; letter-spacing: .08em; margin-bottom: 4px; text-transform: uppercase; }
+    .artifact-filename { display: inline-block; font-weight: 750; overflow-wrap: anywhere; }
+    .artifact-type { color: var(--muted); font-weight: 800; text-transform: uppercase; }
+    .artifact-actions { align-content: start; display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .artifact-action {
+      background: transparent;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: .92rem;
+      font-weight: 650;
+      padding: 6px 10px;
+      text-decoration: none;
+    }
+    .artifact-action:hover { background: var(--liatrio-bright-green); border-color: var(--liatrio-bright-green); color: var(--liatrio-black); }
+    .artifact-preview-link {
+      display: block;
+      grid-column: 1 / -1;
+    }
+    .artifact-preview {
+      background: #ffffff;
+      border: 1px solid var(--border-strong);
+      border-radius: 6px;
+      display: block;
+      max-height: min(72vh, 720px);
+      max-width: 100%;
+      object-fit: contain;
+      width: 100%;
+    }
+    .artifact-empty { color: var(--muted); padding: 16px; }
+    .json-panel { margin-top: 16px; }
     .json-panel[hidden] { display: none; }
     @media (max-width: 760px) {
       body { font-size: 16px; }
-      main { padding: 1.25rem; }
+      main { padding: 24px 20px 40px; }
+      header { min-height: 260px; padding-top: 24px; }
       .toolbar { align-items: stretch; flex-direction: column; }
+      .artifact-row { grid-template-columns: 1fr; }
+      .artifact-actions { justify-content: flex-start; }
     }
   </style>
 </head>
 <body>
   <main>
     <header>
+      <a class="brand-mark" href="https://liatrio.ai" aria-label="Liatrio" target="_blank" rel="noopener noreferrer">
+        <svg role="img" aria-labelledby="liatrio-logomark-title" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 907.32">
+          <title id="liatrio-logomark-title">Liatrio logomark</title>
+          <path fill="#24ae1d" d="M237.79,470.61c-73.84-72.69-113.59-297.49-12.5-398.87C262.23,34.53,309.58,9.5,361.04,0c-17.17,20.14-26.65,45.75-26.74,72.26,0,46.56,10.47,90.72,136.7,231.29,102.32,114.37,129.36,178.16,129,300.04-.08,20.21-2.51,40.35-7.27,59.99-1.83-61.49-26.63-120.03-69.48-164-118.68-120.57-229.21-174.29-244.91-293.11-18.6,118.09,92.3,182.76,214.68,297.85h0c73.33,69.41,88.37,176.26,48.4,263.7-11.82,26.1-28.21,49.86-48.4,70.14-91.78,92.19-240.59,92.2-332.38.03-.01-.01-.02-.02-.03-.03-3.42-3.36-9.01-9.56-11.7-12.7-37.65-42.4-62.21-97.44-72.67-162.32C56.61,534.47,12.35,497.91,0,485.57c79.21,0,107.48,113.71,113.15,162.03,7.63,54.01,26.6,108.02,65.41,151.59l.51.58.58.58c56.22,56.07,147.05,55.76,202.88-.7,26.79-27.09,41.77-63.74,41.67-101.92,1-38.11-14.36-74.82-42.15-100.79-75.07-66.2-96.8-79.55-144.26-126.34Z"/>
+          <path fill="#89df00" d="M362.06,617.31c21.47,21.15,33.59,50.08,33.65,80.28.55,63.69-50.42,115.76-113.83,116.31-30.9.27-60.6-11.98-82.39-33.98-115.04-129.7-35.32-371.86-35.32-371.86,49.13,119.33,87.43,98.24,197.89,209.25Z"/>
+        </svg>
+      </a>
       <p class="eyebrow">Browser QA</p>
       <h1>Evidence Report</h1>
       <label for="report-select">Report run</label><br>
@@ -144,8 +265,7 @@
         <h2>Artifacts</h2>
         <button id="json-toggle" type="button" aria-expanded="false" aria-controls="raw-json">View raw JSON</button>
       </div>
-      <ul id="artifacts" class="artifact-grid"></ul>
-      <div id="preview" class="preview-wrap"></div>
+      <ul id="artifacts" class="artifact-table"></ul>
       <section id="raw-json" class="json-panel" hidden>
         <h3>Raw findings JSON</h3>
         <pre><code id="raw-json-code"></code></pre>
@@ -158,7 +278,7 @@
     const summaryEl = document.querySelector('#summary');
     const checksEl = document.querySelector('#checks');
     const artifactsEl = document.querySelector('#artifacts');
-    const previewEl = document.querySelector('#preview');
+
     const rootEl = document.querySelector('#server-root');
     const jsonToggle = document.querySelector('#json-toggle');
     const rawJsonEl = document.querySelector('#raw-json');
@@ -192,6 +312,10 @@
       if (lower.endsWith('.json') || lower.includes('json') || key === 'report') return 'JSON';
       if (lower.match(/\.(png|jpg|jpeg|gif|webp|svg)$/)) return 'Image';
       return 'Artifact';
+    }
+
+    function isImageArtifact(key, value) {
+      return artifactType(key, value) === 'Image';
     }
 
     function render(data) {
@@ -228,22 +352,26 @@
         const artifactValue = String(value || '');
         const href = artifactHref(artifactBase, artifactValue);
         if (!href || href === 'not captured') {
-          return `<li class="artifact-card"><span class="artifact-label">${escapeHtml(key)}</span><span class="muted">not captured</span></li>`;
+          return `<li class="artifact-row"><div class="artifact-main"><span class="artifact-label">${escapeHtml(key)}</span><span class="muted">not captured</span></div><span class="artifact-type">—</span></li>`;
         }
         const type = artifactType(key, artifactValue);
+        const preview = isImageArtifact(key, artifactValue) && !href.startsWith('file:')
+          ? `<a class="artifact-preview-link" href="${escapeHtml(href)}" target="_blank" rel="noreferrer"><img class="artifact-preview" src="${escapeHtml(href)}" alt="${escapeHtml(key)} preview" loading="lazy"></a>`
+          : '';
         return `
-          <li class="artifact-card">
-            <span class="artifact-label">${escapeHtml(key)} · ${escapeHtml(type)}</span>
-            <a class="artifact-filename" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(artifactValue)}</a>
-            <div class="artifact-actions">
-              <a href="${escapeHtml(href)}" target="_blank" rel="noreferrer">Open</a>
-              <a href="${escapeHtml(href)}" download>Download</a>
+          <li class="artifact-row">
+            <div class="artifact-main">
+              <span class="artifact-label">${escapeHtml(key)}</span>
+              <a class="artifact-filename" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">${escapeHtml(artifactValue)}</a>
             </div>
+            <span class="artifact-type">${escapeHtml(type)}</span>
+            <div class="artifact-actions">
+              <a class="artifact-action" href="${escapeHtml(href)}" target="_blank" rel="noreferrer">Open in New Tab</a>
+              <a class="artifact-action" href="${escapeHtml(href)}" download>Download</a>
+            </div>
+            ${preview}
           </li>`;
-      }).join('');
-
-      const screenshot = artifacts.screenshot ? artifactHref(artifactBase, String(artifacts.screenshot)) : '';
-      previewEl.innerHTML = screenshot && !screenshot.startsWith('file:') ? `<img class="preview" src="${escapeHtml(screenshot)}" alt="Browser QA screenshot preview">` : '';
+      }).join('') || '<li class="artifact-empty">No artifacts captured.</li>';
       rawJsonCodeEl.textContent = JSON.stringify(data, null, 2);
     }
 

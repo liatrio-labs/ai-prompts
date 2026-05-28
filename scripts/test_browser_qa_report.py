@@ -51,7 +51,11 @@ class BrowserQAReportTests(unittest.TestCase):
                             "evidence": [{"kind": "console", "message": "No errors", "source": "browser console"}],
                         }
                     ],
-                    "artifacts": {"report": "browser-qa-findings.json", "screenshot": "demo.png"},
+                    "artifacts": {
+                        "report": "browser-qa-findings.json",
+                        "screenshot": "demo.png",
+                        "focus_screenshot": "focus.png",
+                    },
                 },
                 indent=2,
             ),
@@ -90,9 +94,13 @@ class BrowserQAReportTests(unittest.TestCase):
         html = REPORT_TEMPLATE_PATH.read_text(encoding="utf-8")
 
         self.assertIn('id="raw-json"', html)
-        self.assertIn('class="artifact-grid"', html)
-        self.assertIn('class="artifact-card"', html)
-        self.assertIn('View raw JSON', html)
+        self.assertIn('class="artifact-table"', html)
+        self.assertIn('class="artifact-row"', html)
+        self.assertIn('class="artifact-preview"', html)
+        self.assertIn('Open in New Tab', html)
+        self.assertIn('class="brand-mark"', html)
+        self.assertIn('href="https://liatrio.ai"', html)
+        self.assertIn('Liatrio logomark', html)
 
 
 if __name__ == "__main__":
