@@ -2,6 +2,43 @@
 
 <!-- version list -->
 
+## v0.15.0 (2026-05-28)
+
+### Bug Fixes
+
+- **browser-qa**: Harden report artifact links
+  ([#24](https://github.com/liatrio-labs/ai-prompts/pull/24),
+  [`3ea2ed3`](https://github.com/liatrio-labs/ai-prompts/commit/3ea2ed36d4b47bd6544c718fe568fe270d84a915))
+
+### Code Style
+
+- **browser-qa**: Align report viewer with webinar branding
+  ([#24](https://github.com/liatrio-labs/ai-prompts/pull/24),
+  [`3ea2ed3`](https://github.com/liatrio-labs/ai-prompts/commit/3ea2ed36d4b47bd6544c718fe568fe270d84a915))
+
+### Documentation
+
+- **browser-qa**: Document report viewer workflow
+  ([#24](https://github.com/liatrio-labs/ai-prompts/pull/24),
+  [`3ea2ed3`](https://github.com/liatrio-labs/ai-prompts/commit/3ea2ed36d4b47bd6544c718fe568fe270d84a915))
+
+- **browser-qa**: Require agent-browser observability capture
+  ([#24](https://github.com/liatrio-labs/ai-prompts/pull/24),
+  [`3ea2ed3`](https://github.com/liatrio-labs/ai-prompts/commit/3ea2ed36d4b47bd6544c718fe568fe270d84a915))
+
+### Features
+
+- **browser-qa**: Add browser QA skill ([#24](https://github.com/liatrio-labs/ai-prompts/pull/24),
+  [`3ea2ed3`](https://github.com/liatrio-labs/ai-prompts/commit/3ea2ed36d4b47bd6544c718fe568fe270d84a915))
+
+- **browser-qa**: Add local report viewer
+  ([#24](https://github.com/liatrio-labs/ai-prompts/pull/24),
+  [`3ea2ed3`](https://github.com/liatrio-labs/ai-prompts/commit/3ea2ed36d4b47bd6544c718fe568fe270d84a915))
+
+- **skills**: Add browser qa skill ([#24](https://github.com/liatrio-labs/ai-prompts/pull/24),
+  [`3ea2ed3`](https://github.com/liatrio-labs/ai-prompts/commit/3ea2ed36d4b47bd6544c718fe568fe270d84a915))
+
+
 ## v0.14.0 (2026-05-07)
 
 ### Chores
