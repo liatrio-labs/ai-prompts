@@ -1,0 +1,3 @@
+interface:
+  display_name: "Browser QA"
+  short_description: "Focused browser QA with validated JSON and a local report viewer."
