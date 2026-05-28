@@ -3,7 +3,7 @@
   "checkpoint_id": "15fe70f2dc12",
   "strategy": "manual-commit",
   "branch": "feat/browser-qa-skill",
-  "checkpoints_count": 1,
+  "checkpoints_count": 2,
   "files_touched": [
     "scripts/test_browser_qa_report.py",
     "skills/browser-qa/templates/report.html"
@@ -14,13 +14,19 @@
       "transcript": "/15/fe70f2dc12/0/full.jsonl",
       "content_hash": "/15/fe70f2dc12/0/content_hash.txt",
       "prompt": "/15/fe70f2dc12/0/prompt.txt"
+    },
+    {
+      "metadata": "/15/fe70f2dc12/1/metadata.json",
+      "transcript": "/15/fe70f2dc12/1/full.jsonl",
+      "content_hash": "/15/fe70f2dc12/1/content_hash.txt",
+      "prompt": "/15/fe70f2dc12/1/prompt.txt"
     }
   ],
   "token_usage": {
-    "input_tokens": 30,
-    "cache_creation_tokens": 30984,
-    "cache_read_tokens": 812419,
-    "output_tokens": 7836,
-    "api_call_count": 24
+    "input_tokens": 58,
+    "cache_creation_tokens": 69170,
+    "cache_read_tokens": 1435524,
+    "output_tokens": 13475,
+    "api_call_count": 38
   }
 }
