@@ -2,6 +2,14 @@
 
 Write findings JSON before rendering the final report. Keep it small, deterministic, and safe to paste into a review.
 
+Save each run as `findings.json` under a named subfolder in the system temp report root:
+
+```text
+/tmp/browser-qa-reports/<run-id>/findings.json
+```
+
+Put screenshots and other report artifacts in the same run subfolder. Artifact values should be filenames or relative paths inside that run folder so the local report server can serve them.
+
 ```json
 {
   "target": {
@@ -32,8 +40,8 @@ Write findings JSON before rendering the final report. Keep it small, determinis
     }
   ],
   "artifacts": {
-    "screenshot": "artifacts/browser-qa-home.png",
-    "report": "artifacts/browser-qa-report.html"
+    "screenshot": "screenshot-home.png",
+    "focus_screenshot": "screenshot-focus.png"
   }
 }
 ```
@@ -69,4 +77,5 @@ Evidence kinds:
 - Any status outside the enum fails validation.
 - Any evidence kind outside the enum fails validation.
 - Every non-`pass` check must include at least one evidence item.
+- Artifact values must be strings or `null`.
 - Evidence must never include credentials, cookies, tokens, or private page data.

@@ -31,7 +31,7 @@ Proof summary: <one sentence with status, counts, and highest-risk finding>
 
 - Findings JSON: `<path>`
 - Screenshot: `<path or not captured>`
-- HTML report: `<path or not rendered>`
+- Local report: `http://127.0.0.1:10891/?report=<run-id>`
 
 ### Not Checked
 
@@ -44,3 +44,7 @@ Proof summary: <one sentence with status, counts, and highest-risk finding>
 - `warn: 3 passed, 2 warnings; hero text wraps at 1280x720 and one decorative image is missing alt text.`
 - `fail: primary CTA is skipped by keyboard navigation; screenshot and focus notes captured.`
 - `unknown: page loaded, but console/network inspection was unavailable in the current browser tool.`
+
+## Report Viewer Note
+
+The HTML report is served by `scripts/serve-report.py`. It discovers every run under `/tmp/browser-qa-reports`, populates the report selector from `/api/reports`, and loads the selected `findings.json` dynamically. Do not generate a separate standalone HTML file per run.
