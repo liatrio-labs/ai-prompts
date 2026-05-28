@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "75e3b56c73bf",
+  "strategy": "manual-commit",
+  "branch": "feat/browser-qa-skill",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "skills/browser-qa/SKILL.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/75/e3b56c73bf/0/metadata.json",
+      "transcript": "/75/e3b56c73bf/0/full.jsonl",
+      "content_hash": "/75/e3b56c73bf/0/content_hash.txt",
+      "prompt": "/75/e3b56c73bf/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 30,
+    "cache_creation_tokens": 30984,
+    "cache_read_tokens": 812419,
+    "output_tokens": 7836,
+    "api_call_count": 24
+  }
+}
