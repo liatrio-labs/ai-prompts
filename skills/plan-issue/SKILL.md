@@ -24,7 +24,7 @@ Ask the operator (or infer from context):
 
 Shell stories establish infrastructure capabilities end-to-end: from local setup through CI enforcement.
 
-```
+```text
 Title: [Capability name]
 
 ## Goal
@@ -44,9 +44,11 @@ One sentence: what capability this story establishes.
 
 Use these as the basis for each Shell story. Adjust tool names to match the actual tech stack.
 
-**Repo Scaffold**
+#### Repo Scaffold
+
 > Goal: The repository has a documented folder structure with all base config files in place.
 > Tasks:
+>
 > - [ ] Create folder skeleton matching the app's architecture (e.g., `/src`, `/test`, `/infra`)
 > - [ ] Add `.gitignore`, editor config, and base config files (linter config, formatter config)
 > - [ ] Add or update README with app description, local setup steps, and architecture overview
@@ -54,9 +56,11 @@ Use these as the basis for each Shell story. Adjust tool names to match the actu
 > - [ ] Local: `git status` shows no untracked noise; project opens and navigates cleanly
 > - [ ] CI: N/A — no job for this story; subsequent stories depend on this structure
 
-**Health Endpoint and Containerization**
+#### Health Endpoint and Containerization
+
 > Goal: The app runs in a container and exposes `GET /health` returning a 200 response.
 > Tasks:
+>
 > - [ ] Implement `GET /health` returning `{ "status": "ok" }` (or stack equivalent)
 > - [ ] Add `Dockerfile` and `docker-compose.yml` for local dev
 > - [ ] Verify app starts and `/health` responds inside the container
@@ -64,9 +68,11 @@ Use these as the basis for each Shell story. Adjust tool names to match the actu
 > - [ ] Local: `docker compose up` → `curl localhost:[PORT]/health` returns 200
 > - [ ] CI: image builds successfully in the build story
 
-**Unit Test Capability**
+#### Unit Test Capability
+
 > Goal: Unit tests run locally and as a required CI job on every PR.
 > Tasks:
+>
 > - [ ] Add unit testing framework (match the stack: JUnit, Jest, pytest, etc.)
 > - [ ] Write a unit test asserting `GET /health` returns 200 with the expected body
 > - [ ] Add a `test` job to the CI workflow that runs on every PR
@@ -74,9 +80,11 @@ Use these as the basis for each Shell story. Adjust tool names to match the actu
 > - [ ] Local: `[test command]` runs and passes
 > - [ ] CI: `test` job passes on a test PR; a broken test fails the job
 
-**Build and Publish Artifact**
+#### Build and Publish Artifact
+
 > Goal: CI builds a Docker image and publishes it to a container registry on merge to the default branch.
 > Tasks:
+>
 > - [ ] Add `build` job to CI that builds the Docker image
 > - [ ] Add `publish` job that pushes the image to the target registry on merge to default branch
 > - [ ] Tag the image with the git SHA and `latest`
@@ -84,9 +92,11 @@ Use these as the basis for each Shell story. Adjust tool names to match the actu
 > - [ ] Local: `docker build .` succeeds
 > - [ ] CI: merge to default branch triggers publish; image appears in the registry with expected tags
 
-**Security and Dependency Scan**
+#### Security and Dependency Scan
+
 > Goal: CI runs a security scan on every PR to catch vulnerable dependencies and common code issues.
 > Tasks:
+>
 > - [ ] Add a dependency vulnerability scanner (match the stack: `npm audit`, Trivy, Snyk, Dependabot, etc.)
 > - [ ] Add a SAST tool (e.g., CodeQL, Semgrep)
 > - [ ] Add a `scan` job to the CI workflow that runs on every PR
@@ -94,9 +104,11 @@ Use these as the basis for each Shell story. Adjust tool names to match the actu
 > - [ ] Local: scan tool runs and produces a report
 > - [ ] CI: `scan` job passes on a clean PR; a known-vulnerable dependency fails it
 
-**Lint and Format Enforcement**
+#### Lint and Format Enforcement
+
 > Goal: Linting and formatting rules are defined and enforced as a required CI job on every PR.
 > Tasks:
+>
 > - [ ] Configure linter and formatter for the stack (ESLint + Prettier, Checkstyle, Black + Ruff, etc.)
 > - [ ] Add a `lint` job to the CI workflow that runs on every PR
 > - [ ] Commit formatter config so all contributors use the same rules
@@ -116,6 +128,7 @@ Ask the operator (or use what was captured in `/plan-epic`):
 > "What is the interaction this story delivers — something you could actually do to verify it's complete?"
 
 A well-formed interaction:
+
 - *"I want to call `GET /students` and get a list of student objects back."*
 - *"I want to open the Students page and see a table of students."*
 - *"I want to submit the enrollment form and have it saved."*
@@ -129,13 +142,14 @@ Before proposing any tasks, scan the codebase for each layer required by the int
 - **UI**: search for page or component files named after the entity or expected route.
 
 Classify each layer as:
+
 - **New** — does not exist; needs to be built. Generates tasks.
 - **Partial** — exists but incomplete or inconsistent with the interaction (e.g., missing field, wrong response shape); describe the gap. Generates tasks.
 - **Exists** — already fully implemented; note the file path. No tasks generated — listed under `Already in Place` instead.
 
 ### Step 3 — Write the Story
 
-```
+```text
 Title: [Entity] — [Interaction summary]
 
 ## Interaction
@@ -183,7 +197,7 @@ Stories are scoped as thin vertical slices — each one spans only the layers re
 
 ---
 
-**Students — List View**
+#### Students — List View
 
 ## Interaction
 
@@ -223,7 +237,7 @@ I want to open the Students page and see a table of all enrolled students.
 
 ---
 
-**Students — List Endpoint**
+#### Students — List Endpoint
 
 ## Interaction
 
@@ -261,7 +275,7 @@ I want to call `GET /students` and get a list of student objects back.
 
 ---
 
-**Students — List Endpoint**
+#### Students — List Endpoint
 
 ## Interaction
 
