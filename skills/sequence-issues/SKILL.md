@@ -115,7 +115,7 @@ For each confirmed hard blocker relationship (A blocks B):
 - #N (Title of A) — [one-line reason: what artifact from A is required]
 ```
 
-4. Update the issue:
+1. Update the issue:
 
 ```bash
 gh issue edit <B-number> --body "<updated body>" --repo <owner>/<repo>
@@ -183,7 +183,7 @@ For each issue in the current ready wave:
 git worktree add "../<repo-name>--<short-branch>" -b "<branch-name>"
 ```
 
-4. After all worktrees are created, output the `cd` commands so the operator can navigate to each one:
+1. After all worktrees are created, output the `cd` commands so the operator can navigate to each one:
 
 ```text
 ## Worktrees created — Wave 1
