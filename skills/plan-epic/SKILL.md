@@ -66,9 +66,11 @@ Present these to the operator and ask if any need adjusting for the tech stack (
 Once the operator confirms the story list:
 
 1. Create the milestone:
+
    ```bash
    gh milestone create "Shell" --description "Deployable shell app with full CI pipeline. No domain functionality."
    ```
+
 2. Tell the operator: "Milestone created. Use `/plan-issue` to create each story and link it to this milestone."
 
 ---
@@ -85,11 +87,13 @@ Ask the operator:
 > **"What do you want to be able to do or verify once this epic is complete? Describe it as an interaction — something you could actually perform to confirm it's working."**
 
 Examples of well-formed interactions:
+
 - *"I want to call `GET /students` and get a list of student objects back."*
 - *"I want to open the Students page and see a table of students."*
 - *"I want to submit the enrollment form and have it saved."*
 
 If the answer is vague, probe:
+
 - "How would you know this is done — what would you actually do to verify it?"
 - "Is this something you'd check in a browser, in a terminal, or both?"
 - "What data would need to exist first for that interaction to be meaningful?"
@@ -105,9 +109,11 @@ Once the operator agrees on the interaction list:
 
 1. Agree on a short epic name that describes what the epic delivers (e.g., "Browse Core Entities", "Student Enrollment MVP").
 2. Create the milestone:
+
    ```bash
    gh milestone create "[Epic Name]" --description "[One-sentence summary of what users can do when this epic is complete]"
    ```
+
 3. Tell the operator: "Milestone created. Use `/plan-issue` for each interaction to create the individual stories and link them to this milestone."
 
 ---
