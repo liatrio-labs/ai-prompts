@@ -141,7 +141,7 @@
 - [x] 4.9 Run the adherence checker against the representative artifact and save or document the command output path for validation.
 - [x] 4.10 Run `uv run scripts/quick_validate.py skills/liatrio-brand-guidelines` and fix any validation issues caused by scripts or examples.
 
-### [ ] 5.0 Run Repository Quality Gates and Capture Final Implementation Proof
+### [x] 5.0 Run Repository Quality Gates and Capture Final Implementation Proof
 
 #### 5.0 Proof Artifact(s)
 
@@ -152,10 +152,10 @@
 
 #### 5.0 Tasks
 
-- [ ] 5.1 Run `uv run scripts/quick_validate.py skills/liatrio-brand-guidelines` and fix any skill validation failures.
-- [ ] 5.2 Run `python scripts/check_docs_drift.py` and fix any documentation drift reported by the script.
-- [ ] 5.3 Run `pre-commit run --all-files` and fix failures without bypassing hooks.
-- [ ] 5.4 Run `rg "liatrio\.com|DM Sans|uploads/|scratch/|scraps/|_ds_bundle\.js" skills/liatrio-brand-guidelines` and verify any matches are explicitly legacy-only or explanatory, not active guidance or copied raw bundle content.
-- [ ] 5.5 Run `git status --short` and inspect the changed file set to confirm no raw ZIP, upload, scratch, scrap, credential, or active-profile files were added.
-- [ ] 5.6 Capture a final proof summary in the implementation response or a local proof note that maps each completed parent task to its proof artifacts and spec demoable unit.
-- [ ] 5.7 Confirm active Hermes profile sync was not performed and note that sync remains a separate explicit approval step after repository validation.
+- [x] 5.1 Run `uv run scripts/quick_validate.py skills/liatrio-brand-guidelines` and fix any skill validation failures.
+- [x] 5.2 Run `python scripts/check_docs_drift.py` and fix any documentation drift reported by the script.
+- [x] 5.3 Run `pre-commit run --all-files` and fix failures without bypassing hooks.
+- [x] 5.4 Run `rg "liatrio\.com|DM Sans|uploads/|scratch/|scraps/|_ds_bundle\.js" skills/liatrio-brand-guidelines` and verify any matches are explicitly legacy-only or explanatory, not active guidance or copied raw bundle content.
+- [x] 5.5 Run `git status --short` and inspect the changed file set to confirm no raw ZIP, upload, scratch, scrap, credential, or active-profile files were added.
+- [x] 5.6 Capture a final proof summary in the implementation response or a local proof note that maps each completed parent task to its proof artifacts and spec demoable unit.
+- [x] 5.7 Confirm active Hermes profile sync was not performed and note that sync remains a separate explicit approval step after repository validation.
