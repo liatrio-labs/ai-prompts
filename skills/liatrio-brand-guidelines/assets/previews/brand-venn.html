@@ -1,0 +1,48 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="Three-pillar Venn" subtitle="Build · Strategy · Enablement signature mark" viewport="700x280" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .card { padding: 28px; gap: 14px; }
+  .stage { display: flex; align-items: center; gap: 28px; justify-content: center; padding: 8px 0; }
+  .venn-wrap {
+    position: relative; width: 240px; height: 220px; flex: none;
+    background: rgba(255,255,255,0.04); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .venn-wrap img { width: 200px; height: auto; display: block; }
+  .lbl {
+    position: absolute; font-family: "Space Grotesk", sans-serif;
+    font-size: 12px; font-weight: 600; letter-spacing: -0.01em;
+    padding: 3px 9px; border-radius: 999px;
+    border: 1px solid;
+  }
+  .lbl.build    { top: 6px;  left: 50%; transform: translateX(-50%); color: #89DF00; border-color: rgba(137,223,0,0.4); background: rgba(137,223,0,0.10); }
+  .lbl.strategy { bottom: 38px; right: 8px; color: #C068F9; border-color: rgba(192,104,249,0.4); background: rgba(192,104,249,0.10); }
+  .lbl.enable   { bottom: 38px; left: 8px;  color: #C6F135; border-color: rgba(198,241,53,0.4); background: rgba(198,241,53,0.10); }
+  .copy { font-family: "Space Grotesk", sans-serif; font-size: 22px; line-height: 1.15; color: #fff; max-width: 280px; letter-spacing: -0.02em; }
+  .copy .a { color: #89DF00; }
+  .key { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; font-size: 12px; color: #d4d4d4; padding-top: 6px; border-top: 1px solid #1e1e1e; }
+  .k { display: flex; align-items: center; gap: 6px; }
+  .k .d { width: 10px; height: 10px; border-radius: 999px; }
+</style></head>
+<body>
+<div class="card">
+  <div class="label">Three-pillar Venn — Build · Strategy · Enablement</div>
+  <div class="stage">
+    <div class="venn-wrap">
+      <img src="../assets/venn-diagram.png" alt="three-circle venn diagram">
+      <span class="lbl build">Build</span>
+      <span class="lbl strategy">Strategy</span>
+      <span class="lbl enable">Enablement</span>
+    </div>
+    <div class="copy">
+      The intersections matter. <span class="a">That's the work.</span>
+    </div>
+  </div>
+  <div class="key">
+    <div class="k"><span class="d" style="background:#89DF00;"></span>Build · #89DF00</div>
+    <div class="k"><span class="d" style="background:#C068F9;"></span>Strategy · #C068F9</div>
+    <div class="k"><span class="d" style="background:#C6F135;"></span>Enablement · #C6F135</div>
+  </div>
+</div>
+</body></html>

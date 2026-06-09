@@ -1,0 +1,113 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="Brand · Gradient divider" subtitle="Violet → lime hairline — primary section break" viewport="700x720" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css?v=2">
+<style>
+  .card { padding: 0; gap: 0; flex-direction: column; align-items: stretch; background: #1A1F23; }
+  section { padding: 28px; border-bottom: 1px solid #2A3036; display: flex; flex-direction: column; gap: 16px; }
+  section:last-of-type { border-bottom: 0; }
+  .lbl { font-family: "Space Grotesk"; color: #999; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .src { font-family: ui-monospace, "JetBrains Mono", monospace; font-size: 10px; color: #666; }
+
+  /* The gradient divider — a hairline that runs violet → bright-green */
+  .grad-divider {
+    height: 2px; width: 100%;
+    background: linear-gradient(90deg,
+      #C068F9 0%,      /* violet */
+      #C068F9 4%,
+      rgba(192,104,249,0.55) 28%,
+      rgba(170,200,80,0.45) 50%,
+      rgba(166,239,57,0.75) 72%,
+      #A6EF39 96%,
+      #A6EF39 100%
+    );
+    border-radius: 1px;
+  }
+  .grad-divider.thick { height: 3px; }
+  .grad-divider.glow {
+    box-shadow:
+      0 0 12px rgba(192,104,249,0.35),
+      0 0 12px rgba(166,239,57,0.35);
+  }
+
+  /* In-context demos */
+  .demo {
+    display: flex; flex-direction: column; gap: 28px;
+    padding: 28px; background: #111418; border-radius: 12px;
+  }
+  .demo h4 {
+    margin: 0; font-family: "Space Grotesk"; font-weight: 600;
+    font-size: 22px; letter-spacing: -0.02em; color: #fff;
+  }
+  .demo .eb {
+    font-family: "Space Grotesk"; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #89DF00; font-weight: 500;
+  }
+  .demo p { margin: 0; color: #ccc; font-size: 14px; line-height: 1.55; }
+
+  .swatch-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .sw { background: #1E2327; border: 1px solid #2A3036; border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .sw .stop { display: flex; align-items: center; gap: 10px; }
+  .sw .chip { width: 22px; height: 22px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.06); }
+  .sw .name { font-family: "Space Grotesk"; font-size: 13px; color: #fff; font-weight: 500; }
+  .sw .hex { font-family: ui-monospace, "JetBrains Mono", monospace; font-size: 11px; color: #999; margin-left: auto; }
+</style></head>
+<body>
+<div class="card">
+
+  <section>
+    <div class="lbl">Gradient divider · violet → lime · the brand-spanning hairline</div>
+    <div class="grad-divider"></div>
+    <div class="grad-divider thick"></div>
+    <div class="grad-divider thick glow"></div>
+    <div class="src">
+      linear-gradient(90deg, #C068F9 0%, rgba(192,104,249,0.55) 28%, rgba(170,200,80,0.45) 50%, rgba(166,239,57,0.75) 72%, #A6EF39 100%)
+    </div>
+  </section>
+
+  <section>
+    <div class="lbl">In context · between sections</div>
+    <div class="demo">
+      <div>
+        <div class="eb">Pillar 01</div>
+        <h4 style="margin-top:6px;">Build</h4>
+        <p style="margin-top:8px;">Senior engineers paired with your team. We ship in the open, weekly.</p>
+      </div>
+      <div class="grad-divider"></div>
+      <div>
+        <div class="eb" style="color:#C068F9;">Pillar 02</div>
+        <h4 style="margin-top:6px;">Strategy</h4>
+        <p style="margin-top:8px;">Architecture in code. ADRs, two-page memos, compiling diagrams.</p>
+      </div>
+      <div class="grad-divider"></div>
+      <div>
+        <div class="eb" style="color:#C6F135;">Pillar 03</div>
+        <h4 style="margin-top:6px;">Enablement</h4>
+        <p style="margin-top:8px;">Pair, teach, write the runbook. By the time we leave, your team can run it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="lbl">Stop colors · the three anchors</div>
+    <div class="swatch-row">
+      <div class="sw">
+        <div class="stop"><div class="chip" style="background:#C068F9"></div><div class="name">Violet</div><div class="hex">#C068F9</div></div>
+        <div class="src">0% — origin</div>
+      </div>
+      <div class="sw">
+        <div class="stop"><div class="chip" style="background:#AAC850"></div><div class="name">Taupe-bridge</div><div class="hex">~50%</div></div>
+        <div class="src">soft midpoint, low saturation</div>
+      </div>
+      <div class="sw">
+        <div class="stop"><div class="chip" style="background:#A6EF39"></div><div class="name">Bright-lime</div><div class="hex">#A6EF39</div></div>
+        <div class="src">100% — terminus</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="lbl">Use it for · section breaks · slide footers · beneath eyebrows · framing key moments</div>
+  </section>
+
+</div>
+</body></html>

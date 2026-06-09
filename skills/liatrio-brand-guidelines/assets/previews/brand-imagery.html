@@ -1,0 +1,30 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="Imagery library" subtitle="Circuit traces, botanical, cloud gradients" viewport="700x360" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .card { padding: 24px; gap: 12px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .img {
+    border-radius: 12px; height: 150px;
+    border: 1px solid #2a2a2a; overflow: hidden; position: relative;
+    background-color: #111;
+  }
+  .img.bg1 { background: url("../assets/liatrio-bg01.png") center/cover; }
+  .img.bg8 { background: url("../assets/liatrio-bg08.png") center/cover; }
+  .img.flower-violet { background: #111 url("../assets/liatris-violet.png") center/contain no-repeat; }
+  .lbl {
+    position: absolute; left: 10px; bottom: 10px; font-size: 10px; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 4px 8px; background: rgba(0,0,0,0.55); color: #fff;
+    border-radius: 999px; font-family: "Space Grotesk", sans-serif; font-weight: 500; z-index: 2;
+  }
+</style></head>
+<body>
+<div class="card">
+  <div class="label">Imagery — botanical & atmospheric clouds</div>
+  <div class="grid">
+    <div class="img flower-violet"><span class="lbl">liatris</span></div>
+    <div class="img bg1"><span class="lbl">cloud · lime</span></div>
+    <div class="img bg8"><span class="lbl">cloud · violet/lime</span></div>
+  </div>
+</div>
+</body></html>

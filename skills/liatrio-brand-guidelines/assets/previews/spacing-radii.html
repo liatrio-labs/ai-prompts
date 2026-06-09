@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- @dsCard group="Spacing" name="Corner radii" subtitle="r-1 4px → r-pill 999px" viewport="700x180" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .card { padding: 28px; gap: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .r {
+    background: #1E2327; border: 1px solid #2a3036;
+    height: 88px; display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono); font-size: 11px; color: #999;
+    flex-direction: column; gap: 4px;
+  }
+  .r b { color: #89DF00; font-weight: 600; font-size: 12px; }
+</style></head>
+<body>
+<div class="card">
+  <div class="label">Corner radii</div>
+  <div class="grid">
+    <div class="r" style="border-radius:4px;"><b>r-1</b><span>4px</span></div>
+    <div class="r" style="border-radius:8px;"><b>r-2</b><span>8px</span></div>
+    <div class="r" style="border-radius:12px;"><b>r-3</b><span>12px</span></div>
+    <div class="r" style="border-radius:16px;"><b>r-4</b><span>16px</span></div>
+    <div class="r" style="border-radius:24px;"><b>r-5</b><span>24px</span></div>
+    <div class="r" style="border-radius:999px;"><b>r-pill</b><span>999px</span></div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,75 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Components · Chips & notch" subtitle="From liatrio.ai: square eyebrow chips + clip-path notch card" viewport="700x360" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .card { padding: 28px; gap: 14px; background: #1A1F23; align-items: flex-start; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .label { color: #999; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-family: "Space Grotesk"; }
+  .src { font-family: ui-monospace, "JetBrains Mono", monospace; font-size: 10px; color: #666; letter-spacing: 0.04em; margin-top: auto; }
+
+  /* Eyebrow chip — bright lime bg, black text, square, all-caps tracked */
+  .chip {
+    display: inline-block;
+    padding: 4px 10px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    color: #000;
+  }
+  .chip.lime { background: #A3E635; }
+  .chip.brand-lime { background: #C6F135; }
+  .chip.green { background: #89DF00; color: #1A1F23; }
+  .chip.violet { background: #C068F9; color: #1A0033; }
+
+  /* Notch card — clip-path bottom-right, signature liatrio.ai shape */
+  .notch {
+    position: relative;
+    width: 208px; padding: 36px 28px;
+    background: #C6F135;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%);
+    display: flex; flex-direction: column; gap: 12px; justify-content: space-between;
+    min-height: 160px;
+  }
+  .notch h3 {
+    margin: 0;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 900;
+    font-size: 22px; line-height: 1.05;
+    text-transform: uppercase; letter-spacing: 0.04em;
+    color: #000;
+  }
+  .notch svg { color: #000; }
+
+  .notch.dark { background: #1E2327; }
+  .notch.dark h3 { color: #C6F135; }
+  .notch.dark svg { color: #C6F135; }
+</style></head>
+<body>
+<div class="card">
+  <div class="label">Eyebrow chips · square · uppercase · weight 700</div>
+  <div class="row">
+    <span class="chip lime">BLOG</span>
+    <span class="chip brand-lime">CASE STUDY</span>
+    <span class="chip green">PILOT</span>
+    <span class="chip violet">STRATEGY</span>
+  </div>
+
+  <div class="label">Notch card · clip-path 20px · the signature shape</div>
+  <div class="row">
+    <div class="notch">
+      <h3>Latest<br>Resources</h3>
+      <svg width="22" height="22" viewBox="0 0 16 16" fill="none">
+        <path d="M3 3L13 13M13 3v10H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="notch dark">
+      <h3>From the<br>Field</h3>
+      <svg width="22" height="22" viewBox="0 0 16 16" fill="none">
+        <path d="M3 3L13 13M13 3v10H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="src">SOURCE · liatrio.ai DOM capture · clip-path: polygon(0 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%)</div>
+</div>
+</body></html>

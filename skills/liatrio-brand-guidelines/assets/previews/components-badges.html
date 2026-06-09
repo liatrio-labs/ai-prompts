@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Badges & pills" subtitle="Pillar tags + status + technical chips" viewport="700x200" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .card { padding: 28px; gap: 12px; }
+  .row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill {
+    padding: 4px 10px; border-radius: 999px; font-family: "Space Grotesk", sans-serif;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.02em;
+    display: inline-flex; align-items: center; gap: 6px;
+  }
+  .pill .dot { width: 6px; height: 6px; border-radius: 999px; }
+  .acc  { background: rgba(137,223,0,0.10); color: #89DF00; border: 1px solid rgba(137,223,0,0.25); }
+  .vio  { background: rgba(192,104,249,0.10); color: #C068F9; border: 1px solid rgba(192,104,249,0.25); }
+  .lim  { background: rgba(198,241,53,0.10); color: #C6F135; border: 1px solid rgba(198,241,53,0.25); }
+  .neut { background: #1E2327; color: #ccc; border: 1px solid #2a3036; }
+  .warn { background: rgba(247,127,0,0.10); color: #F77F00; border: 1px solid rgba(247,127,0,0.30); }
+  .dang { background: rgba(230,57,70,0.10); color: #E63946; border: 1px solid rgba(230,57,70,0.30); }
+  .info { background: rgba(0,193,219,0.10); color: #00C1DB; border: 1px solid rgba(0,193,219,0.30); }
+</style></head>
+<body>
+<div class="card">
+  <div class="label">Pillar tags</div>
+  <div class="row">
+    <span class="pill acc"><span class="dot" style="background:#89DF00;"></span>Build</span>
+    <span class="pill vio"><span class="dot" style="background:#C068F9;"></span>Strategy</span>
+    <span class="pill lim"><span class="dot" style="background:#C6F135;"></span>Enablement</span>
+    <span class="pill neut">AI-first</span>
+    <span class="pill neut">Platform</span>
+  </div>
+  <div class="label">Status</div>
+  <div class="row">
+    <span class="pill acc">● Active pilot</span>
+    <span class="pill warn">● In review</span>
+    <span class="pill dang">● Blocked</span>
+    <span class="pill neut">● Draft</span>
+    <span class="pill info">● Lagoon · info</span>
+    <span class="pill acc">v2.0</span>
+    <span class="pill neut">claude-haiku-4-5</span>
+  </div>
+</div>
+</body></html>

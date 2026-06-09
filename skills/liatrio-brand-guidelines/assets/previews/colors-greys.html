@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- @dsCard group="Colors" name="Greyscale" subtitle="10-step grey scale anchored on #111 background" viewport="700x200" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .card { padding: 26px; gap: 12px; }
+  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .sw {
+    border-radius: 8px; padding: 10px 12px; height: 84px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .sw .nm { font-family: "Space Grotesk", sans-serif; font-size: 12px; font-weight: 600; }
+  .sw .hx { font-family: var(--font-mono); font-size: 10px; opacity: 0.72; }
+</style></head>
+<body>
+<div class="card">
+  <div class="label">Greys — guideline scale</div>
+  <div class="grid">
+    <div class="sw" style="background:#000; color:#ccc;"><div class="nm">Black</div><div class="hx">#000000</div></div>
+    <div class="sw" style="background:#111; color:#eee;"><div class="nm">Grey 800</div><div class="hx">#111111</div></div>
+    <div class="sw" style="background:#1e1e1e; color:#eee;"><div class="nm">Grey 700</div><div class="hx">#1E1E1E</div></div>
+    <div class="sw" style="background:#333; color:#eee;"><div class="nm">Grey 600</div><div class="hx">#333333</div></div>
+    <div class="sw" style="background:#666; color:#fff;"><div class="nm">Grey 500</div><div class="hx">#666666</div></div>
+    <div class="sw" style="background:#999; color:#fff;"><div class="nm">Grey 400</div><div class="hx">#999999</div></div>
+    <div class="sw" style="background:#ccc; color:#111;"><div class="nm">Grey 300</div><div class="hx">#CCCCCC</div></div>
+    <div class="sw" style="background:#ddd; color:#111;"><div class="nm">Grey 200</div><div class="hx">#DDDDDD</div></div>
+    <div class="sw" style="background:#eee; color:#111;"><div class="nm">Grey 100</div><div class="hx">#EEEEEE</div></div>
+    <div class="sw" style="background:#fff; color:#111; border-color:#ccc;"><div class="nm">White</div><div class="hx">#FFFFFF</div></div>
+  </div>
+</div>
+</body></html>

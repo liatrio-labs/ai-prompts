@@ -1,0 +1,79 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Buttons" subtitle="Primary capsule, secondary, ghost, violet" viewport="700x240" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .card { padding: 28px; gap: 16px; align-items: flex-start; background: #1A1F23; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  /* Real liatrio.ai buttons are SQUARE, uppercase, tracked.
+     Sourced from web captures of liatrio.ai (Apr 2026). */
+  .btn {
+    font-family: "Space Grotesk", sans-serif; font-weight: 600;
+    border: 0; cursor: pointer; line-height: 1;
+    transition: background-color 150ms cubic-bezier(0.4,0,0.2,1), color 150ms, border-color 150ms;
+    display: inline-flex; align-items: center; gap: 8px;
+    text-transform: uppercase; letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+  /* Primary — solid bright-green, dark text, rectangular */
+  .btn-primary { background: #89DF00; color: #1A1F23; padding: 16px 32px; font-size: 14px; }
+  .btn-primary:hover { background: rgba(137,223,0,0.9); }
+  .btn-primary.sm { padding: 12px 20px; font-size: 12px; letter-spacing: 0.05em; }
+  /* Outlined — bright-green text on translucent fill */
+  .btn-outline {
+    background: rgba(137,223,0,0.10); color: #89DF00;
+    border: 1px solid rgba(137,223,0,0.40);
+    padding: 10px 24px; font-size: 14px;
+    text-transform: none; letter-spacing: 0;
+  }
+  .btn-outline:hover { background: rgba(137,223,0,0.18); }
+  /* Foreground — white bg, dark text */
+  .btn-fg { background: #FAFAFA; color: #1A1F23; padding: 12px 20px; font-size: 12px; letter-spacing: 0.05em; }
+  .btn-fg:hover { background: #fff; }
+  /* Nav compact — soft-rounded */
+  .btn-nav { background: rgba(166,239,57,0.9); color: #1A1F23; padding: 8px 16px; font-size: 14px; border-radius: 6px; text-transform: none; letter-spacing: 0; font-weight: 500; }
+  /* Square play / tick */
+  .btn-icon { width: 64px; height: 64px; padding: 0; background: #89DF00; color: #fff; justify-content: center; }
+  .btn-icon:hover { background: rgba(137,223,0,0.8); }
+  .btn-tick { width: 38px; height: 38px; padding: 0; background: #89DF00; color: #fff; justify-content: center; }
+
+  .arrow { width: 14px; height: 14px; }
+  .label { color: #999; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-family: "Space Grotesk"; }
+  .src { font-family: ui-monospace, "JetBrains Mono", monospace; font-size: 10px; color: #666; letter-spacing: 0.04em; }
+</style></head>
+<body>
+<div class="card">
+  <div class="label">Primary · solid · square</div>
+  <div class="row">
+    <a class="btn btn-primary" href="#">Let's talk</a>
+    <a class="btn btn-primary sm" href="#">Read more
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+    </a>
+    <button class="btn btn-fg">Read more
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="M13 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <div class="label">Outlined · sentence-case</div>
+  <div class="row">
+    <a class="btn btn-outline" href="#">Explore</a>
+    <a class="btn btn-outline" href="#">See how we work</a>
+  </div>
+
+  <div class="label">Nav · soft-corner exception</div>
+  <div class="row">
+    <button class="btn btn-nav">Let's Talk</button>
+  </div>
+
+  <div class="label">Square icon · play / tick</div>
+  <div class="row">
+    <button class="btn btn-icon" aria-label="Play">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M3 1.5l10 5.5-10 5.5z"/></svg>
+    </button>
+    <span class="btn btn-tick" aria-hidden="true">
+      <svg width="19" height="19" viewBox="0 0 16 16" fill="none"><path d="M4 8.5L7 11.5L12 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+  </div>
+
+  <div class="src">SOURCE · liatrio.ai DOM capture · 28 apr 2026</div>
+</div>
+</body></html>

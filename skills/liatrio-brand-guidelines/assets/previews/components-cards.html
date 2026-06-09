@@ -1,0 +1,36 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Cards" subtitle="Default vs active card · pillar treatment" viewport="700x240" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .card { padding: 28px; gap: 12px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .c {
+    background: #1E2327; border: 1px solid #2a3036; border-radius: 12px;
+    padding: 20px; display: flex; flex-direction: column; gap: 10px;
+    transition: border-color 200ms;
+  }
+  .c.active { border-color: rgba(137,223,0,0.4); box-shadow: 0 0 0 1px rgba(137,223,0,0.18) inset; }
+  .eb { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #89DF00; font-weight: 500; }
+  .c h4 { font-family: "Space Grotesk", sans-serif; font-size: 22px; margin: 0; line-height: 1.1; letter-spacing: -0.02em; color: #fff; font-weight: 600; }
+  .c p { color: #ccc; font-size: 14px; margin: 0; line-height: 1.5; }
+  .meta { display: flex; gap: 12px; align-items: center; font-family: var(--font-mono); font-size: 11px; color: #999; padding-top: 8px; border-top: 1px solid #2a3036; }
+  .meta .arrow { margin-left: auto; color: #89DF00; }
+</style></head>
+<body>
+<div class="card">
+  <div class="grid">
+    <div class="c active">
+      <div class="eb">Pillar 01</div>
+      <h4>Build</h4>
+      <p>Senior engineers paired with your team. We ship in the open, weekly.</p>
+      <div class="meta"><span>12 case studies</span><span class="arrow">→</span></div>
+    </div>
+    <div class="c">
+      <div class="eb" style="color:#C068F9;">Pillar 02</div>
+      <h4>Strategy</h4>
+      <p>Architecture and direction. Decks earn their place by being short.</p>
+      <div class="meta"><span>8 case studies</span><span class="arrow">→</span></div>
+    </div>
+  </div>
+</div>
+</body></html>

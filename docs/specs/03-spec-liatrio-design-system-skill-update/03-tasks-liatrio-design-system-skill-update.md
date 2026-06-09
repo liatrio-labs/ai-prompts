@@ -96,7 +96,7 @@
 - [x] 2.7 Ensure references do not include secrets, raw web-capture payloads, or unnecessary full token/manifest dumps from the ZIP.
 - [x] 2.8 Run `uv run scripts/quick_validate.py skills/liatrio-brand-guidelines` after adding references and fix any validation issues.
 
-### [ ] 3.0 Curate Design-System Assets and Preview HTML
+### [x] 3.0 Curate Design-System Assets and Preview HTML
 
 #### 3.0 Proof Artifact(s)
 
@@ -107,18 +107,18 @@
 
 #### 3.0 Tasks
 
-- [ ] 3.1 Create the required asset subdirectories under `skills/liatrio-brand-guidelines/assets/`, including `fonts/`, `logos/`, `motifs/`, `decks/`, and `previews/` as needed.
-- [ ] 3.2 Copy `temp/Liatrio Design System/colors_and_type.css` into `skills/liatrio-brand-guidelines/assets/colors_and_type.css`.
-- [ ] 3.3 Copy `temp/Liatrio Design System/fonts/SpaceGrotesk-VariableFont_wght.ttf` into `skills/liatrio-brand-guidelines/assets/fonts/`.
-- [ ] 3.4 Copy selected logo and logomark assets from `temp/Liatrio Design System/assets/` into `skills/liatrio-brand-guidelines/assets/logos/` with names preserved or normalized consistently.
-- [ ] 3.5 Copy selected botanical, circuit, texture, Venn, and background assets from `temp/Liatrio Design System/assets/` into `skills/liatrio-brand-guidelines/assets/motifs/`.
-- [ ] 3.6 Copy the curated deck template from `temp/Liatrio Design System/assets/Liatrio-Deck-Template.pptx` into `skills/liatrio-brand-guidelines/assets/decks/` if file size and repository policy allow it.
-- [ ] 3.7 Copy selected `temp/Liatrio Design System/preview/*.html` files and supporting `_card.css` into `skills/liatrio-brand-guidelines/assets/previews/` as local reference artifacts.
-- [ ] 3.8 Do not copy `temp/Liatrio Design System/uploads/`, `scratch/`, `scraps/`, `_ds_bundle.js`, raw web-capture JSON, or the original ZIP into the skill.
-- [ ] 3.9 Update `liatrio-asset-index.md` with the final curated asset file list after copying assets.
-- [ ] 3.10 Run `uv run scripts/generate_openai_yaml.py skills/liatrio-brand-guidelines` if `SKILL.md` metadata changed, then inspect the resulting `skills/liatrio-brand-guidelines/agents/openai.yaml` diff.
-- [ ] 3.11 Run `python scripts/check_docs_drift.py` and update `README.md` or related docs only if the drift check reports required catalog changes.
-- [ ] 3.12 Run `find skills/liatrio-brand-guidelines/assets -maxdepth 3 -type f | sort` and `git diff --stat -- skills/liatrio-brand-guidelines` to confirm curated-only asset inclusion.
+- [x] 3.1 Create the required asset subdirectories under `skills/liatrio-brand-guidelines/assets/`, including `fonts/`, `logos/`, `motifs/`, `decks/`, and `previews/` as needed.
+- [x] 3.2 Copy `temp/Liatrio Design System/colors_and_type.css` into `skills/liatrio-brand-guidelines/assets/colors_and_type.css`.
+- [x] 3.3 Copy `temp/Liatrio Design System/fonts/SpaceGrotesk-VariableFont_wght.ttf` into `skills/liatrio-brand-guidelines/assets/fonts/`.
+- [x] 3.4 Copy selected logo and logomark assets from `temp/Liatrio Design System/assets/` into `skills/liatrio-brand-guidelines/assets/logos/` with names preserved or normalized consistently.
+- [x] 3.5 Copy selected botanical, circuit, texture, Venn, and background assets from `temp/Liatrio Design System/assets/` into `skills/liatrio-brand-guidelines/assets/motifs/`.
+- [x] 3.6 Evaluate the curated deck template from `temp/Liatrio Design System/assets/Liatrio-Deck-Template.pptx`; do not commit it because repository large-file policy blocks it.
+- [x] 3.7 Copy selected `temp/Liatrio Design System/preview/*.html` files and supporting `_card.css` into `skills/liatrio-brand-guidelines/assets/previews/` as local reference artifacts.
+- [x] 3.8 Do not copy `temp/Liatrio Design System/uploads/`, `scratch/`, `scraps/`, `_ds_bundle.js`, raw web-capture JSON, or the original ZIP into the skill.
+- [x] 3.9 Update `liatrio-asset-index.md` with the final curated asset file list after copying assets.
+- [x] 3.10 Run `uv run scripts/generate_openai_yaml.py skills/liatrio-brand-guidelines` if `SKILL.md` metadata changed, then inspect the resulting `skills/liatrio-brand-guidelines/agents/openai.yaml` diff.
+- [x] 3.11 Run `python scripts/check_docs_drift.py` and update `README.md` or related docs only if the drift check reports required catalog changes.
+- [x] 3.12 Run `find skills/liatrio-brand-guidelines/assets -maxdepth 3 -type f | sort` and `git diff --stat -- skills/liatrio-brand-guidelines` to confirm curated-only asset inclusion.
 
 ### [ ] 4.0 Add Local v1 Adherence Checker and Representative Evals
 

@@ -1,0 +1,31 @@
+<!doctype html>
+<!-- @dsCard group="Components" name="Forms" subtitle="Inputs, textarea, focus state, error, checkbox" viewport="700x320" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .card { padding: 28px; gap: 14px; }
+  .grp { display: flex; flex-direction: column; gap: 8px; }
+  label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #999; font-weight: 500; }
+  input, textarea, select {
+    background: #1E2327; border: 1px solid #2a3036; border-radius: 8px;
+    padding: 12px 14px; color: #fff; font-family: "Space Grotesk", sans-serif; font-size: 14px;
+    outline: none; transition: border-color 200ms, box-shadow 200ms;
+    width: 100%; box-sizing: border-box;
+  }
+  input:focus, textarea:focus, select:focus { border-color: #89DF00; box-shadow: 0 0 0 3px rgba(137,223,0,0.15); }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .err input { border-color: #E63946; }
+  .err small { color: #E63946; font-size: 12px; }
+  .check { display: flex; align-items: center; gap: 10px; color: #ccc; font-size: 14px; }
+  .check .box { width:18px; height:18px; border-radius:4px; background:#89DF00; display:inline-flex; align-items:center; justify-content:center; color:#0a0a0a; font-weight:700; font-size:12px; }
+</style></head>
+<body>
+<div class="card">
+  <div class="row">
+    <div class="grp"><label>Work email</label><input value="ceo@acme.io"></div>
+    <div class="grp"><label>Company</label><input placeholder="Acme Co."></div>
+  </div>
+  <div class="grp"><label>What are you trying to ship?</label><textarea rows="2" placeholder="Tell us, in a sentence."></textarea></div>
+  <div class="grp err"><label>Team size</label><input value="-3"><small>Must be a positive number.</small></div>
+  <div class="check"><span class="box">✓</span> Send me the field guide (no spam, monthly).</div>
+</div>
+</body></html>

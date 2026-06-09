@@ -1,0 +1,177 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="Brand · Circuit divider" subtitle="Animated traces + dots + hexagons — lifted from liatrio.ai" viewport="700x720" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .card { padding: 0; flex-direction: column; }
+  .card section {
+    background: #1A1F23; padding: 32px 28px;
+    display: flex; flex-direction: column; gap: 20px;
+    border-bottom: 1px solid #2A3036;
+  }
+  .card section:last-of-type { border-bottom: 0; padding-bottom: 28px; }
+
+  .label { font-family: "Space Grotesk"; color: #999; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }
+  .src { font-family: ui-monospace, "JetBrains Mono", monospace; font-size: 10px; color: #666; letter-spacing: 0.04em; }
+
+  /* Divider strip — exactly the shape from liatrio.ai */
+  .divider {
+    position: relative; height: 80px; width: 100%;
+    background: transparent;
+    overflow: hidden;
+  }
+  .divider svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+  /* Trace draw-in animation */
+  .divider [data-cd-trace] {
+    stroke-dasharray: 420;
+    stroke-dashoffset: 420;
+    animation: cd-trace 2.4s cubic-bezier(0.4,0,0.2,1) forwards;
+    opacity: 0.35 !important;
+  }
+  .divider [data-cd-trace]:nth-of-type(2) { animation-delay: 0.3s; }
+  .divider [data-cd-trace]:nth-of-type(3) { animation-delay: 0.6s; }
+  .divider [data-cd-trace]:nth-of-type(4) { animation-delay: 0.9s; }
+  @keyframes cd-trace { to { stroke-dashoffset: 0; } }
+
+  /* Dot pulse */
+  .divider [data-cd-dot] {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: cd-dot 2.6s ease-out infinite;
+    opacity: 0;
+  }
+  .divider [data-cd-dot]:nth-of-type(1) { animation-delay: 0.4s; }
+  .divider [data-cd-dot]:nth-of-type(2) { animation-delay: 0.9s; }
+  .divider [data-cd-dot]:nth-of-type(3) { animation-delay: 1.3s; }
+  .divider [data-cd-dot]:nth-of-type(4) { animation-delay: 1.6s; }
+  .divider [data-cd-dot]:nth-of-type(5) { animation-delay: 2.0s; }
+  .divider [data-cd-dot]:nth-of-type(6) { animation-delay: 0.6s; }
+  @keyframes cd-dot {
+    0%   { opacity: 0; r: 0.5; }
+    35%  { opacity: 0.9; r: 3.0; }
+    100% { opacity: 0; r: 0.5; }
+  }
+
+  /* Hex breath */
+  .divider [data-cd-hex] {
+    transform-origin: center;
+    transform-box: fill-box;
+    animation: cd-hex 5s ease-in-out infinite alternate;
+  }
+  .divider [data-cd-hex]:nth-of-type(2) { animation-delay: 0.4s; }
+  .divider [data-cd-hex]:nth-of-type(3) { animation-delay: 0.8s; }
+  .divider [data-cd-hex]:nth-of-type(4) { animation-delay: 1.2s; }
+  .divider [data-cd-hex]:nth-of-type(5) { animation-delay: 1.6s; }
+  .divider [data-cd-hex]:nth-of-type(6) { animation-delay: 2.0s; }
+  @keyframes cd-hex {
+    0%   { opacity: 0.04; }
+    100% { opacity: 0.22; }
+  }
+
+  /* Show how it sits between sections */
+  .demo {
+    display: grid; grid-template-columns: 1fr; gap: 0;
+  }
+  .demo .a, .demo .b {
+    padding: 28px;
+  }
+  .demo .a { background: #1A1F23; }
+  .demo .b { background: #1E2327; }
+  .demo .divider-host {
+    margin-top: -40px; margin-bottom: -40px; position: relative; z-index: 2;
+  }
+  .demo h4 {
+    margin: 0; font-family: "Space Grotesk"; font-weight: 600;
+    font-size: 24px; letter-spacing: -0.02em; color: #fff;
+  }
+  .demo p { margin: 6px 0 0; color: #ccc; font-size: 14px; line-height: 1.5; }
+
+  /* Static hex spec swatch */
+  .spec { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+  .spec-cell {
+    background: #1E2327; border: 1px solid #2A3036; border-radius: 6px;
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+  }
+  .spec-cell svg { width: 60%; height: 60%; }
+</style></head>
+<body>
+<div class="card">
+  <section>
+    <div class="label">Circuit divider · the section break</div>
+    <div class="divider">
+      <object type="image/svg+xml" data="../assets/circuit-divider.svg" style="display:none"></object>
+      <!-- Inline copy so CSS animations attach -->
+      <svg viewBox="0 0 1200 70" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs><filter id="cd-glow"><feGaussianBlur stdDeviation="1.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <path data-cd-trace d="M0,30 L80,30 L80,50 L200,50 L200,35 L320,35" fill="none" stroke="hsl(84,85%,58%)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#cd-glow)"/>
+        <path data-cd-trace d="M1200,45 L1080,45 L1080,25 L940,25 L940,40 L820,40" fill="none" stroke="hsl(84,85%,58%)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#cd-glow)"/>
+        <path data-cd-trace d="M400,20 L500,20 L500,50 L640,50 L640,30 L760,30" fill="none" stroke="hsl(84,85%,58%)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#cd-glow)"/>
+        <path data-cd-trace d="M1100,15 L980,15 L980,55 L860,55 L860,25 L740,25" fill="none" stroke="hsl(84,85%,58%)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" filter="url(#cd-glow)"/>
+        <circle data-cd-dot cx="80"   cy="30" r="2.5" fill="hsl(84,85%,58%)" filter="url(#cd-glow)"/>
+        <circle data-cd-dot cx="200"  cy="50" r="2.5" fill="hsl(84,85%,58%)" filter="url(#cd-glow)"/>
+        <circle data-cd-dot cx="1080" cy="45" r="2.5" fill="hsl(84,85%,58%)" filter="url(#cd-glow)"/>
+        <circle data-cd-dot cx="940"  cy="25" r="2.5" fill="hsl(84,85%,58%)" filter="url(#cd-glow)"/>
+        <circle data-cd-dot cx="500"  cy="20" r="2.5" fill="hsl(84,85%,58%)" filter="url(#cd-glow)"/>
+        <circle data-cd-dot cx="640"  cy="50" r="2.5" fill="hsl(84,85%,58%)" filter="url(#cd-glow)"/>
+        <g data-cd-hex transform="translate(50,35)">
+          <path d="M0,-12 L10.39,-6 L10.39,6 L0,12 L-10.39,6 L-10.39,-6Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.3" filter="url(#cd-glow)"/>
+        </g>
+        <g data-cd-hex transform="translate(250,20)">
+          <path d="M0,-8 L6.93,-4 L6.93,4 L0,8 L-6.93,4 L-6.93,-4Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.3" filter="url(#cd-glow)"/>
+        </g>
+        <g data-cd-hex transform="translate(600,45)">
+          <path d="M0,-10 L8.66,-5 L8.66,5 L0,10 L-8.66,5 L-8.66,-5Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.3" filter="url(#cd-glow)"/>
+        </g>
+        <g data-cd-hex transform="translate(900,25)">
+          <path d="M0,-14 L12.12,-7 L12.12,7 L0,14 L-12.12,7 L-12.12,-7Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.3" filter="url(#cd-glow)"/>
+        </g>
+        <g data-cd-hex transform="translate(1100,40)">
+          <path d="M0,-9 L7.79,-4.5 L7.79,4.5 L0,9 L-7.79,4.5 L-7.79,-4.5Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.3" filter="url(#cd-glow)"/>
+        </g>
+        <g data-cd-hex transform="translate(150,50)">
+          <path d="M0,-7 L6.06,-3.5 L6.06,3.5 L0,7 L-6.06,3.5 L-6.06,-3.5Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.3" filter="url(#cd-glow)"/>
+        </g>
+        <g data-cd-hex transform="translate(750,15)">
+          <path d="M0,-11 L9.53,-5.5 L9.53,5.5 L0,11 L-9.53,5.5 L-9.53,-5.5Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.3" filter="url(#cd-glow)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="src">SOURCE · liatrio.ai &middot; viewBox 1200×70 · stroke hsl(84,85%,58%) · stdDeviation 1.5</div>
+  </section>
+
+  <section>
+    <div class="label">In context · pulls 40px into both surfaces</div>
+    <div class="demo">
+      <div class="a"><h4>Section above</h4><p>Dark primary surface · #1A1F23</p></div>
+      <div class="divider-host">
+        <div class="divider">
+          <svg viewBox="0 0 1200 70" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs><filter id="cd-glow-2"><feGaussianBlur stdDeviation="1.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+            <path data-cd-trace d="M0,30 L80,30 L80,50 L200,50 L200,35 L320,35" fill="none" stroke="hsl(84,85%,58%)" stroke-width="1.2" stroke-linecap="round" filter="url(#cd-glow-2)"/>
+            <path data-cd-trace d="M1200,45 L1080,45 L1080,25 L940,25 L940,40 L820,40" fill="none" stroke="hsl(84,85%,58%)" stroke-width="1.2" stroke-linecap="round" filter="url(#cd-glow-2)"/>
+            <path data-cd-trace d="M400,20 L500,20 L500,50 L640,50 L640,30 L760,30" fill="none" stroke="hsl(84,85%,58%)" stroke-width="1.2" stroke-linecap="round" filter="url(#cd-glow-2)"/>
+            <path data-cd-trace d="M1100,15 L980,15 L980,55 L860,55 L860,25 L740,25" fill="none" stroke="hsl(84,85%,58%)" stroke-width="1.2" stroke-linecap="round" filter="url(#cd-glow-2)"/>
+            <circle data-cd-dot cx="80" cy="30" r="2.5" fill="hsl(84,85%,58%)" filter="url(#cd-glow-2)"/>
+            <circle data-cd-dot cx="200" cy="50" r="2.5" fill="hsl(84,85%,58%)" filter="url(#cd-glow-2)"/>
+            <circle data-cd-dot cx="940" cy="25" r="2.5" fill="hsl(84,85%,58%)" filter="url(#cd-glow-2)"/>
+            <circle data-cd-dot cx="500" cy="20" r="2.5" fill="hsl(84,85%,58%)" filter="url(#cd-glow-2)"/>
+          </svg>
+        </div>
+      </div>
+      <div class="b"><h4>Section below</h4><p>Dark secondary surface · #1E2327</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">Hexagon spec · 7 → 14 unit radii · stroke 0.8 · fill 0.1</div>
+    <div class="spec">
+      <div class="spec-cell"><svg viewBox="-16 -16 32 32"><path d="M0,-7 L6.06,-3.5 L6.06,3.5 L0,7 L-6.06,3.5 L-6.06,-3.5Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.5"/></svg></div>
+      <div class="spec-cell"><svg viewBox="-16 -16 32 32"><path d="M0,-8 L6.93,-4 L6.93,4 L0,8 L-6.93,4 L-6.93,-4Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.5"/></svg></div>
+      <div class="spec-cell"><svg viewBox="-16 -16 32 32"><path d="M0,-9 L7.79,-4.5 L7.79,4.5 L0,9 L-7.79,4.5 L-7.79,-4.5Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.5"/></svg></div>
+      <div class="spec-cell"><svg viewBox="-16 -16 32 32"><path d="M0,-10 L8.66,-5 L8.66,5 L0,10 L-8.66,5 L-8.66,-5Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.5"/></svg></div>
+      <div class="spec-cell"><svg viewBox="-16 -16 32 32"><path d="M0,-12 L10.39,-6 L10.39,6 L0,12 L-10.39,6 L-10.39,-6Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.5"/></svg></div>
+      <div class="spec-cell"><svg viewBox="-16 -16 32 32"><path d="M0,-14 L12.12,-7 L12.12,7 L0,14 L-12.12,7 L-12.12,-7Z" fill="hsl(84,85%,58%)" fill-opacity="0.1" stroke="hsl(84,85%,58%)" stroke-width="0.8" stroke-opacity="0.5"/></svg></div>
+    </div>
+  </section>
+</div>
+</body></html>

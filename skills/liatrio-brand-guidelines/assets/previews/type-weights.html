@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- @dsCard group="Type" name="Type weights" subtitle="Light → Bold variable axis · both families" viewport="700x220" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .card { padding: 26px; gap: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+  .w {
+    background: #1E2327; border: 1px solid #2a3036; border-radius: 8px;
+    padding: 14px 12px; height: 90px;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .w .glyph { font-family: "Space Grotesk", sans-serif; font-size: 32px; line-height: 1; color: #fff; letter-spacing: -0.02em; }
+  .w .lbl { font-family: var(--font-mono); font-size: 10px; color: #999; letter-spacing: 0.04em; }
+  .row { display: flex; gap: 12px; align-items: center; padding-top: 6px; border-top: 1px solid #2a3036; }
+  .pair { font-family: "Space Grotesk", sans-serif; font-size: 22px; color: #fff; font-weight: 600; letter-spacing: -0.02em; }
+  .meta { font-family: var(--font-mono); font-size: 11px; color: #999; }
+</style></head>
+<body>
+<div class="card">
+  <div class="grid">
+    <div class="w"><div class="glyph" style="font-weight:300;">Aa</div><div class="lbl">Light · 300</div></div>
+    <div class="w"><div class="glyph" style="font-weight:400;">Aa</div><div class="lbl">Regular · 400</div></div>
+    <div class="w"><div class="glyph" style="font-weight:500;">Aa</div><div class="lbl">Medium · 500</div></div>
+    <div class="w"><div class="glyph" style="font-weight:600;">Aa</div><div class="lbl">SemiBold · 600</div></div>
+    <div class="w"><div class="glyph" style="font-weight:700;">Aa</div><div class="lbl">Bold · 700</div></div>
+  </div>
+  <div class="row">
+    <div class="pair">Space Grotesk</div>
+    <div class="meta" style="margin-left:auto;">single typeface · headlines + body + UI</div>
+  </div>
+</div>
+</body></html>

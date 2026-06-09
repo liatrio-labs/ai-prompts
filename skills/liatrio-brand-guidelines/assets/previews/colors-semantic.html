@@ -1,0 +1,42 @@
+<!doctype html>
+<!-- @dsCard group="Colors" name="Semantic colors" subtitle="5-level fg hierarchy + bg/elevated/border tokens" viewport="700x240" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  body { background: #1a1f23; }
+  .card { padding: 26px; gap: 14px; background: #1a1f23; }
+  .grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; }
+  .sample {
+    background: #1E2327; border: 1px solid #2a3036; border-radius: 12px;
+    padding: 20px; display: flex; flex-direction: column; gap: 10px;
+  }
+  .sample h4 { font-family: "Space Grotesk", sans-serif; font-size: 22px; margin: 0; line-height: 1.1; letter-spacing: -0.02em; font-weight: 600; color: #fff; }
+  .sample p { font-family: "Space Grotesk", sans-serif; font-size: 14px; line-height: 1.55; color: #ccc; margin: 0; font-weight: 400; }
+  .sample .eb { font-family: "Space Grotesk", sans-serif; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #89DF00; font-weight: 500; }
+  .tokens { display: flex; flex-direction: column; gap: 6px; }
+  .tok { display: flex; align-items: center; gap: 10px; font-family: var(--font-mono); font-size: 11px; }
+  .dot { width: 16px; height: 16px; border-radius: 4px; border: 1px solid #2a3036; flex: none; }
+  .tok span:nth-child(2) { color: #ddd; min-width: 110px; }
+  .tok span:last-child { color: #999; }
+  .label { color: #999; }
+</style></head>
+<body>
+<div class="card">
+  <div class="grid">
+    <div class="sample">
+      <div class="eb">Pillar 02</div>
+      <h4>Strategy without shipping is just a deck.</h4>
+      <p>Five levels of foreground keep hierarchy clean — guideline grey scale, no opacity stacks.</p>
+      <p style="color:#999;">Tertiary copy reads at this weight; metadata sits one step below.</p>
+    </div>
+    <div class="tokens">
+      <div class="tok"><span class="dot" style="background:#fff;"></span><span>--fg</span><span>#FFFFFF</span></div>
+      <div class="tok"><span class="dot" style="background:#ccc;"></span><span>--fg-muted</span><span>#CCCCCC</span></div>
+      <div class="tok"><span class="dot" style="background:#999;"></span><span>--fg-subtle</span><span>#999999</span></div>
+      <div class="tok"><span class="dot" style="background:#666;"></span><span>--fg-faint</span><span>#666666</span></div>
+      <div class="tok"><span class="dot" style="background:#2a3036;"></span><span>--border</span><span>#2A3036</span></div>
+      <div class="tok"><span class="dot" style="background:#1a1f23;"></span><span>--bg</span><span>#1A1F23</span></div>
+      <div class="tok"><span class="dot" style="background:#1E2327;"></span><span>--bg-elevated</span><span>#1E2327</span></div>
+    </div>
+  </div>
+</div>
+</body></html>

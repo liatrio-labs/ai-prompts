@@ -1,0 +1,193 @@
+/* ==========================================================================
+   Liatrio Design System — Colors & Type
+   Source: Liatrio Brand Guidelines v2026-04-14
+   Single typeface (Space Grotesk), dark-first, cool-tinted dark surfaces.
+   ========================================================================== */
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("fonts/SpaceGrotesk-VariableFont_wght.ttf") format("truetype-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---------- PRIMARY ---------- */
+  --grey-800:      #111111;   /* primary text + dark elements */
+  --white:         #ffffff;
+  --primary-green: #24AE1D;   /* HERO color — most prominent brand moments */
+  --bright-green:  #89DF00;   /* sparingly — accents + highlights */
+
+  /* ---------- SECONDARY ---------- */
+  --grey-700:      #1e1e1e;
+  --grey-100:      #eeeeee;
+  --lagoon:        #00C1DB;
+  --lime:          #C6F135;
+  --violet:        #C068F9;
+
+  /* ---------- TERTIARY ---------- */
+  --black:         #000000;
+  --grey-600:      #333333;
+  --grey-500:      #666666;
+  --grey-400:      #999999;
+  --grey-300:      #cccccc;
+  --grey-200:      #dddddd;
+  --dark-blue:     #003d5c;
+  --deep-sea:      #006989;
+  --hot-red:       #E63946;
+  --flame-orange:  #F77F00;
+
+  /* ---------- BACKGROUND COLORS (theming) ---------- */
+  --light-bg:      #ffffff;   /* light mode primary */
+  --light-bg-2:    #f8f9fa;   /* light mode cards / sections */
+  --dark-bg:       #1a1f23;   /* dark mode primary  — slightly cool */
+  --dark-bg-2:     #1E2327;   /* dark mode elevated / cards */
+
+  /* ---------- SEMANTIC (default = dark mode) ---------- */
+  --bg:            var(--dark-bg);
+  --bg-elevated:   var(--dark-bg-2);
+  --surface:       var(--dark-bg-2);
+
+  --fg:            var(--white);
+  --fg-muted:      var(--grey-300);
+  --fg-subtle:     var(--grey-400);
+  --fg-faint:      var(--grey-500);
+
+  --accent:        var(--primary-green);   /* hero */
+  --accent-bright: var(--bright-green);    /* highlights */
+  --accent-fg:     var(--white);
+
+  --border:        #2a3036;
+  --border-strong: #3a4046;
+  --border-accent: var(--primary-green);
+
+  /* Status — uses brand tertiary tokens */
+  --success: var(--primary-green);
+  --warning: var(--flame-orange);
+  --danger:  var(--hot-red);
+  --info:    var(--lagoon);
+
+  /* ---------- BRAND GRADIENT ---------- */
+  --grad-flame: linear-gradient(160deg, var(--primary-green) 0%, var(--bright-green) 100%);
+  --grad-lagoon-violet: linear-gradient(135deg, var(--lagoon) 0%, var(--violet) 100%);
+  --grad-fade-down: linear-gradient(180deg, transparent 0%, var(--dark-bg) 90%);
+
+  /* The brand-spanning hairline — violet → bridge → lime.
+     Use as a section break, slide footer, beneath eyebrows, framing key moments.
+     1px or 2px height, full-width. The taupe midpoint is intentional — keeps it from feeling too saturated. */
+  --grad-divider: linear-gradient(90deg,
+    var(--violet) 0%,
+    var(--violet) 4%,
+    rgba(192,104,249,0.55) 28%,
+    rgba(170,200,80,0.45) 50%,
+    rgba(166,239,57,0.75) 72%,
+    var(--lime) 96%,
+    var(--lime) 100%
+  );
+
+  /* ---------- TYPOGRAPHY — Space Grotesk only ---------- */
+  --font: "Space Grotesk", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: var(--font);
+  --font-body:    var(--font);
+  --font-mono:    ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  /* ---------- TYPE SCALE — guideline-aligned ---------- */
+  --fs-display:   60px;     /* hero only — top of H1 range */
+  --fs-h1:        56px;     /* 48–60 */
+  --fs-h2:        40px;     /* 36–40 */
+  --fs-h3:        32px;     /* 28–32 */
+  --fs-h4:        22px;
+  --fs-lead:      20px;
+  --fs-body:      17px;     /* 16–18 */
+  --fs-small:     14px;
+  --fs-micro:     12px;
+  --fs-eyebrow:   13px;
+
+  --lh-display:   1.0;
+  --lh-tight:     1.05;
+  --lh-heading:   1.15;
+  --lh-body:      1.55;
+  --lh-loose:     1.7;
+
+  --tracking-tight:   -0.02em;
+  --tracking-normal:  0;
+  --tracking-wide:    0.02em;
+  --tracking-eyebrow: 0.14em;
+
+  /* ---------- SPACING ---------- */
+  --s-1: 4px;   --s-2: 8px;   --s-3: 12px;  --s-4: 16px;  --s-5: 24px;
+  --s-6: 32px;  --s-7: 48px;  --s-8: 64px;  --s-9: 96px;  --s-10: 128px;
+
+  /* ---------- RADIUS ---------- */
+  --r-1: 4px; --r-2: 8px; --r-3: 12px; --r-4: 16px; --r-5: 24px; --r-pill: 999px;
+
+  /* ---------- SHADOW / GLOW ---------- */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --shadow-md: 0 6px 24px rgba(0,0,0,0.45);
+  --shadow-lg: 0 24px 60px rgba(0,0,0,0.55);
+  --glow-accent: 0 0 0 1px rgba(36,174,29,0.3), 0 8px 30px rgba(36,174,29,0.22);
+  --glow-bright: 0 0 0 1px rgba(137,223,0,0.3), 0 8px 30px rgba(137,223,0,0.22);
+
+  /* ---------- MOTION ---------- */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-1: 120ms; --dur-2: 200ms; --dur-3: 320ms; --dur-4: 600ms;
+}
+
+/* ---------- BASE ---------- */
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: var(--bright-green); color: var(--grey-800); }
+
+/* ---------- SEMANTIC TYPE STYLES ----------
+   All Space Grotesk. Hierarchy from weight + size, not family. */
+.display, h1.display {
+  font-family: var(--font); font-weight: 600;
+  font-size: var(--fs-display); line-height: var(--lh-display);
+  letter-spacing: var(--tracking-tight);
+}
+h1, .h1 { font-family: var(--font); font-weight: 700; font-size: var(--fs-h1); line-height: var(--lh-tight); letter-spacing: var(--tracking-tight); margin: 0 0 var(--s-5); }
+h2, .h2 { font-family: var(--font); font-weight: 600; font-size: var(--fs-h2); line-height: var(--lh-heading); letter-spacing: var(--tracking-tight); margin: 0 0 var(--s-4); }
+h3, .h3 { font-family: var(--font); font-weight: 600; font-size: var(--fs-h3); line-height: var(--lh-heading); letter-spacing: var(--tracking-tight); margin: 0 0 var(--s-3); }
+h4, .h4 { font-family: var(--font); font-weight: 500; font-size: var(--fs-h4); line-height: var(--lh-heading); margin: 0 0 var(--s-2); }
+
+.eyebrow {
+  font-family: var(--font); font-size: var(--fs-eyebrow); font-weight: 500;
+  letter-spacing: var(--tracking-eyebrow); text-transform: uppercase;
+  color: var(--bright-green);
+}
+.lead { font-size: var(--fs-lead); line-height: var(--lh-body); color: var(--fg-muted); font-weight: 400; }
+p, .p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--fg-muted); margin: 0 0 var(--s-4); text-wrap: pretty; }
+small, .small { font-size: var(--fs-small); color: var(--fg-subtle); }
+.micro { font-size: var(--fs-micro); letter-spacing: var(--tracking-wide); color: var(--fg-subtle); }
+
+code, .code {
+  font-family: var(--font-mono); font-size: 0.92em;
+  background: rgba(36,174,29,0.12); color: var(--bright-green);
+  padding: 2px 6px; border-radius: var(--r-1);
+  border: 1px solid rgba(36,174,29,0.22);
+}
+
+a {
+  color: var(--bright-green); text-decoration: none;
+  border-bottom: 1px solid rgba(137,223,0,0.35);
+  transition: color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out);
+}
+a:hover { color: var(--white); border-bottom-color: var(--white); }
+
+/* utility */
+.text-accent  { color: var(--primary-green); }
+.text-bright  { color: var(--bright-green); }
+.text-violet  { color: var(--violet); }
+.text-lime    { color: var(--lime); }
+.text-lagoon  { color: var(--lagoon); }
+.bg-flame { background: var(--grad-flame); }

@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="Brand textures" subtitle="Hexagon + circuit-trace + botanical layering" viewport="700x320" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css">
+<style>
+  .card { padding: 0; position: relative; height: 320px; overflow: hidden; }
+  .stage {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(137,223,0,0.08), transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(192,104,249,0.08), transparent 50%),
+      #111;
+  }
+  /* hexagon background, drawn with css-only repeating triangles */
+  .hex {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at center, rgba(137,223,0,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.7;
+  }
+  .circuit {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(90deg, rgba(137,223,0,0.18) 1px, transparent 1px),
+      linear-gradient(0deg, rgba(137,223,0,0.10) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask: radial-gradient(circle at 30% 60%, #000 0%, transparent 60%);
+    -webkit-mask: radial-gradient(circle at 30% 60%, #000 0%, transparent 60%);
+  }
+  .flower {
+    position: absolute; right: 24px; top: 0; bottom: 0; width: 200px;
+    background: url("../assets/liatris-digital.png") center/contain no-repeat;
+    filter: drop-shadow(0 12px 30px rgba(137,223,0,0.15));
+  }
+  .label {
+    position: absolute; left: 24px; bottom: 18px; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #89DF00; font-family: "Space Grotesk", sans-serif;
+  }
+  .title {
+    position: absolute; left: 24px; top: 24px; font-family: "Space Grotesk", sans-serif;
+    font-size: 26px; font-weight: 500; color: #fff; letter-spacing: -0.02em; line-height: 1.1; max-width: 320px;
+  }
+</style></head>
+<body>
+<div class="card">
+  <div class="stage">
+    <div class="hex"></div>
+    <div class="circuit"></div>
+    <div class="flower"></div>
+    <div class="title">Organic meets technical — layered.</div>
+    <div class="label">Hexagon · circuit-trace · botanical</div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<!-- @dsCard group="Brand" name="Logo" subtitle="Horizontal primary (light + dark) + stacked secondary" viewport="700x600" -->
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="_card.css?v=2">
+<style>
+  .card { padding: 0; gap: 0; align-items: stretch; }
+  .row { padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+  .row.dark { background: #1A1F23; }
+  .row.light { background: #fff; }
+  .lbl { font-family: "Space Grotesk"; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; }
+  .row.dark .lbl { color: #999; }
+  .row.light .lbl { color: #666; }
+  .row.dark .lbl b { color: #fff; }
+  .row.light .lbl b { color: #111; }
+  .specimen { display: flex; align-items: center; gap: 32px; }
+  .specimen img.h { height: 56px; width: auto; display: block; }
+  .specimen img.s { height: 96px; width: auto; display: block; }
+  .meta { font-family: "Space Grotesk"; font-size: 13px; line-height: 1.55; }
+  .row.dark .meta { color: #ccc; }
+  .row.light .meta { color: #333; }
+  .meta b { font-weight: 600; }
+  .pref { font-family: ui-monospace, "JetBrains Mono", monospace; font-size: 10px; letter-spacing: 0.06em; padding: 3px 8px; border-radius: 999px; }
+  .row.dark .pref { background: rgba(137,223,0,0.18); color: #89DF00; }
+  .row.light .pref { background: rgba(36,174,29,0.14); color: #24AE1D; }
+  .pref.alt { background: transparent; border: 1px solid #2A3036; color: #999; }
+  .row.light .pref.alt { background: transparent; border: 1px solid #ddd; color: #666; }
+  .hr { height: 1px; background: #2A3036; }
+  .hr.light { background: #eee; }
+</style></head>
+<body>
+<div class="card">
+
+  <div class="row dark">
+    <div class="lbl"><b>Horizontal · reverse-color</b> · preferred for dark surfaces <span class="pref">PREFERRED</span></div>
+    <div class="specimen">
+      <img class="h" src="../assets/logo_Liatrio_reverse-color.png" alt="liatrio reverse color wordmark">
+    </div>
+    <div class="meta">Use on the default dark canvas (`#1A1F23`). Flame stays full-color, type goes white. Clear-space ≥ height of the "L".</div>
+  </div>
+
+  <div class="hr"></div>
+
+  <div class="row light">
+    <div class="lbl"><b>Horizontal · full-color</b> · preferred for light surfaces <span class="pref">PREFERRED</span></div>
+    <div class="specimen">
+      <img class="h" src="../assets/logo_Liatrio_full-color.png" alt="liatrio full color wordmark">
+    </div>
+    <div class="meta">Use on white or light editorial surfaces (pricing, careers, case-study covers). Type sits in grey, flame in green.</div>
+  </div>
+
+  <div class="hr light"></div>
+
+  <div class="row dark">
+    <div class="lbl"><b>Stacked · reverse-color</b> · secondary <span class="pref alt">SECONDARY</span></div>
+    <div class="specimen">
+      <img class="s" src="../assets/logo_Liatrio_stacked_reverse-preferred.png" alt="liatrio stacked reverse">
+      <div class="meta">For square or near-square placements only — avatars, app icons, footer corners. Don't use as the primary header lockup.</div>
+    </div>
+  </div>
+
+  <div class="hr"></div>
+
+  <div class="row light">
+    <div class="lbl"><b>Stacked · full-color</b> · secondary <span class="pref alt">SECONDARY</span></div>
+    <div class="specimen">
+      <img class="s" src="../assets/logo_Liatrio_stacked.png" alt="liatrio stacked">
+      <div class="meta">Light-surface counterpart to the stacked reverse. Same usage rules — never as the primary lockup.</div>
+    </div>
+  </div>
+
+</div>
+</body></html>
