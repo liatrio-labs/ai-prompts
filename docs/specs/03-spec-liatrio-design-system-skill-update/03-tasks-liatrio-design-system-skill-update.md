@@ -77,7 +77,7 @@
 - [x] 1.9 Run `uv run scripts/quick_validate.py skills/liatrio-brand-guidelines` and fix any frontmatter or structure issues introduced by the router update.
 - [x] 1.10 Run `rg "DM Sans|liatrio\.com|brand-data" skills/liatrio-brand-guidelines` and inspect results to confirm stale guidance is removed or explicitly legacy-only.
 
-### [ ] 2.0 Add Progressive-Disclosure Design-System References
+### [x] 2.0 Add Progressive-Disclosure Design-System References
 
 #### 2.0 Proof Artifact(s)
 
@@ -87,14 +87,14 @@
 
 #### 2.0 Tasks
 
-- [ ] 2.1 Read `temp/Liatrio Design System/README.md`, `SKILL.md`, `colors_and_type.css`, `_ds_manifest.json`, and representative `preview/*.html` files to extract only reusable guidance.
-- [ ] 2.2 Create `skills/liatrio-brand-guidelines/references/liatrio-design-system.md` with provenance, trust level, source priority, visual posture, token quick reference, Space Grotesk typography, spacing, radii, elevation, motion, copy rules, logo rules, accessibility, and known conflicts.
-- [ ] 2.3 Create `skills/liatrio-brand-guidelines/references/liatrio-component-recipes.md` with tokenized recipes for dark hero sections, flat card grids, primary buttons, badges/pills, square chips, clipped-notch cards, forms, gradient dividers, circuit dividers, Venn diagrams, and botanical/circuit compositions.
-- [ ] 2.4 Create `skills/liatrio-brand-guidelines/references/liatrio-asset-index.md` mapping curated assets to use cases, light/dark background guidance, avoidance guidance, provenance, and notes.
-- [ ] 2.5 Update `references/liatrio-brand-guidelines.md` only where needed to remove stale conflicts or point readers to the new design-system references.
-- [ ] 2.6 Ensure all references distinguish design recipes from production components and explicitly state that `_ds_bundle.js` exports no reusable JS component API.
-- [ ] 2.7 Ensure references do not include secrets, raw web-capture payloads, or unnecessary full token/manifest dumps from the ZIP.
-- [ ] 2.8 Run `uv run scripts/quick_validate.py skills/liatrio-brand-guidelines` after adding references and fix any validation issues.
+- [x] 2.1 Read `temp/Liatrio Design System/README.md`, `SKILL.md`, `colors_and_type.css`, `_ds_manifest.json`, and representative `preview/*.html` files to extract only reusable guidance.
+- [x] 2.2 Create `skills/liatrio-brand-guidelines/references/liatrio-design-system.md` with provenance, trust level, source priority, visual posture, token quick reference, Space Grotesk typography, spacing, radii, elevation, motion, copy rules, logo rules, accessibility, and known conflicts.
+- [x] 2.3 Create `skills/liatrio-brand-guidelines/references/liatrio-component-recipes.md` with tokenized recipes for dark hero sections, flat card grids, primary buttons, badges/pills, square chips, clipped-notch cards, forms, gradient dividers, circuit dividers, Venn diagrams, and botanical/circuit compositions.
+- [x] 2.4 Create `skills/liatrio-brand-guidelines/references/liatrio-asset-index.md` mapping curated assets to use cases, light/dark background guidance, avoidance guidance, provenance, and notes.
+- [x] 2.5 Update `references/liatrio-brand-guidelines.md` only where needed to remove stale conflicts or point readers to the new design-system references.
+- [x] 2.6 Ensure all references distinguish design recipes from production components and explicitly state that `_ds_bundle.js` exports no reusable JS component API.
+- [x] 2.7 Ensure references do not include secrets, raw web-capture payloads, or unnecessary full token/manifest dumps from the ZIP.
+- [x] 2.8 Run `uv run scripts/quick_validate.py skills/liatrio-brand-guidelines` after adding references and fix any validation issues.
 
 ### [ ] 3.0 Curate Design-System Assets and Preview HTML
 

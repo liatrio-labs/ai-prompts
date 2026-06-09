@@ -4,9 +4,10 @@ Legacy consolidated brand guidelines, assets, and resources for Liatrio.
 
 > Legacy context: This reference preserves older consolidated brand material for
 > conflict review. For new brand-facing design-system work, prefer the compact
-> router in `../SKILL.md`, current curated design-system references/assets when
-> present, Space Grotesk typography, and `https://www.liatrio.ai/brand-data.json`
-> as the live brand-data source.
+> router in `../SKILL.md`, `liatrio-design-system.md`,
+> `liatrio-component-recipes.md`, `liatrio-asset-index.md`, current curated
+> assets when present, Space Grotesk typography, and
+> `https://www.liatrio.ai/brand-data.json` as the live brand-data source.
 
 **Last Updated:** December 8, 2025
 
