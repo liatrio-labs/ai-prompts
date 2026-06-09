@@ -120,7 +120,7 @@
 - [x] 3.11 Run `python scripts/check_docs_drift.py` and update `README.md` or related docs only if the drift check reports required catalog changes.
 - [x] 3.12 Run `find skills/liatrio-brand-guidelines/assets -maxdepth 3 -type f | sort` and `git diff --stat -- skills/liatrio-brand-guidelines` to confirm curated-only asset inclusion.
 
-### [ ] 4.0 Add Local v1 Adherence Checker and Representative Evals
+### [x] 4.0 Add Local v1 Adherence Checker and Representative Evals
 
 #### 4.0 Proof Artifact(s)
 
@@ -130,16 +130,16 @@
 
 #### 4.0 Tasks
 
-- [ ] 4.1 Inspect `_adherence.oxlintrc.json` and `colors_and_type.css` to identify deterministic checks that can be implemented locally without adding external service dependencies.
-- [ ] 4.2 Create `skills/liatrio-brand-guidelines/scripts/check-liatrio-design-adherence.py` using Python standard library where practical.
-- [ ] 4.3 Implement structured JSON output with at least `status`, `checked_file`, `findings`, `warnings`, and `summary` fields.
-- [ ] 4.4 Add checks for canonical Space Grotesk usage, stale DM Sans usage, expected dark-first surface tokens, approved green tokens, `liatrio.ai` source references, emoji/exclamation-mark copy issues, and missing audit/verification structure where applicable.
-- [ ] 4.5 Ensure the checker runs only against local files and does not send artifact content to external services.
-- [ ] 4.6 Add a minimal representative artifact under an examples/proof location if needed so the checker can be demonstrated without relying on uncommitted user files.
-- [ ] 4.7 Create or update representative eval/review artifacts under `skills/liatrio-brand-guidelines/examples/evals/` for dark HTML artifact generation, brand/design-system audit, deck asset selection, and static/offline helper restyling.
-- [ ] 4.8 Document objective assertions for each representative eval, including Space Grotesk, dark-first surfaces, token/asset guidance, no emoji/exclamation marks in marketing/product UI, correct audit output structure, and offline/local asset expectations.
-- [ ] 4.9 Run the adherence checker against the representative artifact and save or document the command output path for validation.
-- [ ] 4.10 Run `uv run scripts/quick_validate.py skills/liatrio-brand-guidelines` and fix any validation issues caused by scripts or examples.
+- [x] 4.1 Inspect `_adherence.oxlintrc.json` and `colors_and_type.css` to identify deterministic checks that can be implemented locally without adding external service dependencies.
+- [x] 4.2 Create `skills/liatrio-brand-guidelines/scripts/check-liatrio-design-adherence.py` using Python standard library where practical.
+- [x] 4.3 Implement structured JSON output with at least `status`, `checked_file`, `findings`, `warnings`, and `summary` fields.
+- [x] 4.4 Add checks for canonical Space Grotesk usage, stale DM Sans usage, expected dark-first surface tokens, approved green tokens, `liatrio.ai` source references, emoji/exclamation-mark copy issues, and missing audit/verification structure where applicable.
+- [x] 4.5 Ensure the checker runs only against local files and does not send artifact content to external services.
+- [x] 4.6 Add a minimal representative artifact under an examples/proof location if needed so the checker can be demonstrated without relying on uncommitted user files.
+- [x] 4.7 Create or update representative eval/review artifacts under `skills/liatrio-brand-guidelines/examples/evals/` for dark HTML artifact generation, brand/design-system audit, deck asset selection, and static/offline helper restyling.
+- [x] 4.8 Document objective assertions for each representative eval, including Space Grotesk, dark-first surfaces, token/asset guidance, no emoji/exclamation marks in marketing/product UI, correct audit output structure, and offline/local asset expectations.
+- [x] 4.9 Run the adherence checker against the representative artifact and save or document the command output path for validation.
+- [x] 4.10 Run `uv run scripts/quick_validate.py skills/liatrio-brand-guidelines` and fix any validation issues caused by scripts or examples.
 
 ### [ ] 5.0 Run Repository Quality Gates and Capture Final Implementation Proof
 

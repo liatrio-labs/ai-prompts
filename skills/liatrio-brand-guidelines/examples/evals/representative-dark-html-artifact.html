@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="liatrio-source" content="https://www.liatrio.ai/brand-data.json">
+  <title>Liatrio design-system representative artifact</title>
+  <link rel="stylesheet" href="../../assets/colors_and_type.css">
+  <style>
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font);
+    }
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: var(--s-8);
+      background: var(--bg);
+    }
+    .panel {
+      max-width: 64rem;
+      background: var(--surface);
+      border: thin solid var(--border-accent);
+      border-radius: var(--r-4);
+      box-shadow: var(--glow-accent);
+      padding: var(--s-7);
+    }
+    .eyebrow { color: var(--accent-bright); }
+    .actions {
+      display: flex;
+      gap: var(--s-3);
+      margin-top: var(--s-5);
+    }
+    .button {
+      background: var(--accent);
+      color: var(--accent-fg);
+      border: 0;
+      border-radius: var(--r-2);
+      padding: var(--s-3) var(--s-5);
+      font-family: var(--font);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <main class="hero">
+    <section class="panel" aria-labelledby="artifact-title">
+      <p class="eyebrow">Platform delivery</p>
+      <h1 id="artifact-title">Build systems that scale with confidence</h1>
+      <p class="lead">A dark-first Liatrio interface using Space Grotesk, tokenized surfaces, and restrained green signal accents.</p>
+      <div class="actions" aria-label="Representative calls to action">
+        <button class="button">Review readiness</button>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
