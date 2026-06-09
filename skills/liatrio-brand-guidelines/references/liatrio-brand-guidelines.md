@@ -1,6 +1,12 @@
 # Brand Guidelines
 
-Official brand guidelines, assets, and resources for Liatrio.
+Legacy consolidated brand guidelines, assets, and resources for Liatrio.
+
+> Legacy context: This reference preserves older consolidated brand material for
+> conflict review. For new brand-facing design-system work, prefer the compact
+> router in `../SKILL.md`, current curated design-system references/assets when
+> present, Space Grotesk typography, and `https://www.liatrio.ai/brand-data.json`
+> as the live brand-data source.
 
 **Last Updated:** December 8, 2025
 
@@ -33,8 +39,8 @@ Primary logo for light backgrounds.
 
 **Downloads:**
 
-- [SVG](https://www.liatrio.com/brand-logos/logo_Liatrio.svg)
-- [PNG](https://www.liatrio.com/brand-logos/logo_Liatrio.png)
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logo_Liatrio.svg`
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logo_Liatrio.png`
 
 ### Black Logo (Light Backgrounds)
 
@@ -46,8 +52,8 @@ Black variant for light backgrounds.
 
 **Downloads:**
 
-- [SVG](https://www.liatrio.com/brand-logos/logo_Liatrio_black.svg)
-- [PNG](https://www.liatrio.com/brand-logos/logo_Liatrio_black.png)
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logo_Liatrio_black.svg`
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logo_Liatrio_black.png`
 
 ### Reverse Color Logo (Dark Backgrounds)
 
@@ -59,8 +65,8 @@ For dark backgrounds.
 
 **Downloads:**
 
-- [SVG](https://www.liatrio.com/brand-logos/logo_Liatrio_reverse-preferred.svg)
-- [PNG](https://www.liatrio.com/brand-logos/logo_Liatrio_reverse-preferred.png)
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logo_Liatrio_reverse-preferred.svg`
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logo_Liatrio_reverse-preferred.png`
 
 ### Reverse White Logo (Dark Backgrounds)
 
@@ -72,8 +78,8 @@ White variant for dark backgrounds.
 
 **Downloads:**
 
-- [SVG](https://www.liatrio.com/brand-logos/logo_Liatrio_reverse.svg)
-- [PNG](https://www.liatrio.com/brand-logos/logo_Liatrio_reverse.png)
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logo_Liatrio_reverse.svg`
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logo_Liatrio_reverse.png`
 
 ### Logomarks
 
@@ -85,8 +91,8 @@ Works on light or dark backgrounds (avoid green backgrounds).
 
 **Downloads:**
 
-- [SVG](https://www.liatrio.com/brand-logos/logomark_Liatrio.svg)
-- [PNG](https://www.liatrio.com/brand-logos/logomark_Liatrio.png)
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logomark_Liatrio.svg`
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logomark_Liatrio.png`
 
 #### Square Logomark
 
@@ -94,8 +100,8 @@ For when logomark must be displayed evenly on all sides.
 
 **Downloads:**
 
-- [SVG](https://www.liatrio.com/brand-logos/logomark_Liatrio_background.svg)
-- [PNG](https://www.liatrio.com/brand-logos/logomark_Liatrio_background.png)
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logomark_Liatrio_background.svg`
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logomark_Liatrio_background.png`
 
 #### Reverse Logomark
 
@@ -103,8 +109,8 @@ For dark backgrounds.
 
 **Downloads:**
 
-- [SVG](https://www.liatrio.com/brand-logos/logomark_Liatrio_reverse.svg)
-- [PNG](https://www.liatrio.com/brand-logos/logomark_Liatrio_reverse.png)
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logomark_Liatrio_reverse.svg`
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logomark_Liatrio_reverse.png`
 
 #### Black Logomark
 
@@ -112,16 +118,19 @@ For light backgrounds.
 
 **Downloads:**
 
-- [SVG](https://www.liatrio.com/brand-logos/logomark_Liatrio_black.svg)
-- [PNG](https://www.liatrio.com/brand-logos/logomark_Liatrio_black.png)
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logomark_Liatrio_black.svg`
+- Legacy URL retained for provenance only: `https://www.liatrio.com/brand-logos/logomark_Liatrio_black.png`
 
 ---
 
 ## Typography
 
-Our type system uses DM Sans throughout to maintain consistency across all communications.
+Legacy note: This older consolidated source uses DM Sans throughout. For new
+design-system work, treat DM Sans as noncanonical unless a user-provided source
+explicitly requires it; current brand-facing generated artifacts should use
+Space Grotesk.
 
-### DM Sans
+### DM Sans (legacy/noncanonical)
 
 **Category:** Primary Typeface
 
@@ -350,7 +359,7 @@ Primary Green (`#24AE1D`) is the hero color and should be used prominently in ke
 
 ### Typography Hierarchy
 
-DM Sans is the primary typeface for all text. Use bold and semibold weights for headlines and hero text. Use regular and medium weights for body copy and UI elements. Maintain consistent sizing: H1 (48-60px), H2 (36-40px), H3 (28-32px), Body (16-18px).
+Legacy-only note: this older reference named DM Sans as the primary typeface. For current design-system artifacts, use Space Grotesk instead unless a specific user-provided source requires the legacy font. Use bold and semibold weights for headlines and hero text. Use regular and medium weights for body copy and UI elements. Maintain consistent sizing: H1 (48-60px), H2 (36-40px), H3 (28-32px), Body (16-18px).
 
 ### Accessibility
 
@@ -364,7 +373,8 @@ Ensure sufficient color contrast (minimum 4.5:1 for normal text, 3:1 for large t
 
 Access brand data programmatically:
 
-- `https://www.liatrio.com/brand-data.json`
+- Current live source: `https://www.liatrio.ai/brand-data.json`
+- Legacy provenance only: `https://www.liatrio.com/brand-data.json`
 
 ---
 

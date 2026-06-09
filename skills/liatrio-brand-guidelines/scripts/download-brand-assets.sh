@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Downloads all Liatrio brand logos from liatrio.com into assets/logos/.
+# Downloads all Liatrio brand logos from the current live brand data into assets/logos/.
 # Run this before committing if you need refreshed bundled logo assets.
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ASSETS_DIR="$SCRIPT_DIR/../assets/logos"
-BRAND_API="https://www.liatrio.com/brand-data.json"
-BASE_URL="https://www.liatrio.com"
+BRAND_API="https://www.liatrio.ai/brand-data.json"
+BASE_URL="https://www.liatrio.ai"
 BASE_URL="${BASE_URL%/}"
 
 mkdir -p "$ASSETS_DIR"

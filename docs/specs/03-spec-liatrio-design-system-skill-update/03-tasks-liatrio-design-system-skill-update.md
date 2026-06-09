@@ -56,7 +56,7 @@
 
 ## Tasks
 
-### [ ] 1.0 Reconcile `SKILL.md` as the Compact Design-System Router
+### [x] 1.0 Reconcile `SKILL.md` as the Compact Design-System Router
 
 #### 1.0 Proof Artifact(s)
 
@@ -66,16 +66,16 @@
 
 #### 1.0 Tasks
 
-- [ ] 1.1 Read `skills/liatrio-brand-guidelines/SKILL.md` and identify stale canonical-source, typography, reference-routing, workflow-checklist, and verification-loop sections to preserve or replace.
-- [ ] 1.2 Compare the repository skill with the active local design guidance already captured in the spec and avoid copying `/home/damien/.hermes/skills/...` directly into this repository.
-- [ ] 1.3 Update `SKILL.md` frontmatter so `description` remains a valid YAML string and mentions Liatrio brand plus design-system use cases for UI, docs, decks, audits, assets, typography, visual polish, and compliance checks.
-- [ ] 1.4 Replace the source-priority section with curated local references/assets first and `https://www.liatrio.ai/brand-data.json` as the only current scripted/canonical live brand-data source.
-- [ ] 1.5 Mark DM Sans as legacy/noncanonical where needed and make Space Grotesk the current canonical typeface for brand-facing generated artifacts.
-- [ ] 1.6 Add task-mode routing in `SKILL.md` for implementation, audit, design-system implementation, static/offline artifact, deck, and social/hero image workflows.
-- [ ] 1.7 Preserve the existing Brand Audit and Implementation Decision output contracts while expanding them only enough to reference design-system sources and proof expectations.
-- [ ] 1.8 Update the verification loop and workflow checklist so agents load targeted references, confirm asset choices, check accessibility, and report live-source verification status.
-- [ ] 1.9 Run `uv run scripts/quick_validate.py skills/liatrio-brand-guidelines` and fix any frontmatter or structure issues introduced by the router update.
-- [ ] 1.10 Run `rg "DM Sans|liatrio\.com|brand-data" skills/liatrio-brand-guidelines` and inspect results to confirm stale guidance is removed or explicitly legacy-only.
+- [x] 1.1 Read `skills/liatrio-brand-guidelines/SKILL.md` and identify stale canonical-source, typography, reference-routing, workflow-checklist, and verification-loop sections to preserve or replace.
+- [x] 1.2 Compare the repository skill with the active local design guidance already captured in the spec and avoid copying `/home/damien/.hermes/skills/...` directly into this repository.
+- [x] 1.3 Update `SKILL.md` frontmatter so `description` remains a valid YAML string and mentions Liatrio brand plus design-system use cases for UI, docs, decks, audits, assets, typography, visual polish, and compliance checks.
+- [x] 1.4 Replace the source-priority section with curated local references/assets first and `https://www.liatrio.ai/brand-data.json` as the only current scripted/canonical live brand-data source.
+- [x] 1.5 Mark DM Sans as legacy/noncanonical where needed and make Space Grotesk the current canonical typeface for brand-facing generated artifacts.
+- [x] 1.6 Add task-mode routing in `SKILL.md` for implementation, audit, design-system implementation, static/offline artifact, deck, and social/hero image workflows.
+- [x] 1.7 Preserve the existing Brand Audit and Implementation Decision output contracts while expanding them only enough to reference design-system sources and proof expectations.
+- [x] 1.8 Update the verification loop and workflow checklist so agents load targeted references, confirm asset choices, check accessibility, and report live-source verification status.
+- [x] 1.9 Run `uv run scripts/quick_validate.py skills/liatrio-brand-guidelines` and fix any frontmatter or structure issues introduced by the router update.
+- [x] 1.10 Run `rg "DM Sans|liatrio\.com|brand-data" skills/liatrio-brand-guidelines` and inspect results to confirm stale guidance is removed or explicitly legacy-only.
 
 ### [ ] 2.0 Add Progressive-Disclosure Design-System References
 
