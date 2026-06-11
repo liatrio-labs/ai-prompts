@@ -2,6 +2,21 @@
 
 <!-- version list -->
 
+## v0.16.0 (2026-06-11)
+
+### Bug Fixes
+
+- **skills**: Apply markdownlint formatting fixes to plan-epic SKILL.md
+  ([#25](https://github.com/liatrio-labs/ai-prompts/pull/25),
+  [`cacb959`](https://github.com/liatrio-labs/ai-prompts/commit/cacb95937edfe00ddb708c689fff94fea3573fcd))
+
+### Features
+
+- **skills**: Add plan-epic skill for interactive GitHub epic planning
+  ([#25](https://github.com/liatrio-labs/ai-prompts/pull/25),
+  [`cacb959`](https://github.com/liatrio-labs/ai-prompts/commit/cacb95937edfe00ddb708c689fff94fea3573fcd))
+
+
 ## v0.15.0 (2026-05-28)
 
 ### Bug Fixes
