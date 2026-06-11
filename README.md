@@ -36,6 +36,7 @@ Skills are organized in the `skills/` directory by capability:
 - `branch-surgery-pr-split/` - Branch decomposition strategy for splitting oversized or mixed-concern PRs
 - `browser-qa/` - Lightweight browser QA workflow for driving UI paths and publishing evidence-backed findings in a local report viewer
 - `liatrio-dns/` - Provision Route53 DNS records for `liatr.io` subdomains via Terragrunt
+- `plan-epic/` - Interactive GitHub Epic planner for defining milestones one at a time through operator dialogue
 - `plan-issue/` - Create a single GitHub Issue story for an existing epic milestone using Shell or interaction-driven formats
 
 ### 3. Use Prompts with AI Tools
@@ -151,6 +152,7 @@ Repository marker: `🤖` in `AGENTS.md` for AI Agent Instructions and configura
 | `branch-surgery-pr-split` | `skills/branch-surgery-pr-split/SKILL.md` | Split oversized or mixed-concern branches into reviewable PR stacks with parity audits and merge sequencing. |
 | `browser-qa` | `skills/browser-qa/SKILL.md` | Run focused browser QA passes with critical-path checks, console evidence, screenshots, validated JSON, and a local HTML report viewer. |
 | `liatrio-dns` | `skills/liatrio-dns/SKILL.md` | Provision Route53 DNS records for `liatr.io` subdomains in `liatrio/liatrio-external-dns` via Terragrunt. |
+| `plan-epic` | `skills/plan-epic/SKILL.md` | Interactive GitHub Epic planner. Plans one milestone at a time, starting with Shell, then operator-defined epics through dialogue. |
 | `plan-issue` | `skills/plan-issue/SKILL.md` | Create a single GitHub Issue story for an existing epic milestone using Shell (Goal/Tasks/Validation) or interaction-driven (Interaction/Layers/After implementation) formats. |
 
 ## Prompt-to-Skill Migration Map
