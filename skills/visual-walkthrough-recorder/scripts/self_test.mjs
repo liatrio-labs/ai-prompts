@@ -19,6 +19,11 @@ async function testBranchClassification() {
   // API endpoints and non-routable modules are not visual.
   assert.notEqual(classifyFile("src/pages/api/users.ts"), "visual");
   assert.notEqual(classifyFile("src/utils/helper.ts"), "visual");
+  // Backend heuristic matches whole segments, not substrings.
+  assert.equal(classifyFile("src/server/db.ts"), "backend");
+  assert.equal(classifyFile("src/services/userService.ts"), "backend");
+  assert.notEqual(classifyFile("src/routing/RoutePlanner.ts"), "backend");
+  assert.notEqual(classifyFile("src/router/history.ts"), "backend");
 }
 
 function testConfigValidation() {

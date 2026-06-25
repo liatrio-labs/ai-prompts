@@ -31,7 +31,10 @@ export function classifyFile(file) {
     return "docs";
   }
 
-  if (/(api|server|service|controller|route|schema|model|migration|alembic|database|db)/.test(lower)) {
+  // Match whole path segments/words (bounded by / . _ -) so tokens like `route`
+  // do not match inside unrelated names such as `routing`/`router`. `route` is
+  // intentionally omitted because a `routes/` directory is a UI routing root.
+  if (/(^|[/._-])(api|server|service|services|controller|controllers|schema|schemas|model|models|migration|migrations|alembic|database|db|repository|repositories|dao)([/._-]|$)/.test(lower)) {
     return "backend";
   }
 
