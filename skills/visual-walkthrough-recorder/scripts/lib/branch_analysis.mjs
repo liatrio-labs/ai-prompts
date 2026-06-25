@@ -99,7 +99,9 @@ function inferRouteFromFile(file) {
 
   let dynamic = false;
   const segments = [...dirSegments, ...fileSegments]
-    .filter((seg) => !(seg.startsWith("(") && seg.endsWith(")"))) // ignore route groups
+    // ignore route groups `(group)` and parallel-route slots `@slot`, which
+    // are organizational folders that do not appear in the browser URL.
+    .filter((seg) => !(seg.startsWith("(") && seg.endsWith(")")) && !seg.startsWith("@"))
     .map((seg) => {
       if (/^\[.*\]$/.test(seg) || seg.startsWith("$") || seg.startsWith(":")) {
         dynamic = true;

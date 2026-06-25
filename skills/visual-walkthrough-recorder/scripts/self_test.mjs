@@ -119,6 +119,9 @@ function testRouteInference() {
   assert.equal(inferRoutes([{ file: "app/api/users/route.ts" }]).length, 0);
   // Next.js Pages Router API endpoints (pages/api/*) are not pages either.
   assert.equal(inferRoutes([{ file: "src/pages/api/users.ts" }]).length, 0);
+  // Next.js parallel-route slots (@slot) are stripped from the URL.
+  assert.equal(inferRoutes([{ file: "app/dashboard/@modal/page.tsx" }])[0].route, "/dashboard");
+  assert.equal(inferRoutes([{ file: "app/@auth/login/page.tsx" }])[0].route, "/login");
   // A real SvelteKit page is still inferred.
   assert.equal(inferRoutes([{ file: "src/routes/dashboard/+page.svelte" }])[0].route, "/dashboard");
 }

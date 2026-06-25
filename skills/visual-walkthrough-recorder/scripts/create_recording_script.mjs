@@ -627,6 +627,17 @@ async function main() {
       storageState: config.storageStatePath || undefined,
       viewport: config.viewport || { width: 1440, height: 1000 },
     });
+    // Seed configured sessionStorage before login steps, matching preflight and
+    // the recording context, so sessionStorage-based auth behaves consistently.
+    if (config.sessionStoragePath) {
+      const preRecordSessionSeed = JSON.parse(await readFile(config.sessionStoragePath, "utf8"));
+      await preRecordContext.addInitScript((state) => {
+        if (window.location.origin !== state.origin) return;
+        for (const [key, value] of Object.entries(state.sessionStorage || {})) {
+          window.sessionStorage.setItem(key, value);
+        }
+      }, preRecordSessionSeed);
+    }
     const preRecordPage = await preRecordContext.newPage();
     try {
       await preRecordPage.goto(config.baseUrl, { waitUntil: "domcontentloaded" });
