@@ -1,0 +1,7 @@
+interface:
+  display_name: "Visual Walkthrough Recorder"
+  short_description: "Create UI walkthrough videos and HTML reviews"
+  default_prompt: "Use $visual-walkthrough-recorder to create a reviewer-ready walkthrough for the current branch."
+
+policy:
+  allow_implicit_invocation: true
