@@ -219,9 +219,18 @@ async function main() {
   report.phases.push({ name: "route-inspection", routes: inspectedRoutes });
   const failedInspection = inspectedRoutes.find((route) => !route.ok);
   if (failedInspection) {
-    await writeAutomationReport(outputDir, report);
-    await stop("route_inspection_failed", "Route inspection failed and requires runtime, auth, or route correction.", failedInspection);
-    return;
+    // inspect_page.mjs cannot run scripted preRecordSteps, so when auth is
+    // handled only by those steps (no reusable storage/session state) a
+    // protected route may fail inspection even though preflight and recording
+    // authenticate first. Defer to preflight instead of stopping here.
+    const preRecordAuthOnly = config.preRecordSteps?.length > 0 && !config.storageStatePath && !config.sessionStoragePath;
+    if (preRecordAuthOnly) {
+      report.warnings.push(`Route inspection could not authenticate for ${failedInspection.route}; scripted login runs at preflight/recording, so deferring to preflight.`);
+    } else {
+      await writeAutomationReport(outputDir, report);
+      await stop("route_inspection_failed", "Route inspection failed and requires runtime, auth, or route correction.", failedInspection);
+      return;
+    }
   }
 
   const preflight = await runNodeJson("validate_recording_config.mjs", [
