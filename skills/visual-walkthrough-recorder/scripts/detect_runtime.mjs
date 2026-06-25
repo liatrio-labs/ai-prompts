@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import { readFile } from "node:fs/promises";
+import http from "node:http";
+import https from "node:https";
 import path from "node:path";
 import process from "node:process";
 import { pathToFileURL } from "node:url";
@@ -45,7 +47,34 @@ export function chooseStartCommand(scripts = {}, packageManager = "npm") {
   return { script: chosen, command: `${runner} ${chosen}` };
 }
 
+// Fallback for Node versions without a global fetch: a bare HTTP GET. Any
+// response (including 401/404) means a server is listening.
+function probeViaHttp(url, timeoutMs) {
+  return new Promise((resolve) => {
+    let settled = false;
+    const finish = (result) => {
+      if (settled) return;
+      settled = true;
+      resolve(result);
+    };
+    const lib = url.startsWith("https:") ? https : http;
+    const request = lib.request(url, { method: "GET" }, (response) => {
+      response.resume(); // drain so the socket can close
+      finish({ reachable: true, status: response.statusCode });
+    });
+    request.setTimeout(timeoutMs, () => {
+      request.destroy();
+      finish({ reachable: false });
+    });
+    request.on("error", () => finish({ reachable: false }));
+    request.end();
+  });
+}
+
 async function probe(url, timeoutMs) {
+  if (typeof fetch !== "function") {
+    return probeViaHttp(url, timeoutMs);
+  }
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {

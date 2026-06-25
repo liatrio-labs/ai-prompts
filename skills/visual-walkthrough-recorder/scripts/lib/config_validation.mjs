@@ -1,6 +1,9 @@
 import { mrDescriptionMissingFields } from "./mr_description.mjs";
 
 const SUPPORTED_ACTIONS = new Set(["goto", "click", "fill", "select", "press", "wait", "screenshot", "caption"]);
+// Pre-record steps run before capture and support only this subset (no
+// screenshot/caption), matching runPreRecordStep in create_recording_script.mjs.
+const PRE_RECORD_ACTIONS = new Set(["goto", "click", "fill", "select", "press", "wait"]);
 const ACTIONS_REQUIRING_SELECTOR = new Set(["click", "fill", "select"]);
 const ACTIONS_RECOMMENDING_WAIT = new Set(["click", "fill", "select", "press"]);
 const SUPPORTED_ARTIFACT_FORMATS = new Set(["auto", "webm", "mp4", "both"]);
@@ -26,13 +29,13 @@ function hasWaitFor(step) {
   ));
 }
 
-function validateStep(step, index, errors, warnings, prefix = "steps") {
+function validateStep(step, index, errors, warnings, prefix = "steps", allowedActions = SUPPORTED_ACTIONS) {
   const label = `${prefix}[${index}]`;
   if (!step || typeof step !== "object") {
     errors.push(`${label} must be an object.`);
     return;
   }
-  if (!SUPPORTED_ACTIONS.has(step.action)) {
+  if (!allowedActions.has(step.action)) {
     errors.push(`${label}.action is unsupported: ${step.action || "<missing>"}.`);
   }
   if (step.action === "goto" && !step.url) {
@@ -94,7 +97,7 @@ export function validateRecordingConfigShape(config, options = {}) {
   }
   steps.forEach((step, index) => validateStep(step, index, errors, warnings));
   (Array.isArray(config.preRecordSteps) ? config.preRecordSteps : [])
-    .forEach((step, index) => validateStep(step, index, errors, warnings, "preRecordSteps"));
+    .forEach((step, index) => validateStep(step, index, errors, warnings, "preRecordSteps", PRE_RECORD_ACTIONS));
 
   const missingMrFields = mrDescriptionMissingFields(config);
   if (missingMrFields.length > 0) {

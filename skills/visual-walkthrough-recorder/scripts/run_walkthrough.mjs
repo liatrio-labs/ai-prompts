@@ -256,7 +256,7 @@ async function main() {
     report.phases.push({ name: "recording", ok: false, error: error.message });
     report.status = "recording_failed";
     await writeAutomationReport(outputDir, report);
-    await fail("recording_failed", "Recording or script generation failed.", error.message);
+    await fail("recording_failed", "Recording or script generation failed.", { error: error.message });
     return;
   }
 

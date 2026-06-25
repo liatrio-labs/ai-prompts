@@ -39,6 +39,9 @@ function testConfigValidation() {
   };
   assert.equal(validateRecordingConfigShape(base).ok, true);
   assert.equal(validateRecordingConfigShape({ ...base, includeHtmlWalkthrough: false }).ok, false);
+  // preRecordSteps only support goto/click/fill/select/press/wait.
+  assert.equal(validateRecordingConfigShape({ ...base, preRecordSteps: [{ action: "goto", url: "/login" }] }).ok, true);
+  assert.equal(validateRecordingConfigShape({ ...base, preRecordSteps: [{ action: "screenshot", name: "x.png" }] }).ok, false);
 }
 
 async function testMrDescription() {
