@@ -100,8 +100,12 @@ function testRouteInference() {
   assert.equal(routeFor(files, "/dashboard").dynamic, false);
   assert.equal(routeFor(files, "/dashboard").confidence, "high");
   assert.equal(routeFor(files, "/settings").confidence, "medium");
-  // Layout/loading/error shells never produce routes.
+  // Layout/loading/error shells and SvelteKit non-page modules never produce routes.
   assert.equal(inferRoutes([{ file: "src/routes/loading.tsx" }]).length, 0);
+  assert.equal(inferRoutes([{ file: "src/routes/api/posts/+server.ts" }]).length, 0);
+  assert.equal(inferRoutes([{ file: "src/routes/dashboard/+layout.svelte" }]).length, 0);
+  // A real SvelteKit page is still inferred.
+  assert.equal(inferRoutes([{ file: "src/routes/dashboard/+page.svelte" }])[0].route, "/dashboard");
 }
 
 function testRuntimeHelpers() {

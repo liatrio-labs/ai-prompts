@@ -595,6 +595,8 @@ async function runStep(page, step, index) {
 async function main() {
   if (!htmlOnly) await mkdir(videoDir, { recursive: true });
   await mkdir(screenshotDir, { recursive: true });
+  // tmp/ holds pre-record auth state and raw video; needed even for htmlOnly auth runs.
+  await mkdir(tmpDir, { recursive: true });
   if (!htmlOnly) await mkdir(rawVideoDir, { recursive: true });
 
   const configuredFormat = config.artifactFormat || "auto";

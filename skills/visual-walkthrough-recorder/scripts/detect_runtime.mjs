@@ -2,6 +2,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { pathToFileURL } from "node:url";
 
 // Common local dev-server ports, ordered by how often each framework's default
 // is the one a reviewer is running. Override with --ports=5173,3000,...
@@ -112,7 +113,8 @@ async function main() {
 }
 
 // Only run the CLI when invoked directly, so the helpers stay importable.
-if (process.argv[1] && import.meta.url === `file://${process.argv[1]}`) {
+// pathToFileURL normalizes Windows and relative argv[1] paths to a file: URL.
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((error) => {
     console.error(JSON.stringify({ ok: false, status: "error", error: error.message }, null, 2));
     process.exitCode = 1;

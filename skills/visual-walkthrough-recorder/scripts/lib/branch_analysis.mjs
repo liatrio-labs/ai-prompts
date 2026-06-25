@@ -74,9 +74,11 @@ function inferRouteFromFile(file) {
   // Strip framework suffixes like `.server`/`.client` from SvelteKit/Remix names.
   const baseHead = base.replace(/\.(server|client)$/i, "");
   if (NON_PAGE_BASENAMES.has(baseHead)) return null;
+  // Only SvelteKit `+page` is an addressable page; `+server`, `+layout`, etc. are not.
+  if (baseHead.startsWith("+") && baseHead !== "+page") return null;
 
   let fileSegments;
-  if (INDEX_BASENAMES.has(baseHead) || baseHead.startsWith("+")) {
+  if (INDEX_BASENAMES.has(baseHead)) {
     fileSegments = []; // index/page files inherit their directory path
   } else if (baseHead.includes(".")) {
     // Remix flat routes: posts.$postId -> posts/:postId

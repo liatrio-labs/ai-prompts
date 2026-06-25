@@ -2,6 +2,7 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+import { pathToFileURL } from "node:url";
 import { generateMrDescription, mrDescriptionMissingFields } from "./lib/mr_description.mjs";
 
 function argValue(name, fallback) {
@@ -30,7 +31,7 @@ async function main() {
   console.log(generatedPath);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((error) => {
     console.error(error.message);
     process.exitCode = 1;
