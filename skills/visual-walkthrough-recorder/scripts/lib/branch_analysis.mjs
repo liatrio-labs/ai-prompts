@@ -101,6 +101,10 @@ function inferRouteFromFile(file) {
     })
     .filter(Boolean);
 
+  // Files under an `api/` segment (Next.js Pages Router pages/api, etc.) are
+  // JSON/handler endpoints, not reviewer-facing UI; never infer them as routes.
+  if (segments[0] === "api") return null;
+
   const route = segments.length ? `/${segments.join("/")}` : "/";
   let confidence = "high";
   if (dynamic) confidence = "low";

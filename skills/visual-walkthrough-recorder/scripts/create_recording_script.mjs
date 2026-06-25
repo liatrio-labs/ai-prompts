@@ -32,7 +32,7 @@ async function loadConfig() {
 }
 
 function generatedScript(config) {
-  const branchSlug = slugify(config.branchSlug);
+  const branchSlug = slugify(config.branchSlug || config.currentBranch);
   const outputDir = config.outputDir || `../walkthrough-artifacts/${branchSlug}`;
   const videoName = config.videoName || `${branchSlug}-walkthrough`;
   const captionPosition = config.captionPosition || "bottom-right";
@@ -278,7 +278,13 @@ async function convertToMp4(inputPath, outputPath) {
 }
 
 async function removeIfExists(filePath) {
-  if (await exists(filePath)) await unlink(filePath);
+  // Best-effort: a running script file can be locked (e.g. on Windows), and a
+  // failed cleanup unlink must never fail a run whose artifacts already exist.
+  try {
+    if (await exists(filePath)) await unlink(filePath);
+  } catch {
+    /* leave the file for outer cleanup */
+  }
 }
 
 async function writeHtmlWalkthrough(outputPath) {
@@ -702,7 +708,6 @@ async function main() {
 
   if (config.cleanup !== false) {
     await rm(tmpDir, { recursive: true, force: true });
-    await removeIfExists(scriptPath);
   }
 
   await writeFile(runLogPath, [
@@ -740,6 +745,10 @@ async function main() {
     \`- Cleanup enabled: \${config.cleanup === false ? "no" : "yes"}\`,
     ""
   ].join("\\n"));
+
+  // Remove the generated script last and best-effort, after the run log exists,
+  // so a locked script file (e.g. on Windows) never fails a completed run.
+  if (config.cleanup !== false) await removeIfExists(scriptPath);
 }
 
 main().catch((error) => {

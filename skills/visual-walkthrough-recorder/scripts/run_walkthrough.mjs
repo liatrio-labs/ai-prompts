@@ -137,6 +137,25 @@ async function main() {
     warnings: [],
   };
 
+  // Resolve a missing baseUrl before shape validation (which requires baseUrl),
+  // so configs can rely on dev-server auto-discovery.
+  if (!config.baseUrl) {
+    const runtime = await runNodeJson("detect_runtime.mjs", [`--cwd=${cwd}`], { cwd });
+    report.phases.push({ name: "runtime-detection", result: runtime });
+    if (runtime.ok && runtime.baseUrl) {
+      config.baseUrl = runtime.baseUrl;
+      report.warnings.push(`Discovered runtime at ${runtime.baseUrl}; set baseUrl explicitly to pin it.`);
+    } else {
+      await writeAutomationReport(outputDir, report);
+      await stop("runtime_unavailable", "Config is missing baseUrl and no reachable dev server was discovered.", {
+        expected: "Set baseUrl to a reachable frontend URL, or start the dev server.",
+        suggestion: runtime.suggestion,
+        probedPorts: runtime.probedPorts,
+      });
+      return;
+    }
+  }
+
   const shape = validateRecordingConfigShape(config, { strictMrDescription });
   report.phases.push({ name: "config-shape", ...shape });
   report.warnings.push(...shape.warnings);
@@ -164,24 +183,6 @@ async function main() {
     if (branch.visualApplicable === false) {
       await writeAutomationReport(outputDir, report);
       await stop("no_visual_changes", "Branch-change walkthrough is not applicable because no visual changes were detected.", branch);
-      return;
-    }
-  }
-
-  if (!config.baseUrl) {
-    const runtime = await runNodeJson("detect_runtime.mjs", [`--cwd=${cwd}`], { cwd });
-    report.phases.push({ name: "runtime-detection", result: runtime });
-    if (runtime.ok && runtime.baseUrl) {
-      config.baseUrl = runtime.baseUrl;
-      report.warnings.push(`Discovered runtime at ${runtime.baseUrl}; set baseUrl explicitly to pin it.`);
-      await writeFile(normalizedConfigPath, `${JSON.stringify(config, null, 2)}\n`);
-    } else {
-      await writeAutomationReport(outputDir, report);
-      await stop("runtime_unavailable", "Config is missing baseUrl and no reachable dev server was discovered.", {
-        expected: "Set baseUrl to a reachable frontend URL, or start the dev server.",
-        suggestion: runtime.suggestion,
-        probedPorts: runtime.probedPorts,
-      });
       return;
     }
   }

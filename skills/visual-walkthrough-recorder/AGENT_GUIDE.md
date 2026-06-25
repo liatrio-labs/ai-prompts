@@ -17,6 +17,8 @@ In `user-directed` mode, the requested recording may cover unchanged functionali
 
 Infer what is safe; ask for what is ambiguous.
 
+These are logical input names. The JSON recording config uses camelCase keys: `target_branch` → `targetBranch`, `base_url` → `baseUrl`, `include_html_walkthrough` → `includeHtmlWalkthrough`, `html_only` → `htmlOnly`, `include_mr_description` → `includeMrDescription`, `caption_position` → `captionPosition`, `recording_mode` → `recordingMode`, `interaction_mode` → `interactionMode`, `demo_plan_mode` → `demoPlanMode`, `browser_mode` → `browserMode`. Always write the camelCase keys in the config file.
+
 - `target_branch`: default `main`.
 - `base_url`: local frontend URL. Detect and reuse common dev ports when possible; ask only if no reachable app or clear startup command can be found.
 - `artifact_format`: `webm`, `mp4`, or `both`. Default to `mp4` when `ffmpeg` exists, otherwise `webm`.

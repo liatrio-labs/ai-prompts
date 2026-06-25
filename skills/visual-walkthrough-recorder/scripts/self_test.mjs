@@ -106,6 +106,8 @@ function testRouteInference() {
   assert.equal(inferRoutes([{ file: "src/routes/dashboard/+layout.svelte" }]).length, 0);
   // Next.js App Router API handlers (route.ts) are not reviewer-facing pages.
   assert.equal(inferRoutes([{ file: "app/api/users/route.ts" }]).length, 0);
+  // Next.js Pages Router API endpoints (pages/api/*) are not pages either.
+  assert.equal(inferRoutes([{ file: "src/pages/api/users.ts" }]).length, 0);
   // A real SvelteKit page is still inferred.
   assert.equal(inferRoutes([{ file: "src/routes/dashboard/+page.svelte" }])[0].route, "/dashboard");
 }

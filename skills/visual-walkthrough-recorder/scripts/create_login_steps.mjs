@@ -26,10 +26,20 @@ async function promptCredentials(defaultUsername) {
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
+    terminal: true,
   });
   const username = defaultUsername ?? await rl.question("Username: ");
-  const password = await rl.question("Password: ");
+  // Suppress echo while typing the password so it does not leak into terminal
+  // logs or screen recordings.
+  let muted = false;
+  rl._writeToOutput = (chunk) => {
+    if (!muted) rl.output.write(chunk);
+  };
+  process.stdout.write("Password: ");
+  muted = true;
+  const password = (await rl.question("")).trim();
   rl.close();
+  process.stdout.write("\n");
   return { username, password };
 }
 
