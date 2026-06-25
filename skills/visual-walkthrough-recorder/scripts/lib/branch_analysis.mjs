@@ -74,6 +74,7 @@ function inferRouteFromFile(file) {
     }
   }
   if (rootIndex === -1) return null;
+  const root = parts[rootIndex];
 
   const fileName = parts.at(-1);
   const ext = (fileName.split(".").pop() || "").toLowerCase();
@@ -86,6 +87,15 @@ function inferRouteFromFile(file) {
   if (NON_PAGE_BASENAMES.has(baseHead)) return null;
   // Only SvelteKit `+page` is an addressable page; `+server`, `+layout`, etc. are not.
   if (baseHead.startsWith("+") && baseHead !== "+page") return null;
+
+  // Next.js App Router only routes page entry files (`page`/`index`); arbitrary
+  // colocated modules (e.g. app/dashboard/Filter.tsx) and anything under a
+  // private `_folder` are not addressable URLs. Pages Router (`pages/`) keeps
+  // filename-as-route, so this restriction is scoped to the `app/` root.
+  if (root === "app") {
+    if (!INDEX_BASENAMES.has(baseHead)) return null;
+    if (dirSegments.some((seg) => seg.startsWith("_"))) return null;
+  }
 
   let fileSegments;
   if (INDEX_BASENAMES.has(baseHead)) {

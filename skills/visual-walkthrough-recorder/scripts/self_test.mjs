@@ -125,6 +125,12 @@ function testRouteInference() {
   // Next.js parallel-route slots (@slot) are stripped from the URL.
   assert.equal(inferRoutes([{ file: "app/dashboard/@modal/page.tsx" }])[0].route, "/dashboard");
   assert.equal(inferRoutes([{ file: "app/@auth/login/page.tsx" }])[0].route, "/login");
+  // App Router only routes page entry files, not colocated modules or private folders.
+  assert.equal(inferRoutes([{ file: "app/dashboard/Filter.tsx" }]).length, 0);
+  assert.equal(inferRoutes([{ file: "app/dashboard/_components/ui/page.tsx" }]).length, 0);
+  assert.equal(inferRoutes([{ file: "app/dashboard/page.tsx" }])[0].route, "/dashboard");
+  // Pages Router keeps filename-as-route (not scoped to the app restriction).
+  assert.equal(inferRoutes([{ file: "src/pages/about.tsx" }])[0].route, "/about");
   // A real SvelteKit page is still inferred.
   assert.equal(inferRoutes([{ file: "src/routes/dashboard/+page.svelte" }])[0].route, "/dashboard");
 }
