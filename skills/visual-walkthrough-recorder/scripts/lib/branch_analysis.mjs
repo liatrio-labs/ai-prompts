@@ -11,6 +11,12 @@ export function classifyFile(file) {
     return "tests";
   }
 
+  // A file that maps to an inferable page route is visual even when it is a
+  // plain .ts/.js page, keeping classification consistent with inferRoutes().
+  if (inferRouteFromFile(file)) {
+    return "visual";
+  }
+
   if (/(^|\/)(src|app|pages|components|features|routes|views)\//.test(lower)) {
     if (["tsx", "jsx", "vue", "svelte", "css", "scss", "sass", "less"].includes(ext)) {
       return "visual";

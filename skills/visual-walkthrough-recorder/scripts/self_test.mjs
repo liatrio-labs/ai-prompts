@@ -13,6 +13,12 @@ async function testBranchClassification() {
   assert.equal(classifyFile("src/features/snapshots/SnapshotReportPage.test.tsx"), "tests");
   assert.equal(classifyFile("src/__tests__/SnapshotReportPage.tsx"), "tests");
   assert.equal(classifyFile("docs/walkthrough.md"), "docs");
+  // Plain .ts/.js page files are visual (consistent with route inference).
+  assert.equal(classifyFile("src/pages/about.js"), "visual");
+  assert.equal(classifyFile("app/dashboard/page.ts"), "visual");
+  // API endpoints and non-routable modules are not visual.
+  assert.notEqual(classifyFile("src/pages/api/users.ts"), "visual");
+  assert.notEqual(classifyFile("src/utils/helper.ts"), "visual");
 }
 
 function testConfigValidation() {
