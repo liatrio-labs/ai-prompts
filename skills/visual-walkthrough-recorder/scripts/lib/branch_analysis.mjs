@@ -47,11 +47,12 @@ export function likelySurface(file) {
 const ROUTE_ROOTS = ["app", "pages", "routes"];
 const ROUTE_EXTENSIONS = ["tsx", "jsx", "ts", "js", "vue", "svelte"];
 // Filenames that represent the route itself (its URL comes from the directory path).
-const INDEX_BASENAMES = new Set(["index", "page", "+page", "_index", "route"]);
-// Framework files that are not addressable pages on their own.
+const INDEX_BASENAMES = new Set(["index", "page", "+page", "_index"]);
+// Framework files that are not addressable reviewer-facing pages on their own.
+// `route` is a Next.js App Router API handler (route.ts), not a UI page.
 const NON_PAGE_BASENAMES = new Set([
-  "layout", "+layout", "loading", "error", "+error", "not-found",
-  "template", "default", "_app", "_document", "head", "middleware",
+  "layout", "+layout", "+server", "loading", "error", "+error", "not-found",
+  "template", "default", "_app", "_document", "head", "middleware", "route",
 ]);
 
 function inferRouteFromFile(file) {

@@ -52,6 +52,7 @@ async function runNodeJson(scriptName, args, options = {}) {
   }
 }
 
+// A recoverable stop that needs human input (exit code 2).
 async function stop(reason, message, details = {}) {
   console.log(JSON.stringify({
     ok: false,
@@ -61,6 +62,19 @@ async function stop(reason, message, details = {}) {
     details,
   }, null, 2));
   process.exitCode = 2;
+}
+
+// A genuine failure that is not a human-input gate (exit code 1) so callers
+// like auto_walkthrough.mjs can distinguish errors from needs_input stops.
+async function fail(reason, message, details = {}) {
+  console.log(JSON.stringify({
+    ok: false,
+    status: "error",
+    reason,
+    message,
+    details,
+  }, null, 2));
+  process.exitCode = 1;
 }
 
 function outputDirFor(config) {
@@ -139,10 +153,19 @@ async function main() {
     error: error.message,
   }));
   report.phases.push({ name: "branch-analysis", result: branch });
-  if (config.recordingMode !== "user-directed" && branch.visualApplicable === false) {
-    await writeAutomationReport(outputDir, report);
-    await stop("no_visual_changes", "Branch-change walkthrough is not applicable because no visual changes were detected.", branch);
-    return;
+  if (config.recordingMode !== "user-directed") {
+    // A usable analysis always reports a boolean visualApplicable; anything else
+    // (non-zero exit, non-JSON stdout) means we cannot validate diff scope.
+    if (typeof branch.visualApplicable !== "boolean") {
+      await writeAutomationReport(outputDir, report);
+      await stop("branch_analysis_failed", "Branch analysis did not return a usable result; cannot validate branch-change scope.", branch);
+      return;
+    }
+    if (branch.visualApplicable === false) {
+      await writeAutomationReport(outputDir, report);
+      await stop("no_visual_changes", "Branch-change walkthrough is not applicable because no visual changes were detected.", branch);
+      return;
+    }
   }
 
   if (!config.baseUrl) {
@@ -215,16 +238,26 @@ async function main() {
     return;
   }
 
-  const script = await runNode("create_recording_script.mjs", [`--config=${normalizedConfigPath}`], { cwd });
-  const recordingScriptPath = script.stdout.split("\n").filter(Boolean).at(-1);
-  report.phases.push({ name: "script-generation", scriptPath: recordingScriptPath });
+  // Script generation and recording are hard execution steps, not human-input
+  // gates: a failure here is a genuine error (exit 1), not a needs_input stop.
+  try {
+    const script = await runNode("create_recording_script.mjs", [`--config=${normalizedConfigPath}`], { cwd });
+    const recordingScriptPath = script.stdout.split("\n").filter(Boolean).at(-1);
+    report.phases.push({ name: "script-generation", scriptPath: recordingScriptPath });
 
-  await execFileAsync(process.execPath, [recordingScriptPath], {
-    cwd,
-    encoding: "utf8",
-    maxBuffer: 1024 * 1024 * 20,
-  });
-  report.phases.push({ name: "recording", ok: true });
+    await execFileAsync(process.execPath, [recordingScriptPath], {
+      cwd,
+      encoding: "utf8",
+      maxBuffer: 1024 * 1024 * 20,
+    });
+    report.phases.push({ name: "recording", ok: true });
+  } catch (error) {
+    report.phases.push({ name: "recording", ok: false, error: error.message });
+    report.status = "recording_failed";
+    await writeAutomationReport(outputDir, report);
+    await fail("recording_failed", "Recording or script generation failed.", error.message);
+    return;
+  }
 
   const files = await generatedFilesFromRunLog(outputDir);
   const validation = await validateArtifactFiles(files, {
@@ -241,5 +274,6 @@ async function main() {
 }
 
 main().catch(async (error) => {
-  await stop("unexpected_error", error.message);
+  // Unexpected crashes are errors (exit 1), not human-input stops.
+  await fail("unexpected_error", error.message);
 });
