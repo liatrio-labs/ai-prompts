@@ -37,6 +37,7 @@ Skills are organized in the `skills/` directory by capability:
 - `browser-qa/` - Lightweight browser QA workflow for driving UI paths and publishing evidence-backed findings in a local report viewer
 - `liatrio-dns/` - Provision Route53 DNS records for `liatr.io` subdomains via Terragrunt
 - `plan-epic/` - Interactive GitHub Epic planner for defining milestones one at a time through operator dialogue
+- `visual-walkthrough-recorder/` - Record reviewer-ready Playwright walkthrough videos of frontend branch changes
 
 ### 3. Use Prompts with AI Tools
 
@@ -121,6 +122,7 @@ Context Markers are emoji-based verification techniques used to detect context r
 | 🎯 | `skills/git-commit-conventional/SKILL.md` | Conventional Commit Skill |
 | 🚀 | `skills/create-pull-request/SKILL.md` | Pull Request / Merge Request Description Skill |
 | 🎨 | `skills/create-mermaid-diagrams/SKILL.md` | Create Mermaid Diagrams Skill |
+| 🎬 | `skills/visual-walkthrough-recorder/SKILL.md` | Visual Walkthrough Recorder Skill |
 
 Only skills with marker-based context-rot checks are listed here. Skills without marker rows in this table do not define required response markers.
 
@@ -152,6 +154,7 @@ Repository marker: `🤖` in `AGENTS.md` for AI Agent Instructions and configura
 | `browser-qa` | `skills/browser-qa/SKILL.md` | Run focused browser QA passes with critical-path checks, console evidence, screenshots, validated JSON, and a local HTML report viewer. |
 | `liatrio-dns` | `skills/liatrio-dns/SKILL.md` | Provision Route53 DNS records for `liatr.io` subdomains in `liatrio/liatrio-external-dns` via Terragrunt. |
 | `plan-epic` | `skills/plan-epic/SKILL.md` | Interactive GitHub Epic planner. Plans one milestone at a time, starting with Shell, then operator-defined epics through dialogue. |
+| `visual-walkthrough-recorder` | `skills/visual-walkthrough-recorder/SKILL.md` | Record reviewer-ready Playwright walkthrough videos of branch UI changes, with runtime discovery, route inference, and a one-shot automated runner. |
 
 ## Prompt-to-Skill Migration Map
 
