@@ -139,3 +139,7 @@ Also: SKILL.md's `implementation` mode says load design-system + component-recip
 
 I can tell you the skill made this faster and the decisions defensible.
 ```
+
+---
+
+Execute the selected diff-tab commit action.
