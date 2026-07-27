@@ -84,3 +84,7 @@ stage the changes you made and have an independent sub-agent review just the sta
 > - Primary Green `#24AE1D` is the hero color for key brand moments. It is a fill, not a text color on light surfaces — it measures 2.94:1 on white and fails AA at any size.
 
 This is the only thing I'm a little iffy on. Make sure the Primary Green is not used anywhere on the website or in the example that would contradict this guidance.
+
+---
+
+dig it. i staged your changes. commit them
