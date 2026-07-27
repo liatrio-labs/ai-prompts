@@ -1,0 +1,141 @@
+For context, you need to:
+
+1. Explore the full content of  https://www.liatrio.ai/brand-data.json and https://www.liatrio.ai/brand. 
+2. Explore the full content of `/home/damien/Downloads/Liatrio Design System(1).zip`. The contents of that zip file came from the Design System that Liatrio's designer created within Claude.ai/design - it was used as the basis for the work in commits c3edf15543b8 and 57008d06374d of this `feat/update-liatrio-design-skill` branch.
+
+After manually reviewing the current state of liatrio-brand-guidelines skill, I've made some changes to the skill content. see the most recent commit for those details
+
+I have this additional feedback after my review:
+
+- 
+```/home/damien/Liatrio/repos/ai-prompts/skills/liatrio-brand-guidelines/SKILL.md:32:33
+2. `references/liatrio-brand-guidelines.md` for legacy consolidated brand context and existing audit details.
+3. `assets/liatrio-brand-guidelines-consolidated.png` for the older visual snapshot when no newer curated asset is available.
+```
+  these references to the older/outdated guidelines need to be removed and the rest of the skill audited for any other similar mentions
+- I don't fully understand the purpose of the  
+```/home/damien/Liatrio/repos/ai-prompts/skills/liatrio-brand-guidelines/SKILL.md:111:123
+### Implementation Decision Format
+
+Use this exact structure for direct implementation tasks:
+
+```markdown
+## Implementation Decision
+
+- Context: [surface + light/dark + component/page]
+- Token Choices: [exact color/type/spacing/radius/elevation values]
+- Asset Choices: [exact logo/logomark/motif/deck/preview asset paths]
+- Rationale: [1-3 bullets tied to brand/design-system rules]
+- Verification: [contrast + typography + variant + source/conflict checks]
+```
+```
+ , it seems out-of-place. 
+- I'm not sure that we need skills/liatrio-brand-guidelines/scripts/fetch-brand-data.sh and skills/liatrio-brand-guidelines/scripts/download-brand-assets.sh.  It seems like overkill to script out some simple fetches of data present in a JSON file. Any AI should be able to figure this out on the fly without a problem. Taking them out and just leaving the pointers to the JSON file would slim up the skill and ensure broader compatibility with user systems (windows for example). 
+- 
+```/home/damien/Liatrio/repos/ai-prompts/skills/liatrio-brand-guidelines/references/liatrio-design-system.md:7:8
+- **Trust level:** high for current Liatrio visual direction because it is derived from the local `temp/Liatrio Design System/` bundle and its bundled `colors_and_type.css`, preview cards, manifest, README, and skill notes.
+- **Source anchor:** the bundle describes itself as anchored to Liatrio Brand Guidelines v2026-04-14. No production codebase or Figma source was attached, so treat previews as design recipes, not pixel-perfect production components.
+```
+ this seems unnecessary
+- 
+```/home/damien/Liatrio/repos/ai-prompts/skills/liatrio-brand-guidelines/references/liatrio-design-system.md:9:13
+- **Current source priority:**
+  1. Curated local skill references and assets in [assets](../assets/).
+  2. Local token CSS once curated into `assets/colors_and_type.css`; until then, use this reference's token quick reference.
+  3. Live scripted brand data from `https://www.liatrio.ai/brand-data.json` when a task explicitly requires live verification.
+  4. Legacy `liatrio.com` references only as historical conflict evidence, never as current canonical or scripted fallback guidance.
+```
+ audit this against the other source priority guidance in /home/damien/Liatrio/repos/ai-prompts/skills/liatrio-brand-guidelines/SKILL.md and anywhere else source priority is mentioned
+- Any references to DM Sans or other typography beyond the Space Grotesk specified by the zip and the liatrio.ai/brand guidance should be audited and potentially removed, for example: 
+```/home/damien/Liatrio/repos/ai-prompts/skills/liatrio-brand-guidelines/references/liatrio-design-system.md:60:60
+- **Conflict:** DM Sans appears in older brand material. Treat it as legacy/noncanonical unless a user-provided current source explicitly requires it.
+```
+ 
+- why are skills/liatrio-brand-guidelines/examples/evals buried under the `examples` folder? seems odd. Also, does anything in that evals folder provide meaningful use to the skill? i'm skeptical, but maybe i just don't udnerstand the purpose or instructions on using it.
+
+
+I want you to analyze and respond to my feedback. I also need you to audit everything in this skill against the website brand guide and the contents of the zip. There may be discrepancies between what's on liatrio.ai and what's in the zip that need to be resolved, and those resolutions could have impacts on this skill. 
+
+Before those 2 commits I referenced earlier, this skill was working pretty well and I had good results from using it. We are now in optimization and refinement mode, and we need to make absolutely sure content is fully aligned with the Liatrio Design System across all three surfaces:
+
+- liatrio.ai/brand and the accompanying JSON file hosted on the site
+- the design system used by Claude.ai/design, represented by the zip file i mentioned
+- the content of this skill
+
+Do you have any questions about what we need to accomplish?
+
+---
+
+proceed. strip the checker.
+
+---
+
+/home/damien/Liatrio/repos/ai-prompts/docs/liatrio-brand-skill-comparative-analysis.md /home/damien/Liatrio/repos/ai-prompts/docs/liatrio-design-system-representative-evals.md /home/damien/Liatrio/repos/ai-prompts/scripts/check_artifact_hygiene.py /home/damien/Liatrio/repos/ai-prompts/scripts/test_artifact_hygiene.py 
+/home/damien/Liatrio/repos/ai-prompts/scripts/fixtures
+
+I'm not convinced we need any of these.
+
+---
+
+stage the changes you made and have an independent sub-agent review just the staged changes. report back the findings.
+
+---
+
+> - Primary Green `#24AE1D` is the hero color for key brand moments. It is a fill, not a text color on light surfaces — it measures 2.94:1 on white and fails AA at any size.
+
+This is the only thing I'm a little iffy on. Make sure the Primary Green is not used anywhere on the website or in the example that would contradict this guidance.
+
+---
+
+dig it. i staged your changes. commit them
+
+---
+
+I think something that we're missing from this is a showcase HTML page that demonstrates all of the rules and the examples outlined in the skill. It should just be one long scrolling page, maybe with the content at the top, that demonstrates everything that's outlined in the skill. With explanations on the page showing, for example, "this is what it looks like for this color text on this background, and this is why we do it this way". That kind of stuff.
+
+---
+
+I think something that we're missing from this is a showcase HTML page that demonstrates all of the rules and the examples outlined in the skill. It should just be one long scrolling page, maybe with the content at the top, that demonstrates everything that's outlined in the skill. With explanations on the page showing, for example, "this is what it looks like for this color text on this background, and this is why we do it this way". That kind of stuff. This is a showcase for a human to understand the design system and see it in action, not a reference for an AI to use the design system.
+
+---
+
+i removed the callout about remediating how the svgs work. that's overkill - we just need the fix. commit the showcase and the other files you changed
+
+---
+
+what do you make of this feedback from an AI session that actually used the skill?
+
+```
+🎵
+
+Genuinely useful — and specifically useful in a way most style guides aren't. The thing that made it work: the seven Core Facts were *sufficient to start*. I made the first six or seven decisions (dark canvas, Space Grotesk, square CTAs, green-as-fill-not-text) before loading a single reference file. Most brand docs make you read everything before you can pick a background color.
+
+## What carried the work
+
+**The two-sources split.** Telling me exactly what the live JSON owns versus what only the local refs own meant one fetch, zero ambiguity. And "liatrio.com is dead, never fetch it" is the kind of negative instruction that saves a wasted tool call and a wrong citation.
+
+**Pre-computed contrast ratios.** Having 2.94:1, 5.65:1, 5.39:1, 9.98:1 already in the text meant I could make the print-theme decision (green becomes fill-only on paper) without deriving anything. I still verified all 19 pairs myself, but the skill told me *which* pairs were the risky ones.
+
+**"These are defects, not precedent."** Calling out the two shipped surfaces that break the light-surface rule is a strong pattern. It preempts the exact failure where an agent finds a real Liatrio page doing something and copies it.
+
+**"Name the conflict rather than silently picking a side."** That line directly produced the form-border callout. Without it I'd probably have just fixed it quietly.
+
+## What I had to fill in
+
+1. **The form recipe contradicts the contrast floor, and the skill doesn't know it.** `border: 1px solid #2A3036` is 1.25:1 on the canvas. SKILL.md mandates 3:1 for non-text UI. That belongs in the same defects list as the two light-surface breaks. The nuance worth capturing: decorative card hairlines are arguably out of scope for 1.4.11, but a *control boundary* is in scope. Same token, different verdict by role.
+
+2. **No categorical/data-viz guidance.** "One expressive accent per surface" is right for a landing page and wrong for a 51-item filterable inventory with 5 categories. I derived a scale (bright green → lagoon → violet → lime → primary green) and justified the deviation, but a short "when you need N distinct colors, use this order, always pair with a text label" would remove the guesswork. There's a `dataviz` skill in the harness with nothing linking to it.
+
+3. **No print recipe.** The design-system file says light surfaces are fine for "printable assets" but never says how the dark palette maps to paper. The one that bit me: **`logo_Liatrio_reverse-preferred.svg` prints as an invisible wordmark on white.** Silent failure — flame shows, "liatrio" doesn't. I only caught it by rasterizing the PDF. That swap rule feels like something the skill should own outright.
+
+4. **Report/document surfaces aren't covered.** Every recipe is a marketing component. Sticky section nav, filter panels, dense inventory grids, footnotes — built from general principles.
+
+## Two small concrete fixes
+
+- `circuit-divider.svg` ships with `preserveAspectRatio="xMidYMid slice"` baked in. Correct for its original full-bleed host, wrong as a fixed-height CSS background — it crops the traces. One line in the asset table would cover it.
+- The bundled font is a variable **TTF**: 134KB → 179KB as base64. A woff2 would cut that ~60–70%, which matters for self-contained artifacts, and "use the bundled font, don't call Google Fonts" is your own instruction.
+
+Also: SKILL.md's `implementation` mode says load design-system + component-recipes. I needed `asset-index` too — logo and motif selection is intrinsic to implementation, not a separate mode.
+
+I can tell you the skill made this faster and the decisions defensible.
+```
