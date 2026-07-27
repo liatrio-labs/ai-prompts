@@ -96,3 +96,7 @@ I think something that we're missing from this is a showcase HTML page that demo
 ---
 
 I think something that we're missing from this is a showcase HTML page that demonstrates all of the rules and the examples outlined in the skill. It should just be one long scrolling page, maybe with the content at the top, that demonstrates everything that's outlined in the skill. With explanations on the page showing, for example, "this is what it looks like for this color text on this background, and this is why we do it this way". That kind of stuff. This is a showcase for a human to understand the design system and see it in action, not a reference for an AI to use the design system.
+
+---
+
+i removed the callout about remediating how the svgs work. that's overkill - we just need the fix. commit the showcase and the other files you changed
