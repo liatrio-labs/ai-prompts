@@ -1,0 +1,16 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "2163fb712684",
+  "session_id": "8badae0b-0811-422b-9531-9e4cb62229ab",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-27T22:11:42.69579253Z",
+  "branch": "feat/update-liatrio-design-skill",
+  "checkpoints_count": 3,
+  "files_touched": [],
+  "agent": "Cursor",
+  "model": "auto-smart",
+  "turn_id": "41804f5d4de7",
+  "session_metrics": {
+    "turn_count": 5
+  }
+}

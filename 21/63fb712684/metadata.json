@@ -1,0 +1,16 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "2163fb712684",
+  "strategy": "manual-commit",
+  "branch": "feat/update-liatrio-design-skill",
+  "checkpoints_count": 3,
+  "files_touched": null,
+  "sessions": [
+    {
+      "metadata": "/21/63fb712684/0/metadata.json",
+      "transcript": "/21/63fb712684/0/full.jsonl",
+      "content_hash": "/21/63fb712684/0/content_hash.txt",
+      "prompt": "/21/63fb712684/0/prompt.txt"
+    }
+  ]
+}
