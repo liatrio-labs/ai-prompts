@@ -442,3 +442,7 @@ I've got one readability issue (see note on screenshot)
 ---
 
 I found one other bug. The top nav works great. If you click on it, it takes you directly to the section that it's supposed to with the top of the section at the top of the page just under the navbar. That's perfect. I want to keep that behavior. The problem is, as a user scrolls through it on their own, the top nav doesn't update exactly the way it should. The top nav switches to the next section when you still have quite a bit of the previous section visible on the screen. When scrolling down, the top nav should not indicate that a section is loaded until all of the previous section is no longer visible on the screen.
+
+---
+
+Execute the selected diff-tab commit action.
