@@ -1,0 +1,22 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "4e4b03f810a7",
+  "strategy": "manual-commit",
+  "branch": "feat/update-liatrio-design-skill",
+  "checkpoints_count": 3,
+  "files_touched": [
+    ".gitignore",
+    ".pre-commit-config.yaml",
+    "docs/liatrio-design-system-showcase.html",
+    "docs/liatrio-design-system-showcase.src.html",
+    "scripts/bundle_liatrio_showcase.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/4e/4b03f810a7/0/metadata.json",
+      "transcript": "/4e/4b03f810a7/0/full.jsonl",
+      "content_hash": "/4e/4b03f810a7/0/content_hash.txt",
+      "prompt": "/4e/4b03f810a7/0/prompt.txt"
+    }
+  ]
+}
