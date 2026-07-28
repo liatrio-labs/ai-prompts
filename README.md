@@ -29,7 +29,6 @@ Skills are organized in the `skills/` directory by capability:
 - `git-commit-conventional/` - Conventional commit message and commit hygiene guidance
 - `create-pull-request/` - PR/MR drafting and optional creation workflow
 - `create-mermaid-diagrams/` - Mermaid diagram creation and validation workflow
-- `liatrio-brand-guidelines/` - Liatrio visual brand standards and UI compliance guidance
 - `mastra-api/` - Mastra development API debugging and inspection workflows
 - `tilt-dev/` - Tilt-based local development environment operations
 - `uv-usage/` - `uv` package manager workflows and command guidance
@@ -144,7 +143,6 @@ Repository marker: `🤖` in `AGENTS.md` for AI Agent Instructions and configura
 | `git-commit-conventional` | `skills/git-commit-conventional/SKILL.md` | Create conventional commits with commit hygiene and pre-commit-aware workflows. |
 | `create-pull-request` | `skills/create-pull-request/SKILL.md` | Draft reviewer-ready PR/MR descriptions and optionally create PRs via CLI. |
 | `create-mermaid-diagrams` | `skills/create-mermaid-diagrams/SKILL.md` | Create, validate, and repair Mermaid diagrams with a deterministic CLI loop. |
-| `liatrio-brand-guidelines` | `skills/liatrio-brand-guidelines/SKILL.md` | Apply Liatrio brand guidance for UI design and brand compliance reviews. |
 | `mastra-api` | `skills/mastra-api/SKILL.md` | Debug Mastra agents, tools, workflows, and runtime state via API workflows. |
 | `tilt-dev` | `skills/tilt-dev/SKILL.md` | Manage and troubleshoot Tilt-orchestrated local development stacks. |
 | `uv-usage` | `skills/uv-usage/SKILL.md` | Provide concise guidance for `uv` project and dependency workflows. |
