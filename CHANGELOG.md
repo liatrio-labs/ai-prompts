@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.18.0 (2026-07-28)
+
+### Features
+
+- **skills**: Remove liatrio-dns skill ([#34](https://github.com/liatrio-labs/ai-prompts/pull/34),
+  [`3117e1d`](https://github.com/liatrio-labs/ai-prompts/commit/3117e1d885d8966887d0b9e94ff9ec7a73bd7c99))
+
+
 ## v0.17.0 (2026-07-28)
 
 ### Features
