@@ -1,0 +1,444 @@
+```
+# Brand Audit
+
+- **Scope:** `docs/liatrio-design-system-showcase.html`, its local Liatrio skill references/assets, live `brand-data.json`, and the published page at desktop `1440×900` and mobile `390×844`.
+- **Verdict:** **Fail for its stated “every aspect” purpose.** It is a strong, accurate introduction to the system’s core visual language, but it is not yet a complete or fully self-consistent audit surface.
+- **Audit health:** **13/20 — Acceptable, significant work needed**
+- **Issues:** **0 P0, 3 P1, 6 P2, 1 P3**
+- **Repository changes:** None. This was read-only.
+
+## Compliant
+
+The showcase gets the most important fundamentals right:
+
+- Uses the real token stylesheet and bundled Space Grotesk font.
+- Correct dark-first canvas/elevated surfaces: `#1A1F23` and `#1E2327`.
+- Correctly communicates flat technical structure, restrained shadows, and green signal accents.
+- Contrast calculations are accurate. I independently verified all displayed ratios, including:
+  - Primary Green/dark: **5.65:1**
+  - Bright Green/dark: **9.98:1**
+  - Hot Red/dark: **3.99:1**
+  - Primary Green/white: **2.94:1**
+  - Bright Green/white: **1.66:1**
+  - Grey 800/white: **18.88:1**
+  - Faint foreground/dark: **2.89:1**
+- Typography scale, weights, tracking, casing, and mono usage agree with the local design-system reference.
+- Correctly explains square marketing CTAs versus 6px product/navigation controls.
+- Logo background guidance, reverse-logo failure example, clear-space rule, and stacked-logo restrictions are accurate.
+- Motif usage is visually convincing and appropriately restrained.
+- Voice examples are specific, technical, and consistent with the copy guidance.
+- Reduced-motion handling exists.
+- All required published assets loaded successfully: **17/17 requests returned HTTP 200**, all 14 `<img>` elements decoded, and the browser console remained clean.
+
+## Critical issues
+
+### [P1] The completeness claim is materially untrue
+
+**Location:** `docs/liatrio-design-system-showcase.html:321-325`
+
+The page says, “Every rule in the system, shown rather than described,” but several authoritative surfaces are absent:
+
+- **Palette:** `docs/liatrio-design-system-showcase.html:415-435`
+  - Omits named secondary/tertiary colors including Grey 700, Grey 100, Grey 600–200, Dark Blue, and Deep Sea.
+  - Does not expose canonical RGB or CMYK values.
+  - The live source contains **23 palette rows** across primary, secondary, tertiary, and background groups.
+- **Logos:** `docs/liatrio-design-system-showcase.html:933-1022`
+  - Claims ten variants but does not show:
+    - `logomark_Liatrio_black.svg`
+    - `logomark_Liatrio_reverse.svg`
+- **Components:** `docs/liatrio-design-system-showcase.html:739-858`
+  - Omits much of the documented site inventory in `skills/liatrio-brand-guidelines/references/liatrio-brand-site.md:69-81`:
+    - button ghost, link, destructive, disabled, loading, icon, and size states
+    - badge variant matrix
+    - subtle card
+    - disabled and icon inputs
+    - success, information, and error alerts
+    - checkbox specimen documented by the local form recipe
+- **Social:** All four official banners from `liatrio-brand-site.md:122-134` are absent.
+- **Icon inventory:** Only 12 of 120 names are shown, while the complete list is available only through an unlinked repository path.
+
+**Impact:** A human auditor can incorrectly conclude that an omitted token, asset, state, or component is unsupported.
+
+**Minimum fix:** Add a visible coverage/provenance matrix with each authoritative surface marked as **demonstrated**, **fully enumerated**, **linked to canonical source**, or **intentionally excluded**. Then fill the omissions required by the “every aspect” contract. Do not silently weaken the title to avoid completing the intended scope.
+
+---
+
+### [P1] Mobile iconography causes document-level horizontal overflow
+
+**Location:**
+
+- `docs/liatrio-design-system-showcase.html:121-124`
+- `docs/liatrio-design-system-showcase.html:1137-1155`
+
+The icon grid is permanently six columns:
+
+```css
+grid-template-columns: repeat(6, 1fr);
+```
+
+At `390px`:
+
+- viewport/client width: **390px**
+- document scroll width: **457px**
+- the rightmost icon specimens and labels are visibly clipped
+- labels become too small and dense to audit reliably
+
+**Impact:** Mobile readers cannot inspect the icon family without accidental horizontal scrolling, and the entire page gains unwanted horizontal movement.
+
+**Fix:** Collapse the grid to three columns and then two columns at narrow widths, or use an auto-fit minimum that preserves icon labels.
+
+---
+
+### [P1] The form specimen models a visually styled but semantically incomplete error state
+
+**Location:**
+
+- Form specimen: `docs/liatrio-design-system-showcase.html:832-845`
+- Accessibility claims: `docs/liatrio-design-system-showcase.html:1240-1248`
+
+Observed DOM:
+
+- error input has no `aria-invalid`
+- error message has no `id`/`aria-describedby` relationship
+- email field uses `type="text"` rather than `type="email"`
+- controls have no `name` or `autocomplete`
+- no checkbox, disabled, or required state is demonstrated
+
+The message is visible, so this is not strictly color-only, but assistive technology is not told that the field is invalid or which message explains it.
+
+**Impact:** The page is intended to teach implementation. Humans may copy a pattern that looks accessible but is incomplete.
+
+**Fix:** Make the example a complete accessible specimen: `type="email"`, useful `name` and `autocomplete`, `required`, `aria-invalid="true"`, and `aria-describedby` linked to the error message.
+
+## Major secondary findings
+
+### [P2] The page promises to name source conflicts but misses several
+
+**Location:** `docs/liatrio-design-system-showcase.html:323-325`
+
+Known conflicts or drift not surfaced:
+
+1. **Hex texture opacity**
+   - `liatrio-component-recipes.md:26` says 4–8% opacity.
+   - `liatrio-asset-index.md:104-111` says the pre-dimmed SVG must render at full CSS opacity and should not be reduced below roughly 50%.
+   - The showcase chooses full opacity at `1060-1085` without identifying the contradictory recipe.
+
+2. **Focus-ring token**
+   - `liatrio-design-system.md:34` assigns focus rings to Primary Green.
+   - `liatrio-design-system.md:91` requires a Bright Green focus outline.
+   - The showcase uses Bright Green but does not record the unresolved token-role inconsistency.
+
+3. **Production typography drift**
+   - `liatrio-brand-site.md:136-142` records DM Sans body/UI text on the live site versus Space Grotesk in the published guideline.
+   - The showcase omits this known drift.
+
+4. **Near-lime preview values**
+   - `liatrio-asset-index.md:153-158` records noncanonical preview values and the required substitutions.
+   - Only the `PREFERRED` badge defect is shown.
+
+A dedicated “source hierarchy and known drift” section would make the page substantially more useful for real audits.
+
+### [P2] Focus treatment contradicts the page’s own rule
+
+**Location:**
+
+- Rule: `docs/liatrio-design-system-showcase.html:902-911`
+- CSS: `docs/liatrio-design-system-showcase.html:156-158`
+
+Primary, outline, and nav buttons receive the 2px Bright Green outline. However:
+
+- sticky navigation links use the browser’s 1px auto outline
+- contents links use the browser’s 1px auto outline
+- `.btn-fg` uses the browser’s 1px auto outline
+- `.chip:focus-visible` is styled even though chips are non-focusable `<span>` elements
+
+**Fix:** Apply one shared `:focus-visible` rule to every genuinely interactive element and remove unreachable focus styling.
+
+### [P2] Semantic document structure is incomplete
+
+Observed:
+
+- no `<main>` landmark
+- no skip link
+- heading sequence begins `H1 → H3` because “Contents” is an `<h3>` at `docs/liatrio-design-system-showcase.html:337`
+- the document contains an exceptionally long main region: approximately **24,229px** desktop and **41,532px** mobile
+
+**Fix:** Add a skip link and `<main>`, then make Contents an `<h2>` or remove it from the heading outline.
+
+### [P2] Mobile navigation is undersized and poorly discoverable
+
+**Location:** `docs/liatrio-design-system-showcase.html:25-40`
+
+At mobile width:
+
+- nav links are approximately **28px high**
+- only the first few sections are visible
+- horizontal scrolling has no edge fade, cue, or alternative menu
+- no current-section indicator exists despite a 12-section, 40k-pixel page
+
+**Fix:** Increase touch height, add a visible overflow affordance, and expose current-section state. A compact section selector would be proportionate; a new navigation subsystem would not be.
+
+### [P2] Motion specimens animate the layout property `left`
+
+**Location:** `docs/liatrio-design-system-showcase.html:219-227`
+
+All comparison dots continuously animate `left`, forcing layout work. This is particularly unfortunate in a page teaching motion implementation.
+
+**Fix:** Animate `transform: translateX(...)`. Preserve the shared timing comparison and existing reduced-motion behavior.
+
+### [P2] Images lack intrinsic dimensions and below-fold loading policy
+
+All 14 images loaded, but none supplies HTML `width`/`height`, and every image uses default eager loading.
+
+**Impact:** Potential layout shifts and unnecessary initial decode/network work on a very long page.
+
+**Fix:** Add intrinsic dimensions and lazy-load below-fold logo/motif specimens. Keep the topbar logo eager.
+
+## Polish finding
+
+### [P3] Showcase chrome uses a prohibited side-stripe callout
+
+**Location:** `docs/liatrio-design-system-showcase.html:93-99`
+
+`.why` uses a 2px `border-left` accent. It is showcase scaffolding rather than a documented Liatrio component, but repeated side-stripe callouts are visually generic and can be mistaken for part of the design system.
+
+Use a full hairline border, compact leading marker, or flat tinted panel instead.
+
+## Audit health score
+
+- **Accessibility: 2/4** — meaningful effort, but semantic structure, focus consistency, and the instructional form pattern have important gaps.
+- **Performance: 3/4** — lean static page with no JS errors; layout-property animation and eager dimensionless imagery remain.
+- **Responsive design: 2/4** — generally readable, but the icon grid creates real document overflow and the sticky nav is weak on touch devices.
+- **Theming: 3/4** — correctly imports and uses the actual token system; hard-coded values are mostly justified specimens, though `color-scheme: dark` and theme metadata are absent.
+- **Anti-patterns: 3/4** — distinctive and intentional overall. The detector’s bounce warning is a false positive because it is explicitly a “do not” specimen; numbered sections are also justified by the ordered walkthrough. The side-stripe callout is the main genuine issue.
+
+**Total: 13/20 — Acceptable**
+
+## Recommended remediation order
+
+1. **`$impeccable document`** — establish an explicit coverage matrix and source hierarchy before adding examples.
+2. **`$impeccable harden`** — complete palette/logo/component/social coverage and repair the instructional form semantics.
+3. **`$impeccable adapt`** — fix the icon grid, sticky navigation, and mobile touch targets.
+4. **`$impeccable animate`** — replace `left` animation with transforms while preserving reduced motion.
+5. **`$impeccable polish`** — unify focus states, landmarks, image metadata, and showcase-only callouts.
+
+## Verification
+
+- Source reviewed: complete 1,309-line HTML, local token CSS, local router, all four local references, and current live `brand-data.json`.
+- Live source freshness: **confirmed `lastUpdated: 2026-04-14`**.
+- Visual checks: desktop top/bottom and mobile top/components/icons/footer.
+- Browser checks: console, network, image decoding, keyboard focus, form semantics, landmarks, heading order, overflow geometry.
+- Browser session cleaned up; unrelated `hermes-primary` session left untouched.
+
+## Source Validation
+
+- **Local canonical references checked:** yes.
+- **Live `https://www.liatrio.ai/brand-data.json` checked:** yes, HTTP 200.
+- **Published showcase visually inspected:** yes.
+- **Validated evidence:** `/tmp/browser-qa-reports/20260727-204637-liatrio-showcase/findings.json`
+- **Interactive report:** http://127.0.0.1:10891/?report=20260727-204637-liatrio-showcase
+```
+
+The above is the result of this prompt:
+
+> perform an extensive audit of docs/liatrio-design-system-showcase.html. you can perform a visual audit of the page at https://files-batman.stern-diatonic.ts.net/Liatrio/repos/ai-prompts/docs/liatrio-design-system-showcase.html. the page is meant to function as a showcase of every aspect of the Liatrio Design system for humans to get familiar with and audit the design system. ensure the file is fulfilling that goal accurately.
+
+What do you make of the response?
+
+---
+
+my gut is to ask you to fix it without using impeccable. i don't want to polute the design system with potential overwhelms from the impeccable skill. is that a valid concern?
+
+---
+
+yep
+
+---
+
+commit the changes to that file
+
+---
+
+```
+Verdict
+
+Commit 8ce164f is a substantial improvement, but it does not fully close the audit.
+Against the ten prior findings:
+
+• 6 fully remediated
+• 3 partially remediated
+• 1 regressed
+• 1 additional blocker introduced
+
+The page is now much closer to a credible audit surface, but I would not yet accept the commit message’s claim that it “Close[s] P1–P3 findings.”
+
+Standards
+Current-slice blockers
+
+1. New destructive controls fail the page’s own contrast floor
+• docs/liatrio-design-system-showcase.html:253-279
+• docs/liatrio-design-system-showcase.html:1147
+• docs/liatrio-design-system-showcase.html:1191
+• Hot Red text over the 14% Hot Red tint composites to approximately #3A262B.
+• Measured contrast: 3.38:1, below the stated 4.5:1 normal-text requirement.
+• This also contradicts the page’s guidance to use Hot Red for borders/icons and normal foreground for the actual sentence.
+2. The new Coverage section reintroduces a heading-level skip
+• docs/liatrio-design-system-showcase.html:575-655
+• The original H1 → H3 problem is fixed, but Coverage now uses H2 → H4 for every coverage-card title.
+• Minimum correction: use h3, or non-heading labels if these are not subsections.
+3. “Linked” provenance entries are not links
+• docs/liatrio-design-system-showcase.html:613-655
+• docs/liatrio-design-system-showcase.html:1830-1838
+  • The page tells readers to “open the cited source,” yet the rendered document contains zero external anchors. URLs and reference paths are plain  <span> elements.
+  • Either create actual links or rename the coverage status from Linked to Cited.
+4. The intrinsic-image remediation uses incorrect geometry
+  • Social banners at docs/liatrio-design-system-showcase.html:1566-1578 declare 1200×630, but:
+    • banners 1–2 decode at 2574×644
+    • banners 3–4 decode at 3366×842
+  • The declared ratio is approximately 1.90:1; the real ratio is approximately 4:1. Lazy loading therefore reserves roughly twice the final height.
+  • The reverse-logo comparison at :1375-1387 creates 180×248 image boxes because max-width:180px is applied without height:auto. The SVG artwork  preserves its shape, but the specimen stages become unnecessarily tall.
+
+Cleanup findings
+
+• Focus behavior is visible but documentation remains inconsistent
+  • The originally missed links and .btn-fg now receive the shared Bright Green outline.
+  • However, .fld input:focus at :329-338 overrides the universal outline with outline:none and uses a border/ring.
+  • That is a defensible form pattern, but :1888 still claims every interactive element uses the 2px outline.
+• Mobile current-section state exists but is not visible
+  • The observer correctly sets aria-current.
+  • After scrolling to Sources, the active link was at horizontal coordinates 946–1017px, outside the nav viewport at 86–237px; scrollLeft stayed 0.
+  • The visible Jump-to selector also remained on its empty value.
+  • Synchronizing the selector would be the smallest fix.
+• Desktop navigation is now very dense
+  • At 1440px, the final navigation entry is partially hidden behind the overflow fade.
+  • Horizontal scrolling remains possible, so this is usability cleanup rather than a blocker.
+
+Spec: prior-finding remediation map
+
+1. False completeness claim — partially remediated
+  • Full 23-row canonical palette is present with exact HEX/RGB/CMYK values.
+  • All ten bundled logo variants are present.
+  • Four social banners render.
+  • The full 120-name icon inventory is present.
+  • The missing component states and variants were substantially added.
+  • Remaining defect: the coverage matrix’s Linked status is inaccurate because no links exist.
+2. Mobile icon-grid overflow — remediated
+  • At 390px, root client width and scroll width are both 390px.
+  • The icon grid resolves to two 144.5px columns.
+  • No clipping or document-level horizontal overflow remains.
+3. Incomplete form semantics — remediated
+  • type="email", names, autocomplete, required, disabled, icon input, textarea, and checkbox are demonstrated.
+  • The error field has aria-invalid="true" and a valid aria-describedby target.
+4. Unnamed source conflicts — remediated
+  • Texture-opacity conflict, focus-token conflict, DM Sans production drift, and near-lime preview drift are all explicitly documented at :1506-1519  and :1841-1867.
+5. Inconsistent focus on links/buttons — remediated
+  • The specifically cited top navigation, contents links, and foreground button now receive the shared outline.
+  • The form-control documentation mismatch above is residual cleanup, not failure of the original cited controls.
+6. Missing landmark/skip link and heading problem — partially remediated
+  • Skip link and <main> are present.
+  • Initial heading order is now H1 → H2.
+  • The new Coverage section creates a separate H2 → H4 skip.
+7. Weak mobile navigation — partially remediated
+  • Touch targets now reach 44px.
+  • An overflow fade and Jump-to selector were added.
+  • aria-current is calculated.
+  • Current location is still not visibly exposed when its nav link is offscreen.
+8. Motion animating left — remediated
+  • Motion now uses transform: translateX(...).
+  • Reduced-motion disables both travelers and the loading spinner.
+9. Missing dimensions/lazy loading — regressed
+  • All 20 images now have dimensions.
+  • The sole above-fold image remains eager; all 19 below-fold images are lazy.
+  • Several declared dimensions are wrong, creating layout-reservation and specimen-height problems.
+10. Side-stripe callout — remediated
+    • The callout now uses a full border and compact leading marker.
+
+Overall assessment
+
+The remediation is strong in breadth and approximately 75–80% acceptance-ready. It addresses nearly every conceptual omission and substantiallyimproves the page’s usefulness. The remaining work is narrow, but four issues directly undermine the page’s purpose as an accurate audit surface:
+
+1. destructive-state contrast;
+2. false “Linked” provenance;
+3. heading hierarchy;
+4. incorrect intrinsic image geometry.
+
+I did not begin another remediation cycle.
+
+Verification evidence
+
+• git diff --check HEAD^ HEAD — passed
+• uv run scripts/quick_validate.py skills/liatrio-brand-guidelines — passed
+• python scripts/check_docs_drift.py — passed
+• Extracted inline JavaScript node --check — passed
+• Browser console — zero errors/warnings
+• Network — all 23 required requests returned HTTP 200
+• Images — all 20 decoded after lazy-load eligibility
+• Canonical palette — all 23 live brand-data.json rows present
+• Read-only integrity preserved:
+  • commit diff hash unchanged
+  • working-tree status hash unchanged
+  • pre-existing .gitignore modification untouched
+
+Validated browser evidence:
+
+• /tmp/browser-qa-reports/20260727-212848-liatrio-showcase-head/findings.json
+• 127.0.0.1
+
+ ───
+
+is the remediation in "good enough" territory?
+
+▾ Thinking  ~70 tokens
+**Reading full async summaries
+**Listing material UI issues for correction**
+**Verifying form error contrast and button variants
+• 127.0.0.1
+
+ ───
+
+is the remediation in "good enough" territory?
+
+▾ Thinking  ~70 tokens
+**Reading full async summaries
+**Listing material UI issues for correction**
+**Verifying form error contrast and button variants
+**Identifying new and existing UI audit gaps**
+**Deciding audit completion criteria**
+
+🎵🤖
+Not quite—if the acceptance bar is “a reliable, complete audit surface.” It is good enough for an internal preview, but not for final acceptanceunder the stated goal.
+The remaining issues are narrow, but several teach or claim incorrect design-system behavior:
+
+1. Destructive controls and form error copy fail contrast at roughly 3.38:1–3.80:1.
+2. Image sizing is incorrect, causing oversized logo specimens and layout shift for social banners.
+3. Coverage claims are inaccurate:
+  • “Linked” sources are plain text.
+  • Default versus Secondary button coverage is ambiguous.
+4. Heading hierarchy still skips levels in Coverage and Visual Posture.
+5. Mobile current-section navigation is implemented but not visibly useful.
+6. Large CTA specimen uses 15px uppercase text, exceeding the documented 14px ceiling.
+
+Recommendation
+
+Treat 1–4 as the minimum acceptance delta. They affect accessibility, visual fidelity, or factual auditability. Fixing them should be a small,bounded pass in this one HTML file.
+Treat 5–6 as polish if schedule pressure is real. They should be corrected, but I would not hold an internal preview for them.
+Bottom line: strong remediation and close to done, but accepting it unchanged would knowingly preserve false or noncompliant examples in a page whosepurpose is to teach and audit the system.
+```
+
+thoughts?
+
+---
+
+do it
+
+---
+
+When I load the showcase as a standalone file, it doesn't load everything correctly. Looks like it has to be served for it to work. Is there a way around that? So that just loading it as a single file, it'll just work, just work everything? I'd be okay if we had to embed stuff into it so it was one single HTML file that had all the necessary assets.
+
+---
+
+I've got one readability issue (see note on screenshot)
+
+---
+
+I found one other bug. The top nav works great. If you click on it, it takes you directly to the section that it's supposed to with the top of the section at the top of the page just under the navbar. That's perfect. I want to keep that behavior. The problem is, as a user scrolls through it on their own, the top nav doesn't update exactly the way it should. The top nav switches to the next section when you still have quite a bit of the previous section visible on the screen. When scrolling down, the top nav should not indicate that a section is loaded until all of the previous section is no longer visible on the screen.

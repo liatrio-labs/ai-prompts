@@ -1,0 +1,30 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "7a4de924d492",
+  "session_id": "8badae0b-0811-422b-9531-9e4cb62229ab",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-28T07:42:10.019896426Z",
+  "branch": "feat/update-liatrio-design-skill",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "docs/liatrio-design-system-showcase.html",
+    "docs/liatrio-design-system-showcase.src.html"
+  ],
+  "agent": "Cursor",
+  "model": "auto-smart",
+  "turn_id": "47a9d0744f1d",
+  "session_metrics": {
+    "turn_count": 10,
+    "context_tokens": 288754,
+    "context_window_size": 300000
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-07-28T07:42:09.825596904Z",
+    "agent_lines": 104,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 104,
+    "agent_percentage": 100
+  }
+}
