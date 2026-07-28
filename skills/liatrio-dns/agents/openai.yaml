@@ -1,3 +1,0 @@
-interface:
-  display_name: "Liatrio DNS Provisioning"
-  short_description: "Provision Route53 DNS records for liatr.io subdomains via Terragrunt"
