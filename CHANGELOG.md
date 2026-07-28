@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v0.17.0 (2026-07-28)
+
+### Features
+
+- **skills**: Remove plan-epic skill ([#33](https://github.com/liatrio-labs/ai-prompts/pull/33),
+  [`37da531`](https://github.com/liatrio-labs/ai-prompts/commit/37da5310cb6814532b00787460ff80e2ee15c423))
+
+
 ## v0.16.0 (2026-06-11)
 
 ### Bug Fixes
