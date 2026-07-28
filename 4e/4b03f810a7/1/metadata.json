@@ -1,0 +1,31 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "4e4b03f810a7",
+  "session_id": "e4a8bdb2-eaac-4468-bc8d-2a2fb45a0daa",
+  "strategy": "manual-commit",
+  "created_at": "2026-07-28T05:16:44.938655891Z",
+  "branch": "feat/update-liatrio-design-skill",
+  "checkpoints_count": 11,
+  "files_touched": [
+    ".gitignore",
+    ".pre-commit-config.yaml",
+    "docs/liatrio-design-system-showcase.src.html"
+  ],
+  "agent": "Cursor",
+  "model": "claude-opus-5-thinking-high",
+  "turn_id": "44c137b58151",
+  "session_metrics": {
+    "turn_count": 13,
+    "context_tokens": 274839,
+    "context_window_size": 300000
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-07-28T05:16:44.864274493Z",
+    "agent_lines": 0,
+    "human_added": 2473,
+    "human_modified": 50,
+    "human_removed": 0,
+    "total_committed": 2484,
+    "agent_percentage": 0
+  }
+}

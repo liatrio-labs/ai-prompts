@@ -1,0 +1,49 @@
+I need an emoji icon designed. It needs to say "No slop" and have a cross out symbol like on the Ghostbusters logo on it. Use the Liatrio brand skill in skills/liatrio-brand-guidelines to create it. give me 5 variations to help me pick from
+
+---
+
+i mispoke. instead of it saying "no slop" it should say "ai slop" and then have the ring-slash over it. give me 5 variations
+
+---
+
+love 1 and 2 - a gif that alternates between the two would be incredible. builid that and add it to the preview page
+
+---
+
+i like variation 2, but with a tweak: only the circle-slash shape should fade inand out - the text should remain static behind it
+
+---
+
+I like the hard cut. Show me three more variations of the hard cut with different timings.
+
+---
+
+add a 0.5s per side
+
+---
+
+add a 1.0s per side
+
+---
+
+add 0.75 and 0.9
+
+---
+
+add a side nave that will allow me to toggle each image on/off to help me pick a fav.
+
+---
+
+I think I really actually like the fade. Show me the fade with a couple variations. Like make the text bigger because it is more visible now that the ring completely fades out. So do that as a variation and then do a few more that you can think of.
+
+---
+
+I like `Long clear beat` the best. i want the test in it to be even larger. None of the text should ever show _outside_ the ring, but it's fine for the text to be _behind_ the ring. keep the ring the same size.
+
+---
+
+`Long clear beat, XL type` is the best one. "SLOP" is a good size, but "AI" could be bigger. "AI" is reading as significantly smaller than "SLOP"
+
+---
+
+excellent. these look great. move all of this into emoji stuff in a new folder under ~/Liatrio, name the new folder `emoji_designs`
