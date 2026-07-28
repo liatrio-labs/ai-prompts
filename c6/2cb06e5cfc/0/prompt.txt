@@ -1,0 +1,13 @@
+1: clone down https://github.com/liatrio-labs/skills into ~/Liatrio/repos, then analyze it's contents: not the skills within it, but the structure of the repo and the instrutctions on how to use it. 
+2: analyze the current state of skills/liatrio-brand-guidelines . It has gone through some recent changes as part of an overhaul to update the skill to the latest version of the liatrio brand guidelines. Note the additional related files for the skill that live outside the skill definition: scripts/bundle_liatrio_showcase.py docs/liatrio-design-system-showcase.html docs/liatrio-design-system-showcase.src.html 
+3: create a plan to migrate the skill from the current ai-prompts repo to the new liatrio-labs/skills repo. include the additional files for building the showcase. Do not execute the plan, just make the plan
+
+---
+
+1: freeze migrate from teh tip
+2: accepted. part o this process will be to completely remove the skill from the ai-prompts repo
+3: colocate under the skill by adding a barebones README.md to the folder for the skill that explains the showcase purpose and how it's made. showcase should not be mentioned in SKILL.md or any other parts of the actual skill
+4: html page should be standalone, so no need to host it. 
+5: delete skill, showcase, and bundler - leave no trace
+
+For implementation, don't open the PR yet - just do all the work leading up to it and plan out the PR description. i want to review before sign off
