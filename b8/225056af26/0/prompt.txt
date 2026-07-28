@@ -1,0 +1,10 @@
+push them up
+
+---
+
+- follow-up once we're done merging those two: we need to delete the `feat/update-liatrio-design-skill` branch from ai-prompts.
+- remove the `.ua` entry from .gitignore in the `/skills` repo PR
+
+---
+
+the `ai-prompts` PR preview says " Can’t automatically merge" for some reason. also, do NOT update the CHANGELOG.md in the `ai-prompts` PR

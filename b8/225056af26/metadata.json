@@ -1,0 +1,25 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "b8225056af26",
+  "strategy": "manual-commit",
+  "branch": "chore/remove-liatrio-brand-guidelines",
+  "checkpoints_count": 0,
+  "files_touched": [
+    "README.md",
+    "docs/liatrio-brand-skill-comparative-analysis.md",
+    "skills/liatrio-brand-guidelines/SKILL.md",
+    "skills/liatrio-brand-guidelines/agents/openai.yaml",
+    "skills/liatrio-brand-guidelines/assets/liatrio-brand-guidelines-consolidated.png",
+    "skills/liatrio-brand-guidelines/references/liatrio-brand-guidelines.md",
+    "skills/liatrio-brand-guidelines/scripts/download-brand-assets.sh",
+    "skills/liatrio-brand-guidelines/scripts/fetch-brand-data.sh"
+  ],
+  "sessions": [
+    {
+      "metadata": "/b8/225056af26/0/metadata.json",
+      "transcript": "/b8/225056af26/0/full.jsonl",
+      "content_hash": "/b8/225056af26/0/content_hash.txt",
+      "prompt": "/b8/225056af26/0/prompt.txt"
+    }
+  ]
+}
