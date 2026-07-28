@@ -434,3 +434,7 @@ do it
 ---
 
 When I load the showcase as a standalone file, it doesn't load everything correctly. Looks like it has to be served for it to work. Is there a way around that? So that just loading it as a single file, it'll just work, just work everything? I'd be okay if we had to embed stuff into it so it was one single HTML file that had all the necessary assets.
+
+---
+
+I've got one readability issue (see note on screenshot)
