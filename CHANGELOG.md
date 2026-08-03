@@ -2,6 +2,15 @@
 
 <!-- version list -->
 
+## v0.19.0 (2026-08-03)
+
+### Features
+
+- **skills**: Remove liatrio-brand-guidelines skill
+  ([#37](https://github.com/liatrio-labs/ai-prompts/pull/37),
+  [`76988e7`](https://github.com/liatrio-labs/ai-prompts/commit/76988e7eedf8ea30ed3f71d7e1689c7e3769c695))
+
+
 ## v0.18.0 (2026-07-28)
 
 ### Features
