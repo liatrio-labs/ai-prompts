@@ -1,0 +1,139 @@
+---
+name: interactive-explainer-html
+description: "Create a self-contained interactive HTML explainer that teaches grounded source material—such as a code change, system, concept, process, incident, decision, or document—through a freeform narrative and a validated quiz. Use this whenever the user needs a rich, teachable HTML artifact rather than a brief summary or status report."
+---
+
+# Interactive HTML Explainer
+
+Create a long-form, self-contained HTML artifact that helps a reader understand a grounded topic and then verify that understanding. The explainer’s job is teaching: it should develop a mental model, not merely restate source material.
+
+## First response
+
+State the source boundary you will explain and the artifact destination. Default to:
+
+```text
+${TMPDIR:-/tmp}/YYYY-MM-DD-explanation-<slug>.html
+```
+
+Do not create a permanent home-directory folder. Use another destination only when the user asks for one.
+
+## Source and evidence pass
+
+Before drafting, inspect the relevant source material. A code-change explainer normally needs the diff/stat, relevant surrounding implementation, and the validation evidence. Other explainers can use documents, data, logs, user-provided material, or source pages.
+
+Record briefly:
+
+- the topic and reader outcome;
+- the source boundary;
+- the core invariant, trade-off, or causal chain to teach; and
+- which details are evidence versus interpretation.
+
+Do not invent behavior or fill missing source context with plausible claims. Ask when the missing context changes the explanation materially.
+
+## Compose the explainer
+
+Start from `references/explainer-template.html`. It fixes only the reliable infrastructure:
+
+- document shell, title, subtitle, optional metadata, and table-of-contents region;
+- responsive base layout;
+- quiz mount, renderer, Reset, and Randomize controls; and
+- embedded JSON contract.
+
+Replace these template slots:
+
+```text
+{{TITLE}}
+{{SUBTITLE}}
+{{METADATA}}
+{{TABLE_OF_CONTENTS}}
+{{EXPLANATION_CONTENT}}
+{{QUIZ_JSON}}
+```
+
+The explanatory body is intentionally freeform. Select the structure and visual vocabulary that teaches this topic best. Use coherent section headings and an actual table of contents, but do not force every explanation into the same diagram or layout.
+
+For most topics, include:
+
+1. **Background** — a skippable beginner model, followed by the narrower context that matters here.
+2. **Intuition** — the central idea using concrete toy data or a small scenario.
+3. **Walkthrough** — group source changes, decisions, or system steps in causal order.
+4. **Boundaries and proof** — important constraints, edge cases, trade-offs, and validation where relevant.
+
+Use HTML/CSS diagrams, structured lists, code blocks, and callouts when they improve understanding. Do not use ASCII diagrams. Use `<pre>` for code; its style must keep `white-space: pre` or `pre-wrap` so source formatting survives.
+
+## Quiz JSON contract
+
+Embed a JSON object in the template’s existing named script element. The renderer owns quiz markup and interaction; author only the JSON.
+
+```json
+{
+  "questions": [
+    {
+      "id": "stable-question-id",
+      "prompt": "What is the core invariant?",
+      "answers": [
+        { "text": "A plausible but incorrect option", "correct": false },
+        { "text": "The correct option", "correct": true },
+        { "text": "Another plausible distractor", "correct": false },
+        { "text": "A final plausible distractor", "correct": false }
+      ],
+      "correct_explanation": "Why this answer is correct.",
+      "wrong_explanation": "Why the other answer is not correct and what to revisit."
+    }
+  ]
+}
+```
+
+Choose the smallest question count that genuinely tests comprehension:
+
+- **5–6 questions:** narrow topic or one central invariant;
+- **7–10 questions:** multiple interacting concepts or a multi-file feature;
+- **11–15 questions:** architectural, cross-cutting, or safety-sensitive material.
+
+Every question must have exactly four answers and exactly one correct answer. Keep questions medium difficulty: they should reward understanding rather than trivia or gotchas. Wrong-answer explanations must teach the missing concept, not merely say “try again.”
+
+The template randomizes question order and each question’s answers independently. **Reset** restores the original source order and clears feedback. **Randomize** reshuffles both levels and clears feedback.
+
+## Validate before delivery
+
+1. Put the quiz JSON in a separate temporary `.json` file while authoring.
+2. Validate the JSON:
+
+   ```bash
+   uv run scripts/validate_questions.py /path/to/quiz.json
+   ```
+
+3. Embed the same validated JSON in the generated HTML and validate the artifact:
+
+   ```bash
+   uv run scripts/validate_questions.py /path/to/explainer.html
+   ```
+
+4. Extract the emitted JavaScript and check it, rather than relying on the host/template source alone:
+
+   ```bash
+   python - <<'PY' /path/to/explainer.html /tmp/explainer.js
+   from pathlib import Path
+   import re
+   import sys
+
+   html = Path(sys.argv[1]).read_text(encoding="utf-8")
+   scripts = re.findall(r"<script(?![^>]*application/json)[^>]*>(.*?)</script>", html, re.S | re.I)
+   Path(sys.argv[2]).write_text("\n".join(scripts), encoding="utf-8")
+   PY
+   node --check /tmp/explainer.js
+   ```
+
+5. Serve the artifact temporarily and run a compact browser smoke check. Verify:
+   - page load has no console errors;
+   - one correct answer shows its correct explanation;
+   - one incorrect answer shows its helpful wrong explanation;
+   - Reset clears feedback and restores original order;
+   - Randomize clears feedback and changes presentation; and
+   - the document has no horizontal overflow at a 390px viewport.
+
+Do not save screenshots, create browser-QA findings JSON, or start a report server for this workflow. Report the checks and their results in the final response.
+
+## Iteration-two opportunity
+
+The first pass deliberately displays all questions in consistent cards so the contract remains inspectable and easy to validate. After real-world use proves the JSON schema and renderer reliable, consider a one-question-at-a-time presentation with progress, next/previous navigation, and a completion state.

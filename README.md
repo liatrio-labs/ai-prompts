@@ -34,6 +34,7 @@ Skills are organized in the `skills/` directory by capability:
 - `uv-usage/` - `uv` package manager workflows and command guidance
 - `branch-surgery-pr-split/` - Branch decomposition strategy for splitting oversized or mixed-concern PRs
 - `browser-qa/` - Lightweight browser QA workflow for driving UI paths and publishing evidence-backed findings in a local report viewer
+- `interactive-explainer-html/` - Self-contained interactive HTML explainers with freeform teaching content and validated quizzes
 
 ### 3. Use Prompts with AI Tools
 
@@ -146,6 +147,7 @@ Repository marker: `🤖` in `AGENTS.md` for AI Agent Instructions and configura
 | `uv-usage` | `skills/uv-usage/SKILL.md` | Provide concise guidance for `uv` project and dependency workflows. |
 | `branch-surgery-pr-split` | `skills/branch-surgery-pr-split/SKILL.md` | Split oversized or mixed-concern branches into reviewable PR stacks with parity audits and merge sequencing. |
 | `browser-qa` | `skills/browser-qa/SKILL.md` | Run focused browser QA passes with critical-path checks, console evidence, screenshots, validated JSON, and a local HTML report viewer. |
+| `interactive-explainer-html` | `skills/interactive-explainer-html/SKILL.md` | Create self-contained interactive HTML explainers with freeform teaching content and validated quizzes. |
 
 ## Prompt-to-Skill Migration Map
 

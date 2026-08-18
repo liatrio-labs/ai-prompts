@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{SUBTITLE}}">
+  <link rel="icon" href="data:,">
+  <title>{{TITLE}}</title>
+  <style>
+    :root { color-scheme: light dark; --page: #10151c; --surface: #18212b; --surface-raised: #223142; --ink: #edf4fb; --muted: #b6c5d4; --line: #3c5064; --accent: #9ee37d; --link: #89c8ff; --danger: #ffb4ab; --radius: 12px; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 17px/1.6 system-ui, sans-serif; }
+    main { width: min(100% - 32px, 1000px); margin: 0 auto; padding: 48px 0 72px; }
+    h1, h2, h3 { line-height: 1.15; }
+    h1 { font-size: clamp(2rem, 6vw, 4rem); margin: 0; }
+    h2 { margin-top: 3rem; color: var(--accent); }
+    a { color: var(--link); }
+    .eyebrow { color: var(--accent); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .subtitle { max-width: 70ch; color: var(--muted); font-size: 1.15rem; }
+    .meta { color: var(--muted); font-size: .9rem; }
+    .toc, .quiz, .callout, pre { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .toc { margin: 2rem 0; padding: 1rem 1.25rem; }
+    .toc ol { columns: 2; margin-bottom: 0; padding-left: 1.25rem; }
+    .explainer-content > * { max-width: 100%; }
+    pre { overflow: auto; padding: 1rem; white-space: pre-wrap; }
+    .quiz { margin-top: 3rem; padding: clamp(1rem, 3vw, 2rem); }
+    .quiz-heading { margin-top: 0; }
+    .quiz-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1rem 0 1.5rem; }
+    button { border: 1px solid var(--line); border-radius: 8px; padding: .7rem .9rem; background: var(--surface-raised); color: var(--ink); font: inherit; cursor: pointer; text-align: left; }
+    button:hover, button:focus-visible { border-color: var(--accent); outline: 2px solid transparent; }
+    .quiz-question { border-top: 1px solid var(--line); padding: 1.5rem 0; }
+    .quiz-question:first-child { border-top: 0; padding-top: 0; }
+    .answer-list { display: grid; gap: .65rem; margin-top: .75rem; }
+    .answer-list button[data-selected="true"] { border-color: var(--accent); }
+    .answer-list button[data-correct="false"][data-selected="true"] { border-color: var(--danger); }
+    .feedback { display: none; margin-top: .85rem; padding: .85rem 1rem; border-left: 4px solid var(--accent); background: var(--surface-raised); }
+    .feedback[data-visible="true"] { display: block; }
+    .feedback[data-correct="false"] { border-left-color: var(--danger); }
+    @media (max-width: 600px) { main { width: min(100% - 24px, 1000px); padding-top: 28px; } .toc ol { columns: 1; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Interactive explainer</p>
+      <h1>{{TITLE}}</h1>
+      <p class="subtitle">{{SUBTITLE}}</p>
+      <p class="meta">{{METADATA}}</p>
+    </header>
+
+    <nav class="toc" aria-label="Table of contents">
+      <strong>On this page</strong>
+      {{TABLE_OF_CONTENTS}}
+    </nav>
+
+    <article class="explainer-content">
+      {{EXPLANATION_CONTENT}}
+    </article>
+
+    <section class="quiz" aria-labelledby="quiz-title">
+      <p class="eyebrow">Check your understanding</p>
+      <h2 class="quiz-heading" id="quiz-title">Quiz</h2>
+      <p>Answer the questions in any order. Reset restores the original presentation; Randomize reshuffles questions and answers.</p>
+      <div class="quiz-actions">
+        <button id="quiz-reset" type="button">Reset questions</button>
+        <button id="quiz-randomize" type="button">Randomize questions</button>
+      </div>
+      <div id="explainer-quiz" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script id="explainer-quiz-data" type="application/json">
+{{QUIZ_JSON}}
+  </script>
+  <script>
+    (() => {
+      const quizRoot = document.querySelector("#explainer-quiz");
+      const resetButton = document.querySelector("#quiz-reset");
+      const randomizeButton = document.querySelector("#quiz-randomize");
+      const originalQuestions = JSON.parse(document.querySelector("#explainer-quiz-data").textContent);
+      let displayedQuestions = structuredClone(originalQuestions.questions);
+
+      function shuffle(items) {
+        const copy = [...items];
+        for (let index = copy.length - 1; index > 0; index -= 1) {
+          const target = Math.floor(Math.random() * (index + 1));
+          [copy[index], copy[target]] = [copy[target], copy[index]];
+        }
+        return copy;
+      }
+
+      function createAnswerButton(questionIndex, answerIndex, answer) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.dataset.questionIndex = String(questionIndex);
+        button.dataset.answerIndex = String(answerIndex);
+        button.textContent = answer.text;
+        return button;
+      }
+
+      function render(questions) {
+        displayedQuestions = questions;
+        quizRoot.replaceChildren();
+        questions.forEach((question, questionIndex) => {
+          const card = document.createElement("section");
+          card.className = "quiz-question";
+          const heading = document.createElement("h3");
+          heading.textContent = `${questionIndex + 1}. ${question.prompt}`;
+          const answers = document.createElement("div");
+          answers.className = "answer-list";
+          question.answers.forEach((answer, answerIndex) => {
+            answers.append(createAnswerButton(questionIndex, answerIndex, answer));
+          });
+          const feedback = document.createElement("div");
+          feedback.className = "feedback";
+          feedback.dataset.visible = "false";
+          card.append(heading, answers, feedback);
+          quizRoot.append(card);
+        });
+      }
+
+      function reset() {
+        render(structuredClone(originalQuestions.questions));
+      }
+
+      function randomize() {
+        const shuffledQuestions = shuffle(structuredClone(originalQuestions.questions)).map((question) => ({
+          ...question,
+          answers: shuffle(question.answers),
+        }));
+        render(shuffledQuestions);
+      }
+
+      quizRoot.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-question-index]");
+        if (!button) return;
+        const question = displayedQuestions[Number(button.dataset.questionIndex)];
+        const answer = question.answers[Number(button.dataset.answerIndex)];
+        const answerList = button.closest(".answer-list");
+        answerList.querySelectorAll("button").forEach((item) => {
+          item.dataset.selected = "false";
+          item.dataset.correct = "";
+        });
+        button.dataset.selected = "true";
+        button.dataset.correct = String(answer.correct);
+        const feedback = answerList.parentElement.querySelector(".feedback");
+        feedback.dataset.visible = "true";
+        feedback.dataset.correct = String(answer.correct);
+        feedback.textContent = answer.correct ? question.correct_explanation : question.wrong_explanation;
+      });
+
+      resetButton.addEventListener("click", reset);
+      randomizeButton.addEventListener("click", randomize);
+      reset();
+    })();
+  </script>
+</body>
+</html>
