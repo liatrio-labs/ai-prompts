@@ -61,6 +61,20 @@ For most topics, include:
 
 Use HTML/CSS diagrams, structured lists, code blocks, and callouts when they improve understanding. Do not use ASCII diagrams. Use `<pre>` for code; its style must keep `white-space: pre` or `pre-wrap` so source formatting survives.
 
+## Language and teaching
+
+Write so the reader can form a working mental model, not merely recognize the topic's vocabulary. Keep the authorial voice and visual structure appropriate to the subject; these are teaching principles, not a required prose formula.
+
+- Begin each section with its simplest accurate point, then develop the evidence and mechanics.
+- When causality matters, make it visible: describe the problem or missing distinction, the reasonable but wrong consequence, and how the change or decision resolves it.
+- Pair abstract claims with source-near examples, before/after states, toy data, or a small scenario when they make the behavior easier to recognize.
+- Preserve the source's ubiquitous language. Introduce specialized terms only when they carry a necessary distinction, and define them at first use with ordinary language.
+- Keep levels distinct: identify whether a statement describes a goal, mechanism, policy, enforcement action, system state, or one event.
+- State relevant non-goals and limits when their omission could invite overgeneralization.
+- After drafting, re-pitch the opening and each section transition: a knowledgeable reader who is new to this topic should be able to say why this section follows the previous one.
+
+Avoid synonym-heavy paraphrase, generic AI phrasing, and unexplained jargon. Do not simplify away a distinction that the source needs to remain true.
+
 ## Quiz JSON contract
 
 Embed a JSON object in the template’s existing named script element. The renderer owns quiz markup and interaction; author only the JSON.
