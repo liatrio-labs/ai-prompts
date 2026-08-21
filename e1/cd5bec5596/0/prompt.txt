@@ -1,0 +1,348 @@
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: h2
+dom_path: main > section.quiz > div.quiz-chrome > div.quiz-heading-row > h2#quiz-title
+id: quiz-title
+class: quiz-heading
+visible_text: Quiz
+bounds_css_px: top=548 left=100 width=53 height=41
+attributes:
+  class=quiz-heading
+  id=quiz-title
+```
+ delete this
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: p
+dom_path: main > section.quiz > div.quiz-chrome > div.quiz-heading-row > p#quiz-instructions
+id: quiz-instructions
+visible_text: Answer one question at a time. Reset and Randomize both start a fresh shuffled run.
+bounds_css_px: top=558 left=160 width=632 height=54
+attributes:
+  id=quiz-instructions
+```
+ remove the wrap from this
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: p
+dom_path: main > section.quiz > div.quiz-chrome > div.quiz-control-row > p#quiz-score
+id: quiz-score
+visible_text: Correct: 0 · Incorrect: 0
+bounds_css_px: top=635 left=100 width=188 height=27
+attributes:
+  id=quiz-score
+```
+ move this to the right of the question counter
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: div
+dom_path: main > section.quiz > div.quiz-chrome > div.quiz-control-row > div.quiz-actions
+class: quiz-actions
+visible_text: Reset questions Randomize questions
+bounds_css_px: top=623 left=515 width=540 height=51
+attributes:
+  class=quiz-actions
+```
+ make the reset/randomize buttons float on the left and keep the next button floating on the right
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: div
+dom_path: main > section.quiz > div#quiz-question-region > div#explainer-quiz
+id: explainer-quiz
+visible_text: 1. What happens before remediation cycle two? Retry the same fix silently until all validation gates pass Delegate the continuation decision entirely to the Value Skeptic Stop work and present failure
+bounds_css_px: top=829 left=100 width=955 height=416
+attributes:
+  id=explainer-quiz
+  aria-live=polite
+```
+ remove the empty space below the answers
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: div
+dom_path: main > section.quiz > div.quiz-chrome > div.quiz-control-row
+class: quiz-control-row
+visible_text: Reset questions Randomize questions Next question
+bounds_css_px: top=623 left=100 width=955 height=51
+attributes:
+  class=quiz-control-row
+```
+ a little more vertical margin around this
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: h3
+dom_path: main > section.quiz > div#quiz-question-region > div#explainer-quiz > section.quiz-question.quiz-question-enter > h3
+visible_text: 1. At the value checkpoint, what should you inspect?
+bounds_css_px: top=834 left=100 width=955 height=32
+```
+ add a little top margin
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: button
+dom_path: main > section.quiz > div.quiz-chrome > div.quiz-control-row > button#quiz-next
+id: quiz-next
+visible_text: Next question
+bounds_css_px: top=744 left=909 width=146 height=51
+attributes:
+  id=quiz-next
+  type=button
+```
+ add a "Previous question" button to the left of this. it should have the same visibilty rules as the "Next question" button
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: section
+dom_path: main > section.quiz > div#quiz-question-region > div#explainer-quiz > section.quiz-question.quiz-question-enter
+class: quiz-question quiz-question-enter
+visible_text: 2. When is deferring work NOT allowed under the safety rules? Hypothetical hardening might help in some future deployment A minimum control prevents concrete present harm in the boundary An adjacent c
+bounds_css_px: top=961 left=100 width=955 height=295
+attributes:
+  class=quiz-question quiz-question-enter
+```
+ the animation for this is still too abrupt, slow it down a little, make it feel a little more cozy
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: div
+dom_path: main > section.quiz > div#quiz-feedback-region > div#quiz-feedback
+id: quiz-feedback
+class: feedback
+visible_text: Not quite. Safety exceptions require concrete harm, condition, boundary, and minimum control—not speculative or adjacent assurance.
+bounds_css_px: top=867 left=100 width=955 height=94
+attributes:
+  id=quiz-feedback
+  class=feedback
+  data-visible=true
+  role=status
+  data-correct=false
+```
+ this field should animate in with an effect. before the field is visible, the space should be collapsed. then when the user answers a question, it should animate in from the top and push the question and the answers down.
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: div
+dom_path: main > section.quiz > div.quiz-chrome > div.quiz-control-row > div.quiz-nav-actions
+class: quiz-nav-actions
+bounds_css_px: top=800 left=720 width=335 height=51
+attributes:
+  class=quiz-nav-actions
+```
+ change of experience: the Previous/Next buttons should always be visible and disabled appropriately based on the state of the current question and the position within all of the questionos
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: section
+dom_path: main > section.quiz > div#quiz-question-region > div#explainer-quiz > section.quiz-question.quiz-question-enter
+class: quiz-question quiz-question-enter
+visible_text: 3. Which disposition enters active work automatically? Current-slice blocker Later-slice candidate Speculative / YAGNI Cleanup
+bounds_css_px: top=1027 left=100 width=955 height=295
+attributes:
+  class=quiz-question quiz-question-enter
+```
+ the top margin/padding on this needs to be decreased and instead applied as bottom margin to the feedback box above it
+
+---
+
+the animations for both the display of the feedback box and the transition from question to question can both be extended so they take about 50% longer to play out
+
+---
+
+up it to 750ms
+
+---
+
+there's a strange jerkiness to the animation of the feedback box appearing. I think it's related to the updating of the progress bar. audit the way it works and optimize the animations for coordination and smoothness
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: progress
+dom_path: main > section.quiz > div.quiz-chrome > div.quiz-status > progress#quiz-progress-bar
+id: quiz-progress-bar
+bounds_css_px: top=913 left=100 width=955 height=17
+attributes:
+  id=quiz-progress-bar
+  value=4
+  max=10
+```
+ animate the filling of the progress bar to mirror the timing/speed of the other animations
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: div
+dom_path: main > section.quiz > div.quiz-chrome > div.quiz-status > div#quiz-progress-bar
+id: quiz-progress-bar
+class: quiz-progress-track
+bounds_css_px: top=844 left=100 width=955 height=16
+attributes:
+  id=quiz-progress-bar
+  class=quiz-progress-track
+  role=progressbar
+  aria-valuemin=0
+  aria-valuenow=4
+  aria-valuemax=10
+  aria-labelledby=quiz-progress
+```
+ make this 50% of it's current height
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: div
+dom_path: main > section.quiz > div#quiz-feedback-region > div#quiz-feedback
+id: quiz-feedback
+class: feedback
+visible_text: Not quite. Revisit Remediation and stopping: cycle two is a hard boundary requiring human authorization.
+bounds_css_px: top=966 left=100 width=955 height=54
+attributes:
+  id=quiz-feedback
+  class=feedback
+  data-visible=true
+  role=status
+  data-correct=false
+```
+ ensure this box is always 2 lines tall so it's never jarring going from a 1 line box to a 2 line box
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: p
+dom_path: main > section.quiz > div.quiz-chrome > div.quiz-status > div.quiz-status-summary > p#quiz-score
+id: quiz-score
+visible_text: Correct: 4 · Incorrect: 6
+bounds_css_px: top=821 left=868 width=187 height=27
+attributes:
+  id=quiz-score
+```
+ I don't like the presentation of this stat. what are some other ways we could display it? a percentage comes to mind, but not sure i like that either
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: section
+dom_path: main > section.quiz
+class: quiz
+visible_text: CHECK YOUR UNDERSTANDING Answer one question at a time. Reset and Randomize both start a fresh shuffled run. Reset questions Randomize questions Previous question Next question Question 4 of 10 Co
+bounds_css_px: top=666 left=77 width=1000 height=602
+attributes:
+  class=quiz
+  aria-labelledby=quiz-instructions
+```
+ I'm still not happy with the way the animation is working. The timing feels pretty good, but the actual animations themselves are not great. This is for the Feedback block, the question, and the answers below it.
+
+First off, the animation is asymmetrical. There's a fade-in for a new question coming up, but the previous question just disappears. The direction of the animation also feels a little strange. I kind of want them to just swap out in place: the previous question fades out, and the new question immediately starts fading in. Though I'm open to other examples.
+
+---
+
+whatever you did in your last edit completely changed the file i was using as an example: tmp/2026-08-21_06-00-00_explanation-scope-governor-skill.html
+
+---
+
+I like the animation going from question to question now. It looks really good. The feedback block should do the exact same thing. For example, when users answer questions one, two, and three and then go backward by clicking “Previous Question” to questions two or one, the feedback block should fade in and out the same way that the questions and answers do.
+
+There’s also an issue with the feedback block where very long text will briefly display as longer than the box before wrapping. We need to make sure that the text in the feedback block always looks good and doesn’t have any kind of jerky animation. 
+
+There’s also an issue when clicking “Next question” and going to a brand-new question: the feedback block disappears in a separate animation, and then the question and answers change to the new question and answers. Animations.
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: div
+dom_path: main > section.quiz > div#quiz-feedback-region > div#quiz-feedback-stack > div#quiz-feedback
+id: quiz-feedback
+class: feedback
+visible_text: Correct. The skill rejects continuous governance machinery—ledgers, dashboards, quotas, and multi-agent approval chains unrelated to the current boundary.
+bounds_css_px: top=869 left=100 width=955 height=82
+attributes:
+  class=feedback
+  role=status
+  data-visible=true
+  data-correct=true
+  id=quiz-feedback
+```
+ 
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: section
+dom_path: main > section.quiz > div#quiz-question-region > div#explainer-quiz > section.quiz-question
+class: quiz-question
+visible_text: 3. Which item is explicitly a non-goal of this skill? Persistent governance dashboards Classifying proposed additions once at a boundary Stopping when observable proof exists Locking a thin slice befo
+bounds_css_px: top=966 left=100 width=955 height=279
+attributes:
+  class=quiz-question
+```
+  The animation is still a little weird. The fade-ins are better, but now there are a couple of other sync issues. The feedback box disappearing should happen at the same time as the questions changing. Also, there's a bug that was introduced in the last change where the questions and answers show up for a second as their animation is playing in, and they are editable again, even though the users have already answered them. Make sure that the questions and answers are in the correct state before animating or displaying them.
+
+---
+
+This looks better. This feels more cohesive. I think we need to move the feedback panel back down below the answers because the question and answer moving up and down as you go back and forth just doesn't feel good. If we move that feedback panel below them, it'll stay in place and keep the questions in a single position, which will work better for the user experience. Also, the Previous and Next buttons are disabled for too long. They shouldn't be tied to the rest of the animations. It prevents people from quickly going back and forth between the questions.
+
+---
+
+Okay, all right, this is working much better. The only thing we need to do now is add a placeholder for the feedback box below the answers, so that the space is always accounted for and taken up, and the entire question block doesn't ever change size or cause the page to scroll. The size of that question block should always be the same, so there's no jerkiness when you're going through the questions and the interface changes.
+
+---
+
+This feels really good. I like what it's doing. The only thing I want to tweak is the animation speed of the questions and answers and the Feedback block fading in and out. It still feels too abrupt. Let's make it a little smoother, a little lazier.
+
+---
+
+that's a little too liazy. mov it to 666ms
+
+---
+
+One last thing I want to tune: when you click an answer, all of the answers immediately pop to disabled, but the feedback box and progress bar have these nice, slower animations. I want disabling all the answers when you click one to feel the same as all the other animations.

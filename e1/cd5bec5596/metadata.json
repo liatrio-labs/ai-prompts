@@ -1,0 +1,20 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "e1cd5bec5596",
+  "strategy": "manual-commit",
+  "branch": "feat/author-owned-liatrio-explainer",
+  "checkpoints_count": 22,
+  "files_touched": [
+    "skills/interactive-explainer-html/references/explainer-template.html",
+    "skills/interactive-explainer-html/tests/fixtures/author-owned-explainer-fixture.html",
+    "skills/interactive-explainer-html/tests/test_quiz_browser.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/e1/cd5bec5596/0/metadata.json",
+      "transcript": "/e1/cd5bec5596/0/full.jsonl",
+      "content_hash": "/e1/cd5bec5596/0/content_hash.txt",
+      "prompt": "/e1/cd5bec5596/0/prompt.txt"
+    }
+  ]
+}
