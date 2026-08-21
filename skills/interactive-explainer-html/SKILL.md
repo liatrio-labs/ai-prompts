@@ -109,7 +109,7 @@ Every question must have exactly four answers and exactly one correct answer. Ke
 
 Treat answer length as part of quiz fairness. A correct answer that is uniquely longer than every distractor becomes a visual giveaway, even when its content is sound. Write concise, equally plausible options with comparable specificity; include at least one distractor that is as long as or longer than the correct answer. The validator rejects a question whose correct answer is uniquely longest.
 
-The template randomizes question order and each question’s answers independently. **Reset** restores the original source order and clears feedback. **Randomize** reshuffles both levels and clears feedback.
+The renderer presents one question at a time. Progress and navigation use `#quiz-progress`, `#quiz-progress-bar`, `#quiz-prev`, and `#quiz-next`. The template randomizes question order and each question’s answers independently. **Reset** and **Randomize** both start a fresh shuffled run and clear feedback.
 
 ## Validate before delivery
 
@@ -166,7 +166,3 @@ These explainers are internal, normally single-reader teaching artifacts. Optimi
 Do not run a browser smoke test or dispatch an independent reviewer for a normal explainer. The deterministic checks above are the delivery gate. This deliberately accepts residual visual and interactive-runtime risk in exchange for timely internal comprehension support.
 
 After the quiz validator passes, do not begin additional quiz-fairness rewrite rounds unless a concrete comprehension defect is identified. The validator is the bounded guardrail for answer-length cues; subjective preference alone is not a reason to reopen it.
-
-## Iteration-two opportunity
-
-The first pass deliberately displays all questions in consistent cards so the contract remains inspectable and easy to validate. After real-world use proves the JSON schema and renderer reliable, consider a one-question-at-a-time presentation with progress, next/previous navigation, and a completion state.
