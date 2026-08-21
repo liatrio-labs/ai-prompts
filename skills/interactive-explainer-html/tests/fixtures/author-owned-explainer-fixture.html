@@ -31,20 +31,41 @@
     .toc ol { columns: 2; margin-bottom: 0; padding-left: 1.25rem; }
     .explainer-content > * { max-width: 100%; }
     pre { overflow: auto; padding: 1rem; white-space: pre-wrap; }
-    .quiz { margin-top: 3rem; padding: clamp(1rem, 3vw, 2rem); }
-    .quiz-heading { margin-top: 0; }
-    .quiz-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1rem 0 1.5rem; }
+    .quiz { margin-top: 3rem; padding: clamp(.9rem, 2vw, 1.35rem); }
+    .quiz > .eyebrow { margin: 0 0 .2rem; }
+    .quiz-chrome { display: grid; gap: .35rem; margin-bottom: .55rem; }
+    .quiz-heading-row { align-items: baseline; display: flex; flex-wrap: wrap; gap: .15rem .5rem; justify-content: flex-start; }
+    .quiz-heading { margin: 0; }
+    #quiz-instructions { flex: 0 1 58ch; margin: 0; max-width: 58ch; color: var(--muted); }
+    .quiz-control-row { align-items: center; display: flex; flex-wrap: wrap; gap: .35rem .75rem; justify-content: space-between; }
+    .quiz-status { display: grid; gap: .2rem; margin: 0; }
+    .quiz-status p { margin: 0; }
+    #quiz-progress-bar { accent-color: var(--accent); inline-size: 100%; }
+    .quiz-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: 0; }
+    #quiz-next[hidden] { display: inline-block; visibility: hidden; }
+
     button { border: 1px solid var(--line); border-radius: 8px; padding: .7rem .9rem; background: var(--surface-raised); color: var(--ink); font: inherit; cursor: pointer; text-align: left; }
     button:hover, button:focus-visible { border-color: var(--accent); outline: 2px solid transparent; }
-    .quiz-question { border-top: 1px solid var(--line); padding: 1.5rem 0; }
-    .quiz-question:first-child { border-top: 0; padding-top: 0; }
-    .answer-list { display: grid; gap: .65rem; margin-top: .75rem; }
+    #quiz-feedback-region { block-size: clamp(5.5rem, 8vw, 7rem); overflow: auto; }
+    #quiz-feedback-region .feedback { display: block; min-block-size: 100%; margin: 0; border-left-color: transparent; opacity: 0; transition: opacity 150ms ease-out; }
+    #quiz-feedback-region .feedback[data-visible="true"] { opacity: 1; }
+    #quiz-feedback-region .feedback[data-visible="true"][data-correct="true"] { border-left-color: var(--accent); }
+    #quiz-feedback-region .feedback[data-visible="true"][data-correct="false"] { border-left-color: var(--danger); }
+    #quiz-question-region { display: flex; isolation: isolate; min-block-size: min(26rem, 38vh); }
+    #explainer-quiz { display: flex; flex: 1; }
+    .quiz-question { display: flex; flex: 1; flex-direction: column; padding: .35rem 0 0; }
+    .quiz-question h3 { margin: 0; }
+    .quiz-question-enter { animation: quiz-question-in 280ms cubic-bezier(.16, 1, .3, 1) both; }
+    .answer-list { display: grid; gap: .65rem; margin-top: auto; }
     .answer-list button[data-selected="true"] { border-color: var(--accent); }
     .answer-list button[data-correct="false"][data-selected="true"] { border-color: var(--danger); }
     .feedback { display: none; margin-top: .85rem; padding: .85rem 1rem; border-left: 4px solid var(--accent); background: var(--surface-raised); }
     .feedback[data-visible="true"] { display: block; }
     .feedback[data-correct="false"] { border-left-color: var(--danger); }
-    @media (max-width: 600px) { main { width: min(100% - 24px, 1000px); padding-top: 28px; } .toc ol { columns: 1; } }
+    .quiz-complete { color: var(--accent); font-weight: 700; }
+    @keyframes quiz-question-in { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
+    @media (prefers-reduced-motion: reduce) { .quiz-question-enter { animation: none; } }
+    @media (max-width: 600px) { main { width: min(100% - 24px, 1000px); padding-top: 28px; } .toc ol { columns: 1; } .quiz-control-row { align-items: flex-start; flex-direction: column; } }
   </style>
 </head>
 <body>
@@ -78,26 +99,38 @@
 
     <section class="quiz" aria-labelledby="quiz-title">
       <p class="eyebrow">Check your understanding</p>
-      <h2 class="quiz-heading" id="quiz-title">Quiz</h2>
-      <p>Answer the questions in any order. Reset restores the original presentation; Randomize reshuffles questions and answers.</p>
-      <div class="quiz-actions">
-        <button id="quiz-reset" type="button">Reset questions</button>
-        <button id="quiz-randomize" type="button">Randomize questions</button>
+      <div class="quiz-chrome">
+        <div class="quiz-heading-row"><h2 class="quiz-heading" id="quiz-title">Quiz</h2><p id="quiz-instructions">Answer one question at a time. Reset and Randomize both start a fresh shuffled run.</p></div>
+        <div class="quiz-control-row"><p id="quiz-score">Correct: 0 · Incorrect: 0</p><div class="quiz-actions"><button id="quiz-reset" type="button">Reset questions</button><button id="quiz-randomize" type="button">Randomize questions</button><button id="quiz-next" type="button" hidden>Next question</button></div></div>
+        <div class="quiz-status" aria-live="polite"><p id="quiz-progress">Question 1 of 0</p><progress id="quiz-progress-bar" value="0" max="0">0 of 0</progress></div>
       </div>
-      <div id="explainer-quiz" aria-live="polite"></div>
+      <div id="quiz-feedback-region"><div id="quiz-feedback" class="feedback" data-visible="false" role="status"></div></div>
+      <div id="quiz-question-region"><div id="explainer-quiz" aria-live="polite"></div></div>
     </section>
   </main>
 
   <script id="explainer-quiz-data" type="application/json">
-{"questions":[{"id":"source-boundary","prompt":"What should ground an explainer?","answers":[{"text":"Relevant source material","correct":true},{"text":"Only a title","correct":false},{"text":"Unverified assumptions","correct":false},{"text":"A generic template alone","correct":false}],"correct_explanation":"Correct. The narrative should be grounded in inspected source material.","wrong_explanation":"Start from inspected source material, then choose an explanation structure."},{"id":"question-count","prompt":"What question count does the first-pass contract support?","answers":[{"text":"Exactly five","correct":false},{"text":"Five through fifteen","correct":true},{"text":"One through one hundred","correct":false},{"text":"Only ten","correct":false}],"correct_explanation":"Correct. The author chooses five through fifteen based on complexity.","wrong_explanation":"The contract allows five through fifteen questions so complexity can drive depth."},{"id":"answer-count","prompt":"How many answers must each question have?","answers":[{"text":"Two","correct":false},{"text":"Three","correct":false},{"text":"Four","correct":true},{"text":"Any number","correct":false}],"correct_explanation":"Correct. Four options keep every question consistent.","wrong_explanation":"Each question needs exactly four answer options."},{"id":"feedback","prompt":"What happens after an incorrect answer?","answers":[{"text":"Nothing","correct":false},{"text":"The page closes","correct":false},{"text":"A helpful explanation appears","correct":true},{"text":"All answers disappear","correct":false}],"correct_explanation":"Correct. Feedback should teach, not merely score.","wrong_explanation":"Incorrect choices must reveal helpful explanatory feedback."},{"id":"output","prompt":"Where does the default generated artifact go?","answers":[{"text":"Inside the repository","correct":false},{"text":"A permanent home-directory folder","correct":false},{"text":"The system temporary directory","correct":true},{"text":"A remote service","correct":false}],"correct_explanation":"Correct. The default is a date-prefixed file in the system temporary directory.","wrong_explanation":"The skill uses the system temporary directory by default to avoid creating user directories."}]}
+{"questions":[{"id":"source-boundary","prompt":"What should ground an explainer?","answers":[{"text":"Relevant source material","correct":true},{"text":"Only a title","correct":false},{"text":"Unverified assumptions","correct":false},{"text":"A generic template alone","correct":false}],"correct_explanation":"Correct. The narrative should be grounded in inspected source material.","wrong_explanation":"Start from inspected source material, then choose an explanation structure."},{"id":"question-count","prompt":"What question count does the first-pass contract support?","answers":[{"text":"Exactly five","correct":false},{"text":"Five through fifteen","correct":true},{"text":"One through one hundred","correct":false},{"text":"Only ten","correct":false}],"correct_explanation":"Correct. The author chooses five through fifteen based on complexity.","wrong_explanation":"The contract allows five through fifteen questions so complexity can drive depth."},{"id":"answer-count","prompt":"How many answers must each question have?","answers":[{"text":"Two","correct":false},{"text":"Three","correct":false},{"text":"Four","correct":true},{"text":"Any number","correct":false}],"correct_explanation":"Correct. Four options keep every question consistent.","wrong_explanation":"Each question needs exactly four answer options."},{"id":"feedback","prompt":"What happens after an incorrect answer?","answers":[{"text":"Nothing useful happens afterward","correct":false},{"text":"The page closes","correct":false},{"text":"A helpful explanation appears","correct":true},{"text":"All answers disappear","correct":false}],"correct_explanation":"Correct. Feedback should teach, not merely score.","wrong_explanation":"Incorrect choices must reveal helpful explanatory feedback."},{"id":"output","prompt":"Where does the default generated artifact go?","answers":[{"text":"Inside the repository","correct":false},{"text":"A permanent home-directory folder","correct":false},{"text":"The system temporary directory","correct":true},{"text":"A remote service","correct":false}],"correct_explanation":"Correct. The default output uses the system temporary directory.","wrong_explanation":"The workflow avoids creating permanent folders unless the user requests one."}]}
   </script>
   <script>
     (() => {
       const quizRoot = document.querySelector("#explainer-quiz");
       const resetButton = document.querySelector("#quiz-reset");
       const randomizeButton = document.querySelector("#quiz-randomize");
+      const nextButton = document.querySelector("#quiz-next");
+      const progressText = document.querySelector("#quiz-progress");
+      const progressBar = document.querySelector("#quiz-progress-bar");
+      const scoreText = document.querySelector("#quiz-score");
+      const feedback = document.querySelector("#quiz-feedback");
+      feedback.id = "quiz-feedback";
+      feedback.setAttribute("role", "status");
       const originalQuestions = JSON.parse(document.querySelector("#explainer-quiz-data").textContent);
-      let displayedQuestions = structuredClone(originalQuestions.questions);
+      let displayedQuestions = [];
+      let currentQuestionIndex = 0;
+      let answeredQuestionIds = new Set();
+      let correctCount = 0;
+      let incorrectCount = 0;
+
 
       function shuffle(items) {
         const copy = [...items];
@@ -108,58 +141,72 @@
         return copy;
       }
 
-      function createAnswerButton(questionIndex, answerIndex, answer) {
+      function createAnswerButton(answerIndex, answer) {
         const button = document.createElement("button");
         button.type = "button";
-        button.dataset.questionIndex = String(questionIndex);
         button.dataset.answerIndex = String(answerIndex);
         button.setAttribute("aria-pressed", "false");
         button.textContent = answer.text;
         return button;
       }
 
-      function render(questions) {
-        displayedQuestions = questions;
+      function updateStatus() {
+        const totalQuestions = displayedQuestions.length;
+        progressText.textContent = `Question ${Math.min(currentQuestionIndex + 1, totalQuestions)} of ${totalQuestions}`;
+        progressBar.max = totalQuestions;
+        progressBar.value = answeredQuestionIds.size;
+        progressBar.textContent = `${answeredQuestionIds.size} of ${totalQuestions}`;
+        scoreText.textContent = `Correct: ${correctCount} · Incorrect: ${incorrectCount}`;
+      }
+
+      function renderQuestion() {
         quizRoot.replaceChildren();
-        questions.forEach((question, questionIndex) => {
-          const card = document.createElement("section");
-          card.className = "quiz-question";
-          const heading = document.createElement("h3");
-          heading.textContent = `${questionIndex + 1}. ${question.prompt}`;
-          const answers = document.createElement("div");
-          answers.className = "answer-list";
-          question.answers.forEach((answer, answerIndex) => {
-            answers.append(createAnswerButton(questionIndex, answerIndex, answer));
-          });
-          const feedback = document.createElement("div");
-          feedback.className = "feedback";
-          feedback.dataset.visible = "false";
-          feedback.id = `quiz-feedback-${question.id}`;
-          feedback.setAttribute("role", "status");
-          answers.querySelectorAll("button").forEach((button) => {
-            button.setAttribute("aria-describedby", feedback.id);
-          });
-          card.append(heading, answers, feedback);
-          quizRoot.append(card);
+        nextButton.hidden = true;
+        feedback.dataset.visible = "false";
+        feedback.removeAttribute("data-correct");
+        feedback.textContent = "";
+        updateStatus();
+        const question = displayedQuestions[currentQuestionIndex];
+        if (!question) return;
+        const card = document.createElement("section");
+        card.className = "quiz-question quiz-question-enter";
+        const heading = document.createElement("h3");
+        heading.textContent = `${currentQuestionIndex + 1}. ${question.prompt}`;
+        const answers = document.createElement("div");
+        answers.className = "answer-list";
+        question.answers.forEach((answer, answerIndex) => {
+          answers.append(createAnswerButton(answerIndex, answer));
         });
+        answers.querySelectorAll("button").forEach((button) => {
+          button.setAttribute("aria-describedby", feedback.id);
+        });
+        card.append(heading, answers);
+        quizRoot.append(card);
       }
 
-      function reset() {
-        render(structuredClone(originalQuestions.questions));
-      }
-
-      function randomize() {
-        const shuffledQuestions = shuffle(structuredClone(originalQuestions.questions)).map((question) => ({
+      function startFreshRun() {
+        displayedQuestions = shuffle(structuredClone(originalQuestions.questions)).map((question) => ({
           ...question,
           answers: shuffle(question.answers),
         }));
-        render(shuffledQuestions);
+        currentQuestionIndex = 0;
+        answeredQuestionIds = new Set();
+        correctCount = 0;
+        incorrectCount = 0;
+        renderQuestion();
+      }
+
+      function advanceQuestion() {
+        if (currentQuestionIndex >= displayedQuestions.length - 1) return;
+        currentQuestionIndex += 1;
+        renderQuestion();
       }
 
       quizRoot.addEventListener("click", (event) => {
-        const button = event.target.closest("button[data-question-index]");
+        const button = event.target.closest("button[data-answer-index]");
         if (!button) return;
-        const question = displayedQuestions[Number(button.dataset.questionIndex)];
+        const question = displayedQuestions[currentQuestionIndex];
+        if (answeredQuestionIds.has(question.id)) return;
         const answer = question.answers[Number(button.dataset.answerIndex)];
         const answerList = button.closest(".answer-list");
         answerList.querySelectorAll("button").forEach((item) => {
@@ -170,15 +217,25 @@
         button.dataset.selected = "true";
         button.dataset.correct = String(answer.correct);
         button.setAttribute("aria-pressed", "true");
-        const feedback = answerList.parentElement.querySelector(".feedback");
+        answerList.querySelectorAll("button").forEach((item) => { item.disabled = true; });
         feedback.dataset.visible = "true";
         feedback.dataset.correct = String(answer.correct);
         feedback.textContent = answer.correct ? question.correct_explanation : question.wrong_explanation;
+        answeredQuestionIds.add(question.id);
+        if (answer.correct) correctCount += 1;
+        else incorrectCount += 1;
+        updateStatus();
+        if (currentQuestionIndex < displayedQuestions.length - 1) {
+          nextButton.hidden = false;
+        } else {
+          feedback.textContent += " Quiz complete.";
+        }
       });
 
-      resetButton.addEventListener("click", reset);
-      randomizeButton.addEventListener("click", randomize);
-      reset();
+      resetButton.addEventListener("click", startFreshRun);
+      randomizeButton.addEventListener("click", startFreshRun);
+      nextButton.addEventListener("click", advanceQuestion);
+      startFreshRun();
     })();
   </script>
 </body>

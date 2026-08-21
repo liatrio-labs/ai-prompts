@@ -106,6 +106,10 @@ class ArtifactInspector(HTMLParser):
         self.has_quiz_mount = False
         self.has_reset = False
         self.has_randomize = False
+        self.has_progress = False
+        self.has_progress_bar = False
+        self.has_score = False
+        self.has_next = False
         self.external_resources: list[str] = []
         self.style_text: list[str] = []
         self.script_text: list[str] = []
@@ -146,6 +150,14 @@ class ArtifactInspector(HTMLParser):
             self.has_reset = True
         if element_id == "quiz-randomize":
             self.has_randomize = True
+        if element_id == "quiz-progress":
+            self.has_progress = True
+        if element_id == "quiz-progress-bar":
+            self.has_progress_bar = True
+        if element_id == "quiz-score":
+            self.has_score = True
+        if element_id == "quiz-next":
+            self.has_next = True
 
         if tag in RUNTIME_TAGS:
             resource = attr_map.get("src") or attr_map.get("href")
@@ -225,6 +237,8 @@ def validate(path: Path) -> list[str]:
         errors.append("artifact is missing #quiz-reset control")
     if not inspector.has_randomize:
         errors.append("artifact is missing #quiz-randomize control")
+    if not all((inspector.has_progress, inspector.has_progress_bar, inspector.has_score, inspector.has_next)):
+        errors.append("artifact is missing paged quiz status or next controls")
     return errors
 
 

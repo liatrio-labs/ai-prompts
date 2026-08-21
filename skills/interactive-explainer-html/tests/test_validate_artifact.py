@@ -40,7 +40,7 @@ class ValidateArtifactTests(unittest.TestCase):
     <h1>Example explainer</h1>
     <nav class=\"toc\" aria-label=\"Table of contents\"><a href=\"#model\">Model</a></nav>
     <article class=\"explainer-content\"><section id=\"model\"><h2>Model</h2></section></article>
-    <section class="quiz"><button id="quiz-reset">Reset</button><button id="quiz-randomize">Randomize</button><div id="explainer-quiz"><button aria-pressed="false" aria-describedby="answer-feedback">First answer</button><button aria-pressed="true" aria-describedby="answer-feedback">Selected answer</button><div id="answer-feedback" role="status">Feedback</div></div></section>
+    <section class="quiz"><p id="quiz-progress">Question 1 of 1</p><progress id="quiz-progress-bar" value="0" max="1">0 of 1</progress><p id="quiz-score">Correct: 0 · Incorrect: 0</p><button id="quiz-reset">Reset</button><button id="quiz-randomize">Randomize</button><div id="explainer-quiz"><button aria-pressed="false" aria-describedby="answer-feedback">First answer</button><button aria-pressed="true" aria-describedby="answer-feedback">Selected answer</button><div id="answer-feedback" role="status">Feedback</div></div><button id="quiz-next">Next</button></section>
   </main>
   <script id=\"explainer-quiz-data\" type=\"application/json\">{\"questions\": []}</script>
   <script>
@@ -126,6 +126,12 @@ class ValidateArtifactTests(unittest.TestCase):
         result = self.run_validator(html)
         self.assertEqual(result.returncode, 1)
         self.assertIn("exactly one", result.stderr.lower())
+
+    def test_rejects_artifact_without_paged_quiz_status_and_next_controls(self) -> None:
+        html = self.valid_artifact().replace('id="quiz-next"', 'id="other"')
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("paged quiz", result.stderr.lower())
 
     def test_rejects_artifact_without_inline_styles(self) -> None:
         html = self.valid_artifact().replace(
