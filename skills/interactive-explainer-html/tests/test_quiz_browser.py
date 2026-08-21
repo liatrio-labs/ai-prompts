@@ -85,7 +85,7 @@ class QuizBrowserTests(unittest.TestCase):
         self.assertEqual(state["visibleQuestions"], 1)
         self.assertEqual(state["progress"], "Question 1 of 5")
         self.assertEqual(state["progressValue"], 0)
-        self.assertEqual(state["score"], "Correct: 0 · Incorrect: 0")
+        self.assertEqual(state["score"], "0 of 5 correct")
 
     def test_quiz_chrome_is_compact_and_separate_from_question_motion(self) -> None:
         state = self.evaluate(
@@ -128,6 +128,14 @@ class QuizBrowserTests(unittest.TestCase):
         "const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));"
         "const answer = () => document.querySelector('#explainer-quiz .answer-list button').click();"
         "const nav = (id) => document.querySelector(id).click();"
+        # Answers are shuffled, so resolve the correct one from the embedded quiz JSON.
+        "const source = JSON.parse(document.querySelector('#explainer-quiz-data').textContent);"
+        "const answerCorrectly = () => {"
+        "const heading = document.querySelector('#explainer-quiz .quiz-question h3').textContent;"
+        "const question = source.questions.find((item) => heading.includes(item.prompt));"
+        "const correct = question.answers.find((item) => item.correct).text;"
+        "[...document.querySelectorAll('#explainer-quiz .answer-list button')]"
+        ".find((button) => button.textContent === correct).click();};"
     )
 
     def test_navigation_is_not_blocked_while_questions_animate(self) -> None:
@@ -202,6 +210,51 @@ class QuizBrowserTests(unittest.TestCase):
         self.assertLess(cast(float, state["opacity"]), 1, "card should still be fading in")
         self.assertTrue(state["allDisabled"], "answered card must render locked")
         self.assertEqual(state["pressed"], 1)
+
+    def test_status_lines_fade_out_before_the_next_value_fades_in(self) -> None:
+        state = self.evaluate_script(
+            self.ANSWER_AND_ADVANCE
+            + "const layers = (id) => [...document.querySelectorAll(id + ' span')]"
+            ".map((span) => ({text: span.textContent, opacity: Number(getComputedStyle(span).opacity),"
+            "exiting: span.classList.contains('quiz-swap-exit')}));"
+            "answerCorrectly();"
+            "await sleep(50);"
+            "const leaving = layers('#quiz-score');"
+            "await sleep(150);"
+            "const arriving = layers('#quiz-score');"
+            "await sleep(900);"
+            "nav('#quiz-next');"
+            "await sleep(50);"
+            "const progressLeaving = layers('#quiz-progress');"
+            "await sleep(900);"
+            "return JSON.stringify({leaving, arriving, progressLeaving, settled: {"
+            "progressSpans: document.querySelectorAll('#quiz-progress span').length,"
+            "scoreSpans: document.querySelectorAll('#quiz-score span').length,"
+            "progressText: document.querySelector('#quiz-progress').textContent.trim(),"
+            "scoreText: document.querySelector('#quiz-score').textContent.trim()}});"
+        )
+        for name in ("leaving", "progressLeaving"):
+            layers = cast(list[dict[str, object]], state[name])
+            exiting = [layer for layer in layers if layer["exiting"]]
+            entering = [layer for layer in layers if not layer["exiting"]]
+            self.assertEqual(len(exiting), 1, f"{name} needs one outgoing layer: {layers}")
+            self.assertEqual(len(entering), 1, f"{name} needs one incoming layer: {layers}")
+            self.assertLess(cast(float, exiting[0]["opacity"]), 1, "outgoing value should be fading")
+            self.assertGreater(cast(float, exiting[0]["opacity"]), 0, "outgoing value should still show")
+            self.assertLess(
+                cast(float, entering[0]["opacity"]),
+                0.05,
+                f"{name} must hold the incoming value back until the outgoing one clears",
+            )
+        arriving = cast(list[dict[str, object]], state["arriving"])
+        self.assertEqual(len(arriving), 1, f"outgoing layer should be gone by now: {arriving}")
+        self.assertGreater(cast(float, arriving[0]["opacity"]), 0, "incoming value should be fading in")
+        self.assertLess(cast(float, arriving[0]["opacity"]), 1, "incoming value should still be fading in")
+        settled = cast(dict[str, object], state["settled"])
+        self.assertEqual(settled["progressSpans"], 1, "stale status layers must be removed")
+        self.assertEqual(settled["scoreSpans"], 1, "stale status layers must be removed")
+        self.assertEqual(settled["progressText"], "Question 2 of 5")
+        self.assertEqual(settled["scoreText"], "1 of 5 correct")
 
     def test_answers_fade_into_their_locked_state(self) -> None:
         state = self.evaluate_script(
