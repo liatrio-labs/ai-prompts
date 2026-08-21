@@ -112,23 +112,37 @@ The template randomizes question order and each question’s answers independent
 
 ## Validate before delivery
 
+Set `SKILL_DIR` to the directory containing this `SKILL.md`. Run every validator using that absolute skill path; do not assume the calling workspace has a `scripts/` directory.
+
 1. Put the quiz JSON in a separate temporary `.json` file while authoring.
 2. Validate the JSON:
 
    ```bash
-   uv run scripts/validate_questions.py /path/to/quiz.json
+   uv run "$SKILL_DIR/scripts/validate_questions.py" /path/to/quiz.json
    ```
 
-3. Embed the same validated JSON in the generated HTML and validate the artifact:
+3. Convert the validated JSON to safe script-data before replacing `{{QUIZ_JSON}}`. Escape every literal `<` as `\u003c`; this preserves the parsed JSON value while preventing source-derived text such as `</script>` from closing the data element.
 
    ```bash
-   uv run scripts/validate_questions.py /path/to/explainer.html
+   python - /path/to/quiz.json <<'PY'
+   import json
+   import sys
+
+   payload = json.dumps(json.load(open(sys.argv[1], encoding="utf-8")), ensure_ascii=False)
+   print(payload.replace("<", "\\u003c"))
+   PY
+   ```
+
+   Use that output for `{{QUIZ_JSON}}`, then validate the generated artifact:
+
+   ```bash
+   uv run "$SKILL_DIR/scripts/validate_questions.py" /path/to/explainer.html
    ```
 
 4. Validate standalone artifact structure:
 
    ```bash
-   uv run scripts/validate_artifact.py /path/to/explainer.html
+   uv run "$SKILL_DIR/scripts/validate_artifact.py" /path/to/explainer.html
    ```
 
    This checks the self-contained shell, inline runtime, TOC targets, quiz infrastructure, and unreplaced template tokens. It complements rather than replaces the quiz validator.

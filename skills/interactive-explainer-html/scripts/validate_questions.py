@@ -22,6 +22,7 @@ class QuizDataParser(HTMLParser):
         super().__init__()
         self._capturing = False
         self.contents: list[str] = []
+        self.match_count = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         attributes = dict(attrs)
@@ -30,6 +31,8 @@ class QuizDataParser(HTMLParser):
             and attributes.get("id") == QUIZ_ELEMENT_ID
             and attributes.get("type") == "application/json"
         )
+        if self._capturing:
+            self.match_count += 1
 
     def handle_endtag(self, tag: str) -> None:
         if tag == "script":
@@ -49,6 +52,10 @@ def extract_json_text(path: Path) -> str:
 
     parser = QuizDataParser()
     parser.feed(content)
+    if parser.match_count != 1:
+        raise ValueError(
+            f"HTML must contain exactly one <script id=\"{QUIZ_ELEMENT_ID}\" type=\"application/json\">"
+        )
     payload = "".join(parser.contents).strip()
     if not payload:
         raise ValueError(

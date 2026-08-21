@@ -61,7 +61,9 @@ class ValidateArtifactTests(unittest.TestCase):
             "relative image": '<img src="diagram.png">',
             "protocol-relative stylesheet": '<link href="//cdn.example.test/theme.css">',
             "stylesheet import": '<style>@import url("https://cdn.example.test/theme.css");</style>',
+            "quoted stylesheet import": '<style>@import "https://cdn.example.test/theme.css";</style>',
             "responsive image": '<img srcset="diagram.png 1x, data:image/png;base64,AA== 2x">',
+            "SVG image": '<svg><image href="https://cdn.example.test/diagram.svg"></image></svg>',
         }
         for label, dependency in cases.items():
             with self.subTest(label=label):
@@ -87,6 +89,13 @@ class ValidateArtifactTests(unittest.TestCase):
         result = self.run_validator(html)
         self.assertEqual(result.returncode, 1)
         self.assertIn("toc", result.stderr.lower())
+
+    def test_rejects_duplicate_quiz_data_elements(self) -> None:
+        quiz_data = '<script id="explainer-quiz-data" type="application/json">{"questions": []}</script>'
+        html = self.valid_artifact().replace(quiz_data, quiz_data + quiz_data)
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("exactly one", result.stderr.lower())
 
     def test_rejects_artifact_without_inline_styles(self) -> None:
         html = self.valid_artifact().replace("<style>body { color: black; }</style>", "")

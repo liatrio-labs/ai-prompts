@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import subprocess
 import sys
 import tempfile
@@ -59,6 +60,36 @@ class ValidateQuestionsTests(unittest.TestCase):
             result = self.run_validator(html_path)
         self.assertEqual(result.returncode, 1)
         self.assertIn("explainer-quiz-data", result.stderr)
+
+    def test_rejects_html_with_duplicate_named_quiz_data_elements(self) -> None:
+        quiz_json = (FIXTURES / "valid-quiz.json").read_text(encoding="utf-8")
+        with tempfile.TemporaryDirectory() as directory:
+            html_path = Path(directory) / "explainer.html"
+            html_path.write_text(
+                "<!doctype html>"
+                '<script id="explainer-quiz-data" type="application/json"></script>'
+                '<script id="explainer-quiz-data" type="application/json">'
+                f"{quiz_json}</script>",
+                encoding="utf-8",
+            )
+            result = self.run_validator(html_path)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("exactly one", result.stderr)
+
+    def test_accepts_script_data_escaped_quiz_content(self) -> None:
+        quiz = json.loads((FIXTURES / "valid-quiz.json").read_text(encoding="utf-8"))
+        quiz["questions"][0]["prompt"] = "Which literal appears in source code: </script>?"
+        safe_payload = json.dumps(quiz).replace("<", "\\u003c")
+        with tempfile.TemporaryDirectory() as directory:
+            html_path = Path(directory) / "explainer.html"
+            html_path.write_text(
+                "<!doctype html>"
+                '<script id="explainer-quiz-data" type="application/json">'
+                f"{safe_payload}</script>",
+                encoding="utf-8",
+            )
+            result = self.run_validator(html_path)
+        self.assertEqual(result.returncode, 0, result.stderr)
 
 
 if __name__ == "__main__":

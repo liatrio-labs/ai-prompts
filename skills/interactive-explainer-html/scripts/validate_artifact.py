@@ -9,7 +9,7 @@ import sys
 from html.parser import HTMLParser
 from pathlib import Path
 TEMPLATE_TOKEN = re.compile(r"\{\{[A-Z][A-Z0-9_]*\}\}")
-RUNTIME_TAGS = {"audio", "embed", "iframe", "img", "link", "object", "script", "source", "track", "video"}
+RUNTIME_TAGS = {"audio", "embed", "iframe", "image", "img", "link", "object", "script", "source", "track", "video"}
 CSS_RESOURCE = re.compile(r"(?:@import\s+(?:url\()?|url\()\s*[\"']?([^\s\"')]+)", re.IGNORECASE)
 
 
@@ -27,7 +27,7 @@ class ArtifactInspector(HTMLParser):
         self.has_h1 = False
         self.has_inline_style = False
         self.has_executable_script = False
-        self.has_quiz_data = False
+        self.quiz_data_count = 0
         self.has_quiz_mount = False
         self.has_reset = False
         self.has_randomize = False
@@ -62,7 +62,7 @@ class ArtifactInspector(HTMLParser):
             self._active_script_type = (attr_map.get("type") or "text/javascript").lower()
             self._script_data = []
             if attr_map.get("id") == "explainer-quiz-data" and self._active_script_type == "application/json":
-                self.has_quiz_data = True
+                self.quiz_data_count += 1
         if element_id == "explainer-quiz":
             self.has_quiz_mount = True
         if element_id == "quiz-reset":
@@ -128,8 +128,8 @@ def validate(path: Path) -> list[str]:
         errors.append("artifact is missing an inline style block")
     if not inspector.has_executable_script:
         errors.append("artifact is missing an executable script block")
-    if not inspector.has_quiz_data:
-        errors.append("artifact is missing #explainer-quiz-data JSON")
+    if inspector.quiz_data_count != 1:
+        errors.append("artifact must contain exactly one #explainer-quiz-data JSON element")
     if not inspector.has_quiz_mount:
         errors.append("artifact is missing #explainer-quiz mount")
     if not inspector.has_reset:
