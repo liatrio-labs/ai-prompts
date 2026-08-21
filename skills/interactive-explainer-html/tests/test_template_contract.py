@@ -19,6 +19,25 @@ class ExplainerTemplateContractTests(unittest.TestCase):
         self.assertIn('id="explainer-quiz-data"', self.source)
         self.assertIn('id="explainer-quiz"', self.source)
 
+    def test_retains_shared_font_and_accessibility_hooks(self) -> None:
+        for hook in (
+            "@font-face",
+            'font-family: "Space Grotesk"',
+            "data:font/",
+            "--dark-bg: #1A1F23",
+            "--bright-green: #89DF00",
+            "aria-pressed",
+            "aria-describedby",
+            "focus-visible",
+        ):
+            with self.subTest(hook=hook):
+                self.assertIn(hook, self.source)
+
+    def test_does_not_define_former_explanation_composition_primitives(self) -> None:
+        for forbidden in (".table-scroll", ".code-scroll", ".explainer-flow"):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(forbidden, self.source)
+
     def test_provides_reset_and_randomize_controls(self) -> None:
         self.assertIn('id="quiz-reset"', self.source)
         self.assertIn('id="quiz-randomize"', self.source)

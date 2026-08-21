@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A standalone decision-model explainer.">
+  <link rel="icon" href="data:,">
+  <title>Author-owned decision model</title>
+  <style>
+    :root { color-scheme: light dark; --page: #10151c; --surface: #18212b; --surface-raised: #223142; --ink: #edf4fb; --muted: #b6c5d4; --line: #3c5064; --accent: #9ee37d; --link: #89c8ff; --danger: #ffb4ab; --radius: 12px; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--page); color: var(--ink); font: 17px/1.6 system-ui, sans-serif; }
+    main { width: min(100% - 32px, 1000px); margin: 0 auto; padding: 48px 0 72px; }
+    h1, h2, h3 { line-height: 1.15; }
+    h1 { font-size: clamp(2rem, 6vw, 4rem); margin: 0; }
+    h2 { margin-top: 3rem; color: var(--accent); }
+    a { color: var(--link); }
+    .eyebrow { color: var(--accent); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    .subtitle { max-width: 70ch; color: var(--muted); font-size: 1.15rem; }
+    .meta { color: var(--muted); font-size: .9rem; }
+    .toc, .quiz, .callout, pre { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .toc { margin: 2rem 0; padding: 1rem 1.25rem; }
+    .toc ol { columns: 2; margin-bottom: 0; padding-left: 1.25rem; }
+    .explainer-content > * { max-width: 100%; }
+    pre { overflow: auto; padding: 1rem; white-space: pre-wrap; }
+    .quiz { margin-top: 3rem; padding: clamp(1rem, 3vw, 2rem); }
+    .quiz-heading { margin-top: 0; }
+    .quiz-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1rem 0 1.5rem; }
+    button { border: 1px solid var(--line); border-radius: 8px; padding: .7rem .9rem; background: var(--surface-raised); color: var(--ink); font: inherit; cursor: pointer; text-align: left; }
+    button:hover, button:focus-visible { border-color: var(--accent); outline: 2px solid transparent; }
+    .quiz-question { border-top: 1px solid var(--line); padding: 1.5rem 0; }
+    .quiz-question:first-child { border-top: 0; padding-top: 0; }
+    .answer-list { display: grid; gap: .65rem; margin-top: .75rem; }
+    .answer-list button[data-selected="true"] { border-color: var(--accent); }
+    .answer-list button[data-correct="false"][data-selected="true"] { border-color: var(--danger); }
+    .feedback { display: none; margin-top: .85rem; padding: .85rem 1rem; border-left: 4px solid var(--accent); background: var(--surface-raised); }
+    .feedback[data-visible="true"] { display: block; }
+    .feedback[data-correct="false"] { border-left-color: var(--danger); }
+    @media (max-width: 600px) { main { width: min(100% - 24px, 1000px); padding-top: 28px; } .toc ol { columns: 1; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="eyebrow">Interactive explainer</p>
+      <h1>Author-owned decision model</h1>
+      <p class="subtitle">A standalone decision-model explainer.</p>
+      <p class="meta">Source boundary: representative fixture.</p>
+    </header>
+
+    <nav class="toc" aria-label="Table of contents">
+      <strong>On this page</strong>
+      <ol><li><a href="#model">Decision model</a></li></ol>
+    </nav>
+
+    <article class="explainer-content">
+      <style>
+  .decision-map { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; }
+  .decision-node { border: 1px solid var(--line); padding: 1rem; }
+  .decision-arrow { color: var(--bright-green); align-self: center; }
+  @media (max-width: 600px) { .decision-map { grid-template-columns: 1fr; } .decision-arrow { display: none; } }
+</style>
+<section id="model">
+  <h2>Decision model</h2>
+  <div class="decision-map" role="img" aria-label="Signal moves through evaluation to an operating decision">
+    <div class="decision-node">Signal</div><span class="decision-arrow">→</span><div class="decision-node">Decision</div>
+  </div>
+</section>
+    </article>
+
+    <section class="quiz" aria-labelledby="quiz-title">
+      <p class="eyebrow">Check your understanding</p>
+      <h2 class="quiz-heading" id="quiz-title">Quiz</h2>
+      <p>Answer the questions in any order. Reset restores the original presentation; Randomize reshuffles questions and answers.</p>
+      <div class="quiz-actions">
+        <button id="quiz-reset" type="button">Reset questions</button>
+        <button id="quiz-randomize" type="button">Randomize questions</button>
+      </div>
+      <div id="explainer-quiz" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <script id="explainer-quiz-data" type="application/json">
+{"questions":[{"id":"source-boundary","prompt":"What should ground an explainer?","answers":[{"text":"Relevant source material","correct":true},{"text":"Only a title","correct":false},{"text":"Unverified assumptions","correct":false},{"text":"A generic template alone","correct":false}],"correct_explanation":"Correct. The narrative should be grounded in inspected source material.","wrong_explanation":"Start from inspected source material, then choose an explanation structure."},{"id":"question-count","prompt":"What question count does the first-pass contract support?","answers":[{"text":"Exactly five","correct":false},{"text":"Five through fifteen","correct":true},{"text":"One through one hundred","correct":false},{"text":"Only ten","correct":false}],"correct_explanation":"Correct. The author chooses five through fifteen based on complexity.","wrong_explanation":"The contract allows five through fifteen questions so complexity can drive depth."},{"id":"answer-count","prompt":"How many answers must each question have?","answers":[{"text":"Two","correct":false},{"text":"Three","correct":false},{"text":"Four","correct":true},{"text":"Any number","correct":false}],"correct_explanation":"Correct. Four options keep every question consistent.","wrong_explanation":"Each question needs exactly four answer options."},{"id":"feedback","prompt":"What happens after an incorrect answer?","answers":[{"text":"Nothing","correct":false},{"text":"The page closes","correct":false},{"text":"A helpful explanation appears","correct":true},{"text":"All answers disappear","correct":false}],"correct_explanation":"Correct. Feedback should teach, not merely score.","wrong_explanation":"Incorrect choices must reveal helpful explanatory feedback."},{"id":"output","prompt":"Where does the default generated artifact go?","answers":[{"text":"Inside the repository","correct":false},{"text":"A permanent home-directory folder","correct":false},{"text":"The system temporary directory","correct":true},{"text":"A remote service","correct":false}],"correct_explanation":"Correct. The default is a date-prefixed file in the system temporary directory.","wrong_explanation":"The skill uses the system temporary directory by default to avoid creating user directories."}]}
+  </script>
+  <script>
+    (() => {
+      const quizRoot = document.querySelector("#explainer-quiz");
+      const resetButton = document.querySelector("#quiz-reset");
+      const randomizeButton = document.querySelector("#quiz-randomize");
+      const originalQuestions = JSON.parse(document.querySelector("#explainer-quiz-data").textContent);
+      let displayedQuestions = structuredClone(originalQuestions.questions);
+
+      function shuffle(items) {
+        const copy = [...items];
+        for (let index = copy.length - 1; index > 0; index -= 1) {
+          const target = Math.floor(Math.random() * (index + 1));
+          [copy[index], copy[target]] = [copy[target], copy[index]];
+        }
+        return copy;
+      }
+
+      function createAnswerButton(questionIndex, answerIndex, answer) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.dataset.questionIndex = String(questionIndex);
+        button.dataset.answerIndex = String(answerIndex);
+        button.textContent = answer.text;
+        return button;
+      }
+
+      function render(questions) {
+        displayedQuestions = questions;
+        quizRoot.replaceChildren();
+        questions.forEach((question, questionIndex) => {
+          const card = document.createElement("section");
+          card.className = "quiz-question";
+          const heading = document.createElement("h3");
+          heading.textContent = `${questionIndex + 1}. ${question.prompt}`;
+          const answers = document.createElement("div");
+          answers.className = "answer-list";
+          question.answers.forEach((answer, answerIndex) => {
+            answers.append(createAnswerButton(questionIndex, answerIndex, answer));
+          });
+          const feedback = document.createElement("div");
+          feedback.className = "feedback";
+          feedback.dataset.visible = "false";
+          card.append(heading, answers, feedback);
+          quizRoot.append(card);
+        });
+      }
+
+      function reset() {
+        render(structuredClone(originalQuestions.questions));
+      }
+
+      function randomize() {
+        const shuffledQuestions = shuffle(structuredClone(originalQuestions.questions)).map((question) => ({
+          ...question,
+          answers: shuffle(question.answers),
+        }));
+        render(shuffledQuestions);
+      }
+
+      quizRoot.addEventListener("click", (event) => {
+        const button = event.target.closest("button[data-question-index]");
+        if (!button) return;
+        const question = displayedQuestions[Number(button.dataset.questionIndex)];
+        const answer = question.answers[Number(button.dataset.answerIndex)];
+        const answerList = button.closest(".answer-list");
+        answerList.querySelectorAll("button").forEach((item) => {
+          item.dataset.selected = "false";
+          item.dataset.correct = "";
+        });
+        button.dataset.selected = "true";
+        button.dataset.correct = String(answer.correct);
+        const feedback = answerList.parentElement.querySelector(".feedback");
+        feedback.dataset.visible = "true";
+        feedback.dataset.correct = String(answer.correct);
+        feedback.textContent = answer.correct ? question.correct_explanation : question.wrong_explanation;
+      });
+
+      resetButton.addEventListener("click", reset);
+      randomizeButton.addEventListener("click", randomize);
+      reset();
+    })();
+  </script>
+</body>
+</html>

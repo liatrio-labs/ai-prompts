@@ -27,16 +27,20 @@ class ValidateArtifactTests(unittest.TestCase):
         return """<!doctype html>
 <html lang=\"en\">
 <head>
-  <meta charset=\"utf-8\">
-  <link rel=\"icon\" href=\"data:,\">
-  <style>body { color: black; }</style>
+  <meta charset="utf-8">
+  <link rel="icon" href="data:,">
+  <style>
+    @font-face { font-family: "Space Grotesk"; src: url("data:font/woff2;base64,AA==") format("woff2"); }
+    body { color: black; font-family: "Space Grotesk", sans-serif; }
+    .decision-map { display: grid; }
+  </style>
 </head>
 <body>
   <main>
     <h1>Example explainer</h1>
     <nav class=\"toc\" aria-label=\"Table of contents\"><a href=\"#model\">Model</a></nav>
     <article class=\"explainer-content\"><section id=\"model\"><h2>Model</h2></section></article>
-    <section class=\"quiz\"><button id=\"quiz-reset\">Reset</button><button id=\"quiz-randomize\">Randomize</button><div id=\"explainer-quiz\"></div></section>
+    <section class="quiz"><button id="quiz-reset">Reset</button><button id="quiz-randomize">Randomize</button><div id="explainer-quiz"><button aria-pressed="false" aria-describedby="answer-feedback">First answer</button><button aria-pressed="true" aria-describedby="answer-feedback">Selected answer</button><div id="answer-feedback" role="status">Feedback</div></div></section>
   </main>
   <script id=\"explainer-quiz-data\" type=\"application/json\">{\"questions\": []}</script>
   <script>console.log(\"interactive\");</script>
@@ -98,7 +102,14 @@ class ValidateArtifactTests(unittest.TestCase):
         self.assertIn("exactly one", result.stderr.lower())
 
     def test_rejects_artifact_without_inline_styles(self) -> None:
-        html = self.valid_artifact().replace("<style>body { color: black; }</style>", "")
+        html = self.valid_artifact().replace(
+            '''<style>
+    @font-face { font-family: "Space Grotesk"; src: url("data:font/woff2;base64,AA==") format("woff2"); }
+    body { color: black; font-family: "Space Grotesk", sans-serif; }
+    .decision-map { display: grid; }
+  </style>''',
+            "",
+        )
         result = self.run_validator(html)
         self.assertEqual(result.returncode, 1)
         self.assertIn("inline style", result.stderr.lower())
@@ -108,6 +119,40 @@ class ValidateArtifactTests(unittest.TestCase):
         result = self.run_validator(html)
         self.assertEqual(result.returncode, 1)
         self.assertIn("executable script", result.stderr.lower())
+
+    def test_accepts_author_owned_content_css_without_template_primitives(self) -> None:
+        html = self.valid_artifact().replace(
+            '<article class="explainer-content">',
+            '<article class="explainer-content"><style>.decision-map { display: grid; }</style>',
+        )
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_rejects_missing_embedded_space_grotesk(self) -> None:
+        html = self.valid_artifact().replace("data:font/woff2", "data:application/octet-stream")
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("embedded Space Grotesk font", result.stderr)
+
+    def test_rejects_missing_initial_aria_pressed(self) -> None:
+        html = self.valid_artifact().replace('aria-pressed="false" ', "")
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 1)
+
+    def test_rejects_missing_selected_aria_pressed(self) -> None:
+        html = self.valid_artifact().replace('aria-pressed="true" ', "")
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 1)
+
+    def test_rejects_missing_feedback_status_role(self) -> None:
+        html = self.valid_artifact().replace(' role="status"', "")
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 1)
+
+    def test_rejects_missing_answer_aria_describedby(self) -> None:
+        html = self.valid_artifact().replace(' aria-describedby="answer-feedback"', "")
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 1)
 
     def test_accepts_canonical_template_after_slot_substitution(self) -> None:
         html = TEMPLATE.read_text(encoding="utf-8")
