@@ -12,7 +12,7 @@ Create a long-form, self-contained HTML artifact that helps a reader understand 
 State the source boundary you will explain and the artifact destination. Default to:
 
 ```text
-${TMPDIR:-/tmp}/YYYY-MM-DD-explanation-<slug>.html
+${TMPDIR:-/tmp}/YYYY-MM-DD_HH-MM-SS_explanation-<slug>.html
 ```
 
 Do not create a permanent home-directory folder. Use another destination only when the user asks for one.
@@ -20,6 +20,8 @@ Do not create a permanent home-directory folder. Use another destination only wh
 ## Source and evidence pass
 
 Before drafting, inspect the relevant source material. A code-change explainer normally needs the diff/stat, relevant surrounding implementation, and the validation evidence. Other explainers can use documents, data, logs, user-provided material, or source pages.
+
+For a code-change explainer, read `references/code-change-source-resolution.md` before inspection. It defines explicit diff selection, empty-diff handling, evidence-isolated delegated authorship, and credential-safe excerpts. Do not use it for non-code topics.
 
 Record briefly:
 
@@ -59,7 +61,7 @@ For most topics, include:
 3. **Walkthrough** — group source changes, decisions, or system steps in causal order.
 4. **Boundaries and proof** — important constraints, edge cases, trade-offs, and validation where relevant.
 
-Use HTML/CSS diagrams, structured lists, code blocks, and callouts when they improve understanding. Do not use ASCII diagrams. Use `<pre>` for code; its style must keep `white-space: pre` or `pre-wrap` so source formatting survives.
+Use HTML/CSS diagrams, structured lists, code blocks, and callouts when they improve understanding. Do not use ASCII or box-drawing diagrams. Use `<pre>` only for literal code or configuration; its style must keep `white-space: pre` or `pre-wrap` so source formatting survives. Explain a process, dependency, or decision flow with semantic HTML/CSS or inline SVG instead.
 
 ## Language and teaching
 
@@ -123,7 +125,15 @@ The template randomizes question order and each question’s answers independent
    uv run scripts/validate_questions.py /path/to/explainer.html
    ```
 
-4. Extract the emitted JavaScript and check it, rather than relying on the host/template source alone:
+4. Validate standalone artifact structure:
+
+   ```bash
+   uv run scripts/validate_artifact.py /path/to/explainer.html
+   ```
+
+   This checks the self-contained shell, inline runtime, TOC targets, quiz infrastructure, and unreplaced template tokens. It complements rather than replaces the quiz validator.
+
+5. Extract the emitted JavaScript and check it, rather than relying on the host/template source alone:
 
    ```bash
    python - <<'PY' /path/to/explainer.html /tmp/explainer.js
@@ -138,7 +148,7 @@ The template randomizes question order and each question’s answers independent
    node --check /tmp/explainer.js
    ```
 
-5. Serve the artifact temporarily and run a compact browser smoke check. Verify:
+6. Serve the artifact temporarily and run a compact browser smoke check. Verify:
    - page load has no console errors;
    - one correct answer shows its correct explanation;
    - one incorrect answer shows its helpful wrong explanation;
@@ -147,6 +157,12 @@ The template randomizes question order and each question’s answers independent
    - the document has no horizontal overflow at a 390px viewport.
 
 Do not save screenshots, create browser-QA findings JSON, or start a report server for this workflow. Report the checks and their results in the final response.
+
+## Independent review when available
+
+After deterministic validation, use `references/delegated-reviewer.md` to decide whether to dispatch one read-only reviewer. This is conditional rather than a required runtime dependency: use it for process/decision flows, substantial custom HTML/CSS, source-grounded factual claims, or multi-artifact delivery.
+
+The reviewer receives the final artifact, this skill, the template, the source boundary, and completed check results. It audits teaching quality and semantic contract compliance; it does not edit, access credentials or protected sources, regenerate the artifact, or repeat browser checks. The parent agent owns finding triage, any fix, final verification, and delivery.
 
 ## Iteration-two opportunity
 
