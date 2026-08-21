@@ -63,12 +63,22 @@ class QuizBrowserTests(unittest.TestCase):
         value = json.loads(output)
         return json.loads(value) if isinstance(value, str) else value
 
+    def evaluate_script(self, body: str) -> dict[str, object]:
+        """Run an async page script whose last statement returns a JSON string."""
+        output = self.run_cli(
+            "--raw",
+            "run-code",
+            f"async page => await page.evaluate(async () => {{ {body} }})",
+        ).strip()
+        value = json.loads(output)
+        return json.loads(value) if isinstance(value, str) else value
+
     def test_initial_run_shows_one_question_with_progress_and_score(self) -> None:
         state = self.evaluate(
             "({"
             "visibleQuestions: document.querySelectorAll('#explainer-quiz .quiz-question').length,"
             "progress: document.querySelector('#quiz-progress')?.textContent.trim(),"
-            "progressValue: document.querySelector('#quiz-progress-bar')?.value,"
+            "progressValue: Number(document.querySelector('#quiz-progress-bar')?.getAttribute('aria-valuenow') ?? 0),"
             "score: document.querySelector('#quiz-score')?.textContent.trim()"
             "})"
         )
@@ -83,30 +93,136 @@ class QuizBrowserTests(unittest.TestCase):
             "headingRow: Boolean(document.querySelector('.quiz-heading-row')),"
             "controlRow: Boolean(document.querySelector('.quiz-control-row')),"
             "instructionsInHeadingRow: Boolean(document.querySelector('.quiz-heading-row #quiz-instructions')),"
-            "scoreInControlRow: Boolean(document.querySelector('.quiz-control-row #quiz-score')),"
+            "scoreInStatusRow: Boolean(document.querySelector('.quiz-status #quiz-score')),"
             "actionsInControlRow: Boolean(document.querySelector('.quiz-control-row .quiz-actions')),"
-            "nextInActions: Boolean(document.querySelector('.quiz-actions #quiz-next')),"
-            "feedbackBeforeQuestion: Boolean(document.querySelector('#quiz-feedback-region')?.compareDocumentPosition(document.querySelector('#quiz-question-region')) & Node.DOCUMENT_POSITION_FOLLOWING),"
-            "feedbackRegionHasReservedHeight: (document.querySelector('#quiz-feedback-region')?.getBoundingClientRect().height ?? 0) > 0,"
+            "prevVisible: Boolean(document.querySelector('.quiz-nav-actions #quiz-prev')),"
+            "nextVisible: Boolean(document.querySelector('.quiz-nav-actions #quiz-next')),"
+            "prevDisabledInitially: document.querySelector('#quiz-prev')?.disabled === true,"
+            "nextDisabledInitially: document.querySelector('#quiz-next')?.disabled === true,"
+            "feedbackAfterQuestion: Boolean(document.querySelector('#quiz-question-region')?.compareDocumentPosition(document.querySelector('#quiz-feedback-region')) & Node.DOCUMENT_POSITION_FOLLOWING),"
+            "feedbackRegionReservesSpaceInitially: (document.querySelector('#quiz-feedback-region')?.getBoundingClientRect().height ?? 0) > 40,"
             "questionRegion: Boolean(document.querySelector('#quiz-question-region')),"
             "questionWithinRegion: Boolean(document.querySelector('#quiz-question-region #explainer-quiz .quiz-question')),"
             "answersAreLastInQuestion: document.querySelector('#explainer-quiz .quiz-question')?.lastElementChild?.classList.contains('answer-list'),"
-            "questionAnimationDuration: Number.parseFloat(getComputedStyle(document.querySelector('.quiz-question')).animationDuration)"
+            "questionTransitionDuration: Number.parseFloat(getComputedStyle(document.querySelector('.quiz-question')).transitionDuration)"
             "})"
         )
         self.assertTrue(state["headingRow"])
         self.assertTrue(state["controlRow"])
         self.assertTrue(state["instructionsInHeadingRow"])
-        self.assertTrue(state["scoreInControlRow"])
+        self.assertTrue(state["scoreInStatusRow"])
         self.assertTrue(state["actionsInControlRow"])
-        self.assertTrue(state["nextInActions"])
-        self.assertTrue(state["feedbackBeforeQuestion"])
-        self.assertTrue(state["feedbackRegionHasReservedHeight"])
+        self.assertTrue(state["prevVisible"])
+        self.assertTrue(state["nextVisible"])
+        self.assertTrue(state["prevDisabledInitially"])
+        self.assertTrue(state["nextDisabledInitially"])
+        self.assertTrue(state["feedbackAfterQuestion"])
+        self.assertTrue(state["feedbackRegionReservesSpaceInitially"])
         self.assertTrue(state["questionRegion"])
         self.assertTrue(state["questionWithinRegion"])
         self.assertTrue(state["answersAreLastInQuestion"])
-        animation_duration = cast(float, state["questionAnimationDuration"])
-        self.assertGreaterEqual(animation_duration, 0.25)
+        transition_duration = cast(float, state["questionTransitionDuration"])
+        self.assertGreaterEqual(transition_duration, 0.25)
+
+    ANSWER_AND_ADVANCE = (
+        "const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));"
+        "const answer = () => document.querySelector('#explainer-quiz .answer-list button').click();"
+        "const nav = (id) => document.querySelector(id).click();"
+    )
+
+    def test_navigation_is_not_blocked_while_questions_animate(self) -> None:
+        state = self.evaluate_script(
+            self.ANSWER_AND_ADVANCE
+            + "answer();"
+            "await sleep(850);"
+            "nav('#quiz-next');"
+            "await sleep(80);"
+            "const mid = {"
+            "prevDisabled: document.querySelector('#quiz-prev').disabled,"
+            "cards: document.querySelectorAll('#explainer-quiz .quiz-question').length};"
+            "nav('#quiz-prev');"
+            "await sleep(120);"
+            "nav('#quiz-next');"
+            "await sleep(900);"
+            "return JSON.stringify({mid, settled: {"
+            "progress: document.querySelector('#quiz-progress').textContent.trim(),"
+            "cards: document.querySelectorAll('#explainer-quiz .quiz-question').length,"
+            "panels: document.querySelectorAll('#quiz-feedback-stack .feedback').length}});"
+        )
+        mid = cast(dict[str, object], state["mid"])
+        settled = cast(dict[str, object], state["settled"])
+        self.assertFalse(mid["prevDisabled"], "previous must stay usable mid-animation")
+        self.assertEqual(mid["cards"], 2, "both cards should be crossfading")
+        self.assertEqual(settled["progress"], "Question 2 of 5")
+        self.assertEqual(settled["cards"], 1, "interrupted cards must not accumulate")
+        self.assertEqual(settled["panels"], 0, "unanswered question shows no feedback panel")
+
+    def test_quiz_block_and_page_height_never_change(self) -> None:
+        state = self.evaluate_script(
+            self.ANSWER_AND_ADVANCE
+            + "const sample = () => ({"
+            "quiz: Math.round(document.querySelector('.quiz').getBoundingClientRect().height),"
+            "page: Math.round(document.documentElement.scrollHeight)});"
+            "const samples = {initial: sample()};"
+            "answer();"
+            "await sleep(900);"
+            "samples.answered = sample();"
+            "nav('#quiz-next');"
+            "await sleep(900);"
+            "samples.nextUnanswered = sample();"
+            "answer();"
+            "await sleep(900);"
+            "samples.nextAnswered = sample();"
+            "nav('#quiz-prev');"
+            "await sleep(900);"
+            "samples.backAgain = sample();"
+            "return JSON.stringify(samples);"
+        )
+        quiz_heights = {cast(dict[str, int], step)["quiz"] for step in state.values()}
+        page_heights = {cast(dict[str, int], step)["page"] for step in state.values()}
+        self.assertEqual(len(quiz_heights), 1, f"quiz block resized: {state}")
+        self.assertEqual(len(page_heights), 1, f"page height changed: {state}")
+
+    def test_answered_question_is_locked_before_it_animates_in(self) -> None:
+        state = self.evaluate_script(
+            self.ANSWER_AND_ADVANCE
+            + "answer();"
+            "await sleep(850);"
+            "nav('#quiz-next');"
+            "await sleep(850);"
+            "nav('#quiz-prev');"
+            "await sleep(80);"
+            "const entering = document.querySelector('#explainer-quiz .quiz-question.quiz-question-enter');"
+            "const buttons = [...entering.querySelectorAll('button')];"
+            "return JSON.stringify({"
+            "opacity: Number(getComputedStyle(entering).opacity),"
+            "allDisabled: buttons.every((button) => button.disabled),"
+            "pressed: buttons.filter((button) => button.getAttribute('aria-pressed') === 'true').length});"
+        )
+        self.assertLess(cast(float, state["opacity"]), 1, "card should still be fading in")
+        self.assertTrue(state["allDisabled"], "answered card must render locked")
+        self.assertEqual(state["pressed"], 1)
+
+    def test_answers_fade_into_their_locked_state(self) -> None:
+        state = self.evaluate_script(
+            self.ANSWER_AND_ADVANCE
+            + "const unselected = () => [...document.querySelectorAll('#explainer-quiz .answer-list button')]"
+            ".filter((button) => button.dataset.selected !== 'true')"
+            ".map((button) => Number(getComputedStyle(button).opacity));"
+            "answer();"
+            "await sleep(300);"
+            "const mid = unselected();"
+            "await sleep(900);"
+            "return JSON.stringify({mid, settled: unselected()});"
+        )
+        mid = cast(list[float], state["mid"])
+        settled = cast(list[float], state["settled"])
+        self.assertTrue(mid, "expected unselected answers to sample")
+        for opacity in mid:
+            self.assertLess(opacity, 0.99, "answers must not pop straight to disabled")
+            self.assertGreater(opacity, 0.6, "answers must still be mid-fade")
+        for opacity in settled:
+            self.assertAlmostEqual(opacity, 0.55, places=2)
 
     def test_fresh_runs_do_not_preserve_source_answer_order(self) -> None:
         answer_orders: set[tuple[str, ...]] = set()

@@ -14,7 +14,7 @@
           font-style: normal;
           font-display: swap;
         }
-    :root { color-scheme: light dark; --page: #10151c; --surface: #18212b; --surface-raised: #223142; --ink: #edf4fb; --muted: #b6c5d4; --line: #3c5064; --accent: #9ee37d; --link: #89c8ff; --danger: #ffb4ab; --radius: 12px; }
+    :root { color-scheme: light dark; --page: #10151c; --surface: #18212b; --surface-raised: #223142; --ink: #edf4fb; --muted: #b6c5d4; --line: #3c5064; --accent: #9ee37d; --link: #89c8ff; --danger: #ffb4ab; --radius: 12px; --quiz-motion-duration: 666ms; --quiz-motion-ease: cubic-bezier(.45, .05, .55, .95); }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { margin: 0; background: var(--page); color: var(--ink); font: 17px/1.6 system-ui, sans-serif; }
@@ -35,36 +35,49 @@
     .quiz > .eyebrow { margin: 0 0 .2rem; }
     .quiz-chrome { display: grid; gap: .35rem; margin-bottom: .55rem; }
     .quiz-heading-row { align-items: baseline; display: flex; flex-wrap: wrap; gap: .15rem .5rem; justify-content: flex-start; }
-    .quiz-heading { margin: 0; }
-    #quiz-instructions { flex: 0 1 58ch; margin: 0; max-width: 58ch; color: var(--muted); }
-    .quiz-control-row { align-items: center; display: flex; flex-wrap: wrap; gap: .35rem .75rem; justify-content: space-between; }
+    #quiz-instructions { margin: 0; white-space: nowrap; color: var(--muted); }
+    .quiz-control-row { align-items: center; display: flex; flex-wrap: wrap; gap: .35rem .75rem; justify-content: space-between; width: 100%; margin: .65rem 0; }
     .quiz-status { display: grid; gap: .2rem; margin: 0; }
+    .quiz-status-summary { align-items: baseline; display: flex; justify-content: space-between; gap: .75rem; }
     .quiz-status p { margin: 0; }
-    #quiz-progress-bar { accent-color: var(--accent); inline-size: 100%; }
+    .quiz-progress-track { display: block; inline-size: 100%; block-size: .5rem; border-radius: 999px; background: var(--line); overflow: hidden; }
+    .quiz-progress-fill { display: block; block-size: 100%; width: 0; border-radius: inherit; background: var(--accent); transition: width var(--quiz-motion-duration) var(--quiz-motion-ease); }
     .quiz-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: 0; }
-    #quiz-next[hidden] { display: inline-block; visibility: hidden; }
+    .quiz-nav-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-left: auto; }
 
     button { border: 1px solid var(--line); border-radius: 8px; padding: .7rem .9rem; background: var(--surface-raised); color: var(--ink); font: inherit; cursor: pointer; text-align: left; }
-    button:hover, button:focus-visible { border-color: var(--accent); outline: 2px solid transparent; }
-    #quiz-feedback-region { block-size: clamp(5.5rem, 8vw, 7rem); overflow: auto; }
-    #quiz-feedback-region .feedback { display: block; min-block-size: 100%; margin: 0; border-left-color: transparent; opacity: 0; transition: opacity 150ms ease-out; }
-    #quiz-feedback-region .feedback[data-visible="true"] { opacity: 1; }
+    button:hover:not(:disabled) { border-color: var(--accent); }
+    button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    button:disabled { cursor: not-allowed; opacity: .55; }
+    .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; clip-path: inset(50%); overflow: hidden; white-space: nowrap; }
+    #quiz-feedback-region { margin-top: 1rem; }
+    #quiz-feedback-stack { position: relative; min-block-size: calc(2lh + 1.7rem); }
+    #quiz-feedback-region .feedback { position: absolute; inset-inline: 0; top: 0; box-sizing: border-box; overflow-wrap: anywhere; word-break: break-word; margin: 0; padding: .85rem 1rem; border-left: 4px solid transparent; background: var(--surface-raised); opacity: 1; transition: opacity var(--quiz-motion-duration) var(--quiz-motion-ease); }
     #quiz-feedback-region .feedback[data-visible="true"][data-correct="true"] { border-left-color: var(--accent); }
     #quiz-feedback-region .feedback[data-visible="true"][data-correct="false"] { border-left-color: var(--danger); }
-    #quiz-question-region { display: flex; isolation: isolate; min-block-size: min(26rem, 38vh); }
-    #explainer-quiz { display: flex; flex: 1; }
-    .quiz-question { display: flex; flex: 1; flex-direction: column; padding: .35rem 0 0; }
+    #quiz-feedback-region .feedback.quiz-feedback-exit { opacity: 0; pointer-events: none; }
+    #quiz-feedback-region .feedback.quiz-feedback-enter { opacity: 0; }
+    #quiz-feedback-region .feedback.quiz-feedback-enter.quiz-feedback-enter-active { opacity: 1; }
+    #quiz-question-region { isolation: isolate; }
+    #explainer-quiz { display: block; position: relative; overflow: hidden; overflow: clip; overflow-clip-margin: 6px; }
+    .quiz-question { display: flex; flex-direction: column; gap: .75rem; padding: 0; transition: opacity var(--quiz-motion-duration) var(--quiz-motion-ease); }
     .quiz-question h3 { margin: 0; }
-    .quiz-question-enter { animation: quiz-question-in 280ms cubic-bezier(.16, 1, .3, 1) both; }
-    .answer-list { display: grid; gap: .65rem; margin-top: auto; }
+    .quiz-question.quiz-question-exit { position: absolute; inset-inline: 0; top: 0; opacity: 0; pointer-events: none; }
+    .quiz-question.quiz-question-enter { opacity: 0; }
+    .quiz-question.quiz-question-enter.quiz-question-enter-active { opacity: 1; }
+    .answer-list { display: grid; gap: .65rem; margin-top: 0; }
+    .answer-list button:disabled { transition: opacity var(--quiz-motion-duration) var(--quiz-motion-ease), border-color var(--quiz-motion-duration) var(--quiz-motion-ease); }
     .answer-list button[data-selected="true"] { border-color: var(--accent); }
     .answer-list button[data-correct="false"][data-selected="true"] { border-color: var(--danger); }
-    .feedback { display: none; margin-top: .85rem; padding: .85rem 1rem; border-left: 4px solid var(--accent); background: var(--surface-raised); }
-    .feedback[data-visible="true"] { display: block; }
+    .feedback { margin: 0; padding: .85rem 1rem; border-left: 4px solid var(--accent); background: var(--surface-raised); }
     .feedback[data-correct="false"] { border-left-color: var(--danger); }
     .quiz-complete { color: var(--accent); font-weight: 700; }
-    @keyframes quiz-question-in { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
-    @media (prefers-reduced-motion: reduce) { .quiz-question-enter { animation: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      .quiz-question { transition: none; }
+      #quiz-feedback-region .feedback { transition: none; }
+      .quiz-progress-fill { transition: none; }
+      .answer-list button:disabled { transition: none; }
+    }
     @media (max-width: 600px) { main { width: min(100% - 24px, 1000px); padding-top: 28px; } .toc ol { columns: 1; } .quiz-control-row { align-items: flex-start; flex-direction: column; } }
   </style>
 </head>
@@ -97,15 +110,15 @@
 </section>
     </article>
 
-    <section class="quiz" aria-labelledby="quiz-title">
+    <section class="quiz" aria-labelledby="quiz-instructions">
       <p class="eyebrow">Check your understanding</p>
       <div class="quiz-chrome">
-        <div class="quiz-heading-row"><h2 class="quiz-heading" id="quiz-title">Quiz</h2><p id="quiz-instructions">Answer one question at a time. Reset and Randomize both start a fresh shuffled run.</p></div>
-        <div class="quiz-control-row"><p id="quiz-score">Correct: 0 · Incorrect: 0</p><div class="quiz-actions"><button id="quiz-reset" type="button">Reset questions</button><button id="quiz-randomize" type="button">Randomize questions</button><button id="quiz-next" type="button" hidden>Next question</button></div></div>
-        <div class="quiz-status" aria-live="polite"><p id="quiz-progress">Question 1 of 0</p><progress id="quiz-progress-bar" value="0" max="0">0 of 0</progress></div>
+        <div class="quiz-heading-row"><p id="quiz-instructions">Answer one question at a time. Reset and Randomize both start a fresh shuffled run.</p></div>
+        <div class="quiz-control-row"><div class="quiz-actions"><button id="quiz-reset" type="button">Reset questions</button><button id="quiz-randomize" type="button">Randomize questions</button></div><div class="quiz-nav-actions"><button id="quiz-prev" type="button" disabled>Previous question</button><button id="quiz-next" type="button" disabled>Next question</button></div></div>
+        <div class="quiz-status" aria-live="polite"><div class="quiz-status-summary"><p id="quiz-progress">Question 1 of 0</p><p id="quiz-score">Correct: 0 · Incorrect: 0</p></div><div id="quiz-progress-bar" class="quiz-progress-track" role="progressbar" aria-valuemin="0" aria-valuenow="0" aria-valuemax="0" aria-labelledby="quiz-progress"><span class="quiz-progress-fill"></span></div></div>
       </div>
-      <div id="quiz-feedback-region"><div id="quiz-feedback" class="feedback" data-visible="false" role="status"></div></div>
       <div id="quiz-question-region"><div id="explainer-quiz" aria-live="polite"></div></div>
+      <div id="quiz-feedback-region"><div id="quiz-feedback-stack"></div><p id="quiz-feedback" class="visually-hidden" role="status"></p></div>
     </section>
   </main>
 
@@ -117,20 +130,115 @@
       const quizRoot = document.querySelector("#explainer-quiz");
       const resetButton = document.querySelector("#quiz-reset");
       const randomizeButton = document.querySelector("#quiz-randomize");
+      const prevButton = document.querySelector("#quiz-prev");
       const nextButton = document.querySelector("#quiz-next");
       const progressText = document.querySelector("#quiz-progress");
       const progressBar = document.querySelector("#quiz-progress-bar");
+      const progressFill = progressBar.querySelector(".quiz-progress-fill");
       const scoreText = document.querySelector("#quiz-score");
+      const feedbackStack = document.querySelector("#quiz-feedback-stack");
+      /* Permanent live region: visual panels animate, this element does the announcing. */
       const feedback = document.querySelector("#quiz-feedback");
       feedback.id = "quiz-feedback";
       feedback.setAttribute("role", "status");
       const originalQuestions = JSON.parse(document.querySelector("#explainer-quiz-data").textContent);
       let displayedQuestions = [];
       let currentQuestionIndex = 0;
-      let answeredQuestionIds = new Set();
+      let questionResponses = new Map();
       let correctCount = 0;
       let incorrectCount = 0;
+      let questionToken = 0;
+      let feedbackToken = 0;
 
+      const prefersReducedMotion = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function waitForOpacityTransition(element) {
+        if (prefersReducedMotion()) return Promise.resolve();
+        return new Promise((resolve) => {
+          const duration = Number.parseFloat(getComputedStyle(element).transitionDuration) * 1000;
+          if (!duration) {
+            resolve();
+            return;
+          }
+          let settled = false;
+          const finish = () => {
+            if (settled) return;
+            settled = true;
+            element.removeEventListener("transitionend", onTransitionEnd);
+            resolve();
+          };
+          const onTransitionEnd = (event) => {
+            if (event.target === element && event.propertyName === "opacity") finish();
+          };
+          element.addEventListener("transitionend", onTransitionEnd);
+          setTimeout(finish, duration + 50);
+        });
+      }
+
+      function beginFeedbackEnter(panel) {
+        panel.classList.add("quiz-feedback-enter");
+        panel.offsetHeight;
+      }
+
+      function formatFeedbackText(question, answer, index) {
+        let text = answer.correct
+          ? `Correct. ${question.correct_explanation}`
+          : `Not quite. ${question.wrong_explanation}`;
+        if (index >= displayedQuestions.length - 1) {
+          text += " Quiz complete.";
+        }
+        return text;
+      }
+
+      function buildFeedbackPanel(question, response, index = currentQuestionIndex) {
+        const answer = question.answers[response.answerIndex];
+        const panel = document.createElement("div");
+        panel.className = "feedback";
+        panel.dataset.visible = "true";
+        panel.dataset.correct = String(answer.correct);
+        panel.setAttribute("aria-hidden", "true");
+        panel.textContent = formatFeedbackText(question, answer, index);
+        return panel;
+      }
+
+      function announceFeedback(question, response) {
+        feedback.textContent = response
+          ? formatFeedbackText(question, question.answers[response.answerIndex], currentQuestionIndex)
+          : "";
+      }
+
+      function measureHiddenHeight(container, node) {
+        node.style.visibility = "hidden";
+        node.style.position = "absolute";
+        node.style.insetInline = "0";
+        node.style.top = "0";
+        node.style.pointerEvents = "none";
+        container.append(node);
+        const height = node.offsetHeight;
+        node.remove();
+        return height;
+      }
+
+      /* Reserve the tallest question card and feedback panel so the quiz block never resizes. */
+      function reserveQuizSpace() {
+        if (displayedQuestions.length === 0) return;
+        let cardHeight = 0;
+        let panelHeight = 0;
+        displayedQuestions.forEach((question, index) => {
+          cardHeight = Math.max(cardHeight, measureHiddenHeight(quizRoot, buildQuestionCard(question, index)));
+          const outcomes = [
+            question.answers.findIndex((answer) => answer.correct),
+            question.answers.findIndex((answer) => !answer.correct),
+          ];
+          outcomes.forEach((answerIndex) => {
+            if (answerIndex < 0) return;
+            const panel = buildFeedbackPanel(question, { answerIndex }, index);
+            panelHeight = Math.max(panelHeight, measureHiddenHeight(feedbackStack, panel));
+          });
+        });
+        quizRoot.style.minHeight = `${cardHeight}px`;
+        feedbackStack.style.minHeight = `${panelHeight}px`;
+      }
 
       function shuffle(items) {
         const copy = [...items];
@@ -152,26 +260,54 @@
 
       function updateStatus() {
         const totalQuestions = displayedQuestions.length;
+        const answered = questionResponses.size;
         progressText.textContent = `Question ${Math.min(currentQuestionIndex + 1, totalQuestions)} of ${totalQuestions}`;
-        progressBar.max = totalQuestions;
-        progressBar.value = answeredQuestionIds.size;
-        progressBar.textContent = `${answeredQuestionIds.size} of ${totalQuestions}`;
+        progressBar.setAttribute("aria-valuemax", String(totalQuestions));
+        progressBar.setAttribute("aria-valuenow", String(answered));
+        progressFill.style.width = totalQuestions > 0 ? `${(answered / totalQuestions) * 100}%` : "0%";
         scoreText.textContent = `Correct: ${correctCount} · Incorrect: ${incorrectCount}`;
       }
 
-      function renderQuestion() {
-        quizRoot.replaceChildren();
-        nextButton.hidden = true;
-        feedback.dataset.visible = "false";
-        feedback.removeAttribute("data-correct");
-        feedback.textContent = "";
-        updateStatus();
+      function updateNavigationButtons() {
         const question = displayedQuestions[currentQuestionIndex];
-        if (!question) return;
+        const hasAnsweredCurrent = Boolean(question && questionResponses.has(question.id));
+        prevButton.disabled = currentQuestionIndex === 0;
+        nextButton.disabled = currentQuestionIndex >= displayedQuestions.length - 1 || !hasAnsweredCurrent;
+      }
+
+      function setFeedbackImmediately(question) {
+        const response = questionResponses.get(question.id);
+        feedbackStack.replaceChildren();
+        if (response) feedbackStack.append(buildFeedbackPanel(question, response));
+        announceFeedback(question, response);
+      }
+
+      function fadeOutFeedbackPanels() {
+        feedbackStack.querySelectorAll(".feedback:not(.quiz-feedback-exit)").forEach((panel) => {
+          panel.classList.remove("quiz-feedback-enter", "quiz-feedback-enter-active");
+          panel.classList.add("quiz-feedback-exit");
+          waitForOpacityTransition(panel).then(() => panel.remove());
+        });
+      }
+
+      function applyStoredResponse(question, card, response) {
+        const answerList = card.querySelector(".answer-list");
+        const answer = question.answers[response.answerIndex];
+        answerList.querySelectorAll("button").forEach((item, index) => {
+          if (index === response.answerIndex) {
+            item.dataset.selected = "true";
+            item.dataset.correct = String(answer.correct);
+            item.setAttribute("aria-pressed", "true");
+          }
+          item.disabled = true;
+        });
+      }
+
+      function buildQuestionCard(question, index = currentQuestionIndex) {
         const card = document.createElement("section");
-        card.className = "quiz-question quiz-question-enter";
+        card.className = "quiz-question";
         const heading = document.createElement("h3");
-        heading.textContent = `${currentQuestionIndex + 1}. ${question.prompt}`;
+        heading.textContent = `${index + 1}. ${question.prompt}`;
         const answers = document.createElement("div");
         answers.className = "answer-list";
         question.answers.forEach((answer, answerIndex) => {
@@ -181,7 +317,77 @@
           button.setAttribute("aria-describedby", feedback.id);
         });
         card.append(heading, answers);
-        quizRoot.append(card);
+        return card;
+      }
+
+      async function transitionFeedbackForQuestion(question, token) {
+        const response = questionResponses.get(question.id);
+
+        if (prefersReducedMotion()) {
+          setFeedbackImmediately(question);
+          return;
+        }
+
+        fadeOutFeedbackPanels();
+        announceFeedback(question, response);
+        if (!response) return;
+
+        const nextPanel = buildFeedbackPanel(question, response);
+        beginFeedbackEnter(nextPanel);
+        feedbackStack.append(nextPanel);
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (token === feedbackToken) nextPanel.classList.add("quiz-feedback-enter-active");
+          });
+        });
+
+        await waitForOpacityTransition(nextPanel);
+        if (token !== feedbackToken) return;
+        nextPanel.classList.remove("quiz-feedback-enter", "quiz-feedback-enter-active");
+      }
+
+      function dismissQuestionCard(card) {
+        card.classList.remove("quiz-question-enter", "quiz-question-enter-active");
+        card.classList.add("quiz-question-exit");
+        card.inert = true;
+        waitForOpacityTransition(card).then(() => card.remove());
+      }
+
+      async function renderQuestion({ animate = false } = {}) {
+        const question = displayedQuestions[currentQuestionIndex];
+        if (!question) return;
+
+        const token = (questionToken += 1);
+        const feedbackRun = (feedbackToken += 1);
+        updateStatus();
+        updateNavigationButtons();
+
+        const existing = quizRoot.querySelector(".quiz-question:not(.quiz-question-exit)");
+        const nextCard = buildQuestionCard(question);
+        const response = questionResponses.get(question.id);
+        if (response) applyStoredResponse(question, nextCard, response);
+
+        if (!(animate && existing && !prefersReducedMotion())) {
+          quizRoot.replaceChildren(nextCard);
+          setFeedbackImmediately(question);
+          return;
+        }
+
+        dismissQuestionCard(existing);
+        nextCard.classList.add("quiz-question-enter");
+        quizRoot.append(nextCard);
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (token === questionToken) nextCard.classList.add("quiz-question-enter-active");
+          });
+        });
+
+        transitionFeedbackForQuestion(question, feedbackRun);
+
+        await waitForOpacityTransition(nextCard);
+        if (token !== questionToken) return;
+        nextCard.classList.remove("quiz-question-enter", "quiz-question-enter-active");
       }
 
       function startFreshRun() {
@@ -190,24 +396,33 @@
           answers: shuffle(question.answers),
         }));
         currentQuestionIndex = 0;
-        answeredQuestionIds = new Set();
+        questionResponses = new Map();
         correctCount = 0;
         incorrectCount = 0;
+        reserveQuizSpace();
         renderQuestion();
       }
 
-      function advanceQuestion() {
-        if (currentQuestionIndex >= displayedQuestions.length - 1) return;
+      async function advanceQuestion() {
+        if (nextButton.disabled || currentQuestionIndex >= displayedQuestions.length - 1) return;
         currentQuestionIndex += 1;
-        renderQuestion();
+        await renderQuestion({ animate: true });
+      }
+
+      async function retreatQuestion() {
+        if (prevButton.disabled || currentQuestionIndex <= 0) return;
+        currentQuestionIndex -= 1;
+        await renderQuestion({ animate: true });
       }
 
       quizRoot.addEventListener("click", (event) => {
         const button = event.target.closest("button[data-answer-index]");
         if (!button) return;
+        if (button.closest(".quiz-question-exit")) return;
         const question = displayedQuestions[currentQuestionIndex];
-        if (answeredQuestionIds.has(question.id)) return;
-        const answer = question.answers[Number(button.dataset.answerIndex)];
+        if (questionResponses.has(question.id)) return;
+        const answerIndex = Number(button.dataset.answerIndex);
+        const answer = question.answers[answerIndex];
         const answerList = button.closest(".answer-list");
         answerList.querySelectorAll("button").forEach((item) => {
           item.dataset.selected = "false";
@@ -218,24 +433,26 @@
         button.dataset.correct = String(answer.correct);
         button.setAttribute("aria-pressed", "true");
         answerList.querySelectorAll("button").forEach((item) => { item.disabled = true; });
-        feedback.dataset.visible = "true";
-        feedback.dataset.correct = String(answer.correct);
-        feedback.textContent = answer.correct ? question.correct_explanation : question.wrong_explanation;
-        answeredQuestionIds.add(question.id);
+        questionResponses.set(question.id, { answerIndex, correct: answer.correct });
         if (answer.correct) correctCount += 1;
         else incorrectCount += 1;
         updateStatus();
-        if (currentQuestionIndex < displayedQuestions.length - 1) {
-          nextButton.hidden = false;
-        } else {
-          feedback.textContent += " Quiz complete.";
-        }
+        updateNavigationButtons();
+        transitionFeedbackForQuestion(question, (feedbackToken += 1));
+      });
+
+      let reserveFrame = 0;
+      window.addEventListener("resize", () => {
+        cancelAnimationFrame(reserveFrame);
+        reserveFrame = requestAnimationFrame(reserveQuizSpace);
       });
 
       resetButton.addEventListener("click", startFreshRun);
       randomizeButton.addEventListener("click", startFreshRun);
+      prevButton.addEventListener("click", retreatQuestion);
       nextButton.addEventListener("click", advanceQuestion);
       startFreshRun();
+      if (document.fonts) document.fonts.ready.then(reserveQuizSpace);
     })();
   </script>
 </body>
