@@ -34,12 +34,9 @@ Do not invent behavior or fill missing source context with plausible claims. Ask
 
 ## Compose the explainer
 
-Start from `references/explainer-template.html`. It fixes only the reliable infrastructure:
+Start from the shell for its slots, offline font, and quiz runtime. Treat `{{EXPLANATION_CONTENT}}` as author-owned: add content-local `<style>` and semantic classes when the source needs a distinct visual teaching composition. Do not constrain the body to template classes or a fixed component grammar.
 
-- document shell, title, subtitle, optional metadata, and table-of-contents region;
-- responsive base layout;
-- quiz mount, renderer, Reset, and Randomize controls; and
-- embedded JSON contract.
+The shell provides the document title, subtitle, optional metadata, table-of-contents region, responsive baseline, quiz mount, renderer, Reset and Randomize controls, and embedded JSON contract.
 
 Replace these template slots:
 
