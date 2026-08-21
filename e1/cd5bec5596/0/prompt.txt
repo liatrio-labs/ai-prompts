@@ -346,3 +346,7 @@ that's a little too liazy. mov it to 666ms
 ---
 
 One last thing I want to tune: when you click an answer, all of the answers immediately pop to disabled, but the feedback box and progress bar have these nice, slower animations. I want disabling all the answers when you click one to feel the same as all the other animations.
+
+---
+
+/git-commit-conventional
