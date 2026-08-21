@@ -130,7 +130,7 @@ class ArtifactInspector(HTMLParser):
         if tag == "style":
             style_text = "".join(self._style_data)
             self.style_text.append(style_text)
-            for resource in CSS_RESOURCE.findall(style_text):
+            for resource in CSS_RESOURCE.findall(CSS_COMMENT.sub("", style_text)):
                 if not is_inline_resource(resource):
                     self.external_resources.append(resource)
             self._active_style = False
