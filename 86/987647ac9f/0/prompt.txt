@@ -395,3 +395,7 @@ i think we can improve the visuals by making the animation less of a crossfade a
 ---
 
 tighten the quiz-fade-out gap. let's try 100ms
+
+---
+
+looks good. commit
