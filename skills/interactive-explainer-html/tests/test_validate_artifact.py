@@ -43,7 +43,15 @@ class ValidateArtifactTests(unittest.TestCase):
     <section class="quiz"><button id="quiz-reset">Reset</button><button id="quiz-randomize">Randomize</button><div id="explainer-quiz"><button aria-pressed="false" aria-describedby="answer-feedback">First answer</button><button aria-pressed="true" aria-describedby="answer-feedback">Selected answer</button><div id="answer-feedback" role="status">Feedback</div></div></section>
   </main>
   <script id=\"explainer-quiz-data\" type=\"application/json\">{\"questions\": []}</script>
-  <script>console.log(\"interactive\");</script>
+  <script>
+    const answer = document.createElement("button");
+    answer.setAttribute("aria-pressed", "false");
+    const feedback = document.createElement("div");
+    feedback.id = "answer-feedback";
+    feedback.setAttribute("role", "status");
+    answer.setAttribute("aria-describedby", feedback.id);
+    answer.addEventListener("click", () => answer.setAttribute("aria-pressed", "true"));
+  </script>
 </body>
 </html>"""
 
@@ -115,7 +123,18 @@ class ValidateArtifactTests(unittest.TestCase):
         self.assertIn("inline style", result.stderr.lower())
 
     def test_rejects_artifact_without_executable_script(self) -> None:
-        html = self.valid_artifact().replace('<script>console.log("interactive");</script>', "")
+        html = self.valid_artifact().replace(
+            '''  <script>
+    const answer = document.createElement("button");
+    answer.setAttribute("aria-pressed", "false");
+    const feedback = document.createElement("div");
+    feedback.id = "answer-feedback";
+    feedback.setAttribute("role", "status");
+    answer.setAttribute("aria-describedby", feedback.id);
+    answer.addEventListener("click", () => answer.setAttribute("aria-pressed", "true"));
+  </script>''',
+            "",
+        )
         result = self.run_validator(html)
         self.assertEqual(result.returncode, 1)
         self.assertIn("executable script", result.stderr.lower())
@@ -135,24 +154,56 @@ class ValidateArtifactTests(unittest.TestCase):
         self.assertIn("embedded Space Grotesk font", result.stderr)
 
     def test_rejects_missing_initial_aria_pressed(self) -> None:
-        html = self.valid_artifact().replace('aria-pressed="false" ', "")
+        html = self.valid_artifact().replace('answer.setAttribute("aria-pressed", "false");', "")
         result = self.run_validator(html)
         self.assertEqual(result.returncode, 1)
+        self.assertIn("aria-pressed state hooks", result.stderr)
 
     def test_rejects_missing_selected_aria_pressed(self) -> None:
-        html = self.valid_artifact().replace('aria-pressed="true" ', "")
+        html = self.valid_artifact().replace('answer.setAttribute("aria-pressed", "true")', "")
         result = self.run_validator(html)
         self.assertEqual(result.returncode, 1)
+        self.assertIn("aria-pressed state hooks", result.stderr)
 
     def test_rejects_missing_feedback_status_role(self) -> None:
-        html = self.valid_artifact().replace(' role="status"', "")
+        html = self.valid_artifact().replace('feedback.setAttribute("role", "status");', "")
         result = self.run_validator(html)
         self.assertEqual(result.returncode, 1)
+        self.assertIn("feedback id/role or aria-describedby wiring", result.stderr)
 
     def test_rejects_missing_answer_aria_describedby(self) -> None:
-        html = self.valid_artifact().replace(' aria-describedby="answer-feedback"', "")
+        html = self.valid_artifact().replace('answer.setAttribute("aria-describedby", feedback.id);', "")
         result = self.run_validator(html)
         self.assertEqual(result.returncode, 1)
+        self.assertIn("feedback id/role or aria-describedby wiring", result.stderr)
+
+    def test_ignores_commented_font_and_renderer_hooks(self) -> None:
+        html = self.valid_artifact()
+        html = html.replace(
+            '@font-face { font-family: "Space Grotesk"; src: url("data:font/woff2;base64,AA==") format("woff2"); }',
+            '/* @font-face { font-family: "Space Grotesk"; src: url("data:font/woff2;base64,AA==") format("woff2"); } */',
+        )
+        html = html.replace(
+            '    answer.setAttribute("aria-pressed", "false");',
+            '    // answer.setAttribute("aria-pressed", "false");',
+        ).replace(
+            '    feedback.id = "answer-feedback";',
+            '    /* feedback.id = "answer-feedback"; */',
+        ).replace(
+            '    feedback.setAttribute("role", "status");',
+            '    /* feedback.setAttribute("role", "status"); */',
+        ).replace(
+            '    answer.setAttribute("aria-describedby", feedback.id);',
+            '    /* answer.setAttribute("aria-describedby", feedback.id); */',
+        ).replace(
+            'answer.setAttribute("aria-pressed", "true")',
+            '/* answer.setAttribute("aria-pressed", "true") */',
+        )
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("embedded Space Grotesk font", result.stderr)
+        self.assertIn("aria-pressed state hooks", result.stderr)
+        self.assertIn("feedback id/role or aria-describedby wiring", result.stderr)
 
     def test_accepts_canonical_template_after_slot_substitution(self) -> None:
         html = TEMPLATE.read_text(encoding="utf-8")

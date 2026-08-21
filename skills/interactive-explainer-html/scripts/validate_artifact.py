@@ -11,6 +11,50 @@ from pathlib import Path
 TEMPLATE_TOKEN = re.compile(r"\{\{[A-Z][A-Z0-9_]*\}\}")
 RUNTIME_TAGS = {"audio", "embed", "iframe", "image", "img", "link", "object", "script", "source", "track", "video"}
 CSS_RESOURCE = re.compile(r"(?:@import\s+(?:url\()?|url\()\s*[\"']?([^\s\"')]+)", re.IGNORECASE)
+CSS_COMMENT = re.compile(r"/\*.*?\*/", re.DOTALL)
+JAVASCRIPT_COMMENT = re.compile(r"/\*.*?\*/|//[^\n]*", re.DOTALL)
+EXECUTABLE_SCRIPT_TYPES = {
+    "application/ecmascript",
+    "application/javascript",
+    "module",
+    "text/ecmascript",
+    "text/javascript",
+}
+
+
+def has_embedded_space_grotesk_font(style_text: str) -> bool:
+    effective_style = CSS_COMMENT.sub("", style_text)
+    return any(
+        re.search(r"font-family\s*:\s*[\"']?space\s+grotesk[\"']?", font_face, re.IGNORECASE)
+        and re.search(r"src\s*:\s*url\(\s*[\"']?data:font/", font_face, re.IGNORECASE)
+        for font_face in re.findall(r"@font-face\s*\{(.*?)\}", effective_style, re.IGNORECASE | re.DOTALL)
+    )
+
+
+def has_pressed_state_renderer(script_text: str) -> bool:
+    effective_script = JAVASCRIPT_COMMENT.sub("", script_text)
+    return all(
+        re.search(
+            rf"\.setAttribute\s*\(\s*[\"']aria-pressed[\"']\s*,\s*[\"']{state}[\"']\s*\)",
+            effective_script,
+        )
+        for state in ("false", "true")
+    )
+
+
+def has_feedback_description_relationship(script_text: str) -> bool:
+    effective_script = JAVASCRIPT_COMMENT.sub("", script_text)
+    return bool(
+        re.search(r"\bfeedback\.id\s*=", effective_script)
+        and re.search(
+            r"\bfeedback\.setAttribute\s*\(\s*[\"']role[\"']\s*,\s*[\"']status[\"']\s*\)",
+            effective_script,
+        )
+        and re.search(
+            r"\.setAttribute\s*\(\s*[\"']aria-describedby[\"']\s*,\s*feedback\.id\s*\)",
+            effective_script,
+        )
+    )
 
 
 def is_inline_resource(value: str) -> bool:
@@ -32,6 +76,8 @@ class ArtifactInspector(HTMLParser):
         self.has_reset = False
         self.has_randomize = False
         self.external_resources: list[str] = []
+        self.style_text: list[str] = []
+        self.script_text: list[str] = []
         self._active_style = False
         self._style_data: list[str] = []
         self._active_script_type: str | None = None
@@ -82,13 +128,17 @@ class ArtifactInspector(HTMLParser):
         if tag == "nav" and self.toc_depth:
             self.toc_depth -= 1
         if tag == "style":
-            for resource in CSS_RESOURCE.findall("".join(self._style_data)):
+            style_text = "".join(self._style_data)
+            self.style_text.append(style_text)
+            for resource in CSS_RESOURCE.findall(style_text):
                 if not is_inline_resource(resource):
                     self.external_resources.append(resource)
             self._active_style = False
         if tag == "script":
-            if self._active_script_type != "application/json" and "".join(self._script_data).strip():
+            script_text = "".join(self._script_data)
+            if self._active_script_type in EXECUTABLE_SCRIPT_TYPES and script_text.strip():
                 self.has_executable_script = True
+                self.script_text.append(script_text)
             self._active_script_type = None
             self._script_data = []
 
@@ -128,6 +178,14 @@ def validate(path: Path) -> list[str]:
         errors.append("artifact is missing an inline style block")
     if not inspector.has_executable_script:
         errors.append("artifact is missing an executable script block")
+    style_text = "\n".join(inspector.style_text)
+    script_text = "\n".join(inspector.script_text)
+    if not has_embedded_space_grotesk_font(style_text):
+        errors.append("artifact is missing an embedded Space Grotesk font")
+    if not has_pressed_state_renderer(script_text):
+        errors.append("artifact renderer is missing aria-pressed state hooks")
+    if not has_feedback_description_relationship(script_text):
+        errors.append("artifact renderer is missing feedback id/role or aria-describedby wiring")
     if inspector.quiz_data_count != 1:
         errors.append("artifact must contain exactly one #explainer-quiz-data JSON element")
     if not inspector.has_quiz_mount:
