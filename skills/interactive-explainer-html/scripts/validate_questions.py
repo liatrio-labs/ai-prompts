@@ -119,6 +119,25 @@ def validate_quiz(data: Any) -> list[str]:
                 correct_answers += 1
         if correct_answers != 1:
             errors.append(f"{answer_path} must contain exactly one correct answer")
+        elif len(answers) == 4 and all(
+            isinstance(answer, dict) and isinstance(answer.get("text"), str)
+            for answer in answers
+        ):
+            correct_length = next(
+                len(answer["text"])
+                for answer in answers
+                if answer.get("correct") is True
+            )
+            distractor_lengths = [
+                len(answer["text"])
+                for answer in answers
+                if answer.get("correct") is not True
+            ]
+            if correct_length > max(distractor_lengths):
+                errors.append(
+                    f"{answer_path} correct answer must not be uniquely longest; "
+                    "answer length is a guessing cue"
+                )
 
     return errors
 

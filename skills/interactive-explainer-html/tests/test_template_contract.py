@@ -25,10 +25,23 @@ class ExplainerTemplateContractTests(unittest.TestCase):
             'font-family: "Space Grotesk"',
             "data:font/",
             "--dark-bg: #1A1F23",
+            "--primary-green: #24AE1D",
             "--bright-green: #89DF00",
+            "--lime: #C6F135",
+            "--violet: #C068F9",
+            "--lagoon: #00C1DB",
             "aria-pressed",
             "aria-describedby",
             "focus-visible",
+        ):
+            with self.subTest(hook=hook):
+                self.assertIn(hook, self.source)
+
+    def test_uses_multiple_non_semantic_brand_accents_in_shared_chrome(self) -> None:
+        for hook in (
+            "border-top: 4px solid var(--primary-green)",
+            "linear-gradient(90deg, var(--violet), var(--lime))",
+            "border-left: 3px solid var(--lagoon)",
         ):
             with self.subTest(hook=hook):
                 self.assertIn(hook, self.source)

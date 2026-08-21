@@ -18,7 +18,11 @@
       --dark-bg: #1A1F23;
       --dark-bg-2: #1E2327;
       --line: #2A3036;
+      --primary-green: #24AE1D;
       --bright-green: #89DF00;
+      --lime: #C6F135;
+      --violet: #C068F9;
+      --lagoon: #00C1DB;
       --ink: #FFFFFF;
       --muted: #CCCCCC;
       --danger: #E63946;
@@ -27,15 +31,17 @@
     html { scroll-behavior: smooth; }
     body { margin: 0; background: var(--dark-bg); color: var(--ink); font: 17px/1.6 "Space Grotesk", sans-serif; }
     main { width: min(100% - 32px, 1000px); margin: 0 auto; padding: 48px 0 72px; }
+    header { border-top: 4px solid var(--primary-green); padding-top: 1.25rem; }
     header h1 { margin: 0; font-size: clamp(2rem, 6vw, 4rem); line-height: 1.15; }
     .eyebrow { color: var(--bright-green); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
     .subtitle { max-width: 70ch; color: var(--muted); font-size: 1.15rem; }
-    .meta { color: var(--muted); font-size: .9rem; }
-    .toc { margin: 2rem 0; padding: 1rem 1.25rem; border: 1px solid var(--line); background: var(--dark-bg-2); }
+    .meta { border-left: 3px solid var(--lagoon); color: var(--muted); font-size: .9rem; padding-left: .75rem; }
+    .toc { border: 1px solid var(--line); border-image: linear-gradient(90deg, var(--violet), var(--lime)) 1; margin: 2rem 0; padding: 1rem 1.25rem; background: var(--dark-bg-2); }
+    .toc strong { color: var(--violet); }
     .toc a { color: var(--bright-green); }
     .toc ol { columns: 2; margin-bottom: 0; padding-left: 1.25rem; }
     .quiz { margin-top: 3rem; padding: clamp(1rem, 3vw, 2rem); border: 1px solid var(--line); background: var(--dark-bg-2); }
-    .quiz-heading { margin-top: 0; color: var(--bright-green); }
+    .quiz-heading { margin-top: 0; color: var(--lime); }
     .quiz-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: 1rem 0 1.5rem; }
     button { border: 1px solid var(--line); border-radius: 8px; padding: .7rem .9rem; background: var(--dark-bg); color: var(--ink); font: inherit; cursor: pointer; text-align: left; }
     button:hover { border-color: var(--bright-green); }

@@ -36,6 +36,8 @@ Do not invent behavior or fill missing source context with plausible claims. Ask
 
 Start from the shell for its slots, offline font, and quiz runtime. Treat `{{EXPLANATION_CONTENT}}` as author-owned: add content-local `<style>` and semantic classes when the source needs a distinct visual teaching composition. Do not constrain the body to template classes or a fixed component grammar.
 
+The shell carries the offline runtime and a deliberately broader Liatrio palette; it is not a license to make every artifact green. Use the colors by role: Primary Green for a key brand moment, Bright Green for signals and highlights, Violet or Lime as one editorial counterpoint per surface, and Lagoon for informational metadata or data detail. Keep Hot Red and Flame Orange semantic-only. The first source-specific teaching visual should use a source-appropriate composition and color role rather than repeating the shell unchanged.
+
 The shell provides the document title, subtitle, optional metadata, table-of-contents region, responsive baseline, quiz mount, renderer, Reset and Randomize controls, and embedded JSON contract.
 
 Replace these template slots:
@@ -104,6 +106,8 @@ Choose the smallest question count that genuinely tests comprehension:
 - **11–15 questions:** architectural, cross-cutting, or safety-sensitive material.
 
 Every question must have exactly four answers and exactly one correct answer. Keep questions medium difficulty: they should reward understanding rather than trivia or gotchas. Wrong-answer explanations must teach the missing concept, not merely say “try again.”
+
+Treat answer length as part of quiz fairness. A correct answer that is uniquely longer than every distractor becomes a visual giveaway, even when its content is sound. Write concise, equally plausible options with comparable specificity; include at least one distractor that is as long as or longer than the correct answer. The validator rejects a question whose correct answer is uniquely longest.
 
 The template randomizes question order and each question’s answers independently. **Reset** restores the original source order and clears feedback. **Randomize** reshuffles both levels and clears feedback.
 

@@ -36,6 +36,24 @@ class ValidateQuestionsTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("questions[0].answers", result.stderr)
 
+    def test_rejects_question_with_a_uniquely_longest_correct_answer(self) -> None:
+        quiz = json.loads((FIXTURES / "valid-quiz.json").read_text(encoding="utf-8"))
+        quiz["questions"][0]["answers"] = [
+            {"text": "A short distractor", "correct": False},
+            {
+                "text": "The correct answer is deliberately much longer than every other answer choice.",
+                "correct": True,
+            },
+            {"text": "Another short distractor", "correct": False},
+            {"text": "Final short distractor", "correct": False},
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            quiz_path = Path(directory) / "quiz.json"
+            quiz_path.write_text(json.dumps(quiz), encoding="utf-8")
+            result = self.run_validator(quiz_path)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("correct answer must not be uniquely longest", result.stderr)
+
     def test_rejects_quiz_outside_supported_question_range(self) -> None:
         result = self.run_validator(FIXTURES / "invalid-question-count.json")
         self.assertEqual(result.returncode, 1)
