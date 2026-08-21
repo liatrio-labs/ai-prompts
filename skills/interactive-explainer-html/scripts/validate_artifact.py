@@ -11,7 +11,6 @@ from pathlib import Path
 TEMPLATE_TOKEN = re.compile(r"\{\{[A-Z][A-Z0-9_]*\}\}")
 RUNTIME_TAGS = {"audio", "embed", "iframe", "image", "img", "link", "object", "script", "source", "track", "video"}
 CSS_RESOURCE = re.compile(r"(?:@import\s+(?:url\()?|url\()\s*[\"']?([^\s\"')]+)", re.IGNORECASE)
-CSS_COMMENT = re.compile(r"/\*.*?\*/", re.DOTALL)
 JAVASCRIPT_COMMENT = re.compile(r"/\*.*?\*/|//[^\n]*", re.DOTALL)
 EXECUTABLE_SCRIPT_TYPES = {
     "application/ecmascript",
@@ -22,8 +21,40 @@ EXECUTABLE_SCRIPT_TYPES = {
 }
 
 
+def strip_css_comments(style_text: str) -> str:
+    """Remove CSS block comments while preserving comment-like quoted text."""
+    result: list[str] = []
+    index = 0
+    quote: str | None = None
+    while index < len(style_text):
+        character = style_text[index]
+        if quote:
+            result.append(character)
+            if character == "\\" and index + 1 < len(style_text):
+                index += 1
+                result.append(style_text[index])
+            elif character == quote:
+                quote = None
+            index += 1
+            continue
+        if character in {"\"", "'"}:
+            quote = character
+            result.append(character)
+            index += 1
+            continue
+        if style_text.startswith("/*", index):
+            end = style_text.find("*/", index + 2)
+            if end == -1:
+                break
+            index = end + 2
+            continue
+        result.append(character)
+        index += 1
+    return "".join(result)
+
+
 def has_embedded_space_grotesk_font(style_text: str) -> bool:
-    effective_style = CSS_COMMENT.sub("", style_text)
+    effective_style = strip_css_comments(style_text)
     return any(
         re.search(r"font-family\s*:\s*[\"']?space\s+grotesk[\"']?", font_face, re.IGNORECASE)
         and re.search(r"src\s*:\s*url\(\s*[\"']?data:font/", font_face, re.IGNORECASE)
@@ -130,7 +161,7 @@ class ArtifactInspector(HTMLParser):
         if tag == "style":
             style_text = "".join(self._style_data)
             self.style_text.append(style_text)
-            for resource in CSS_RESOURCE.findall(CSS_COMMENT.sub("", style_text)):
+            for resource in CSS_RESOURCE.findall(strip_css_comments(style_text)):
                 if not is_inline_resource(resource):
                     self.external_resources.append(resource)
             self._active_style = False

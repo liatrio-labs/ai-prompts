@@ -84,17 +84,23 @@ class ValidateArtifactTests(unittest.TestCase):
                 self.assertEqual(result.returncode, 1)
                 self.assertIn("external runtime resource", result.stderr.lower())
 
-    def test_ignores_commented_css_resource_but_rejects_active_one(self) -> None:
-        for label, stylesheet, expected_returncode in (
-            ("commented", "/* url(\"https://cdn.example.test/theme.css\") */", 0),
-            ("active", "url(\"https://cdn.example.test/theme.css\")", 1),
-        ):
-            with self.subTest(label=label):
-                html = self.valid_artifact().replace("</style>", f"{stylesheet}</style>")
-                result = self.run_validator(html)
-                self.assertEqual(result.returncode, expected_returncode, result.stderr)
-                if expected_returncode:
-                    self.assertIn("external runtime resource", result.stderr.lower())
+    def test_accepts_genuine_commented_css_resource(self) -> None:
+        html = self.valid_artifact().replace(
+            "</style>", '/* url("https://cdn.example.test/theme.css") */</style>'
+        )
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+    def test_rejects_active_css_resource_between_quoted_comment_markers(self) -> None:
+        stylesheet = '''
+    .before::before { content: "/*"; }
+    body { background-image: url("https://cdn.example.test/theme.css"); }
+    .after::after { content: "*/"; }
+  '''
+        html = self.valid_artifact().replace("</style>", f"{stylesheet}</style>")
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("external runtime resource", result.stderr.lower())
 
     def test_rejects_unreplaced_template_token(self) -> None:
         html = self.valid_artifact().replace("Example explainer", "{{TITLE}}")
