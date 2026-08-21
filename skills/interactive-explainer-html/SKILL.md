@@ -113,7 +113,7 @@ The template randomizes question order and each question’s answers independent
 
 ## Validate before delivery
 
-Set `SKILL_DIR` to the directory containing this `SKILL.md`. Run every validator using that absolute skill path; do not assume the calling workspace has a `scripts/` directory.
+These explainers are internal, normally single-reader teaching artifacts. Optimize for quick, deterministic feedback rather than publication-grade assurance. Set `SKILL_DIR` to the directory containing this `SKILL.md`. Run every validator using that absolute skill path; do not assume the calling workspace has a `scripts/` directory.
 
 1. Put the quiz JSON in a separate temporary `.json` file while authoring.
 2. Validate the JSON:
@@ -163,21 +163,9 @@ Set `SKILL_DIR` to the directory containing this `SKILL.md`. Run every validator
    node --check /tmp/explainer.js
    ```
 
-6. Serve the artifact temporarily and run a compact browser smoke check. Verify:
-   - page load has no console errors;
-   - one correct answer shows its correct explanation;
-   - one incorrect answer shows its helpful wrong explanation;
-   - Reset clears feedback and restores original order;
-   - Randomize clears feedback and changes presentation; and
-   - the document has no horizontal overflow at a 390px viewport.
+Do not run a browser smoke test or dispatch an independent reviewer for a normal explainer. The deterministic checks above are the delivery gate. This deliberately accepts residual visual and interactive-runtime risk in exchange for timely internal comprehension support.
 
-Do not save screenshots, create browser-QA findings JSON, or start a report server for this workflow. Report the checks and their results in the final response.
-
-## Independent review when available
-
-After deterministic validation, use `references/delegated-reviewer.md` to decide whether to dispatch one read-only reviewer. This is conditional rather than a required runtime dependency: use it for process/decision flows, substantial custom HTML/CSS, source-grounded factual claims, or multi-artifact delivery.
-
-The reviewer receives the final artifact, this skill, the template, the source boundary, and completed check results. It audits teaching quality and semantic contract compliance; it does not edit, access credentials or protected sources, regenerate the artifact, or repeat browser checks. The parent agent owns finding triage, any fix, final verification, and delivery.
+After the quiz validator passes, do not begin additional quiz-fairness rewrite rounds unless a concrete comprehension defect is identified. The validator is the bounded guardrail for answer-length cues; subjective preference alone is not a reason to reopen it.
 
 ## Iteration-two opportunity
 
