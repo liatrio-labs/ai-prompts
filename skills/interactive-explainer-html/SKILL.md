@@ -38,7 +38,7 @@ Start from the shell for its slots, offline font, and quiz runtime. Treat `{{EXP
 
 The shell carries the offline runtime and a deliberately broader Liatrio palette; it is not a license to make every artifact green. Use the colors by role: Primary Green for a key brand moment, Bright Green for signals and highlights, Violet or Lime as one editorial counterpoint per surface, and Lagoon for informational metadata or data detail. Keep Hot Red and Flame Orange semantic-only. The first source-specific teaching visual should use a source-appropriate composition and color role rather than repeating the shell unchanged.
 
-The shell provides the document title, subtitle, optional metadata, table-of-contents region, responsive baseline, quiz mount, renderer, Reset and Randomize controls, and embedded JSON contract.
+The shell provides the document title, subtitle, optional metadata, responsive chapter navigation, quiz mount, renderer, Reset and Randomize controls, and embedded JSON contract.
 
 Replace these template slots:
 
@@ -51,7 +51,7 @@ Replace these template slots:
 {{QUIZ_JSON}}
 ```
 
-The explanatory body is intentionally freeform. Select the structure and visual vocabulary that teaches this topic best. Use coherent section headings and an actual table of contents, but do not force every explanation into the same diagram or layout.
+The explanatory body is intentionally freeform. Select the structure and visual vocabulary that teaches this topic best. Use coherent section headings and populate `{{TABLE_OF_CONTENTS}}` with a semantic list of links to those section IDs. Include `#quiz` as the final link, labeled “Check your understanding.” The shell presents this list as wrapping chapter navigation: sticky on desktop and tablet, static on narrow mobile screens. Keep link labels complete and concise enough to scan; do not abbreviate them merely to force one row. Do not force every explanation into the same diagram or layout.
 
 For most topics, include:
 
@@ -146,7 +146,7 @@ These explainers are internal, normally single-reader teaching artifacts. Optimi
    uv run "$SKILL_DIR/scripts/validate_artifact.py" /path/to/explainer.html
    ```
 
-   This checks the self-contained shell, inline runtime, TOC targets, quiz infrastructure, and unreplaced template tokens. It complements rather than replaces the quiz validator.
+   This checks the self-contained shell, chapter-navigation targets, quiz infrastructure, and unreplaced template tokens. It complements rather than replaces the quiz validator.
 
 5. Extract the emitted JavaScript and check it, rather than relying on the host/template source alone:
 

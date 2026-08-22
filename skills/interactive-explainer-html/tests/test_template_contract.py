@@ -15,6 +15,20 @@ class ExplainerTemplateContractTests(unittest.TestCase):
         self.assertIn("{{TABLE_OF_CONTENTS}}", self.source)
         self.assertIn("{{EXPLANATION_CONTENT}}", self.source)
 
+    def test_provides_responsive_sticky_chapter_navigation(self) -> None:
+        for hook in (
+            "position: sticky",
+            "flex-wrap: wrap",
+            'aria-current="location"',
+            'id="back-to-top"',
+            'id="quiz" class="quiz"',
+            ".toc { position: static; }",
+            "scroll-margin-top",
+            "IntersectionObserver",
+        ):
+            with self.subTest(hook=hook):
+                self.assertIn(hook, self.source)
+
     def test_embeds_named_quiz_json_and_mount(self) -> None:
         self.assertIn('id="explainer-quiz-data"', self.source)
         self.assertIn('id="explainer-quiz"', self.source)

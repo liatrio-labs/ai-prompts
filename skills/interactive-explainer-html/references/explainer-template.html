@@ -49,10 +49,14 @@
     .eyebrow { color: var(--bright-green); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
     .subtitle { max-width: 70ch; color: var(--muted); font-size: 1.15rem; }
     .meta { border-left: 3px solid var(--lagoon); color: var(--muted); font-size: .9rem; padding-left: .75rem; }
-    .toc { border: 1px solid var(--line); border-image: linear-gradient(90deg, var(--violet), var(--lime)) 1; margin: 2rem 0; padding: 1rem 1.25rem; background: var(--dark-bg-2); }
-    .toc strong { color: var(--violet); }
-    .toc a { color: var(--bright-green); }
-    .toc ol { columns: 2; margin-bottom: 0; padding-left: 1.25rem; }
+    .toc { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .35rem; margin: 2rem 0; padding: .65rem; border: 1px solid transparent; border-radius: 6px; background: linear-gradient(var(--dark-bg-2), var(--dark-bg-2)) padding-box, linear-gradient(90deg, var(--violet), var(--lime)) border-box; }
+    .toc ol { display: flex; flex: 1 1 100%; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+    .toc a { display: block; padding: .4rem .65rem; border: 1px solid transparent; border-radius: 6px; color: var(--muted); font-size: .9rem; font-weight: 500; line-height: 1.3; text-decoration: none; transition: background-color var(--control-hover-duration) var(--brand-ease), border-color var(--control-hover-duration) var(--brand-ease), color var(--control-hover-duration) var(--brand-ease); }
+    .toc a:hover { border-color: var(--control-border-muted); background: var(--control-bg); color: var(--ink); }
+    .toc a:focus-visible { outline: 2px solid var(--bright-green); outline-offset: 2px; }
+    .toc a[aria-current="location"] { border-color: rgba(137, 223, 0, .45); background: rgba(137, 223, 0, .1); color: var(--bright-green); }
+    .explainer-content [id], .quiz[id] { scroll-margin-top: calc(var(--toc-offset, 0px) + 1rem); }
+    .back-to-top { display: none; }
     .quiz { margin-top: 3rem; padding: clamp(.9rem, 2vw, 1.35rem); border: 1px solid var(--line); background: var(--dark-bg-2); }
     .quiz > .eyebrow { margin: 0 0 .2rem; }
     .quiz-chrome { display: grid; gap: .35rem; margin-bottom: .55rem; }
@@ -116,6 +120,8 @@
     .answer-list button[data-correct="true"] { opacity: 1; border-color: var(--bright-green); box-shadow: 0 0 0 1px rgba(137, 223, 0, .18) inset; }
     .answer-list button[data-correct="false"][data-selected="true"] { border-color: var(--danger); box-shadow: 0 0 0 1px rgba(230, 57, 70, .18) inset; }
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .toc a { transition: none; }
       button { transition: none; }
       button:active:not(:disabled) { transform: none; }
       .quiz-question { transition: none; }
@@ -124,7 +130,20 @@
       .quiz-swap > span { transition: none; }
       .answer-list button:disabled { transition: none; }
     }
-    @media (max-width: 600px) { main { width: min(100% - 24px, 1000px); padding-top: 28px; } .toc ol { columns: 1; } .quiz-control-row { align-items: stretch; flex-direction: column; } .quiz-nav-actions { margin-left: 0; } }
+    @media (max-width: 600px) {
+      main { width: min(100% - 24px, 1000px); padding-top: 28px; }
+      .toc { position: static; }
+      .toc li { flex: 1 1 10rem; }
+      .toc a { height: 100%; }
+      .back-to-top:not([hidden]) { position: fixed; right: 1rem; bottom: 1rem; z-index: 30; display: grid; width: 44px; height: 44px; place-items: center; padding: 0; border-radius: 6px; background: var(--control-bg); color: var(--bright-green); font-size: 1.25rem; text-align: center; }
+      .quiz-control-row { align-items: stretch; flex-direction: column; }
+      .quiz-nav-actions { margin-left: 0; }
+    }
+    @media print {
+      html { scroll-behavior: auto; }
+      .toc { position: static; }
+      .back-to-top { display: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -137,15 +156,15 @@
     </header>
 
     <nav class="toc" aria-label="Table of contents">
-      <strong>On this page</strong>
       {{TABLE_OF_CONTENTS}}
     </nav>
+    <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top" title="Back to top" hidden>↑</button>
 
     <article class="explainer-content">
       {{EXPLANATION_CONTENT}}
     </article>
 
-    <section class="quiz" aria-labelledby="quiz-instructions">
+    <section id="quiz" class="quiz" aria-labelledby="quiz-instructions">
       <p class="eyebrow">Check your understanding</p>
       <div class="quiz-chrome">
         <div class="quiz-heading-row"><p id="quiz-instructions">Answer one question at a time. Reset and Randomize both start a fresh shuffled run.</p></div>
@@ -157,6 +176,86 @@
     </section>
   </main>
 
+  <script>
+    (() => {
+      const toc = document.querySelector(".toc");
+      const backToTop = document.querySelector("#back-to-top");
+      if (!toc || !backToTop) return;
+
+      const links = [...toc.querySelectorAll('a[href^="#"]')];
+      const targets = links.map((link) => {
+        const id = decodeURIComponent(link.hash.slice(1));
+        return { id, link, target: document.getElementById(id) };
+      }).filter(({ target }) => target);
+      if (!targets.length) return;
+
+      const mobile = window.matchMedia("(max-width: 600px)");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let observer;
+      let resizeFrame;
+      let scrollFrame;
+
+      function setCurrent(id) {
+        targets.forEach(({ id: targetId, link }) => {
+          if (targetId === id) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      function updateCurrent() {
+        const marker = mobile.matches ? 24 : toc.offsetHeight + 24;
+        let current = targets[0];
+        targets.forEach((entry) => {
+          if (entry.target.getBoundingClientRect().top <= marker) current = entry;
+        });
+        if (Math.ceil(window.scrollY + window.innerHeight) >= document.documentElement.scrollHeight) {
+          current = targets[targets.length - 1];
+        }
+        setCurrent(current.id);
+      }
+
+      function updateBackToTop() {
+        backToTop.hidden = !mobile.matches || window.scrollY < window.innerHeight;
+      }
+
+      function updateOnScroll() {
+        if (scrollFrame) return;
+        scrollFrame = requestAnimationFrame(() => {
+          scrollFrame = undefined;
+          updateCurrent();
+          updateBackToTop();
+        });
+      }
+
+      function buildObserver() {
+        observer?.disconnect();
+        const stickyHeight = mobile.matches ? 0 : toc.offsetHeight;
+        document.documentElement.style.setProperty("--toc-offset", `${stickyHeight}px`);
+        observer = new IntersectionObserver(updateCurrent, {
+          rootMargin: `-${stickyHeight + 16}px 0px -65% 0px`,
+          threshold: [0, 1],
+        });
+        targets.forEach(({ target }) => observer.observe(target));
+        updateCurrent();
+        updateBackToTop();
+      }
+
+      window.addEventListener("resize", () => {
+        cancelAnimationFrame(resizeFrame);
+        resizeFrame = requestAnimationFrame(buildObserver);
+      });
+      window.addEventListener("scroll", updateOnScroll, { passive: true });
+      window.addEventListener("hashchange", updateCurrent);
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: reducedMotion.matches ? "auto" : "smooth" });
+      });
+      document.fonts?.ready.then(buildObserver);
+      buildObserver();
+    })();
+  </script>
   <script id="explainer-quiz-data" type="application/json">
 {{QUIZ_JSON}}
   </script>

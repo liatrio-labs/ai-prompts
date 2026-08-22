@@ -17,6 +17,7 @@
     :root { color-scheme: light dark; --page: #10151c; --surface: #18212b; --surface-raised: #223142; --ink: #edf4fb; --muted: #b6c5d4; --line: #3c5064; --accent: #9ee37d; --link: #89c8ff; --danger: #ffb4ab; --radius: 12px; --quiz-motion-duration: 666ms; --quiz-fade-out: 100ms; --quiz-fade-in: 400ms; --quiz-motion-ease: cubic-bezier(.45, .05, .55, .95); }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; }
     body { margin: 0; background: var(--page); color: var(--ink); font: 17px/1.6 "Space Grotesk", system-ui, sans-serif; }
     main { width: min(100% - 32px, 1000px); margin: 0 auto; padding: 48px 0 72px; }
     h1, h2, h3 { line-height: 1.15; }
@@ -26,9 +27,15 @@
     .eyebrow { color: var(--accent); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
     .subtitle { max-width: 70ch; color: var(--muted); font-size: 1.15rem; }
     .meta { color: var(--muted); font-size: .9rem; }
-    .toc, .quiz, .callout, pre { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
-    .toc { margin: 2rem 0; padding: 1rem 1.25rem; }
-    .toc ol { columns: 2; margin-bottom: 0; padding-left: 1.25rem; }
+    .quiz, .callout, pre { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+    .toc { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .35rem; margin: 2rem 0; padding: .65rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+    .toc ol { display: flex; flex: 1 1 100%; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+    .toc a { display: block; padding: .4rem .65rem; border: 1px solid transparent; border-radius: 6px; color: var(--muted); font-size: .9rem; font-weight: 500; line-height: 1.3; text-decoration: none; }
+    .toc a:hover { border-color: var(--line); background: var(--surface-raised); color: var(--ink); }
+    .toc a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .toc a[aria-current="location"] { border-color: var(--accent); color: var(--accent); }
+    .explainer-content [id], .quiz[id] { scroll-margin-top: calc(var(--toc-offset, 0px) + 1rem); }
+    .back-to-top { display: none; }
     .explainer-content > * { max-width: 100%; }
     pre { overflow: auto; padding: 1rem; white-space: pre-wrap; }
     .quiz { margin-top: 3rem; padding: clamp(.9rem, 2vw, 1.35rem); }
@@ -81,13 +88,23 @@
     .answer-list button[data-correct="true"] { opacity: 1; border-color: var(--accent); }
     .answer-list button[data-correct="false"][data-selected="true"] { border-color: var(--danger); }
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
       .quiz-question { transition: none; }
       #quiz-feedback-region .feedback { transition: none; }
       .quiz-progress-fill { transition: none; }
       .quiz-swap > span { transition: none; }
       .answer-list button:disabled { transition: none; }
     }
-    @media (max-width: 600px) { main { width: min(100% - 24px, 1000px); padding-top: 28px; } .toc ol { columns: 1; } .quiz-control-row { align-items: stretch; flex-direction: column; } .quiz-nav-actions { margin-left: 0; } }
+    @media (max-width: 600px) {
+      main { width: min(100% - 24px, 1000px); padding-top: 28px; }
+      .toc { position: static; }
+      .toc li { flex: 1 1 10rem; }
+      .toc a { height: 100%; }
+      .back-to-top:not([hidden]) { position: fixed; right: 1rem; bottom: 1rem; z-index: 30; display: grid; width: 44px; height: 44px; place-items: center; padding: 0; border-radius: 6px; background: var(--surface-raised); color: var(--accent); font-size: 1.25rem; text-align: center; }
+      .quiz-control-row { align-items: stretch; flex-direction: column; }
+      .quiz-nav-actions { margin-left: 0; }
+    }
+    @media print { html { scroll-behavior: auto; } .toc { position: static; } .back-to-top { display: none !important; } }
   </style>
 </head>
 <body>
@@ -100,9 +117,9 @@
     </header>
 
     <nav class="toc" aria-label="Table of contents">
-      <strong>On this page</strong>
-      <ol><li><a href="#model">Decision model</a></li></ol>
+      <ol><li><a href="#model">Decision model</a></li><li><a href="#quiz">Check your understanding</a></li></ol>
     </nav>
+    <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top" title="Back to top" hidden>↑</button>
 
     <article class="explainer-content">
       <style>
@@ -119,7 +136,7 @@
 </section>
     </article>
 
-    <section class="quiz" aria-labelledby="quiz-instructions">
+    <section id="quiz" class="quiz" aria-labelledby="quiz-instructions">
       <p class="eyebrow">Check your understanding</p>
       <div class="quiz-chrome">
         <div class="quiz-heading-row"><p id="quiz-instructions">Answer one question at a time. Reset and Randomize both start a fresh shuffled run.</p></div>
@@ -131,6 +148,86 @@
     </section>
   </main>
 
+  <script>
+    (() => {
+      const toc = document.querySelector(".toc");
+      const backToTop = document.querySelector("#back-to-top");
+      if (!toc || !backToTop) return;
+
+      const links = [...toc.querySelectorAll('a[href^="#"]')];
+      const targets = links.map((link) => {
+        const id = decodeURIComponent(link.hash.slice(1));
+        return { id, link, target: document.getElementById(id) };
+      }).filter(({ target }) => target);
+      if (!targets.length) return;
+
+      const mobile = window.matchMedia("(max-width: 600px)");
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let observer;
+      let resizeFrame;
+      let scrollFrame;
+
+      function setCurrent(id) {
+        targets.forEach(({ id: targetId, link }) => {
+          if (targetId === id) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      }
+
+      function updateCurrent() {
+        const marker = mobile.matches ? 24 : toc.offsetHeight + 24;
+        let current = targets[0];
+        targets.forEach((entry) => {
+          if (entry.target.getBoundingClientRect().top <= marker) current = entry;
+        });
+        if (Math.ceil(window.scrollY + window.innerHeight) >= document.documentElement.scrollHeight) {
+          current = targets[targets.length - 1];
+        }
+        setCurrent(current.id);
+      }
+
+      function updateBackToTop() {
+        backToTop.hidden = !mobile.matches || window.scrollY < window.innerHeight;
+      }
+
+      function updateOnScroll() {
+        if (scrollFrame) return;
+        scrollFrame = requestAnimationFrame(() => {
+          scrollFrame = undefined;
+          updateCurrent();
+          updateBackToTop();
+        });
+      }
+
+      function buildObserver() {
+        observer?.disconnect();
+        const stickyHeight = mobile.matches ? 0 : toc.offsetHeight;
+        document.documentElement.style.setProperty("--toc-offset", `${stickyHeight}px`);
+        observer = new IntersectionObserver(updateCurrent, {
+          rootMargin: `-${stickyHeight + 16}px 0px -65% 0px`,
+          threshold: [0, 1],
+        });
+        targets.forEach(({ target }) => observer.observe(target));
+        updateCurrent();
+        updateBackToTop();
+      }
+
+      window.addEventListener("resize", () => {
+        cancelAnimationFrame(resizeFrame);
+        resizeFrame = requestAnimationFrame(buildObserver);
+      });
+      window.addEventListener("scroll", updateOnScroll, { passive: true });
+      window.addEventListener("hashchange", updateCurrent);
+      backToTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: reducedMotion.matches ? "auto" : "smooth" });
+      });
+      document.fonts?.ready.then(buildObserver);
+      buildObserver();
+    })();
+  </script>
   <script id="explainer-quiz-data" type="application/json">
 {"questions":[{"id":"source-boundary","prompt":"What should ground an explainer?","answers":[{"text":"Relevant source material","correct":true},{"text":"Only a title","correct":false},{"text":"Unverified assumptions","correct":false},{"text":"A generic template alone","correct":false}],"correct_explanation":"Correct. The narrative should be grounded in inspected source material.","wrong_explanation":"Start from inspected source material, then choose an explanation structure."},{"id":"question-count","prompt":"What question count does the first-pass contract support?","answers":[{"text":"Exactly five","correct":false},{"text":"Five through fifteen","correct":true},{"text":"One through one hundred","correct":false},{"text":"Only ten","correct":false}],"correct_explanation":"Correct. The author chooses five through fifteen based on complexity.","wrong_explanation":"The contract allows five through fifteen questions so complexity can drive depth."},{"id":"answer-count","prompt":"How many answers must each question have?","answers":[{"text":"Two","correct":false},{"text":"Three","correct":false},{"text":"Four","correct":true},{"text":"Any number","correct":false}],"correct_explanation":"Correct. Four options keep every question consistent.","wrong_explanation":"Each question needs exactly four answer options."},{"id":"feedback","prompt":"What happens after an incorrect answer?","answers":[{"text":"Nothing useful happens afterward","correct":false},{"text":"The page closes","correct":false},{"text":"A helpful explanation appears","correct":true},{"text":"All answers disappear","correct":false}],"correct_explanation":"Correct. Feedback should teach, not merely score.","wrong_explanation":"Incorrect choices must reveal helpful explanatory feedback."},{"id":"output","prompt":"Where does the default generated artifact go?","answers":[{"text":"Inside the repository","correct":false},{"text":"A permanent home-directory folder","correct":false},{"text":"The system temporary directory","correct":true},{"text":"A remote service","correct":false}],"correct_explanation":"Correct. The default output uses the system temporary directory.","wrong_explanation":"The workflow avoids creating permanent folders unless the user requests one."}]}
   </script>
