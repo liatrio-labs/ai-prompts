@@ -51,7 +51,9 @@ Replace these template slots:
 {{QUIZ_JSON}}
 ```
 
-The explanatory body is intentionally freeform. Select the structure and visual vocabulary that teaches this topic best. Use coherent section headings and populate `{{TABLE_OF_CONTENTS}}` with a semantic list of links to those section IDs. Include `#quiz` as the final link, labeled “Check your understanding.” The shell presents this list as wrapping chapter navigation: sticky on desktop and tablet, static on narrow mobile screens. Keep link labels complete and concise enough to scan; do not abbreviate them merely to force one row. Do not force every explanation into the same diagram or layout.
+The explanatory body is intentionally freeform. Select the structure and visual vocabulary that teaches this topic best. Use coherent section headings and populate `{{TABLE_OF_CONTENTS}}` with an `<ol>` of links to those section IDs. Include `#quiz` as the final link, labeled “Check your understanding.” The shell presents this list as wrapping chapter navigation: sticky on desktop and tablet, static on narrow mobile screens. Keep link labels complete and concise enough to scan; do not abbreviate them merely to force one row. Do not force every explanation into the same diagram or layout.
+
+Chapter numbers are a shell contract, not an authoring choice. Write unnumbered TOC labels. Use one top-level `<section id="...">` with a single `h2` per TOC entry, in the same order as the list, then the quiz. Do not prefix labels or headings with `1.` — the template CSS adds sequential numbers to the nav, each section heading, and the quiz eyebrow. Short nav labels may differ from the full `h2` as long as the order matches, so “section 4” in the nav is section 4 in the body.
 
 For most topics, include:
 

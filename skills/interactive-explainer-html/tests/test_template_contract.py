@@ -25,6 +25,8 @@ class ExplainerTemplateContractTests(unittest.TestCase):
             ".toc { position: static; }",
             "scroll-margin-top",
             "IntersectionObserver",
+            "counter-reset: chapter",
+            'content: counter(chapter) ". "',
         ):
             with self.subTest(hook=hook):
                 self.assertIn(hook, self.source)

@@ -50,11 +50,17 @@
     .subtitle { max-width: 70ch; color: var(--muted); font-size: 1.15rem; }
     .meta { border-left: 3px solid var(--lagoon); color: var(--muted); font-size: .9rem; padding-left: .75rem; }
     .toc { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .35rem; margin: 2rem 0; padding: .65rem; border: 1px solid transparent; border-radius: 6px; background: linear-gradient(var(--dark-bg-2), var(--dark-bg-2)) padding-box, linear-gradient(90deg, var(--violet), var(--lime)) border-box; }
-    .toc ol { display: flex; flex: 1 1 100%; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+    .toc ol { counter-reset: chapter; display: flex; flex: 1 1 100%; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+    .toc li { counter-increment: chapter; }
     .toc a { display: block; padding: .4rem .65rem; border: 1px solid transparent; border-radius: 6px; color: var(--muted); font-size: .9rem; font-weight: 500; line-height: 1.3; text-decoration: none; transition: background-color var(--control-hover-duration) var(--brand-ease), border-color var(--control-hover-duration) var(--brand-ease), color var(--control-hover-duration) var(--brand-ease); }
+    .toc a::before { content: counter(chapter) ". "; font-variant-numeric: tabular-nums; font-weight: 600; color: var(--lagoon); }
     .toc a:hover { border-color: var(--control-border-muted); background: var(--control-bg); color: var(--ink); }
     .toc a:focus-visible { outline: 2px solid var(--bright-green); outline-offset: 2px; }
     .toc a[aria-current="location"] { border-color: rgba(137, 223, 0, .45); background: rgba(137, 223, 0, .1); color: var(--bright-green); }
+    .toc a[aria-current="location"]::before { color: var(--bright-green); }
+    main { counter-reset: chapter; }
+    .explainer-content > section > h2::before,
+    .quiz > .eyebrow::before { counter-increment: chapter; content: counter(chapter) ". "; font-variant-numeric: tabular-nums; font-weight: 600; color: var(--lagoon); }
     .explainer-content [id], .quiz[id] { scroll-margin-top: calc(var(--toc-offset, 0px) + 1rem); }
     .back-to-top { display: none; }
     .quiz { margin-top: 3rem; padding: clamp(.9rem, 2vw, 1.35rem); border: 1px solid var(--line); background: var(--dark-bg-2); }

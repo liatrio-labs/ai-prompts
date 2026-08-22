@@ -9,6 +9,7 @@ import sys
 from html.parser import HTMLParser
 from pathlib import Path
 TEMPLATE_TOKEN = re.compile(r"\{\{[A-Z][A-Z0-9_]*\}\}")
+NUMBERED_CHAPTER_LABEL = re.compile(r"^\d+\.\s")
 RUNTIME_TAGS = {"audio", "embed", "iframe", "image", "img", "link", "object", "script", "source", "track", "video"}
 CSS_RESOURCE = re.compile(r"(?:@import\s+(?:url\()?|url\()\s*[\"']?([^\s\"')]+)", re.IGNORECASE)
 JAVASCRIPT_COMMENT = re.compile(r"/\*.*?\*/|//[^\n]*", re.DOTALL)
@@ -98,6 +99,8 @@ class ArtifactInspector(HTMLParser):
         self.ids: set[str] = set()
         self.toc_depth = 0
         self.toc_targets: list[str] = []
+        self.toc_labels: list[str] = []
+        self._toc_link_depth = 0
         self.has_toc = False
         self.has_h1 = False
         self.has_inline_style = False
@@ -135,6 +138,8 @@ class ArtifactInspector(HTMLParser):
             href = attr_map.get("href") or ""
             if href.startswith("#") and len(href) > 1:
                 self.toc_targets.append(href[1:])
+                self.toc_labels.append("")
+                self._toc_link_depth += 1
 
         if tag == "style":
             self._active_style = True
@@ -168,6 +173,8 @@ class ArtifactInspector(HTMLParser):
                 self.external_resources.append("srcset=" + srcset)
 
     def handle_endtag(self, tag: str) -> None:
+        if tag == "a" and self._toc_link_depth:
+            self._toc_link_depth -= 1
         if tag == "nav" and self.toc_depth:
             self.toc_depth -= 1
         if tag == "style":
@@ -186,6 +193,8 @@ class ArtifactInspector(HTMLParser):
             self._script_data = []
 
     def handle_data(self, data: str) -> None:
+        if self._toc_link_depth and self.toc_labels:
+            self.toc_labels[-1] += data
         if self._active_style and data.strip():
             self.has_inline_style = True
             self._style_data.append(data)
@@ -217,6 +226,12 @@ def validate(path: Path) -> list[str]:
     for target in inspector.toc_targets:
         if target not in inspector.ids:
             errors.append(f"TOC target #{target} does not exist")
+    for label in inspector.toc_labels:
+        normalized = " ".join(label.split())
+        if NUMBERED_CHAPTER_LABEL.match(normalized):
+            errors.append(
+                f"TOC label {normalized!r} includes a chapter number; the shell numbers chapters"
+            )
     if not inspector.has_inline_style:
         errors.append("artifact is missing an inline style block")
     if not inspector.has_executable_script:

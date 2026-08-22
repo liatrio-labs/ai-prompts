@@ -120,6 +120,12 @@ class ValidateArtifactTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertIn("toc", result.stderr.lower())
 
+    def test_rejects_author_prefixed_chapter_numbers(self) -> None:
+        html = self.valid_artifact().replace(">Model<", ">1. Model<")
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("chapter number", result.stderr.lower())
+
     def test_rejects_duplicate_quiz_data_elements(self) -> None:
         quiz_data = '<script id="explainer-quiz-data" type="application/json">{"questions": []}</script>'
         html = self.valid_artifact().replace(quiz_data, quiz_data + quiz_data)
