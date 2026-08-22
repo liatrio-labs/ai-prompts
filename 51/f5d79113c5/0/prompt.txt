@@ -46,3 +46,7 @@ do all of it, including the green Next. apply the changes to the template and th
 Changes look good. Fix the overflow issue. 
 
 Another tweak: when a question is answered incorrectly, the incorrect answer is highlighted in red. this is good UX. the correct answer should be highlighted too so the learner can see it and know what the correct answer was.
+
+---
+
+Execute the selected diff-tab commit action.
