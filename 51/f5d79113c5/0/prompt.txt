@@ -1,0 +1,48 @@
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: section
+dom_path: main > section.quiz
+class: quiz
+visible_text: CHECK YOUR UNDERSTANDING Answer one question at a time. Reset and Randomize both start a fresh shuffled run. Reset questions Randomize questions Previous question Next question Question 1 of 8 Cor
+bounds_css_px: top=633 left=77 width=1000 height=634
+attributes:
+  class=quiz
+  aria-labelledby=quiz-instructions
+```
+
+
+We're going to work on a few more visual improvements to the template included in this skill. The file I have open in the browser, file:///tmp/2026-08-22_herdr-practical-explainer.html, is an explainer I created using a recent but fully up-to-date version of the skill. The first thing you need to do is update this file to match the current conventions of this skill. analyze the content of the file, compare it against the current state of the skill, and tell me what is different before you make any changes
+
+---
+
+go
+
+---
+
+Fix that discrepancy in the SKILL.md
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: div
+dom_path: main > section.quiz > div.quiz-chrome > div.quiz-control-row
+class: quiz-control-row
+visible_text: Reset questions Randomize questions Previous question Next question
+bounds_css_px: top=725 left=100 width=955 height=51
+attributes:
+  class=quiz-control-row
+```
+ - The buttons are a hard to discern against the background. check /liatrio-brand-guidelines for guidance here and suggest an update. also audit all of the quiz section against the brand guidelines for any other visual/UX improvements that could be made. Note that I'm happy with where it is and want to keep the experience - we're only in tweak mode
+
+---
+
+do all of it, including the green Next. apply the changes to the template and the file:///tmp/2026-08-22_herdr-practical-explainer.html file so i can preview them
+
+---
+
+Changes look good. Fix the overflow issue. 
+
+Another tweak: when a question is answered incorrectly, the incorrect answer is highlighted in red. this is good UX. the correct answer should be highlighted too so the learner can see it and know what the correct answer was.
