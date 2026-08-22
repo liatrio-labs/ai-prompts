@@ -1,0 +1,32 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "127a7b952321",
+  "session_id": "22857bec-b6e3-4291-ba49-daf91d8b54eb",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-22T19:47:47.251148899Z",
+  "branch": "feat/explain-with-diff-html",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "skills/interactive-explainer-html/SKILL.md",
+    "skills/interactive-explainer-html/references/explainer-template.html",
+    "skills/interactive-explainer-html/scripts/validate_artifact.py",
+    "skills/interactive-explainer-html/tests/fixtures/author-owned-explainer-fixture.html",
+    "skills/interactive-explainer-html/tests/test_template_contract.py",
+    "skills/interactive-explainer-html/tests/test_validate_artifact.py"
+  ],
+  "agent": "Cursor",
+  "model": "auto-smart",
+  "turn_id": "0f08220ed4e6",
+  "session_metrics": {
+    "turn_count": 9
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-22T19:47:47.167667501Z",
+    "agent_lines": 39,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 39,
+    "agent_percentage": 100
+  }
+}
