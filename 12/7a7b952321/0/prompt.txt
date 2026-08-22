@@ -120,3 +120,7 @@ one last tweak i can think of to the question section. it looks odd when "Questi
 ---
 
 commit that change. then another tweak: i think the nav bar and the sections should always be numbered - it becomes much easier to reference and gives the user a sense of how much content they're looking at. sometimes the AI does this and sometimes not. how can we update the skill to guide teh AI to always do this?
+
+---
+
+Execute the selected diff-tab commit action.
