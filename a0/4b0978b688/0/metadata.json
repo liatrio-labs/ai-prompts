@@ -1,0 +1,29 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "a04b0978b688",
+  "session_id": "22857bec-b6e3-4291-ba49-daf91d8b54eb",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-22T19:29:14.877237758Z",
+  "branch": "feat/explain-with-diff-html",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "skills/interactive-explainer-html/references/explainer-template.html",
+    "skills/interactive-explainer-html/tests/fixtures/author-owned-explainer-fixture.html",
+    "skills/interactive-explainer-html/tests/test_quiz_browser.py"
+  ],
+  "agent": "Cursor",
+  "model": "auto-smart",
+  "turn_id": "c1dc1b6753f2",
+  "session_metrics": {
+    "turn_count": 8
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-22T19:29:14.798845913Z",
+    "agent_lines": 4,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 4,
+    "agent_percentage": 100
+  }
+}
