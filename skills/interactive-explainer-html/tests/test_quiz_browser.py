@@ -94,6 +94,7 @@ class QuizBrowserTests(unittest.TestCase):
             "controlRow: Boolean(document.querySelector('.quiz-control-row')),"
             "instructionsInHeadingRow: Boolean(document.querySelector('.quiz-heading-row #quiz-instructions')),"
             "scoreInStatusRow: Boolean(document.querySelector('.quiz-status #quiz-score')),"
+            "progressBarBeforeStatusText: Boolean(document.querySelector('#quiz-progress-bar')?.compareDocumentPosition(document.querySelector('.quiz-status-summary')) & Node.DOCUMENT_POSITION_FOLLOWING),"
             "actionsInControlRow: Boolean(document.querySelector('.quiz-control-row .quiz-actions')),"
             "prevVisible: Boolean(document.querySelector('.quiz-nav-actions #quiz-prev')),"
             "nextVisible: Boolean(document.querySelector('.quiz-nav-actions #quiz-next')),"
@@ -111,6 +112,7 @@ class QuizBrowserTests(unittest.TestCase):
         self.assertTrue(state["controlRow"])
         self.assertTrue(state["instructionsInHeadingRow"])
         self.assertTrue(state["scoreInStatusRow"])
+        self.assertTrue(state["progressBarBeforeStatusText"])
         self.assertTrue(state["actionsInControlRow"])
         self.assertTrue(state["prevVisible"])
         self.assertTrue(state["nextVisible"])
