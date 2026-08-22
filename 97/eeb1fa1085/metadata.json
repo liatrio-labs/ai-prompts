@@ -1,0 +1,21 @@
+{
+  "cli_version": "0.5.0",
+  "checkpoint_id": "97eeb1fa1085",
+  "strategy": "manual-commit",
+  "branch": "feat/explain-with-diff-html",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "skills/interactive-explainer-html/SKILL.md",
+    "skills/interactive-explainer-html/references/explainer-template.html",
+    "skills/interactive-explainer-html/tests/fixtures/author-owned-explainer-fixture.html",
+    "skills/interactive-explainer-html/tests/test_template_contract.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/97/eeb1fa1085/0/metadata.json",
+      "transcript": "/97/eeb1fa1085/0/full.jsonl",
+      "content_hash": "/97/eeb1fa1085/0/content_hash.txt",
+      "prompt": "/97/eeb1fa1085/0/prompt.txt"
+    }
+  ]
+}
