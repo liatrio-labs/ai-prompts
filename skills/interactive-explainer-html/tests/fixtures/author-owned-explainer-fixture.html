@@ -35,7 +35,7 @@
     .quiz > .eyebrow { margin: 0 0 .2rem; }
     .quiz-chrome { display: grid; gap: .35rem; margin-bottom: .55rem; }
     .quiz-heading-row { align-items: baseline; display: flex; flex-wrap: wrap; gap: .15rem .5rem; justify-content: flex-start; }
-    #quiz-instructions { margin: 0; white-space: nowrap; color: var(--muted); }
+    #quiz-instructions { margin: 0; color: var(--muted); overflow-wrap: anywhere; }
     .quiz-control-row { align-items: center; display: flex; flex-wrap: wrap; gap: .35rem .75rem; justify-content: space-between; width: 100%; margin: .65rem 0; }
     .quiz-status { display: grid; gap: .2rem; margin: 0; }
     .quiz-status-summary { align-items: baseline; display: flex; justify-content: space-between; gap: .75rem; }
@@ -77,7 +77,8 @@
     .quiz-swap > span.quiz-enter-delayed { transition-delay: var(--quiz-fade-out); }
     .answer-list { display: grid; gap: .65rem; }
     .answer-list button:disabled { transition: opacity var(--quiz-motion-duration) var(--quiz-motion-ease), border-color var(--quiz-motion-duration) var(--quiz-motion-ease); }
-    .answer-list button[data-selected="true"] { border-color: var(--accent); }
+    .answer-list button[data-selected="true"],
+    .answer-list button[data-correct="true"] { opacity: 1; border-color: var(--accent); }
     .answer-list button[data-correct="false"][data-selected="true"] { border-color: var(--danger); }
     @media (prefers-reduced-motion: reduce) {
       .quiz-question { transition: none; }
@@ -86,7 +87,7 @@
       .quiz-swap > span { transition: none; }
       .answer-list button:disabled { transition: none; }
     }
-    @media (max-width: 600px) { main { width: min(100% - 24px, 1000px); padding-top: 28px; } .toc ol { columns: 1; } .quiz-control-row { align-items: flex-start; flex-direction: column; } }
+    @media (max-width: 600px) { main { width: min(100% - 24px, 1000px); padding-top: 28px; } .toc ol { columns: 1; } .quiz-control-row { align-items: stretch; flex-direction: column; } .quiz-nav-actions { margin-left: 0; } }
   </style>
 </head>
 <body>
@@ -326,15 +327,17 @@
         return panels.length > 0;
       }
 
-      function lockAnswers(card, selectedIndex, correct) {
+      function lockAnswers(card, selectedIndex, question) {
+        const selectedIsCorrect = Boolean(question.answers[selectedIndex].correct);
         card.querySelectorAll(".answer-list button").forEach((item, index) => {
-          if (index === selectedIndex) {
-            item.dataset.selected = "true";
-            item.dataset.correct = String(correct);
+          const isSelected = index === selectedIndex;
+          const isKey = Boolean(question.answers[index].correct);
+          item.dataset.selected = String(isSelected);
+          if (isSelected) {
+            item.dataset.correct = String(selectedIsCorrect);
             item.setAttribute("aria-pressed", "true");
           } else {
-            item.dataset.selected = "false";
-            item.dataset.correct = "";
+            item.dataset.correct = (!selectedIsCorrect && isKey) ? "true" : "";
             item.setAttribute("aria-pressed", "false");
           }
           item.disabled = true;
@@ -398,7 +401,7 @@
 
         const nextCard = buildQuestionCard(question);
         const response = questionResponses.get(question.id);
-        if (response) lockAnswers(nextCard, response.answerIndex, question.answers[response.answerIndex].correct);
+        if (response) lockAnswers(nextCard, response.answerIndex, question);
 
         if (!crossfade) {
           quizRoot.replaceChildren(nextCard);
@@ -450,7 +453,7 @@
         if (questionResponses.has(question.id)) return;
         const answerIndex = Number(button.dataset.answerIndex);
         const answer = question.answers[answerIndex];
-        lockAnswers(button.closest(".quiz-question"), answerIndex, answer.correct);
+        lockAnswers(button.closest(".quiz-question"), answerIndex, question);
         questionResponses.set(question.id, { answerIndex, correct: answer.correct });
         if (answer.correct) correctCount += 1;
         updateStatus({ animate: true });

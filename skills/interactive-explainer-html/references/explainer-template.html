@@ -26,11 +26,19 @@
       --ink: #FFFFFF;
       --muted: #CCCCCC;
       --danger: #E63946;
+      /* Control edges carry the 3:1 non-text contrast on dark; --line is structure only. */
+      --control-border: #999999;
+      --control-border-muted: #666666;
+      --control-bg: #2C3034;
+      --control-bg-hover: #32373B;
+      --track: #666666;
       --quiz-motion-duration: 666ms;
       /* A swap runs in two halves: the outgoing one clears, then the incoming one arrives. */
       --quiz-fade-out: 100ms;
       --quiz-fade-in: 400ms;
       --quiz-motion-ease: cubic-bezier(.45, .05, .55, .95);
+      --control-hover-duration: 120ms;
+      --brand-ease: cubic-bezier(.22, 1, .36, 1);
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -49,7 +57,7 @@
     .quiz > .eyebrow { margin: 0 0 .2rem; }
     .quiz-chrome { display: grid; gap: .35rem; margin-bottom: .55rem; }
     .quiz-heading-row { align-items: baseline; display: flex; flex-wrap: wrap; gap: .15rem .5rem; justify-content: flex-start; }
-    #quiz-instructions { margin: 0; white-space: nowrap; color: var(--muted); }
+    #quiz-instructions { margin: 0; color: var(--muted); overflow-wrap: anywhere; }
     .quiz-control-row { align-items: center; display: flex; flex-wrap: wrap; gap: .35rem .75rem; justify-content: space-between; width: 100%; margin: .65rem 0; }
     .quiz-status { display: grid; gap: .2rem; margin: 0; }
     .quiz-status-summary { align-items: baseline; display: flex; justify-content: space-between; gap: .75rem; }
@@ -60,15 +68,25 @@
     .quiz-swap > span.quiz-swap-exit { position: absolute; inset-inline: 0; top: 0; opacity: 0; transition-duration: var(--quiz-fade-out); }
     .quiz-swap > span.quiz-swap-enter { opacity: 0; }
     .quiz-swap > span.quiz-swap-enter.quiz-swap-enter-active { opacity: 1; }
-    .quiz-progress-track { display: block; inline-size: 100%; block-size: .5rem; border-radius: 999px; background: var(--line); overflow: hidden; }
+    .quiz-progress-track { display: block; inline-size: 100%; block-size: .5rem; border-radius: 999px; background: var(--track); overflow: hidden; }
     .quiz-progress-fill { display: block; block-size: 100%; width: 0; border-radius: inherit; background: var(--bright-green); transition: width var(--quiz-motion-duration) var(--quiz-motion-ease); }
     .quiz-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin: 0; }
     .quiz-nav-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-left: auto; }
 
-    button { border: 1px solid var(--line); border-radius: 8px; padding: .7rem .9rem; background: var(--dark-bg); color: var(--ink); font: inherit; cursor: pointer; text-align: left; }
+    button { border: 1px solid var(--control-border); border-radius: 8px; padding: .7rem .9rem; background: var(--dark-bg); color: var(--ink); font: inherit; cursor: pointer; text-align: left; transition: background-color var(--control-hover-duration) var(--brand-ease), border-color var(--control-hover-duration) var(--brand-ease); }
     button:hover:not(:disabled) { border-color: var(--bright-green); }
     button:focus-visible { outline: 2px solid var(--bright-green); outline-offset: 2px; }
+    button:active:not(:disabled) { transform: scale(.98); }
     button:disabled { cursor: not-allowed; opacity: .55; }
+
+    /* Toolbar buttons are in-app chrome, so they take the 6px radius rather than the square brand CTA. */
+    .quiz-actions button, .quiz-nav-actions button { border-radius: 6px; padding: .5rem 1rem; background: var(--control-bg); font-weight: 500; text-align: center; }
+    .quiz-actions button:hover:not(:disabled), .quiz-nav-actions button:hover:not(:disabled) { background: var(--control-bg-hover); }
+    /* A disabled control still has to read as a control, so it keeps a full-opacity edge instead of fading out. */
+    .quiz-actions button:disabled, .quiz-nav-actions button:disabled { opacity: 1; color: var(--control-border); border-color: var(--control-border-muted); background: var(--dark-bg-2); }
+    /* Next is the one forward action, so it carries the surface's single green accent. */
+    #quiz-next:not(:disabled) { border-color: var(--bright-green); background: rgba(137, 223, 0, .1); color: var(--bright-green); }
+    #quiz-next:not(:disabled):hover { background: rgba(137, 223, 0, .18); }
     .visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; clip-path: inset(50%); overflow: hidden; white-space: nowrap; }
     #quiz-feedback-region { margin-top: 1rem; }
     #quiz-feedback-stack { position: relative; min-block-size: calc(2lh + 1.7rem); }
@@ -81,7 +99,7 @@
     #quiz-question-region { isolation: isolate; }
     #explainer-quiz { position: relative; overflow: hidden; overflow: clip; overflow-clip-margin: 6px; }
     .quiz-question { display: flex; flex-direction: column; gap: .75rem; transition: opacity var(--quiz-fade-in) var(--quiz-motion-ease); }
-    .quiz-question h3 { margin: 0; }
+    .quiz-question h3 { margin: 0; font-weight: 600; }
     .quiz-question.quiz-question-exit { position: absolute; inset-inline: 0; top: 0; opacity: 0; pointer-events: none; transition-duration: var(--quiz-fade-out); }
     .quiz-question.quiz-question-enter { opacity: 0; }
     .quiz-question.quiz-question-enter.quiz-question-enter-active { opacity: 1; }
@@ -90,18 +108,23 @@
     #quiz-feedback-region .feedback.quiz-enter-delayed,
     .quiz-swap > span.quiz-enter-delayed { transition-delay: var(--quiz-fade-out); }
     .answer-list { display: grid; gap: .65rem; }
+    /* Answers are selectable cards, so they take the card radius rather than the chrome radius. */
+    .answer-list button { border-radius: 12px; }
     /* Declared only on the locked state so answers settle on the shared motion curve while hover stays instant. */
-    .answer-list button:disabled { transition: opacity var(--quiz-motion-duration) var(--quiz-motion-ease), border-color var(--quiz-motion-duration) var(--quiz-motion-ease); }
-    .answer-list button[data-selected="true"] { border-color: var(--bright-green); }
-    .answer-list button[data-correct="false"][data-selected="true"] { border-color: var(--danger); }
+    .answer-list button:disabled { transition: opacity var(--quiz-motion-duration) var(--quiz-motion-ease), border-color var(--quiz-motion-duration) var(--quiz-motion-ease), box-shadow var(--quiz-motion-duration) var(--quiz-motion-ease); }
+    .answer-list button[data-selected="true"],
+    .answer-list button[data-correct="true"] { opacity: 1; border-color: var(--bright-green); box-shadow: 0 0 0 1px rgba(137, 223, 0, .18) inset; }
+    .answer-list button[data-correct="false"][data-selected="true"] { border-color: var(--danger); box-shadow: 0 0 0 1px rgba(230, 57, 70, .18) inset; }
     @media (prefers-reduced-motion: reduce) {
+      button { transition: none; }
+      button:active:not(:disabled) { transform: none; }
       .quiz-question { transition: none; }
       #quiz-feedback-region .feedback { transition: none; }
       .quiz-progress-fill { transition: none; }
       .quiz-swap > span { transition: none; }
       .answer-list button:disabled { transition: none; }
     }
-    @media (max-width: 600px) { main { width: min(100% - 24px, 1000px); padding-top: 28px; } .toc ol { columns: 1; } .quiz-control-row { align-items: flex-start; flex-direction: column; } }
+    @media (max-width: 600px) { main { width: min(100% - 24px, 1000px); padding-top: 28px; } .toc ol { columns: 1; } .quiz-control-row { align-items: stretch; flex-direction: column; } .quiz-nav-actions { margin-left: 0; } }
   </style>
 </head>
 <body>
@@ -330,15 +353,17 @@
         return panels.length > 0;
       }
 
-      function lockAnswers(card, selectedIndex, correct) {
+      function lockAnswers(card, selectedIndex, question) {
+        const selectedIsCorrect = Boolean(question.answers[selectedIndex].correct);
         card.querySelectorAll(".answer-list button").forEach((item, index) => {
-          if (index === selectedIndex) {
-            item.dataset.selected = "true";
-            item.dataset.correct = String(correct);
+          const isSelected = index === selectedIndex;
+          const isKey = Boolean(question.answers[index].correct);
+          item.dataset.selected = String(isSelected);
+          if (isSelected) {
+            item.dataset.correct = String(selectedIsCorrect);
             item.setAttribute("aria-pressed", "true");
           } else {
-            item.dataset.selected = "false";
-            item.dataset.correct = "";
+            item.dataset.correct = (!selectedIsCorrect && isKey) ? "true" : "";
             item.setAttribute("aria-pressed", "false");
           }
           item.disabled = true;
@@ -402,7 +427,7 @@
 
         const nextCard = buildQuestionCard(question);
         const response = questionResponses.get(question.id);
-        if (response) lockAnswers(nextCard, response.answerIndex, question.answers[response.answerIndex].correct);
+        if (response) lockAnswers(nextCard, response.answerIndex, question);
 
         if (!crossfade) {
           quizRoot.replaceChildren(nextCard);
@@ -454,7 +479,7 @@
         if (questionResponses.has(question.id)) return;
         const answerIndex = Number(button.dataset.answerIndex);
         const answer = question.answers[answerIndex];
-        lockAnswers(button.closest(".quiz-question"), answerIndex, answer.correct);
+        lockAnswers(button.closest(".quiz-question"), answerIndex, question);
         questionResponses.set(question.id, { answerIndex, correct: answer.correct });
         if (answer.correct) correctCount += 1;
         updateStatus({ animate: true });

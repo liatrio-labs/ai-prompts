@@ -136,6 +136,12 @@ class QuizBrowserTests(unittest.TestCase):
         "const correct = question.answers.find((item) => item.correct).text;"
         "[...document.querySelectorAll('#explainer-quiz .answer-list button')]"
         ".find((button) => button.textContent === correct).click();};"
+        "const answerIncorrectly = () => {"
+        "const heading = document.querySelector('#explainer-quiz .quiz-question h3').textContent;"
+        "const question = source.questions.find((item) => heading.includes(item.prompt));"
+        "const wrong = question.answers.find((item) => !item.correct).text;"
+        "[...document.querySelectorAll('#explainer-quiz .answer-list button')]"
+        ".find((button) => button.textContent === wrong).click();};"
     )
 
     def test_navigation_is_not_blocked_while_questions_animate(self) -> None:
@@ -260,7 +266,7 @@ class QuizBrowserTests(unittest.TestCase):
         state = self.evaluate_script(
             self.ANSWER_AND_ADVANCE
             + "const unselected = () => [...document.querySelectorAll('#explainer-quiz .answer-list button')]"
-            ".filter((button) => button.dataset.selected !== 'true')"
+            ".filter((button) => button.dataset.selected !== 'true' && button.dataset.correct !== 'true')"
             ".map((button) => Number(getComputedStyle(button).opacity));"
             "answer();"
             "await sleep(300);"
@@ -276,6 +282,26 @@ class QuizBrowserTests(unittest.TestCase):
             self.assertGreater(opacity, 0.6, "answers must still be mid-fade")
         for opacity in settled:
             self.assertAlmostEqual(opacity, 0.55, places=2)
+
+    def test_wrong_answer_reveals_the_correct_option(self) -> None:
+        state = self.evaluate_script(
+            self.ANSWER_AND_ADVANCE
+            + "answerIncorrectly();"
+            "await sleep(900);"
+            "const buttons = [...document.querySelectorAll('#explainer-quiz .answer-list button')];"
+            "const selected = buttons.find((button) => button.dataset.selected === 'true');"
+            "const revealed = buttons.filter((button) => button.dataset.selected !== 'true' && button.dataset.correct === 'true');"
+            "return JSON.stringify({"
+            "selectedCorrect: selected?.dataset.correct,"
+            "pressed: buttons.filter((button) => button.getAttribute('aria-pressed') === 'true').length,"
+            "revealedCount: revealed.length,"
+            "revealedOpacity: revealed.map((button) => Number(getComputedStyle(button).opacity))});"
+        )
+        self.assertEqual(state["selectedCorrect"], "false")
+        self.assertEqual(state["pressed"], 1)
+        self.assertEqual(state["revealedCount"], 1)
+        for opacity in cast(list[float], state["revealedOpacity"]):
+            self.assertAlmostEqual(opacity, 1.0, places=2)
 
     def test_fresh_runs_do_not_preserve_source_answer_order(self) -> None:
         answer_orders: set[tuple[str, ...]] = set()
