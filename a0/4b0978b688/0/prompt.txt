@@ -116,3 +116,7 @@ attributes:
  
 
 one last tweak i can think of to the question section. it looks odd when "Question N of N" and the questions/answers fade in/out but the progress bar doesn't move. I'm thinking it would look better if the progress bar was above the line with "Question N of N" and "N of N correct".
+
+---
+
+commit that change. then another tweak: i think the nav bar and the sections should always be numbered - it becomes much easier to reference and gives the user a sense of how much content they're looking at. sometimes the AI does this and sometimes not. how can we update the skill to guide teh AI to always do this?
