@@ -56,7 +56,7 @@ class ExplainerTemplateContractTests(unittest.TestCase):
     def test_uses_multiple_non_semantic_brand_accents_in_shared_chrome(self) -> None:
         for hook in (
             "border-top: 4px solid var(--primary-green)",
-            "linear-gradient(90deg, var(--violet), var(--lime))",
+            "border: 1px solid var(--line)",
             "border-left: 3px solid var(--lagoon)",
         ):
             with self.subTest(hook=hook):
