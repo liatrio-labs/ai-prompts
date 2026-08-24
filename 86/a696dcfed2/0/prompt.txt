@@ -153,3 +153,7 @@ bounds_css_px: top=585 left=77 width=1000 height=41
 ---
 
 looks good. apply the same changs to the file at ~/artifacts/2026-08-24_09-19-30_explanation-sdd-audit-gate.html#docs-and-proof.html
+
+---
+
+Execute the selected diff-tab commit action.
