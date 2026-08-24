@@ -1,0 +1,155 @@
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: section
+dom_path: main > section.quiz
+class: quiz
+visible_text: CHECK YOUR UNDERSTANDING Answer one question at a time. Reset and Randomize both start a fresh shuffled run. Reset questions Randomize questions Previous question Next question Question 1 of 8 Cor
+bounds_css_px: top=633 left=77 width=1000 height=634
+attributes:
+  class=quiz
+  aria-labelledby=quiz-instructions
+```
+
+
+We're going to work on a few more visual improvements to the template included in this skill. The file I have open in the browser, file:///tmp/2026-08-22_herdr-practical-explainer.html, is an explainer I created using a recent but fully up-to-date version of the skill. The first thing you need to do is update this file to match the current conventions of this skill. analyze the content of the file, compare it against the current state of the skill, and tell me what is different before you make any changes
+
+---
+
+go
+
+---
+
+Fix that discrepancy in the SKILL.md
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: div
+dom_path: main > section.quiz > div.quiz-chrome > div.quiz-control-row
+class: quiz-control-row
+visible_text: Reset questions Randomize questions Previous question Next question
+bounds_css_px: top=725 left=100 width=955 height=51
+attributes:
+  class=quiz-control-row
+```
+ - The buttons are a hard to discern against the background. check /liatrio-brand-guidelines for guidance here and suggest an update. also audit all of the quiz section against the brand guidelines for any other visual/UX improvements that could be made. Note that I'm happy with where it is and want to keep the experience - we're only in tweak mode
+
+---
+
+do all of it, including the green Next. apply the changes to the template and the file:///tmp/2026-08-22_herdr-practical-explainer.html file so i can preview them
+
+---
+
+Changes look good. Fix the overflow issue. 
+
+Another tweak: when a question is answered incorrectly, the incorrect answer is highlighted in red. this is good UX. the correct answer should be highlighted too so the learner can see it and know what the correct answer was.
+
+---
+
+Execute the selected diff-tab commit action.
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: nav
+dom_path: main > nav.toc
+class: toc
+visible_text: On this page One runtime, many clients Shared layout and activity Herdr vs. tmux and screen Recoverable pane output Explicit pane selection The Gum picker lesson Operational takeaways
+bounds_css_px: top=414 left=77 width=1000 height=186
+attributes:
+  class=toc
+  aria-label=Table of contents
+```
+ I want to use a sticky nav instead of this table of contents, so it would be like a navbar in place of the table of contents. As you scroll down, the navbar would become sticky at the top of the page. I've seen this pattern used in a bunch of other artifacts and I really like it. I think it would work well for these explainers. What do you think?
+
+---
+
+1
+
+---
+
+make it so
+
+---
+
+Execute the selected diff-tab commit action.
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: div
+dom_path: main > section#quiz > div.quiz-chrome > div.quiz-status > div#quiz-progress-bar
+id: quiz-progress-bar
+class: quiz-progress-track
+bounds_css_px: top=819 left=100 width=955 height=8
+attributes:
+  id=quiz-progress-bar
+  class=quiz-progress-track
+  role=progressbar
+  aria-valuemin=0
+  aria-valuenow=1
+  aria-valuemax=8
+  aria-labelledby=quiz-progress
+```
+ 
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: section
+dom_path: main > section#quiz
+id: quiz
+class: quiz
+visible_text: CHECK YOUR UNDERSTANDING Answer one question at a time. Reset and Randomize both start a fresh shuffled run. Reset questions Randomize questions Previous question Next question Question 1 of 8 0 o
+bounds_css_px: top=640 left=77 width=1000 height=628
+attributes:
+  id=quiz
+  class=quiz
+  aria-labelledby=quiz-instructions
+```
+ 
+
+one last tweak i can think of to the question section. it looks odd when "Question N of N" and the questions/answers fade in/out but the progress bar doesn't move. I'm thinking it would look better if the progress bar was above the line with "Question N of N" and "N of N correct".
+
+---
+
+commit that change. then another tweak: i think the nav bar and the sections should always be numbered - it becomes much easier to reference and gives the user a sense of how much content they're looking at. sometimes the AI does this and sometimes not. how can we update the skill to guide teh AI to always do this?
+
+---
+
+Execute the selected diff-tab commit action.
+
+---
+
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: nav
+dom_path: main > nav.toc
+class: toc
+visible_text: One runtime, many clients Shared layout and activity Herdr vs. tmux and screen Recoverable pane output Explicit pane selection The Gum picker lesson Operational takeaways Check your understanding
+bounds_css_px: top=414 left=77 width=1000 height=94
+attributes:
+  class=toc
+  aria-label=Table of contents
+```
+ 
+```browser_element
+The user selected this node in the browser preview (blue outline in the screenshot).
+
+tag: h2
+dom_path: main > article.explainer-content > section#mental-model > h2
+visible_text: Herdr is the runtime; your terminals are clients.
+bounds_css_px: top=585 left=77 width=1000 height=41
+```
+ tweak the styling on these. the border around the nav bar should not be so flamboyant - make it more subdued. also change the color of the section numbers to something more subdued in both the nav bar and the actual headings.
+
+---
+
+looks good. apply the same changs to the file at ~/artifacts/2026-08-24_09-19-30_explanation-sdd-audit-gate.html#docs-and-proof.html
