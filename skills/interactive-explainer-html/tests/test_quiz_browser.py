@@ -91,6 +91,8 @@ class QuizBrowserTests(unittest.TestCase):
         state = self.evaluate(
             "({"
             "headingRow: Boolean(document.querySelector('.quiz-heading-row')),"
+            "quizHeadingOutsideBox: Boolean(document.querySelector('#quiz > h2') && !document.querySelector('.quiz h2')),"
+            "completeHiddenInitially: document.querySelector('#quiz-complete')?.hidden === true,"
             "controlRow: Boolean(document.querySelector('.quiz-control-row')),"
             "instructionsInHeadingRow: Boolean(document.querySelector('.quiz-heading-row #quiz-instructions')),"
             "scoreInStatusRow: Boolean(document.querySelector('.quiz-status #quiz-score')),"
@@ -109,6 +111,8 @@ class QuizBrowserTests(unittest.TestCase):
             "})"
         )
         self.assertTrue(state["headingRow"])
+        self.assertTrue(state["quizHeadingOutsideBox"])
+        self.assertTrue(state["completeHiddenInitially"])
         self.assertTrue(state["controlRow"])
         self.assertTrue(state["instructionsInHeadingRow"])
         self.assertTrue(state["scoreInStatusRow"])
@@ -125,6 +129,131 @@ class QuizBrowserTests(unittest.TestCase):
         self.assertTrue(state["answersAreLastInQuestion"])
         transition_duration = cast(float, state["questionTransitionDuration"])
         self.assertGreaterEqual(transition_duration, 0.25)
+
+    def test_sticky_nav_expands_to_full_width_then_restores(self) -> None:
+        self.run_cli("resize", "1280", "720")
+        state = self.evaluate_script(
+            "const toc = document.querySelector('.toc');"
+            "const article = document.querySelector('.explainer-content');"
+            "if (document.documentElement.scrollHeight < window.innerHeight + 480) {"
+            "article.style.minHeight = `${window.innerHeight}px`;"
+            "}"
+            "const rest = toc.getBoundingClientRect();"
+            "const restClass = toc.classList.contains('is-stuck');"
+            "document.querySelector('#quiz').scrollIntoView();"
+            "await new Promise((resolve) => setTimeout(resolve, 900));"
+            "const pinned = toc.getBoundingClientRect();"
+            "const pinnedClass = toc.classList.contains('is-stuck');"
+            "window.scrollTo(0, 0);"
+            "await new Promise((resolve) => setTimeout(resolve, 900));"
+            "const restored = toc.getBoundingClientRect();"
+            "return JSON.stringify({"
+            "restClass, restWidth: rest.width,"
+            "pinnedClass, pinnedWidth: pinned.width, pinnedLeft: pinned.left, pinnedTop: pinned.top,"
+            "restoredClass: toc.classList.contains('is-stuck'), restoredWidth: restored.width,"
+            "viewport: document.documentElement.clientWidth"
+            "});"
+        )
+        self.assertFalse(state["restClass"])
+        self.assertLess(state["restWidth"], state["viewport"] - 40)
+        self.assertTrue(state["pinnedClass"])
+        self.assertLess(abs(state["pinnedWidth"] - state["viewport"]), 2)
+        self.assertLess(abs(state["pinnedLeft"]), 2)
+        self.assertLessEqual(state["pinnedTop"], 1)
+        self.assertFalse(state["restoredClass"])
+        self.assertAlmostEqual(state["restWidth"], state["restoredWidth"], delta=2)
+
+    def test_pinned_nav_bleeds_surface_but_holds_chapter_columns(self) -> None:
+        self.run_cli("resize", "1280", "720")
+        state = self.evaluate_script(
+            "const toc = document.querySelector('.toc');"
+            "const article = document.querySelector('.explainer-content');"
+            "if (document.documentElement.scrollHeight < window.innerHeight + 480) {"
+            "article.style.minHeight = `${window.innerHeight}px`;"
+            "}"
+            "const geometry = () => [...document.querySelectorAll('.toc ol a')]"
+            ".map((link) => { const box = link.getBoundingClientRect();"
+            "return [Math.round(box.left), Math.round(box.width)]; });"
+            "const restChapters = geometry();"
+            "const restTracks = getComputedStyle(document.querySelector('.toc ol')).gridTemplateColumns;"
+            "document.querySelector('#quiz').scrollIntoView();"
+            "await new Promise((resolve) => setTimeout(resolve, 900));"
+            "return JSON.stringify({"
+            "isStuck: toc.classList.contains('is-stuck'),"
+            "restChapters, pinnedChapters: geometry(),"
+            "restTracks, pinnedTracks: getComputedStyle(document.querySelector('.toc ol')).gridTemplateColumns,"
+            "pinnedWidth: toc.getBoundingClientRect().width,"
+            "viewport: document.documentElement.clientWidth"
+            "});"
+        )
+        self.assertTrue(state["isStuck"])
+        self.assertLess(abs(state["pinnedWidth"] - state["viewport"]), 2)
+        self.assertEqual(state["restChapters"], state["pinnedChapters"])
+        self.assertEqual(state["restTracks"], state["pinnedTracks"])
+
+    def test_toc_utility_row_reveals_back_to_top_only_while_pinned(self) -> None:
+        self.run_cli("resize", "1280", "720")
+        state = self.evaluate_script(
+            "document.documentElement.style.scrollBehavior = 'auto';"
+            "const article = document.querySelector('.explainer-content');"
+            "if (document.documentElement.scrollHeight < window.innerHeight + 480) {"
+            "article.style.minHeight = `${window.innerHeight}px`;"
+            "}"
+            "const toc = document.querySelector('.toc');"
+            "const utility = document.querySelector('.toc-utility');"
+            "const inner = document.querySelector('.toc-utility-inner');"
+            "const topLink = document.querySelector('.toc-top');"
+            "const firstChapter = document.querySelector('.toc ol a');"
+            "const restStyle = getComputedStyle(utility);"
+            "const rest = { visibility: restStyle.visibility, opacity: Number(restStyle.opacity) };"
+            "document.querySelector('#quiz').scrollIntoView();"
+            "await new Promise((resolve) => setTimeout(resolve, 900));"
+            "const pinnedStyle = getComputedStyle(utility);"
+            "const pinned = { visibility: pinnedStyle.visibility, opacity: Number(pinnedStyle.opacity) };"
+            "const isStuck = toc.classList.contains('is-stuck');"
+            "const label = topLink.innerText.trim();"
+            "const dividerWidth = Number.parseFloat(getComputedStyle(inner).borderTopWidth);"
+            "const listBox = document.querySelector('.toc ol').getBoundingClientRect();"
+            "const topBox = topLink.getBoundingClientRect();"
+            "const chapters = [...document.querySelectorAll('.toc ol a')];"
+            "const lastChapterBottom = Math.max(...chapters.map((link) => link.getBoundingClientRect().bottom));"
+            "const rightAligned = listBox.right - topBox.right;"
+            "const belowChapters = topBox.top >= lastChapterBottom;"
+            "const scrolled = window.scrollY;"
+            "topLink.click();"
+            "await new Promise((resolve) => setTimeout(resolve, 1000));"
+            "return JSON.stringify({"
+            "rest, pinned, isStuck, label, dividerWidth, rightAligned, belowChapters,"
+            "afterChapters: Boolean(firstChapter.compareDocumentPosition(topLink) & Node.DOCUMENT_POSITION_FOLLOWING),"
+            "topMarker: document.body.id,"
+            "topBefore: getComputedStyle(topLink, '::before').content,"
+            "listReset: getComputedStyle(document.querySelector('.toc ol')).counterReset,"
+            "navReset: getComputedStyle(toc).counterReset,"
+            "mainReset: getComputedStyle(document.querySelector('main')).counterReset,"
+            "chapterBefore: getComputedStyle(firstChapter, '::before').content,"
+            "scrolled, restored: window.scrollY"
+            "});"
+        )
+        self.assertEqual("hidden", state["rest"]["visibility"])
+        self.assertEqual(0, state["rest"]["opacity"])
+        self.assertTrue(state["isStuck"])
+        self.assertEqual("visible", state["pinned"]["visibility"])
+        self.assertEqual(1, state["pinned"]["opacity"])
+        self.assertEqual("↑Back to top", " ".join(state["label"].split()))
+        self.assertTrue(state["afterChapters"])
+        self.assertGreater(state["dividerWidth"], 0)
+        self.assertLess(abs(state["rightAligned"]), 2)
+        self.assertTrue(state["belowChapters"])
+        self.assertEqual("top", state["topMarker"])
+        self.assertIn(state["topBefore"], ("none", '""'))
+        # The reset has to stay on the list: a counter-reset's scope covers following siblings,
+        # so resetting on the nav itself continues the nav's count into the sections after it.
+        self.assertIn("chapter", state["listReset"])
+        self.assertEqual("none", state["navReset"])
+        self.assertIn("chapter", state["mainReset"])
+        self.assertIn("counter(chapter)", state["chapterBefore"])
+        self.assertGreater(state["scrolled"], 40)
+        self.assertLess(state["restored"], 20)
 
     ANSWER_AND_ADVANCE = (
         "const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));"
@@ -317,6 +446,48 @@ class QuizBrowserTests(unittest.TestCase):
             self.assertIsInstance(answers, list)
             answer_orders.add(tuple(str(answer) for answer in answers))
         self.assertGreater(len(answer_orders), 1)
+
+    def test_last_question_shows_review_wrap_up(self) -> None:
+        state = self.evaluate_script(
+            self.ANSWER_AND_ADVANCE
+            + "answer();"
+            "await sleep(850);"
+            "const first = document.querySelector('#quiz-complete')?.hidden === true;"
+            "for (let index = 0; index < 4; index += 1) {"
+            "nav('#quiz-next');"
+            "await sleep(850);"
+            "answer();"
+            "await sleep(850);"
+            "}"
+            "const banner = document.querySelector('#quiz-complete');"
+            "const last = banner?.textContent ?? '';"
+            "const announced = document.querySelector('#quiz-feedback')?.textContent ?? '';"
+            "const afterInstructions = Boolean(document.querySelector('.quiz-heading-row')?.compareDocumentPosition(banner) & Node.DOCUMENT_POSITION_FOLLOWING);"
+            "const beforeButtons = Boolean(banner?.compareDocumentPosition(document.querySelector('.quiz-control-row')) & Node.DOCUMENT_POSITION_FOLLOWING);"
+            "const lead = banner?.querySelector('.quiz-complete-lead');"
+            "const score = banner?.querySelector('.quiz-complete-score');"
+            "const review = banner?.querySelector('.quiz-complete-review');"
+            "const scoreLine = document.querySelector('#quiz-score')?.textContent ?? '';"
+            "const scored = scoreLine.match(/(\\d+) of (\\d+)/);"
+            "const expectedScore = scored ? `${Math.round((Number(scored[1]) / Number(scored[2])) * 100)}%` : '';"
+            "return JSON.stringify({first, hidden: banner.hidden, last, announced, afterInstructions, beforeButtons, leadDisplay: lead ? getComputedStyle(lead).display : '', leadText: lead?.textContent ?? '', scoreText: score?.textContent ?? '', scoreWeight: score ? getComputedStyle(score).fontWeight : '', reviewDisplay: review ? getComputedStyle(review).display : '', reviewText: review?.textContent ?? '', expectedScore});"
+        )
+        self.assertTrue(state["first"])
+        self.assertFalse(state["hidden"])
+        self.assertIn("🎉", state["last"])
+        self.assertIn("Quiz complete!", state["leadText"])
+        self.assertIn("You scored", state["leadText"])
+        self.assertEqual(state["expectedScore"], state["scoreText"])
+        self.assertIn(state["scoreWeight"], ("700", "600", "bold"))
+        self.assertEqual("block", state["leadDisplay"])
+        self.assertEqual("block", state["reviewDisplay"])
+        self.assertIn("Previous and Next", state["reviewText"])
+        self.assertNotIn("Previous and Next", state["leadText"])
+        self.assertIn("Reset or Randomize", state["last"])
+        self.assertIn("another pass", state["last"])
+        self.assertNotIn("Quiz complete.", state["announced"])
+        self.assertTrue(state["afterInstructions"])
+        self.assertTrue(state["beforeButtons"])
 
 
 if __name__ == "__main__":

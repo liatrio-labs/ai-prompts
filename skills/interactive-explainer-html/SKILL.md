@@ -51,9 +51,9 @@ Replace these template slots:
 {{QUIZ_JSON}}
 ```
 
-The explanatory body is intentionally freeform. Select the structure and visual vocabulary that teaches this topic best. Use coherent section headings and populate `{{TABLE_OF_CONTENTS}}` with an `<ol>` of links to those section IDs. Include `#quiz` as the final link, labeled “Check your understanding.” The shell presents this list as wrapping chapter navigation: sticky on desktop and tablet, static on narrow mobile screens. Keep link labels complete and concise enough to scan; do not abbreviate them merely to force one row. Do not force every explanation into the same diagram or layout.
+The explanatory body is intentionally freeform. Select the structure and visual vocabulary that teaches this topic best. Use coherent section headings and populate `{{TABLE_OF_CONTENTS}}` with an `<ol>` of links to those section IDs. Include `#quiz` as the final link, labeled “Check your understanding.” The shell renders this list as wrapping chapter navigation: sticky on desktop and tablet, expanding to full page width while pinned, and static on narrow mobile screens. While pinned, it also reveals a utility row with a Back to top control below a divider; mobile keeps the corner button instead. Keep link labels complete and concise enough to scan; do not abbreviate them merely to force one row. Do not force every explanation into the same diagram or layout.
 
-Chapter numbers are a shell contract, not an authoring choice. Write unnumbered TOC labels. Use one top-level `<section id="...">` with a single `h2` per TOC entry, in the same order as the list, then the quiz. Do not prefix labels or headings with `1.` — the template CSS adds sequential numbers to the nav, each section heading, and the quiz eyebrow. Short nav labels may differ from the full `h2` as long as the order matches, so “section 4” in the nav is section 4 in the body.
+Chapter numbers are a shell contract, not an authoring choice. Write unnumbered TOC labels. Do not add a Back to top item to that list; the template already provides it. Use one top-level `<section id="...">` with a single `h2` per TOC entry, in the same order as the list, then the quiz. Do not prefix labels or headings with `1.` — the template CSS adds sequential numbers to the nav, each section heading, and the quiz heading. Short nav labels may differ from the full `h2` as long as the order matches, so “section 4” in the nav is section 4 in the body.
 
 For most topics, include:
 
@@ -111,7 +111,7 @@ Every question must have exactly four answers and exactly one correct answer. Ke
 
 Treat answer length as part of quiz fairness. A correct answer that is uniquely longer than every distractor becomes a visual giveaway, even when its content is sound. Write concise, equally plausible options with comparable specificity; include at least one distractor that is as long as or longer than the correct answer. The validator rejects a question whose correct answer is uniquely longest.
 
-The renderer presents one question at a time. Progress and navigation use `#quiz-progress`, `#quiz-progress-bar`, `#quiz-prev`, and `#quiz-next`. The template randomizes question order and each question’s answers independently. **Reset** and **Randomize** both start a fresh shuffled run and clear feedback.
+The renderer presents one question at a time. Progress and navigation use `#quiz-progress`, `#quiz-progress-bar`, `#quiz-prev`, and `#quiz-next`. The template randomizes question order and each question’s answers independently. **Reset** and **Randomize** both start a fresh shuffled run and clear feedback. Finishing the last question reveals `#quiz-complete` between the instructions and the control buttons, including the percent score.
 
 ## Validate before delivery
 

@@ -14,10 +14,9 @@
           font-style: normal;
           font-display: swap;
         }
-    :root { color-scheme: light dark; --page: #10151c; --surface: #18212b; --surface-raised: #223142; --ink: #edf4fb; --muted: #b6c5d4; --line: #3c5064; --accent: #9ee37d; --link: #89c8ff; --danger: #ffb4ab; --radius: 12px; --quiz-motion-duration: 666ms; --quiz-fade-out: 100ms; --quiz-fade-in: 400ms; --quiz-motion-ease: cubic-bezier(.45, .05, .55, .95); }
+    :root { color-scheme: light dark; --page: #10151c; --surface: #18212b; --surface-raised: #223142; --ink: #edf4fb; --muted: #b6c5d4; --line: #3c5064; --line-strong: #526a82; --accent: #9ee37d; --link: #89c8ff; --danger: #ffb4ab; --radius: 12px; --quiz-motion-duration: 666ms; --quiz-fade-out: 100ms; --quiz-fade-in: 400ms; --quiz-motion-ease: cubic-bezier(.45, .05, .55, .95); }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: clip; }
     body { margin: 0; background: var(--page); color: var(--ink); font: 17px/1.6 "Space Grotesk", system-ui, sans-serif; }
     main { width: min(100% - 32px, 1000px); margin: 0 auto; padding: 48px 0 72px; }
     h1, h2, h3 { line-height: 1.15; }
@@ -28,26 +27,42 @@
     .subtitle { max-width: 70ch; color: var(--muted); font-size: 1.15rem; }
     .meta { color: var(--muted); font-size: .9rem; }
     .quiz, .callout, pre { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
-    .toc { position: sticky; top: 0; z-index: 20; display: flex; flex-wrap: wrap; gap: .35rem; margin: 2rem 0; padding: .65rem; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
-    .toc ol { counter-reset: chapter; display: flex; flex: 1 1 100%; flex-wrap: wrap; gap: .35rem; margin: 0; padding: 0; list-style: none; }
-    .toc li { counter-increment: chapter; }
-    .toc a { display: block; padding: .4rem .65rem; border: 1px solid transparent; border-radius: 6px; color: var(--muted); font-size: .9rem; font-weight: 500; line-height: 1.3; text-decoration: none; }
-    .toc a::before { content: counter(chapter) ". "; font-variant-numeric: tabular-nums; font-weight: 500; color: var(--muted); }
+    .quiz { border-color: var(--line-strong); }
+    .toc-anchor { height: 1px; margin: 0; pointer-events: none; }
+    .toc { --toc-gutter: 32px; --toc-max: 1000px; position: sticky; top: 0; z-index: 20; display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; margin: 2rem 0; padding: .65rem; border: 1px solid var(--line-strong); border-radius: 6px; background: var(--surface); transition: width var(--quiz-motion-duration) var(--quiz-motion-ease), margin-left var(--quiz-motion-duration) var(--quiz-motion-ease), margin-right var(--quiz-motion-duration) var(--quiz-motion-ease), padding-left var(--quiz-motion-duration) var(--quiz-motion-ease), padding-right var(--quiz-motion-duration) var(--quiz-motion-ease), border-radius var(--quiz-motion-duration) var(--quiz-motion-ease), background-color var(--quiz-motion-duration) var(--quiz-motion-ease); }
+    .toc.is-stuck { width: var(--toc-bleed, 100vw); margin-left: calc(50% - (var(--toc-bleed, 100vw) / 2)); margin-right: calc(50% - (var(--toc-bleed, 100vw) / 2)); padding-inline: calc((var(--toc-bleed, 100vw) - min(var(--toc-bleed, 100vw) - var(--toc-gutter), var(--toc-max))) / 2 + .65rem); border-radius: 0; background: var(--surface-raised); }
+    .toc ol { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: .35rem; margin: 0; padding: 0; counter-reset: chapter; list-style: none; }
+    .toc li { counter-increment: chapter; list-style: none; }
+    .toc-utility { display: grid; grid-template-rows: 0fr; margin-top: 0; opacity: 0; visibility: hidden; transition: grid-template-rows var(--quiz-motion-duration) var(--quiz-motion-ease), margin-top var(--quiz-motion-duration) var(--quiz-motion-ease), opacity var(--quiz-motion-duration) var(--quiz-motion-ease), visibility 0s linear var(--quiz-motion-duration); }
+    .toc.is-stuck .toc-utility { grid-template-rows: 1fr; margin-top: .5rem; opacity: 1; visibility: visible; transition-delay: 0s; }
+    .toc-utility-inner { display: flex; justify-content: flex-end; min-height: 0; overflow: hidden; border-top: 1px solid var(--line); }
+    .toc-top { margin-top: .45rem; font-size: .82rem; white-space: nowrap; }
+    .toc-top-arrow { margin-right: .35rem; color: var(--accent); }
+    .toc a { display: block; height: 100%; padding: .4rem .65rem; border: 1px solid transparent; border-radius: 6px; color: var(--muted); font-size: .9rem; font-weight: 500; line-height: 1.3; text-decoration: none; }
+    .toc ol a::before { content: counter(chapter) ". "; font-variant-numeric: tabular-nums; font-weight: 500; color: var(--muted); }
     main { counter-reset: chapter; }
     .explainer-content > section > h2::before,
-    .quiz > .eyebrow::before { counter-increment: chapter; content: counter(chapter) ". "; font-variant-numeric: tabular-nums; font-weight: 500; color: var(--muted); }
+    #quiz > h2::before { counter-increment: chapter; content: counter(chapter) ". "; font-variant-numeric: tabular-nums; font-weight: 500; color: var(--muted); }
     .toc a:hover { border-color: var(--line); background: var(--surface-raised); color: var(--ink); }
     .toc a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
     .toc a[aria-current="location"] { border-color: var(--accent); color: var(--accent); }
-    .explainer-content [id], .quiz[id] { scroll-margin-top: calc(var(--toc-offset, 0px) + 1rem); }
+    .explainer-content [id], #quiz { scroll-margin-top: calc(var(--toc-offset, 0px) + 1rem); }
     .back-to-top { display: none; }
     .explainer-content > * { max-width: 100%; }
     pre { overflow: auto; padding: 1rem; white-space: pre-wrap; }
-    .quiz { margin-top: 3rem; padding: clamp(.9rem, 2vw, 1.35rem); }
-    .quiz > .eyebrow { margin: 0 0 .2rem; }
+    .quiz { padding: clamp(.9rem, 2vw, 1.35rem); }
     .quiz-chrome { display: grid; gap: .35rem; margin-bottom: .55rem; }
     .quiz-heading-row { align-items: baseline; display: flex; flex-wrap: wrap; gap: .15rem .5rem; justify-content: flex-start; }
     #quiz-instructions { margin: 0; color: var(--muted); overflow-wrap: anywhere; }
+    #quiz-complete { margin: .45rem 0 0; padding: .65rem .75rem; border: 1px solid var(--line); border-left: 4px solid var(--accent); background: var(--surface); color: var(--muted); }
+    #quiz-complete .quiz-complete-lead,
+    #quiz-complete .quiz-complete-body,
+    #quiz-complete .quiz-complete-review { display: block; }
+    #quiz-complete .quiz-complete-lead { margin-bottom: .35rem; color: var(--ink); }
+    #quiz-complete .quiz-complete-body,
+    #quiz-complete .quiz-complete-review { margin-top: .35rem; }
+    #quiz-complete .quiz-complete-score { font-weight: 600; }
+    #quiz-complete[hidden] { display: none; }
     .quiz-control-row { align-items: center; display: flex; flex-wrap: wrap; gap: .35rem .75rem; justify-content: space-between; width: 100%; margin: .65rem 0; }
     .quiz-status { display: grid; gap: .2rem; margin: 0; }
     .quiz-status-summary { align-items: baseline; display: flex; justify-content: space-between; gap: .75rem; }
@@ -71,12 +86,13 @@
     #quiz-feedback-region { margin-top: 1rem; }
     #quiz-feedback-stack { position: relative; min-block-size: calc(2lh + 1.7rem); }
     #quiz-feedback-region .feedback { position: absolute; inset-inline: 0; top: 0; overflow-wrap: anywhere; word-break: break-word; margin: 0; padding: .85rem 1rem; border-left: 4px solid transparent; background: var(--surface-raised); opacity: 1; transition: opacity var(--quiz-fade-in) var(--quiz-motion-ease); }
+    #quiz-feedback-region .feedback p { margin: 0; }
     #quiz-feedback-region .feedback[data-correct="true"] { border-left-color: var(--accent); }
     #quiz-feedback-region .feedback[data-correct="false"] { border-left-color: var(--danger); }
     #quiz-feedback-region .feedback.quiz-feedback-exit { opacity: 0; pointer-events: none; transition-duration: var(--quiz-fade-out); }
     #quiz-feedback-region .feedback.quiz-feedback-enter { opacity: 0; }
     #quiz-feedback-region .feedback.quiz-feedback-enter.quiz-feedback-enter-active { opacity: 1; }
-    #quiz-question-region { isolation: isolate; }
+    #quiz-question-region { isolation: isolate; margin: 1rem 0; padding: clamp(.85rem, 1.6vw, 1.15rem); border: 1px solid var(--line); border-radius: 8px; background: var(--page); }
     #explainer-quiz { position: relative; overflow: hidden; overflow: clip; overflow-clip-margin: 6px; }
     .quiz-question { display: flex; flex-direction: column; gap: .75rem; transition: opacity var(--quiz-fade-in) var(--quiz-motion-ease); }
     .quiz-question h3 { margin: 0; }
@@ -94,6 +110,8 @@
     .answer-list button[data-correct="false"][data-selected="true"] { border-color: var(--danger); }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
+      .toc { transition: none; }
+      .toc-utility { transition: none; }
       .quiz-question { transition: none; }
       #quiz-feedback-region .feedback { transition: none; }
       .quiz-progress-fill { transition: none; }
@@ -103,16 +121,17 @@
     @media (max-width: 600px) {
       main { width: min(100% - 24px, 1000px); padding-top: 28px; }
       .toc { position: static; }
-      .toc li { flex: 1 1 10rem; }
-      .toc a { height: 100%; }
+      .toc.is-stuck { width: 100%; margin-left: 0; margin-right: 0; padding: .65rem; border-radius: 6px; background: var(--surface); }
+      .toc ol { grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)); }
+      .toc-utility { display: none; }
       .back-to-top:not([hidden]) { position: fixed; right: 1rem; bottom: 1rem; z-index: 30; display: grid; width: 44px; height: 44px; place-items: center; padding: 0; border-radius: 6px; background: var(--surface-raised); color: var(--accent); font-size: 1.25rem; text-align: center; }
       .quiz-control-row { align-items: stretch; flex-direction: column; }
       .quiz-nav-actions { margin-left: 0; }
     }
-    @media print { html { scroll-behavior: auto; } .toc { position: static; } .back-to-top { display: none !important; } }
+    @media print { html { scroll-behavior: auto; } .toc { position: static; } .toc.is-stuck { width: 100%; margin-left: 0; margin-right: 0; padding: .65rem; border-radius: 6px; background: var(--surface); } .toc-utility { display: none; } .back-to-top { display: none !important; } }
   </style>
 </head>
-<body>
+<body id="top">
   <main>
     <header>
       <p class="eyebrow">Interactive explainer</p>
@@ -121,8 +140,10 @@
       <p class="meta">Source boundary: representative fixture.</p>
     </header>
 
+    <div class="toc-anchor" aria-hidden="true"></div>
     <nav class="toc" aria-label="Table of contents">
       <ol><li><a href="#model">Decision model</a></li><li><a href="#quiz">Check your understanding</a></li></ol>
+      <div class="toc-utility"><div class="toc-utility-inner"><a class="toc-top" href="#top"><span class="toc-top-arrow" aria-hidden="true">↑</span>Back to top</a></div></div>
     </nav>
     <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top" title="Back to top" hidden>↑</button>
 
@@ -141,25 +162,29 @@
 </section>
     </article>
 
-    <section id="quiz" class="quiz" aria-labelledby="quiz-instructions">
-      <p class="eyebrow">Check your understanding</p>
+    <section id="quiz" aria-labelledby="quiz-heading">
+      <h2 id="quiz-heading">Check your understanding</h2>
+      <div class="quiz">
       <div class="quiz-chrome">
         <div class="quiz-heading-row"><p id="quiz-instructions">Answer one question at a time. Reset and Randomize both start a fresh shuffled run.</p></div>
+        <p id="quiz-complete" hidden role="status"><span class="quiz-complete-lead">🎉 Quiz complete! You scored <strong class="quiz-complete-score">0%</strong></span><span class="quiz-complete-body">Reset or Randomize will shuffle a new run from the same questions if you want another pass.</span><span class="quiz-complete-review">Previous and Next will walk you back through the answers you already gave.</span></p>
         <div class="quiz-control-row"><div class="quiz-actions"><button id="quiz-reset" type="button">Reset questions</button><button id="quiz-randomize" type="button">Randomize questions</button></div><div class="quiz-nav-actions"><button id="quiz-prev" type="button" disabled>Previous question</button><button id="quiz-next" type="button" disabled>Next question</button></div></div>
         <div class="quiz-status" aria-live="polite"><div id="quiz-progress-bar" class="quiz-progress-track" role="progressbar" aria-valuemin="0" aria-valuenow="0" aria-valuemax="0" aria-labelledby="quiz-progress"><span class="quiz-progress-fill"></span></div><div class="quiz-status-summary"><p id="quiz-progress" class="quiz-swap">Question 1 of 0</p><p id="quiz-score" class="quiz-swap">0 of 0 correct</p></div></div>
       </div>
       <div id="quiz-question-region"><div id="explainer-quiz" aria-live="polite"></div></div>
       <div id="quiz-feedback-region"><div id="quiz-feedback-stack"></div><p id="quiz-feedback" class="visually-hidden" role="status"></p></div>
+      </div>
     </section>
   </main>
 
   <script>
     (() => {
       const toc = document.querySelector(".toc");
+      const tocAnchor = document.querySelector(".toc-anchor");
       const backToTop = document.querySelector("#back-to-top");
       if (!toc || !backToTop) return;
 
-      const links = [...toc.querySelectorAll('a[href^="#"]')];
+      const links = [...toc.querySelectorAll('ol a[href^="#"]')];
       const targets = links.map((link) => {
         const id = decodeURIComponent(link.hash.slice(1));
         return { id, link, target: document.getElementById(id) };
@@ -168,9 +193,21 @@
 
       const mobile = window.matchMedia("(max-width: 600px)");
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      toc.querySelector(".toc-top")?.addEventListener("click", (event) => {
+        event.preventDefault();
+        window.scrollTo({ top: 0, behavior: reducedMotion.matches ? "auto" : "smooth" });
+      });
       let observer;
       let resizeFrame;
       let scrollFrame;
+      const pinObserver = new IntersectionObserver((entries) => {
+        const entry = entries[0];
+        toc.classList.toggle("is-stuck", Boolean(entry) && !entry.isIntersecting && !mobile.matches);
+      }, { threshold: 0 });
+      toc.addEventListener("transitionend", (event) => {
+        if (event.target !== toc || mobile.matches) return;
+        document.documentElement.style.setProperty("--toc-offset", `${toc.offsetHeight}px`);
+      });
 
       function setCurrent(id) {
         targets.forEach(({ id: targetId, link }) => {
@@ -207,8 +244,19 @@
         });
       }
 
+      function observePin() {
+        pinObserver.disconnect();
+        if (!tocAnchor || mobile.matches) {
+          toc.classList.remove("is-stuck");
+          return;
+        }
+        toc.style.setProperty("--toc-bleed", `${document.documentElement.clientWidth}px`);
+        pinObserver.observe(tocAnchor);
+      }
+
       function buildObserver() {
         observer?.disconnect();
+        observePin();
         const stickyHeight = mobile.matches ? 0 : toc.offsetHeight;
         document.documentElement.style.setProperty("--toc-offset", `${stickyHeight}px`);
         observer = new IntersectionObserver(updateCurrent, {
@@ -247,6 +295,7 @@
       const progressBar = document.querySelector("#quiz-progress-bar");
       const progressFill = progressBar.querySelector(".quiz-progress-fill");
       const scoreText = document.querySelector("#quiz-score");
+      const completeBanner = document.querySelector("#quiz-complete");
       const feedbackStack = document.querySelector("#quiz-feedback-stack");
       /* Permanent live region: visual panels animate, this element does the announcing. */
       const feedback = document.querySelector("#quiz-feedback");
@@ -317,29 +366,27 @@
         });
       }
 
-      function formatFeedbackText(question, answer, index) {
-        let text = answer.correct
+      function formatFeedbackText(question, answer) {
+        return answer.correct
           ? `Correct. ${question.correct_explanation}`
           : `Not quite. ${question.wrong_explanation}`;
-        if (index >= displayedQuestions.length - 1) {
-          text += " Quiz complete.";
-        }
-        return text;
       }
 
-      function buildFeedbackPanel(question, response, index = currentQuestionIndex) {
+      function buildFeedbackPanel(question, response) {
         const answer = question.answers[response.answerIndex];
         const panel = document.createElement("div");
         panel.className = "feedback";
         panel.dataset.correct = String(answer.correct);
         panel.setAttribute("aria-hidden", "true");
-        panel.textContent = formatFeedbackText(question, answer, index);
+        const explanation = document.createElement("p");
+        explanation.textContent = formatFeedbackText(question, answer);
+        panel.append(explanation);
         return panel;
       }
 
       function announceFeedback(question, response) {
         feedback.textContent = response
-          ? formatFeedbackText(question, question.answers[response.answerIndex], currentQuestionIndex)
+          ? formatFeedbackText(question, question.answers[response.answerIndex])
           : "";
       }
 
@@ -368,7 +415,7 @@
           ];
           outcomes.forEach((answerIndex) => {
             if (answerIndex < 0) return;
-            const panel = buildFeedbackPanel(question, { answerIndex }, index);
+            const panel = buildFeedbackPanel(question, { answerIndex });
             panelHeight = Math.max(panelHeight, measureHiddenHeight(feedbackStack, panel));
           });
         });
@@ -395,6 +442,15 @@
         return button;
       }
 
+      function updateCompleteBanner() {
+        const done = displayedQuestions.length && questionResponses.size === displayedQuestions.length;
+        completeBanner.hidden = !done;
+        if (!done) return;
+        const percent = Math.round((correctCount / displayedQuestions.length) * 100);
+        const score = completeBanner.querySelector(".quiz-complete-score");
+        if (score) score.textContent = `${percent}%`;
+      }
+
       function updateStatus({ animate = false } = {}) {
         const totalQuestions = displayedQuestions.length;
         const answered = questionResponses.size;
@@ -403,6 +459,7 @@
         progressBar.setAttribute("aria-valuenow", String(answered));
         progressFill.style.width = totalQuestions > 0 ? `${(answered / totalQuestions) * 100}%` : "0%";
         swapText(scoreText, `${correctCount} of ${totalQuestions} correct`, animate);
+        updateCompleteBanner();
       }
 
       function updateNavigationButtons() {
