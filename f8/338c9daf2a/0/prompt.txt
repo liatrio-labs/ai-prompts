@@ -395,3 +395,7 @@ bounds_css_px: top=441 left=88 width=978 height=71
 ---
 
 there's an issue with the change to the navbar once it becomes sticky the items are aligned  but they don't maintain the same position between the two states. this is because the items are adjusting to fill the larger space. keep the space the items take up the same size, regardless of if the navbar is sticky or floating inside the content
+
+---
+
+Execute the selected diff-tab commit action.
