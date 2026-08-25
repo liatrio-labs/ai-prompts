@@ -98,6 +98,7 @@ class ArtifactInspector(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.ids: set[str] = set()
         self.toc_depth = 0
+        self.toc_list_depth = 0
         self.toc_targets: list[str] = []
         self.toc_labels: list[str] = []
         self._toc_link_depth = 0
@@ -134,7 +135,9 @@ class ArtifactInspector(HTMLParser):
         elif tag == "nav" and self.toc_depth:
             self.toc_depth += 1
 
-        if self.toc_depth and tag == "a":
+        if self.toc_depth and tag == "ol":
+            self.toc_list_depth += 1
+        if self.toc_list_depth and tag == "a":
             href = attr_map.get("href") or ""
             if href.startswith("#") and len(href) > 1:
                 self.toc_targets.append(href[1:])
@@ -175,6 +178,8 @@ class ArtifactInspector(HTMLParser):
     def handle_endtag(self, tag: str) -> None:
         if tag == "a" and self._toc_link_depth:
             self._toc_link_depth -= 1
+        if tag == "ol" and self.toc_list_depth:
+            self.toc_list_depth -= 1
         if tag == "nav" and self.toc_depth:
             self.toc_depth -= 1
         if tag == "style":
@@ -222,7 +227,7 @@ def validate(path: Path) -> list[str]:
     if not inspector.has_toc:
         errors.append("artifact is missing a table-of-contents navigation region")
     elif not inspector.toc_targets:
-        errors.append("artifact TOC has no in-page links")
+        errors.append("artifact TOC has no in-page links in its ordered list")
     for target in inspector.toc_targets:
         if target not in inspector.ids:
             errors.append(f"TOC target #{target} does not exist")

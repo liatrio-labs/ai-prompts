@@ -38,7 +38,7 @@ class ValidateArtifactTests(unittest.TestCase):
 <body>
   <main>
     <h1>Example explainer</h1>
-    <nav class=\"toc\" aria-label=\"Table of contents\"><a href=\"#model\">Model</a></nav>
+    <nav class=\"toc\" aria-label=\"Table of contents\"><ol><li><a href=\"#model\">Model</a></li></ol></nav>
     <article class=\"explainer-content\"><section id=\"model\"><h2>Model</h2></section></article>
     <section class="quiz"><p id="quiz-progress">Question 1 of 1</p><progress id="quiz-progress-bar" value="0" max="1">0 of 1</progress><p id="quiz-score">Correct: 0 · Incorrect: 0</p><button id="quiz-reset">Reset</button><button id="quiz-randomize">Randomize</button><div id="explainer-quiz"><button aria-pressed="false" aria-describedby="answer-feedback">First answer</button><button aria-pressed="true" aria-describedby="answer-feedback">Selected answer</button><div id="answer-feedback" role="status">Feedback</div></div><button id="quiz-next">Next</button></section>
   </main>
@@ -119,6 +119,15 @@ class ValidateArtifactTests(unittest.TestCase):
         result = self.run_validator(html)
         self.assertEqual(result.returncode, 1)
         self.assertIn("toc", result.stderr.lower())
+
+    def test_rejects_toc_links_outside_an_ordered_list(self) -> None:
+        html = self.valid_artifact().replace(
+            '<ol><li><a href="#model">Model</a></li></ol>',
+            '<a href="#model">Model</a>',
+        )
+        result = self.run_validator(html)
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("ordered list", result.stderr.lower())
 
     def test_rejects_author_prefixed_chapter_numbers(self) -> None:
         html = self.valid_artifact().replace(">Model<", ">1. Model<")
