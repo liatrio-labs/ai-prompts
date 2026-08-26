@@ -423,3 +423,7 @@ This makes sense, but I want to make sure we don't go overboard on this. The ski
 ---
 
 apply that updated logic to the content in ~/artifacts/2026-08-24_09-19-30_explanation-sdd-audit-gate.html and /tmp/2026-08-22_herdr-practical-explainer.html
+
+---
+
+Execute the selected diff-tab commit action.
