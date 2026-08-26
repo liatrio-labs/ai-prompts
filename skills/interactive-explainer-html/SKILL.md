@@ -62,7 +62,7 @@ For most topics, include:
 3. **Walkthrough** — group source changes, decisions, or system steps in causal order.
 4. **Boundaries and proof** — important constraints, edge cases, trade-offs, and validation where relevant.
 
-Use HTML/CSS diagrams, structured lists, code blocks, and callouts when they improve understanding. Do not use ASCII or box-drawing diagrams. Use `<pre>` only for literal code or configuration; its style must keep `white-space: pre` or `pre-wrap` so source formatting survives. Explain a process, dependency, or decision flow with semantic HTML/CSS or inline SVG instead.
+Use HTML/CSS diagrams, structured lists, code blocks, and callouts when they improve understanding. Do not use ASCII or box-drawing diagrams. Use `<pre>` only for literal code or configuration; its style must keep `white-space: pre` or `pre-wrap` so source formatting survives. Explain a process, dependency, or decision flow with semantic HTML/CSS or inline SVG instead. A grid that mixes nodes and arrow glyphs needs one explicit column per child; extra children wrap onto a new row and leave the connectors floating.
 
 ## Language and teaching
 
@@ -165,6 +165,6 @@ These explainers are internal, normally single-reader teaching artifacts. Optimi
    node --check /tmp/explainer.js
    ```
 
-Do not run a browser smoke test or dispatch an independent reviewer for a normal explainer. The deterministic checks above are the delivery gate. This deliberately accepts residual visual and interactive-runtime risk in exchange for timely internal comprehension support.
+Do not run a browser smoke test or dispatch an independent reviewer for a normal explainer. If the body includes a connector diagram, look at it once at content width and confirm the nodes and arrows stayed on the intended row. The deterministic checks above remain the delivery gate; this glance is only for that layout failure, not a general visual QA pass.
 
 After the quiz validator passes, do not begin additional quiz-fairness rewrite rounds unless a concrete comprehension defect is identified. The validator is the bounded guardrail for answer-length cues; subjective preference alone is not a reason to reopen it.
