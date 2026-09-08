@@ -138,6 +138,39 @@ class NavigationBrowserTests(unittest.TestCase):
         """)
         self.assertEqual(result, {"scrollY": 0, "active": 0})
 
+    def test_reading_arrows_navigate_and_focus_sections_without_wrapping(self) -> None:
+        result = self.probe(self.PREPARE + """
+            await page.keyboard.press('ArrowLeft');
+            const atStart = await page.evaluate(() => scrollY);
+            await page.keyboard.press('ArrowRight');
+            await waitForCurrent('#chapter-0');
+            const first = await page.evaluate(() => ({
+                focus: document.activeElement.textContent,
+                top: document.querySelector('#chapter-0').getBoundingClientRect().top,
+                navBottom: document.querySelector('.toc').getBoundingClientRect().bottom,
+                hash: location.hash,
+            }));
+            await page.keyboard.press('ArrowRight');
+            await waitForCurrent('#chapter-1');
+            await page.keyboard.press('ArrowLeft');
+            await waitForCurrent('#chapter-0');
+            await page.keyboard.press('ArrowLeft');
+            await page.waitForTimeout(100);
+            const returnedTop = await page.evaluate(() => ({scrollY, active: document.querySelectorAll('.toc [aria-current]').length, focus: document.activeElement.tagName}));
+            await page.keyboard.press('ArrowRight');
+            await waitForCurrent('#chapter-0');
+            await page.locator('.toc a[href="#quiz"]').click();
+            await waitForCurrent('#quiz');
+            await page.keyboard.press('ArrowRight');
+            await page.waitForTimeout(100);
+            return {atStart, first, returnedTop, last: await current()};
+        """)
+        self.assertEqual(result["atStart"], 0)
+        self.assertEqual(result["first"]["hash"], "#chapter-0")
+        self.assertEqual(result["first"]["focus"], "Purpose")
+        self.assertGreaterEqual(result["first"]["top"], result["first"]["navBottom"])
+        self.assertEqual(result["returnedTop"], {"scrollY": 0, "active": 0, "focus": "H1"})
+        self.assertEqual(result["last"], "#quiz")
 
     def test_short_final_sections_remain_selectable_and_align_at_reading_line(self) -> None:
         result = self.probe(self.PREPARE + """
@@ -153,13 +186,13 @@ class NavigationBrowserTests(unittest.TestCase):
                 await waitForCurrent('#chapter-6');
                 await page.waitForTimeout(150);
                 const penultimate = await current();
-                await page.locator('.toc a[href="#quiz"]').click();
+                await page.keyboard.press('ArrowRight');
                 await waitForCurrent('#quiz');
                 const final = await page.evaluate(() => {
                     const target = document.querySelector('#quiz');
                     return {top: target.getBoundingClientRect().top, expected: parseFloat(getComputedStyle(target).scrollMarginTop)};
                 });
-                await page.locator('.toc a[href="#chapter-6"]').click();
+                await page.keyboard.press('ArrowLeft');
                 await waitForCurrent('#chapter-6');
                 const back = await current();
                 await page.locator('.toc a[href="#quiz"]').click();
@@ -174,6 +207,117 @@ class NavigationBrowserTests(unittest.TestCase):
                 self.assertEqual(state["back"], "#chapter-6")
                 self.assertAlmostEqual(state["final"]["top"], state["final"]["expected"], delta=2)
 
+    def test_delayed_pin_observer_cannot_restore_stale_top_state(self) -> None:
+        result = self.probe(self.PREPARE + """
+            await page.addInitScript(() => {
+                const NativeObserver = IntersectionObserver;
+                window.IntersectionObserver = class extends NativeObserver {
+                    constructor(callback, options) {
+                        super((entries, observer) => {
+                            const initial = entries.find(entry => entry.target.classList.contains('toc-anchor') && entry.isIntersecting);
+                            if (initial && !window.replayInitialPin) {
+                                // Reproduce a queued pre-navigation observation arriving late.
+                                window.replayInitialPin = () => callback([initial], observer);
+                            }
+                            callback(entries, observer);
+                        }, options);
+                    }
+                };
+            });
+            await page.reload();
+            await page.waitForFunction(() => typeof window.replayInitialPin === 'function');
+            await page.keyboard.press('ArrowRight');
+            await page.waitForTimeout(200);
+            const landed = await page.evaluate(() => ({
+                scrollY, firstTop: document.querySelector('#chapter-0').getBoundingClientRect().top,
+                anchorTop: document.querySelector('.toc-anchor').getBoundingClientRect().top,
+                stuck: document.querySelector('.toc').classList.contains('is-stuck'),
+            }));
+            await page.evaluate(() => window.replayInitialPin());
+            await page.waitForTimeout(100);
+            return await page.evaluate(landed => ({
+                landed, scrollY,
+                stuck: document.querySelector('.toc').classList.contains('is-stuck'),
+                current: document.querySelector('.toc [aria-current]')?.hash || null,
+                anchorTop: document.querySelector('.toc-anchor').getBoundingClientRect().top,
+            }), landed);
+        """)
+        self.assertLess(result["anchorTop"], 0, result)
+        self.assertTrue(result["stuck"], result)
+        self.assertEqual(result["current"], "#chapter-0")
+
+    def test_nav_arrows_home_end_keep_keyboard_focus_in_navigation(self) -> None:
+        result = self.probe(self.PREPARE + """
+            await page.locator('.toc ol a').first().focus();
+            for (const [key, id] of [['ArrowDown', '#chapter-1'], ['ArrowRight', '#chapter-2'],
+                    ['ArrowUp', '#chapter-1'], ['ArrowLeft', '#chapter-0'],
+                    ['End', '#quiz'], ['Home', '#chapter-0']]) {
+                await page.keyboard.press(key);
+                await waitForCurrent(id);
+                if (await page.evaluate(() => document.activeElement.hash) !== id) throw new Error('Nav focus lost: ' + key);
+            }
+            return {current: await current()};
+        """)
+        self.assertEqual(result["current"], "#chapter-0")
+
+    def test_smooth_navigation_handles_rapid_keys_manual_scroll_and_return_to_top(self) -> None:
+        result = self.probe(self.PREPARE + """
+            await page.emulateMedia({reducedMotion: 'no-preference'});
+            await page.keyboard.press('ArrowRight');
+            await page.keyboard.press('ArrowRight');
+            await page.keyboard.press('ArrowRight');
+            await waitForCurrent('#chapter-2');
+            await page.waitForTimeout(800);
+            const landing = await page.evaluate(() => ({
+                section: document.querySelector('#chapter-2').getBoundingClientRect().top,
+                nav: document.querySelector('.toc').getBoundingClientRect().bottom,
+            }));
+            // Manual scroll changes the reading position even though heading focus remains.
+            await page.evaluate(() => document.querySelector('#chapter-4').scrollIntoView({behavior: 'instant'}));
+            await waitForCurrent('#chapter-4');
+            await page.waitForTimeout(100);
+            await page.keyboard.press('ArrowRight');
+            await waitForCurrent('#chapter-5');
+            await page.waitForTimeout(800);
+            await page.locator('.toc-top').click();
+            await page.waitForFunction(() => scrollY === 0);
+            await page.waitForTimeout(100);
+            return {landing, atTop: await page.locator('.toc [aria-current]').count()};
+        """)
+        self.assertGreaterEqual(result["landing"]["section"], result["landing"]["nav"])
+        self.assertEqual(result["atTop"], 0)
+
+    def test_shortcuts_leave_controls_selection_and_native_scrolling_alone(self) -> None:
+        result = self.probe(self.PREPARE + """
+            return await page.evaluate(() => {
+                const probe = (element, options = {}) => {
+                    const event = new KeyboardEvent('keydown', {key: 'ArrowRight', bubbles: true, cancelable: true, ...options});
+                    element.dispatchEvent(event);
+                    return event.defaultPrevented;
+                };
+                const results = {};
+                for (const markup of ['<input>', '<textarea></textarea>', '<select><option>A</option></select>',
+                        '<button>Control</button>', '<a href="#top">Link</a>', '<div contenteditable="true"><span>Edit</span></div>',
+                        '<div role="slider" tabindex="0"></div>', '<div tabindex="0"></div>',
+                        '<div role="tablist"><span>Tab</span></div>', '<video controls></video>']) {
+                    const host = document.createElement('div'); host.innerHTML = markup;
+                    document.querySelector('#chapter-0').append(host);
+                    results[markup] = probe(host.firstChild.firstElementChild || host.firstChild);
+                    host.remove();
+                }
+                for (const options of [{altKey: true}, {ctrlKey: true}, {metaKey: true}, {shiftKey: true}, {isComposing: true}, {repeat: true},
+                        {key: 'ArrowDown'}, {key: 'ArrowUp'}, {key: 'PageDown'}, {key: 'PageUp'}, {key: 'Home'}, {key: 'End'}]) {
+                    results[JSON.stringify(options)] = probe(document.body, options);
+                }
+                const selection = getSelection();
+                selection.selectAllChildren(document.querySelector('#chapter-0 p'));
+                results.selection = probe(document.body);
+                selection.removeAllRanges();
+                results.quiz = probe(document.querySelector('.answer-list button'));
+                return results;
+            });
+        """)
+        self.assertTrue(all(value is False for value in result.values()), result)
 
     def test_compact_nav_preserves_labels_targets_and_column_positions(self) -> None:
         result = self.probe(self.PREPARE + """

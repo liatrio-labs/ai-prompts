@@ -57,6 +57,8 @@ Chapter numbers are a shell contract, not an authoring choice. Write unnumbered 
 
 The shell leaves every chapter unhighlighted at the page top and until a section reaches the reading line below the sticky nav (near the viewport top on mobile). Preserve this no-current-section state instead of defaulting to chapter one. Do not force the final chapter active merely because the document is at its bottom; that skips short preceding sections. The final quiz section has a viewport-aware minimum height so its heading can reach the same reading line, with blank space only when its content is short. This minimum is disabled for print. The compact nav retains complete labels, stable columns when pinned, and larger mobile touch targets.
 
+Keyboard navigation is shell-owned: Left/Right move between sections while reading; with a chapter link focused, all four arrows navigate in chapter order and Home/End jump to the first/last chapter. Left from chapter one returns to the page top and focuses the title; Right from the top enters chapter one. Forward navigation stops at the last chapter rather than wrapping. Reading shortcuts focus the destination heading; nav shortcuts keep focus on the destination link except when returning to the page top. Up/Down, Page Up/Page Down, and Home/End retain normal scrolling outside the nav. Inputs, quiz controls, author-owned widgets, text selections, and modified shortcuts keep their native behavior. Do not add competing document-wide key handlers in the explanation body.
+
 For most topics, include:
 
 1. **Background** — a skippable beginner model, followed by the narrower context that matters here.

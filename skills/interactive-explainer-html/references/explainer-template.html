@@ -64,7 +64,8 @@
     /* No hidden row footprint or animated height: anchor offsets stay stable while pinning. */
     .toc-utility { display: none; opacity: 0; visibility: hidden; }
     .toc.is-stuck .toc-utility { display: block; margin-top: .25rem; opacity: 1; visibility: visible; }
-    .toc-utility-inner { display: flex; align-items: center; justify-content: flex-end; gap: .5rem; border-top: 1px solid var(--control-border-muted); padding-top: .2rem; }
+    .toc-utility-inner { display: flex; align-items: center; justify-content: space-between; gap: .5rem; border-top: 1px solid var(--control-border-muted); padding-top: .2rem; }
+    .toc-shortcuts { color: var(--muted); font-size: .75rem; }
     .toc .toc-top { margin: 0; padding: .2rem .5rem; font-size: .82rem; white-space: nowrap; }
     .toc-top-arrow { margin-right: .35rem; color: var(--bright-green); }
     .toc a { display: block; min-height: 32px; padding: .3rem .5rem; border: 1px solid transparent; border-radius: 6px; color: var(--muted); font-size: .9rem; font-weight: 500; line-height: 1.3; text-decoration: none; transition: background-color var(--control-hover-duration) var(--brand-ease), border-color var(--control-hover-duration) var(--brand-ease), color var(--control-hover-duration) var(--brand-ease); }
@@ -200,10 +201,11 @@
     </header>
 
     <div class="toc-anchor" aria-hidden="true"></div>
-    <nav class="toc" aria-label="Table of contents">
+    <nav class="toc" aria-label="Table of contents" aria-describedby="toc-keyboard-help">
       {{TABLE_OF_CONTENTS}}
-      <div class="toc-utility"><div class="toc-utility-inner"><a class="toc-top" href="#top"><span class="toc-top-arrow" aria-hidden="true">↑</span>Back to top</a></div></div>
+      <div class="toc-utility"><div class="toc-utility-inner"><span class="toc-shortcuts" title="Left/Right: previous/next section. With a chapter link focused, all arrows navigate and Home/End jump to the first/last chapter.">← / → Sections</span><a class="toc-top" href="#top"><span class="toc-top-arrow" aria-hidden="true">↑</span>Back to top</a></div></div>
     </nav>
+    <p id="toc-keyboard-help" class="visually-hidden">While reading, Left and Right jump to the previous and next section. With a chapter link focused, use any arrow key to navigate, or Home and End for the first and last chapter. Other scrolling keys and interactive controls keep their normal behavior.</p>
     <button id="back-to-top" class="back-to-top" type="button" aria-label="Back to top" title="Back to top" hidden>↑</button>
 
     <article class="explainer-content">
@@ -280,6 +282,7 @@
         document.documentElement.style.setProperty("--toc-offset", `${mobile.matches ? 0 : toc.offsetHeight}px`);
       }
 
+      const readingFocus = new WeakSet();
       let pendingIndex;
       let navigationTimer;
       function syncPin() {
@@ -305,6 +308,7 @@
           const heading = document.querySelector("header h1");
           if (heading) {
             if (!heading.hasAttribute("tabindex")) heading.setAttribute("tabindex", "-1");
+            readingFocus.add(heading);
             heading.focus({ preventScroll: true });
           }
           if (location.hash !== "#top") history.pushState(null, "", "#top");
@@ -322,6 +326,7 @@
         const focusTarget = keepNavFocus ? entry.link : entry.target.querySelector("h2") || entry.target;
         if (!keepNavFocus) {
           if (!focusTarget.hasAttribute("tabindex")) focusTarget.setAttribute("tabindex", "-1");
+          readingFocus.add(focusTarget);
         }
         focusTarget.focus({ preventScroll: true });
         entry.target.scrollIntoView({ behavior: reducedMotion.matches ? "instant" : "smooth", block: "start" });
@@ -334,6 +339,38 @@
         navigateTo(index);
       }));
 
+      document.addEventListener("keydown", (event) => {
+        if (event.defaultPrevented || event.isComposing || event.repeat || event.altKey || event.ctrlKey || event.metaKey) return;
+        if (document.querySelector("dialog[open]")) return;
+        if (!window.getSelection()?.isCollapsed) return;
+        const element = event.target instanceof Element ? event.target : null;
+        if (event.shiftKey) return;
+        const focusedIndex = targets.findIndex(({ link }) => link === element);
+        const inNav = focusedIndex !== -1;
+        if (!inNav) {
+          // Author-owned widgets and horizontal code scrollers own their arrow keys.
+          for (let node = element; node && node !== document.body; node = node.parentElement) {
+            if (readingFocus.has(node)) continue;
+            if (node.isContentEditable || node.matches('a, button, input, textarea, select, summary, audio, video, [role], [tabindex]')) return;
+            if (node.scrollWidth > node.clientWidth && /auto|scroll/.test(getComputedStyle(node).overflowX)) return;
+          }
+          if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+            clearNavigation();
+            return;
+          }
+        }
+        updateCurrent();
+        const currentIndex = inNav ? focusedIndex : pendingIndex ?? targets.findIndex(({ link }) => link.hasAttribute("aria-current"));
+        let index;
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") index = currentIndex + 1;
+        else if (event.key === "ArrowLeft" || event.key === "ArrowUp") index = currentIndex - 1;
+        else if (inNav && event.key === "Home") index = 0;
+        else if (inNav && event.key === "End") index = targets.length - 1;
+        else return;
+        if (index < -1 || index >= targets.length) return;
+        event.preventDefault();
+        navigateTo(index, inNav);
+      });
       window.addEventListener("scrollend", clearNavigation);
       window.addEventListener("wheel", clearNavigation, { passive: true });
       window.addEventListener("touchstart", clearNavigation, { passive: true });
