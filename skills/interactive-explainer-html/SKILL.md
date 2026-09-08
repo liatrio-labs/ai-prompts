@@ -59,6 +59,8 @@ The shell leaves every chapter unhighlighted at the page top and until a section
 
 Keyboard navigation is shell-owned: Left/Right move between sections while reading; with a chapter link focused, all four arrows navigate in chapter order and Home/End jump to the first/last chapter. Left from chapter one returns to the page top and focuses the title; Right from the top enters chapter one. Forward navigation stops at the last chapter rather than wrapping. Reading shortcuts focus the destination heading; nav shortcuts keep focus on the destination link except when returning to the page top. Up/Down, Page Up/Page Down, and Home/End retain normal scrolling outside the nav. Inputs, quiz controls, author-owned widgets, text selections, and modified shortcuts keep their native behavior. Do not add competing document-wide key handlers in the explanation body.
 
+The corner Help button and `?` open a Reader guide with reading steps, quiz guidance, and the keyboard reference. The native modal keeps background controls inactive and pauses section shortcuts; Escape or its close button restores the reader's focus. Keep this help outside the chapter list so it does not affect chapter numbering or navbar density. Typing a question mark in a text field or editor must not open the guide.
+
 For most topics, include:
 
 1. **Background** — a skippable beginner model, followed by the narrower context that matters here.

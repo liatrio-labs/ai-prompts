@@ -362,6 +362,77 @@ class NavigationBrowserTests(unittest.TestCase):
         """)
         self.assertEqual(result["current"], "#quiz")
 
+    def test_reader_help_opens_by_question_mark_and_button_and_restores_focus(self) -> None:
+        result = self.probe(self.PREPARE + """
+            await page.locator('.toc ol a').first().focus();
+            const before = await page.evaluate(() => ({scrollY, hash: location.hash}));
+            // Question mark normally arrives with Shift held on a US keyboard.
+            await page.keyboard.press('Shift+?');
+            await page.waitForFunction(() => document.querySelector('#explainer-help')?.open);
+            const guide = page.getByRole('dialog', {name: 'Reader guide'});
+            const text = await guide.innerText();
+            for (const key of ['Tab', 'Tab', 'Shift+Tab', 'ArrowRight', 'ArrowDown', 'Home', 'End']) {
+                await page.keyboard.press(key);
+                if (await page.evaluate(() => document.querySelector('main').contains(document.activeElement))) {
+                    throw new Error('Focus escaped to background content: ' + key);
+                }
+            }
+            const during = await page.evaluate(() => ({scrollY, hash: location.hash}));
+            await page.keyboard.press('Escape');
+            await page.waitForFunction(() => !document.querySelector('#explainer-help').open);
+            const restored = await page.evaluate(() => document.activeElement.hash);
+            await page.locator('#explainer-help-open').click();
+            await page.waitForFunction(() => document.querySelector('#explainer-help').open);
+            await page.getByRole('button', {name: 'Close reader guide'}).click();
+            await page.waitForFunction(() => !document.querySelector('#explainer-help').open);
+            return {before, during, text, restored, buttonRestored: await page.evaluate(() => document.activeElement.id)};
+        """)
+        self.assertEqual(result["before"], result["during"])
+        self.assertEqual(result["restored"], "#chapter-0")
+        self.assertEqual(result["buttonRestored"], "explainer-help-open")
+        for topic in ("source boundary", "quiz", "Left", "Right", "Home", "End", "Escape"):
+            self.assertIn(topic, result["text"])
+
+    def test_reader_help_does_not_interrupt_typing_and_fits_mobile(self) -> None:
+        result = self.probe(self.PREPARE + """
+            const ignored = await page.evaluate(() => {
+                const controls = ['<input>', '<textarea></textarea>', '<div contenteditable="true"><span>Edit</span></div>',
+                    '<div role="textbox"><span>Edit</span></div>'];
+                return controls.map(markup => {
+                    const host = document.createElement('div'); host.innerHTML = markup; document.body.append(host);
+                    const target = host.querySelector('span') || host.firstChild;
+                    const event = new KeyboardEvent('keydown', {key: '?', shiftKey: true, bubbles: true, cancelable: true});
+                    target.dispatchEvent(event);
+                    const opened = document.querySelector('#explainer-help')?.open;
+                    host.remove();
+                    return event.defaultPrevented || opened;
+                });
+            });
+            await page.setViewportSize({width: 390, height: 844});
+            await page.evaluate(() => scrollTo({top: 1500, behavior: 'instant'}));
+            await page.waitForTimeout(100);
+            const overlap = await page.evaluate(() => {
+                const help = document.querySelector('#explainer-help-open').getBoundingClientRect();
+                const top = document.querySelector('#back-to-top').getBoundingClientRect();
+                return top.bottom > help.top;
+            });
+            await page.locator('#explainer-help-open').click();
+            const geometry = await page.evaluate(() => {
+                const dialog = document.querySelector('#explainer-help');
+                const rect = dialog.getBoundingClientRect();
+                return {left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom,
+                    overflow: dialog.scrollWidth > dialog.clientWidth};
+            });
+            await page.keyboard.press('Escape');
+            return {ignored, overlap, geometry};
+        """)
+        self.assertFalse(any(result["ignored"]), result)
+        self.assertFalse(result["overlap"])
+        self.assertFalse(result["geometry"]["overflow"])
+        self.assertGreaterEqual(result["geometry"]["left"], 0)
+        self.assertLessEqual(result["geometry"]["right"], 390)
+        self.assertGreaterEqual(result["geometry"]["top"], 0)
+        self.assertLessEqual(result["geometry"]["bottom"], 844)
 
     def test_emitted_scripts_parse(self) -> None:
         source = self.fixture.read_text(encoding="utf-8")

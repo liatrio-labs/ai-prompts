@@ -118,6 +118,26 @@
     button:active:not(:disabled) { transform: scale(.98); }
     button:disabled { cursor: not-allowed; opacity: .55; }
 
+    .reader-help-launcher { position: fixed; right: max(1rem, env(safe-area-inset-right)); bottom: max(1rem, env(safe-area-inset-bottom)); z-index: 30; min-height: 44px; padding: .45rem .75rem; border-radius: 6px; background: var(--control-bg); font-size: .9rem; }
+    .reader-help-launcher span { color: var(--bright-green); margin-right: .35rem; }
+    html:has(#explainer-help[open]) { overflow-y: hidden; }
+    .reader-help { width: min(680px, calc(100% - 32px)); max-height: calc(100dvh - 32px); margin: auto; padding: 0; overflow: hidden; border: 1px solid var(--control-border-muted); border-radius: 8px; background: var(--dark-bg-2); color: var(--ink); color-scheme: dark; }
+    .reader-help[open] { display: flex; flex-direction: column; }
+    .reader-help::backdrop { background: rgba(0, 0, 0, .72); }
+    .reader-help-heading { display: flex; flex: none; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem 1.15rem; border-bottom: 1px solid var(--line-strong); }
+    .reader-help-heading h2 { margin: 0; font-size: 1.35rem; }
+    .reader-help-heading button { min-width: 44px; min-height: 44px; padding: .25rem .65rem; text-align: center; }
+    .reader-help-body { min-height: 0; padding: 1rem 1.15rem; overflow-y: auto; overscroll-behavior: contain; font-size: .95rem; line-height: 1.5; }
+    .reader-help-body h3 { margin: 1.15rem 0 .5rem; font-size: 1rem; }
+    .reader-help-body h3:first-child { margin-top: 0; }
+    .reader-help-body ol { margin: 0; padding-left: 1.25rem; }
+    .reader-help-body li + li { margin-top: .6rem; }
+    .reader-help-body p { margin: .65rem 0 0; color: var(--muted); }
+    .reader-help-keys { margin: 0; }
+    .reader-help-keys > div { display: grid; grid-template-columns: 9rem minmax(0, 1fr); gap: .75rem; padding: .5rem 0; border-bottom: 1px solid var(--line); }
+    .reader-help-keys dt { font-weight: 500; }
+    .reader-help-keys dd { margin: 0; color: var(--muted); }
+    .reader-help kbd { font: inherit; color: var(--bright-green); }
 
     /* Toolbar buttons are in-app chrome, so they take the 6px radius rather than the square brand CTA. */
     .quiz-actions button, .quiz-nav-actions button { border-radius: 6px; padding: .5rem 1rem; background: var(--control-bg); font-weight: 500; text-align: center; }
@@ -177,7 +197,8 @@
       .toc a { min-height: 44px; display: flex; align-items: center; }
       .toc ol a::before { white-space: pre; }
       .toc-utility { display: none; }
-      .back-to-top:not([hidden]) { position: fixed; right: max(1rem, env(safe-area-inset-right)); bottom: 1rem; z-index: 30; display: grid; width: 44px; height: 44px; place-items: center; padding: 0; border-radius: 6px; background: var(--control-bg); color: var(--bright-green); font-size: 1.25rem; text-align: center; }
+      .back-to-top:not([hidden]) { position: fixed; right: max(1rem, env(safe-area-inset-right)); bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 56px); z-index: 30; display: grid; width: 44px; height: 44px; place-items: center; padding: 0; border-radius: 6px; background: var(--control-bg); color: var(--bright-green); font-size: 1.25rem; text-align: center; }
+      .reader-help-keys > div { grid-template-columns: minmax(0, 1fr); gap: .2rem; }
       .quiz-control-row { align-items: stretch; flex-direction: column; }
       .quiz-nav-actions { margin-left: 0; }
     }
@@ -187,6 +208,7 @@
       .toc.is-stuck { width: 100%; margin-left: 0; margin-right: 0; padding: .4rem; border-radius: 6px; background: var(--dark-bg-2); }
       .toc-utility { display: none; }
       .back-to-top { display: none !important; }
+      .reader-help-launcher, .reader-help[open] { display: none !important; }
       #quiz { min-height: 0; }
     }
   </style>
@@ -227,11 +249,49 @@
     </section>
   </main>
 
+  <button id="explainer-help-open" class="reader-help-launcher" type="button" aria-haspopup="dialog" aria-controls="explainer-help" aria-keyshortcuts="?" title="Reader guide (?)"><span aria-hidden="true">?</span>Help</button>
+  <dialog id="explainer-help" class="reader-help" aria-labelledby="explainer-help-title">
+    <div class="reader-help-heading"><h2 id="explainer-help-title">Reader guide</h2><button id="explainer-help-close" type="button" aria-label="Close reader guide" autofocus>×</button></div>
+    <div class="reader-help-body">
+      <h3>How to read this explainer</h3>
+      <ol>
+        <li><strong>Start with the framing.</strong> The opening and source boundary tell you what this page explains and which material it is based on.</li>
+        <li><strong>Read in order, or jump to what you need.</strong> Chapter numbers match the section headings. The highlight follows your reading position; no chapter is selected while you are above the first section.</li>
+        <li><strong>Check your understanding.</strong> The quiz at the end shows one question at a time. Choose an answer, read the feedback, then continue. Previous and Next revisit questions; Reset and Randomize clear your answers and start a newly shuffled run.</li>
+      </ol>
+      <h3>Keyboard navigation</h3>
+      <dl class="reader-help-keys">
+        <div><dt><kbd>Left / Right</kbd></dt><dd>Jump to the previous or next section while reading. Left from the first chapter returns to the page top; Right from the top enters chapter one. Right stops at the last chapter.</dd></div>
+        <div><dt><kbd>Up / Down</kbd></dt><dd>Scroll normally. When a chapter link has focus, all four arrows move through chapters in reading order.</dd></div>
+        <div><dt><kbd>Home / End</kbd></dt><dd>With a chapter link focused, jump to the first or last chapter. Elsewhere, keep normal browser behavior.</dd></div>
+        <div><dt><kbd>Page Up / Down</kbd></dt><dd>Scroll one screen at a time without jumping chapters.</dd></div>
+        <div><dt><kbd>Tab / Shift+Tab</kbd></dt><dd>Move focus between links and controls. Enter activates a link or button; Space also activates buttons, including quiz answers.</dd></div>
+        <div><dt><kbd>?</kbd> / <kbd>Escape</kbd></dt><dd>Open this guide with a question mark or the Help button. Escape or the close button returns you to reading.</dd></div>
+      </dl>
+      <p>Typing fields, text selections, and interactive widgets keep their own keys. Section shortcuts pause while this guide is open. On a phone, use the chapter links and corner controls.</p>
+    </div>
+  </dialog>
+
   <script>
     (() => {
       const toc = document.querySelector(".toc");
       const tocAnchor = document.querySelector(".toc-anchor");
       const backToTop = document.querySelector("#back-to-top");
+      const helpDialog = document.querySelector("#explainer-help");
+      const helpButton = document.querySelector("#explainer-help-open");
+      let helpReturnFocus;
+      function openHelp() {
+        if (!helpDialog || helpDialog.open) return;
+        helpReturnFocus = document.activeElement;
+        window.scrollTo({ top: window.scrollY, behavior: "instant" });
+        clearNavigation();
+        helpDialog.showModal();
+      }
+      helpButton?.addEventListener("click", openHelp);
+      document.querySelector("#explainer-help-close")?.addEventListener("click", () => helpDialog.close());
+      helpDialog?.addEventListener("close", () => {
+        if (helpReturnFocus?.isConnected) helpReturnFocus.focus({ preventScroll: true });
+      });
       if (!toc || !backToTop) return;
 
       const links = [...toc.querySelectorAll('ol a[href^="#"]')];
@@ -344,6 +404,13 @@
         if (document.querySelector("dialog[open]")) return;
         if (!window.getSelection()?.isCollapsed) return;
         const element = event.target instanceof Element ? event.target : null;
+        // Check the resulting character, not a physical key: '?' often includes Shift.
+        if (event.key === "?") {
+          if (element?.isContentEditable || element?.closest('input, textarea, select, [role="textbox"], [role="searchbox"], [role="combobox"]')) return;
+          event.preventDefault();
+          openHelp();
+          return;
+        }
         if (event.shiftKey) return;
         const focusedIndex = targets.findIndex(({ link }) => link === element);
         const inNav = focusedIndex !== -1;
