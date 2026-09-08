@@ -55,6 +55,8 @@ The explanatory body is intentionally freeform. Select the structure and visual 
 
 Chapter numbers are a shell contract, not an authoring choice. Write unnumbered TOC labels. Do not add a Back to top item to that list; the template already provides it. Use one top-level `<section id="...">` with a single `h2` per TOC entry, in the same order as the list, then the quiz. Do not prefix labels or headings with `1.` — the template CSS adds sequential numbers to the nav, each section heading, and the quiz heading. Short nav labels may differ from the full `h2` as long as the order matches, so “section 4” in the nav is section 4 in the body.
 
+The shell leaves every chapter unhighlighted at the page top and until a section reaches the reading line below the sticky nav (near the viewport top on mobile). Preserve this no-current-section state instead of defaulting to chapter one. Do not force the final chapter active merely because the document is at its bottom; that skips short preceding sections. The final quiz section has a viewport-aware minimum height so its heading can reach the same reading line, with blank space only when its content is short. This minimum is disabled for print. The compact nav retains complete labels, stable columns when pinned, and larger mobile touch targets.
+
 For most topics, include:
 
 1. **Background** — a skippable beginner model, followed by the narrower context that matters here.

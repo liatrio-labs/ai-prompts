@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import subprocess
+import tempfile
 import threading
 import unittest
 from functools import partial
@@ -18,7 +20,29 @@ class QuizBrowserTests(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls) -> None:
-        handler = partial(SimpleHTTPRequestHandler, directory=str(FIXTURE.parent))
+        # Keep the author-owned body, but exercise the current shell and quiz runtime.
+        fixture = FIXTURE.read_text(encoding="utf-8")
+        source = (FIXTURE.parents[2] / "references" / "explainer-template.html").read_text(encoding="utf-8")
+
+        def extract(pattern: str, group: int = 1) -> str:
+            match = re.search(pattern, fixture, re.S)
+            if match is None:
+                raise ValueError(f"Fixture is missing template content: {pattern}")
+            return match.group(group)
+
+        replacements = {
+            "{{TITLE}}": "Author-owned decision model",
+            "{{SUBTITLE}}": "A standalone decision-model explainer.",
+            "{{METADATA}}": "Source boundary: representative fixture.",
+            "{{TABLE_OF_CONTENTS}}": extract(r"<ol>.*?</ol>", 0),
+            "{{EXPLANATION_CONTENT}}": extract(r'<article class="explainer-content">(.*?)</article>'),
+            "{{QUIZ_JSON}}": extract(r'<script id="explainer-quiz-data" type="application/json">(.*?)</script>'),
+        }
+        for token, value in replacements.items():
+            source = source.replace(token, value)
+        cls.directory = tempfile.TemporaryDirectory(prefix="explainer-quiz-")
+        (Path(cls.directory.name) / FIXTURE.name).write_text(source, encoding="utf-8")
+        handler = partial(SimpleHTTPRequestHandler, directory=cls.directory.name)
         cls.server = ThreadingHTTPServer(("127.0.0.1", 0), handler)
         cls.server_thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
         cls.server_thread.start()
@@ -31,6 +55,7 @@ class QuizBrowserTests(unittest.TestCase):
         cls.server.shutdown()
         cls.server.server_close()
         cls.server_thread.join()
+        cls.directory.cleanup()
 
     def setUp(self) -> None:
         self.session = f"explainer-quiz-{os.getpid()}"
